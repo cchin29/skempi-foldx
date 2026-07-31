@@ -115,9 +115,16 @@ def verify(data, rounds, key="list_sha256"):
         if drift:
             print(f"[{arm}] ⚠ LIST DRIFT across rounds in {len(drift)} complexes — these must be")
             print(f"[{arm}]   dropped from the repair-count comparison: {', '.join(drift[:20])}")
+        elif complete and len(present) < 2:
+            # A single round cannot disagree with itself, so the comparison below would report
+            # "identical across all rounds" having compared nothing -- a pass that is vacuously
+            # true and reads exactly like a real one. Agreement is only evidence when there are
+            # at least two rounds to disagree.
+            print(f"[{arm}] ⏳ only round {present[0]} on disk — nothing to compare yet. "
+                  f"A one-round agreement check proves nothing; re-run once a second round lands.")
         elif complete:
             n = sum(per_round[present[0]][p]["n_entries"] for p in complete)
-            print(f"[{arm}] ✅ identical across all rounds on disk: {len(complete)}/{len(complete)} "
+            print(f"[{arm}] ✅ identical across rounds {present}: {len(complete)}/{len(complete)} "
                   f"complexes, {n} entries. Repair count is the only variable.")
         if partial:
             print(f"[{arm}]   not yet in every round (run still in flight): {len(partial)}")
@@ -175,7 +182,11 @@ def main():
     if args.write_manifest:
         out = BASE / "list_manifest.json"
         out.write_text(json.dumps(
-            {"rounds": args.rounds, "key_checked": args.key, "drifting_complexes": drift,
+            {"rounds": args.rounds,
+             "rounds_compared": {a: sorted(r for r in args.rounds if data[a].get(r)) for a in ARMS},
+             "comparison_is_conclusive": {
+                 a: len([r for r in args.rounds if data[a].get(r)]) >= 2 for a in ARMS},
+             "key_checked": args.key, "drifting_complexes": drift,
              "arms": {a: {str(r): v for r, v in data[a].items()} for a in ARMS}}, indent=1))
         print(f"[manifest] {out}  ({out.stat().st_size/1024:.0f} KB)")
     if args.inject:

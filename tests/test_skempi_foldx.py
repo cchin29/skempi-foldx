@@ -626,3 +626,32 @@ def test_load_store_raises_on_a_missing_directory(tmp_path):
 
     with _pytest.raises(FileNotFoundError):
         load_store(tmp_path / "nope")
+
+
+def test_a_one_round_agreement_check_does_not_report_success():
+    """A single round cannot disagree with itself, so comparing it against nothing yields an
+    empty drift set — which reads exactly like a genuine pass. Agreement is only evidence when
+    there are at least two rounds available to disagree.
+
+    This matters because the verdict is used as a gate: the finalize chain treats a clean list
+    check as licence to attribute a per-round energy difference to repair count alone."""
+    import io
+    from contextlib import redirect_stdout
+
+    from list_hashes import verify
+
+    rec = {"list_sha256": "x", "n_entries": 5}
+    one = {"sp": {1: {"1ABC": dict(rec)}}, "mp": {}}
+    two = {"sp": {1: {"1ABC": dict(rec)}, 2: {"1ABC": dict(rec)}}, "mp": {}}
+
+    out = io.StringIO()
+    with redirect_stdout(out):
+        assert verify(one, [1, 2, 3, 4]) == 0
+    text = out.getvalue()
+    assert "identical across rounds" not in text, "one round reported as a successful comparison"
+    assert "nothing to compare" in text
+
+    out = io.StringIO()
+    with redirect_stdout(out):
+        assert verify(two, [1, 2, 3, 4]) == 0
+    assert "identical across rounds" in out.getvalue(), "two agreeing rounds should pass"

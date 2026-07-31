@@ -75,7 +75,7 @@ def mp_worklist(args, skempi):
             if (pdb_dir / f"{p}.pdb").exists()}
     if args.complexes:
         work = {p: v for p, v in work.items() if p in set(args.complexes)}
-    # The registry first -- it is the exclusion you cannot forget to type. `--exclude` is
+    # The registry first -- it is the exclusion that cannot be forgotten. `--exclude` is
     # additive on top, for a structure that stalls before there is evidence to make it permanent.
     work = filter_worklist(work, context="multi-point worklist")
     drop = set(args.exclude or [])
@@ -118,7 +118,7 @@ def cmd_repair(args):
               f"complete chain — the SP sweep may be repairing them RIGHT NOW:")
         print(f"[mp-repair]   {', '.join(inflight[:12])}{'...' if len(inflight) > 12 else ''}")
         print("[mp-repair] Refusing to race it. Re-run once the SP sweep's phase 1 is done, "
-              "or pass --force if you know it is not.")
+              "or pass --force if it is known not to be.")
         return
 
     if not targets:

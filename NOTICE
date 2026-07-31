@@ -22,8 +22,8 @@ Data provenance
     SKEMPI 2.0 is released under **CC BY 4.0**. What is redistributed here is an *adaptation*:
     `skempi_foldx/data/results_{sp,mp}/` carries SKEMPI's per-complex mutation lists and its
     verbatim `cleaned` mutation strings, alongside energies we computed. What is **not**
-    redistributed: SKEMPI's measured affinities, its structures, or the database itself -- you
-    need those from BSC to run the pipeline yourself. CC BY 4.0 permits the adaptation and
+    redistributed: SKEMPI's measured affinities, its structures, or the database itself, all of
+    which come from BSC and are required to run the pipeline. CC BY 4.0 permits the adaptation and
     requires that the licence be identified and the modification indicated, which this paragraph
     does.
 
@@ -32,7 +32,7 @@ Data provenance
   * **FoldX 5.1** produced every number in `skempi_foldx/data/`. FoldX is licensed software from
     the CRG -- free to academic and non-profit research institutions, paid for commercial use --
     (https://foldxsuite.crg.eu/) and is **not** included, wrapped, or redistributed in any form.
-    Running the pipeline requires your own licence and binary.
+    Running the pipeline requires a separately obtained licence and binary.
 
 
 A caveat on the computed energies
@@ -43,19 +43,35 @@ redistribution of energies computed with it is a question for the CRG's terms, n
 file can settle. The values are shipped here on the reading that they are derived measurements
 rather than a redistribution of the software, and because the alternative -- every group
 re-purchasing a licence and re-spending the CPU-weeks to recompute the same deterministic numbers
--- serves nobody. If you are relicensing or redistributing this data commercially, check the CRG
-terms yourself rather than relying on this paragraph.
+-- serves nobody. Relicensing or redistributing this data commercially requires checking the CRG
+terms directly rather than relying on this paragraph.
+
+
+Full citations with DOIs for every work named here or under docs/ are collected in
+docs/REFERENCES.md.
 
 
 Related work
 ------------
 
-  * The mutation exclusion for `1KBH` follows RDE-Network's `block_list`; see
-    `skempi_foldx/exclusions.py` for the evidence and the reasoning.
-
-  * This package was extracted from a research fork of MuLAN (Lombardi & Carbone), where it began
-    as a score channel for a ddG predictor. That fork is licensed CC BY-NC-SA 4.0 and is a
+  * This package was extracted from a research fork of **MuLAN** (Lombardi & Carbone), where it
+    began as a score channel for a ddG predictor. That fork is licensed CC BY-NC-SA 4.0 and is a
     separate project; **none of its code is present here**, which is what allows this repository
     to carry a permissive licence. The extraction is deliberate: the FoldX pipeline and its
     results are useful independently of any one model, and a non-commercial licence inherited
     from an unrelated dependency would have prevented that.
+
+        Lombardi, G. & Carbone, A. "MuLAN: Mutation-driven Light Attention Networks for
+        investigating protein-protein interactions from sequences."
+        bioRxiv 2024.08.24.609515 (2024).  doi:10.1101/2024.08.24.609515
+
+        https://github.com/GianLMB/mulan
+
+  * The mutation exclusion for `1KBH` follows **RDE-Network**'s `block_list`; see
+    `skempi_foldx/exclusions.py` for the evidence and the reasoning.
+
+        Luo, S., Su, Y., Wu, Z., Su, C., Peng, J. & Ma, J. "Rotamer Density Estimator is an
+        Unsupervised Learner of the Effect of Mutations on Protein-Protein Interaction."
+        ICLR 2023; bioRxiv 2023.02.28.530137.  doi:10.1101/2023.02.28.530137
+
+        https://github.com/luost26/RDE-PPI

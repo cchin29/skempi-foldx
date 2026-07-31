@@ -10,7 +10,8 @@ Two things ship here, and the second is the one most people want:
    Resumable per complex, parallel across complexes, and honest about what it could not compute.
 
 2. **The results.** 322 complexes / 4238 single-point mutations and 152 / 1765 multi-point
-   variants, at 99.2% coverage of the rows SKEMPI defines. Reproducing these needs a
+   variants -- 97.7% and 95.5% of what SKEMPI defines, and 97.8%/100% of what is reachable
+   once the one unrepairable structure is set aside. Reproducing these needs a
    FoldX licence and CPU-weeks; reading them needs neither, and this package has no dependencies
    beyond the standard library.
 

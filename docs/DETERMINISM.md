@@ -6,7 +6,7 @@ this pipeline, and the intuitive reading of the evidence is the wrong one.
 The short version: FoldX 5.1 `BuildModel` is deterministic. Same repaired structure and same
 `individual_list.txt` prefix gives the same number, to the last decimal, always. But a mutation's
 ΔΔG depends on *every entry preceding it in that list* — so computing a subset of a complex's
-mutations does not give you the same answers as computing all of them.
+mutations does not give the same answers as computing all of them.
 
 The inference a spread like this invites — "FoldX is stochastic, so seed it or average over
 runs" — is the wrong one. There is nothing to average. Seeding would do nothing. The fix is to
@@ -79,20 +79,20 @@ example above, where the same mutation reads 9.8185 and 19.5701 under other list
 
 What that does and does not mean:
 
-* Every shipped value is **reproducible** — re-run its campaign's list and you get it back exactly.
+* Every shipped value is **reproducible** — re-running its campaign's list returns it exactly.
 * Values are **internally consistent per complex**: a complex's records all come from one campaign,
   so within a complex the comparison is sound.
 * But a value from an S4169 complex is **not interchangeable** with one computed over the union,
   and the 210 complexes above are not directly comparable to the 112 on that axis.
 
-If you need union-list answers throughout, recompute with `worklist_single_point()`, which takes
+Union-list answers throughout require recomputing with `worklist_single_point()`, which takes
 the union by construction. The precedence order in `consolidate()` prefers the most complete list
 available for each complex; it cannot manufacture a union that was never computed.
 
-## How reproducible is a FoldX number here?
+## Reproducibility
 
 Because the spread is a function of the mutation list rather than of chance, "reproducibility"
-has two different answers depending on what you are asking.
+has two different answers depending on what is being asked.
 
 **Re-running a campaign as it was run: exact.** Same structure, same list, same numbers.
 
@@ -138,7 +138,7 @@ worst-case swap those become 2.6% and 9.3%.
 None of this affects the shipped store, which is a fixed set of byte-copies (below). The exposure
 is to *regeneration*.
 
-## Why it is deterministic, and what the literature says
+## Mechanism, and the literature
 
 Three independent lines agree, which matters because the vendor never states determinism either
 way — no FoldX document claims it, and none denies it.
@@ -157,7 +157,7 @@ indexed — it does not imply variation between invocations. Every campaign here
 
 **3. The direct measurement** in the table above: 1722 pairs with identical structure and
 identical list prefix, zero differing. That is the evidence the literature does not contain, and
-it is cheap to re-run if you want to confirm it on another binary.
+it is cheap to re-run to confirm on another binary.
 
 **The published magnitudes independently rule out the stochastic explanation.** FoldX's stated
 error margin is ~0.5 kcal/mol; its calibration SD against experiment is 0.46; its *structural*
@@ -167,7 +167,7 @@ is a ±3.5 kcal/mol prediction *interval* for binding ΔΔG, which is an accurac
 run-to-run scatter. **Nothing in the literature is within an order of magnitude of the 11
 kcal/mol observed here**, which is itself an argument that the spread is not FoldX noise.
 
-## Is a single `RepairPDB` defensible? Measured, and the answer is *no*
+## Repair count
 
 FoldX's manual recommends one repair, CATH-ddG uses one, and the only controlled test in the
 literature (Usmanova et al. 2018) found iterating made no difference. That predicts the repair
@@ -196,11 +196,11 @@ Caveats worth keeping attached to the number: 11 complexes on one tier, and this
 *alone* — whether a downstream model consuming these energies improves on better inputs requires
 a retrain. Reproduce or widen with `experiments/repair_ablation.py`.
 
-## `--numberOfRuns=1` is likewise defensible
+## `--numberOfRuns`
 
-It is the vendor default and the vendor's own documented recommendation ("normally it should be
-set to 1"). The FoldX authors' 2025 revision paper uses 5 with the median, but three things
-qualify that:
+The shipped store uses `--numberOfRuns=1`, the vendor default and the vendor's own documented
+recommendation ("normally it should be set to 1"). The FoldX authors' 2025 revision paper uses 5
+with the median, but three things qualify that:
 
 1. the reported gain is small (R 0.705 → 0.711, RMSE 1.250 → 1.238) **and was measured on folding
    benchmarks, not on SKEMPI binding data**;

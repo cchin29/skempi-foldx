@@ -81,7 +81,7 @@ class FoldxConfig:
         candidate = self.binary or os.environ.get("FOLDX_BIN")
         if not candidate:
             raise RuntimeError(
-                "FoldX binary not configured. Set FOLDX_BIN to your FoldX 5 executable, or "
+                "FoldX binary not configured. Set FOLDX_BIN to a FoldX 5 executable, or "
                 "pass binary=... . FoldX needs a licence (free for academic/non-profit); "
                 "from https://foldxsuite.crg.eu/ . FoldX 5.1 needs no rotabase.txt; earlier "
                 "major versions do."

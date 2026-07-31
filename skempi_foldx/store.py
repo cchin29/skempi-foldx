@@ -63,7 +63,7 @@ def bundled_path(which: str = SINGLE_POINT) -> Path:
     """Absolute path to a shipped store, wherever the package is installed.
 
     The results are the point of this package, so they travel inside it. Use this rather than a
-    relative ``"data/results_sp"``: that only resolves if your working directory happens to be a
+    relative ``"data/results_sp"``: that only resolves when the working directory happens to be a
     git clone, so it breaks for anyone reading the results from an installed wheel.
     """
     if which not in (SINGLE_POINT, MULTI_POINT):
@@ -72,7 +72,7 @@ def bundled_path(which: str = SINGLE_POINT) -> Path:
     if not path.is_dir():
         raise FileNotFoundError(
             f"{path} is missing. The shipped results should be installed with the package; "
-            f"if you are running from a source tree, check skempi_foldx/data/ exists."
+            f"when running from a source tree, check that skempi_foldx/data/ exists."
         )
     return path
 
@@ -224,8 +224,8 @@ def consolidate(
             if m:
                 metas.setdefault(path.stem, {}).update(
                     {k: v for k, v in m.items() if k not in metas.get(path.stem, {})})
-        # A stale JSON for an intractable complex, carried into the canonical store, is what a
-        # scope enumerated from results (rather than from the curated table) picks back up. Drop
+        # A stale JSON for an intractable complex, carried into the canonical store, is picked
+        # back up by any scope enumerated from results rather than from the curated table. Drop
         # it here so the store cannot re-arm the compute loop. Any other step that materialises a
         # unified results directory needs the same guard.
         store = {pdb: recs for pdb, recs in store.items()

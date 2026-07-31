@@ -1,13 +1,14 @@
-# How this protocol compares with the published ΔΔG literature
+# FoldX protocols in the published ΔΔG literature
 
-If you are trying to match someone else's FoldX numbers, or to justify these settings in a paper,
-this is the survey. The short answer is that the field has no single convention, and several
+For matching another group's FoldX numbers, or justifying these settings in a paper, this is the
+survey. The short answer is that the field has no single convention, and several
 widely-cited papers do not specify theirs at all.
 
 > **Sourcing.** The characterisations below were made by reading each paper's methods section and
-> supplement; this document does not carry per-claim citations with DOIs and table numbers. Treat
-> it as a working survey to check against the primary sources, not as a citable review. If you
-> are relying on a specific row, verify it against the paper itself.
+> supplement. Full citations with DOIs are in [REFERENCES.md](REFERENCES.md), but the rows below
+> are not individually keyed to table numbers — treat this as a working survey to check against
+> the primary sources, not as a citable review. Any specific row being relied on should be
+> verified against the paper itself.
 
 ---
 

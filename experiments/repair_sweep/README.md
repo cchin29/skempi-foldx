@@ -9,7 +9,7 @@ Why: on the 13 CATH T≥10 complexes, 5× repair moved the FoldX-alone per-struc
 Structure converges by round 4 (median RMSD 0.013 Å from round 4→5). This widens that measurement
 to all of SKEMPI.
 
-## The pieces
+## Components
 
 | | |
 |---|---|
@@ -20,7 +20,7 @@ to all of SKEMPI.
 | `launch_sweep.sh` | SP launcher |
 | `chain_finalize.sh` | verify → MP build → verify → record provenance, in that order |
 
-## Run
+## Invocation
 
 ```bash
 export FOLDX_BIN=/path/to/foldx
@@ -31,18 +31,49 @@ JOBS=36 SWEEP_EXCLUDE="" ./chain_finalize.sh   # everything after it
 Paths default to `<repo>/scratch/...` and are overridable via `SKEMPI_FOLDX_ROOT`, `SWEEP_RUN`,
 `SWEEP_STORE`, `SKEMPI_PDBS`, `SKEMPI_CSV`. Resumable at complex granularity.
 
-## Two things that decide the cost model
+## Cost model
 
-**1. Atom count predicts FoldX wall clock; mutation count does not.** The plausible reasoning is
-that BuildModel dominates, so the wall-clock floor belongs to the complex with the most mutations:
+The two phases are billed differently, and a single "per mutation" rate predicts neither.
+The last point is about provenance rather than cost, but it is the one that is expensive to
+learn the hard way.
+
+**1. Repair cost tracks atom count, not mutation count.** The plausible reasoning is that
+BuildModel dominates, so the wall-clock floor belongs to the complex with the most mutations —
 `1CHO` at 275 mutations and only 2150 atoms, or `3BT1` at 240. It does not. The floor is
-**repair**,
-on `1KBH` — a complex with **three** single-point mutations and 33 060 atoms, whose RepairPDB ran
-10 h 24 m and reached residue A36 of 2120. Budget by atom count.
+**repair**, on `1KBH`: three single-point mutations, 33 060 atoms, RepairPDB running 10 h 24 m to
+reach residue A36 of 2120. Budget the repair phase by atom count.
 
 `1KBH` is in `skempi_foldx/exclusions.py` and is dropped before any worklist is built.
 
-**2. Do not delete `work*/` as "regenerable".** The `chain_work/` and per-round `work/` trees are
+**2. BuildModel cost tracks entry composition, not entry count.** A multi-point entry repacks two
+or more positions, so it costs roughly **3× a single-point entry**. The two arms of a full-SKEMPI
+sweep therefore invert against intuition:
+
+| arm | entries | complexes | measured per round |
+|---|---:|---:|---|
+| single-point | 4334 | 322 | faster, despite 2.3× the entries |
+| multi-point | 1890 | 152 | **~2 h** |
+
+Measured shape of one multi-point round, 152 complexes on 36 workers:
+
+| window | complexes finished |
+|---|---:|
+| first 40 min | 97 |
+| next 60 min | 45 |
+| remainder | 10 (long tail) |
+
+Two thirds land in the first third of the wall clock; the rest is tail. Four rounds run
+sequentially inside one `sweep_mp.py build --rounds 1 2 3 4`, so budget ~8 h for the multi-point
+arm and expect the estimate to be dominated by the tail rather than the mean.
+
+**3. Each round's finish is set by one complex.** The tail is a single high-mutation-count
+complex that the whole round waits on: `3BT1` (240 mutations) for single-point, `1JTG` (136) for
+multi-point. Adding workers past that point buys nothing — the floor is one complex's serial
+BuildModel walk, because entries within a complex are evaluated sequentially in one process.
+That serialisation is the same property that makes a mutation's ΔΔG depend on the entries before
+it; here it shows up as a scheduling floor.
+
+**4. Do not delete `work*/` as "regenerable".** The `chain_work/` and per-round `work/` trees are
 gigabytes, and it is tempting to bring back only `round_*/results/`. The energies are regenerable;
 **the record of what produced them is not.** `individual_list.txt` lives in those trees, and a
 mutation's ΔΔG depends on every entry preceding it in that list — so the list is what makes a
@@ -52,7 +83,7 @@ number interpretable at all.
 `list_manifest.json` and injects `meta.mutation_list_sha256` into each result JSON. After that the
 work trees are genuinely disposable. Before it, they are the only copy.
 
-## Reading `residue_check.json`
+## `residue_check.json`
 
 `clean` and `full_coverage` are separate fields and both matter. `clean: true` with
 `full_coverage: false` means *clean over the complexes checked so far* — a mid-run snapshot reads
@@ -75,7 +106,7 @@ SP and MP results live in **separate** directories on purpose: `process_complex`
 the resume check then skips the other arm in silence. An SP and an MP energy for one complex are
 **not** two entries of one list.
 
-## Then
+## Comparing rounds
 
 ```bash
 python3 ../repair_ablation.py compare \

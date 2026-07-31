@@ -153,7 +153,7 @@ def resolve_complexes(args, store_dir: Path, skempi=None, pdb_dir=None):
     targets = filter_complexes(targets, context=f"--scope {args.scope}")
 
     # --exclude is additive on top of the registry, never a replacement for it. The registry is
-    # what you cannot forget to type; the flag is the escape hatch for a complex that is not yet
+    # what cannot be forgotten; the flag is the escape hatch for a complex that is not yet
     # knowledge -- a structure that stalls mid-sweep, before there is enough evidence to justify
     # writing it into INTRACTABLE. Applied after --complexes as well, because an exclusion is a
     # statement about the structure itself, not about how it got selected.
@@ -161,7 +161,7 @@ def resolve_complexes(args, store_dir: Path, skempi=None, pdb_dir=None):
     hit = sorted(drop.intersection(targets))
     if hit:
         print(f"[scope] --exclude dropping {len(hit)}: {', '.join(hit)}")
-        print("[scope] if you pass the same id again, add it to skempi_foldx/exclusions.py "
+        print("[scope] an id passed twice belongs in skempi_foldx/exclusions.py "
               "with its evidence -- a flag typed twice is a registry entry waiting to happen.")
         targets = [p for p in targets if p not in drop]
 
@@ -304,8 +304,8 @@ def cmd_compare(args):
         print(f"\n⚠ MUTATION LIST DIFFERS on {len(mismatched)} complexes: "
               f"{', '.join(mismatched[:6])}{'...' if len(mismatched) > 6 else ''}")
         print("  A mutation's energy depends on every entry preceding it in the list, so these")
-        print("  complexes are NOT a clean comparison — the list changed as well as whatever")
-        print("  you are testing. The list is derived from the repaired structure, so a repair")
+        print("  complexes are NOT a clean comparison — the list changed as well as the")
+        print("  variable under test. The list is derived from the repaired structure, so a")
         print("  round altering a residue identity is one way this happens.")
     elif shared_h:
         print(f"  mutation lists verified identical on {len(shared_h)} complexes ✓")
@@ -321,7 +321,7 @@ def cmd_compare(args):
         print(f"⚠ CONFOUNDED COMPARISON — {only_in_ablation} mutations exist only in the")
         print("  ablation store, so the two runs used different mutation lists. A mutation's")
         print("  energy depends on the whole preceding list, so these deltas mix the effect")
-        print("  you are testing with a list-composition effect.")
+        print("  under test with a list-composition effect.")
         print("  For a clean repair-count measurement, generate a control with the SAME lists:")
         print("      python experiments/repair_ablation.py run --iterations 1 ...")
         print("      python experiments/repair_ablation.py compare \\")

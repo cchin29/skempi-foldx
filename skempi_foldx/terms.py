@@ -2,8 +2,8 @@
 
 These twelve terms, in this order, are what ``AnalyseComplex`` reports and what a decomposed
 result record contains. The order is load-bearing for any consumer that flattens a record into a
-feature vector: written under one order and read under another, you get permuted features and a
-plausible-looking, wrong result.
+feature vector. Written under one order and read under another, it yields permuted features and
+a plausible-looking, wrong result.
 
 This module is the single definition, and consumers should import it rather than keep a copy: two
 copies of an ordering can agree for a long time with nothing enforcing that they continue to.

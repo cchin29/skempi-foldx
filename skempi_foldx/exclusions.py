@@ -34,7 +34,7 @@ The bypass restores the complex everywhere in the compute path at once. If it no
 delete the entry and rebuild the consolidated store, which will then carry it. What the bypass
 does *not* do is re-admit the complex to curation: :data:`INTRACTABLE` is consulted there as a
 plain set, so a consumer's curation keeps blocking it until the entry is actually removed.
-That asymmetry is intended — you should be able to test a complex without silently changing which
+That asymmetry is intended: a complex can be tested without silently changing which
 rows every split contains.
 """
 

@@ -79,10 +79,30 @@ SKEMPI_FOLDX_ALLOW_INTRACTABLE=1 python experiments/repair_ablation.py run \
 
 If it converges, delete the entry from `INTRACTABLE` and rebuild the consolidated store. The
 environment bypass deliberately does **not** re-admit the complex to curation — a curation step
-reads `INTRACTABLE` as a plain set, not through the bypass — so you can test a complex without
+reads `INTRACTABLE` as a plain set, not through the bypass — so a complex can be tested without
 silently changing which rows every split contains.
 
 ## Provenance of the shipped store
+
+**Every value here was computed with a single `RepairPDB` pass.** That is not recorded in the
+per-record `meta`, so it is stated here with its evidence — it determines whether these numbers
+are comparable to a repair-count series, and it is expensive to reconstruct after the fact:
+
+- All seven campaign builders invoke `RepairPDB` exactly once per complex, with no iteration
+  construct anywhere in them.
+- Of the 717 per-complex working directories those campaigns left, **717 carry exactly one
+  `<pdb>_Repair.pdb` and none carries a `repair_round_<i>.pdb`** — the file an iterated chain
+  necessarily writes. No `_original.pdb` or `_chain.pdb` scaffolding either.
+- The campaigns that reuse structures (`_bench`, `_delta`) *seed* from an existing
+  `<pdb>_Repair.pdb` rather than repairing again, so they inherit the same single repair. There
+  is no path by which an iterated structure entered this store.
+
+The on-disk check covers the single-point campaigns; the multi-point working directory has since
+been pruned, so for that arm the evidence is its builder's code alone.
+
+This store is also the **provenance record for a published set of ΔΔG model results**: those
+splits were merged from exactly these values. It stays available and citable for that reason,
+independent of any later store that improves on it.
 
 Worth knowing before treating any two directories as independent measurements:
 
@@ -98,7 +118,7 @@ So the 1.6% figure and the 66.7% figure are both correct and not in conflict: th
 different things. **66.7% is the honest answer to "what changes if the mutation lists change";
 1.6% describes two directories that are largely the same bytes.**
 
-## Two ways a store value is easy to misread
+## Two common misreadings
 
 **Chain letters are positional, not authorial.** Mutations are keyed within the SKEMPI partner
 group (A = first chain, B = second), which does not always match the author chain letters in the
@@ -108,5 +128,6 @@ PDB. `1ACB LB38D` and `1ACB LI38D` are the same physical residue under the two c
 nothing was dropped and nothing about the numbers behind those keys. That blind spot is wide
 enough for a real defect: a join that gained a second candidate key left coverage identical while
 handing ~13 mutations another mutation's ΔΔG, and surfaced only because downstream accuracy
-*fell*. If you touch the join, diff the 12-term values per `(pdb, mutation)`, not the key sets.
+*fell*. Any change to the join should be checked by diffing the 12-term values per
+`(pdb, mutation)`, not the key sets.
 
