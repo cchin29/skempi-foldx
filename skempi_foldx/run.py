@@ -43,7 +43,6 @@ from __future__ import annotations
 
 import hashlib
 import json
-import os
 import shutil
 import subprocess
 import warnings
@@ -241,7 +240,6 @@ def process_complex(
             (rejected if bad else ordered).append(
                 f"{variant}({[str(b) for b in bad]})" if bad else (variant, variant)
             )
-        ordered = [o for o in ordered if isinstance(o, tuple)]
     else:
         ordered, rejected = validate_against_structure(mapping, residues)
     meta["validation_failed"] = rejected

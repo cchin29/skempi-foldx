@@ -23,6 +23,7 @@ fact about this pipeline.
 """
 
 from .config import FoldxConfig, default_config
+from .lookup import FoldxLookup, load_chain_mapping, to_role_form
 from .exclusions import (
     INTRACTABLE,
     Exclusion,
@@ -70,6 +71,7 @@ __version__ = "0.1.0"
 __all__ = [
     "N_TERMS", "SCALAR_TERM", "TERMS", "term_vector",
     "FoldxConfig", "default_config",
+    "FoldxLookup", "load_chain_mapping", "to_role_form",
     "INTRACTABLE", "Exclusion", "is_excluded", "filter_complexes", "filter_worklist",
     "MODE_AUTHOR", "MODE_ROLE", "MODE_VARIANT",
     "ComplexResult", "process_complex", "run_campaign", "format_individual_list",

@@ -54,8 +54,8 @@ store["1BRS"]["DA52A"]["Interaction Energy"]      # -0.6806  (mutant − wild-ty
 ```
 
 Mutation keys are SKEMPI's own form: `DA52A` is Asp→Ala at position 52 of chain A. Each record
-carries all twelve `AnalyseComplex` terms as mutant minus wild-type, plus two fields of
-bookkeeping:
+carries all twelve `AnalyseComplex` terms as mutant minus wild-type, plus bookkeeping — `_source`
+and, for single-point records, `cleaned`; a multi-point key already is SKEMPI's variant string:
 
 ```python
 store["1BRS"]["DA52A"]
@@ -135,11 +135,11 @@ Two more that cost time to learn:
 
 | | |
 |---|---|
-| `skempi_foldx/` | `run` (campaigns), `store` (results), `skempi` (parsing), `terms` (the 12-term contract), `exclusions`, `config` |
+| `skempi_foldx/` | `lookup` (resolving a mutation's name to its record), `run` (campaigns), `store` (results), `skempi` (parsing), `terms` (the 12-term contract), `exclusions`, `config` |
 | `skempi_foldx/data/` | the computed energies, one JSON per complex, plus the consolidation report |
-| `experiments/repair_ablation.py` | does repairing more than once change the answer? |
+| `experiments/repair_ablation.py` | the repair-count ablation |
 | `experiments/repair_sweep/` | the full-SKEMPI repair-count sweep, both arms |
-| `docs/` | [determinism](docs/DETERMINISM.md), [the store](docs/STORE.md), [how this protocol compares with the literature](docs/PROTOCOL.md), [references](docs/REFERENCES.md) |
+| `docs/` | [determinism](docs/DETERMINISM.md), [the store](docs/STORE.md), [how this protocol compares with the literature](docs/PROTOCOL.md), [references](docs/REFERENCES.md), [attaching the energies to an evaluation set](docs/USAGE.md) |
 
 ## Provenance and licence
 

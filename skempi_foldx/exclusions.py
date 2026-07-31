@@ -6,10 +6,11 @@ downstream stops a compute driver from picking them up.
 
 The failure this prevents
 -------------------------
-``1KBH`` cannot be repaired. RepairPDB on it has been left running past 22.5 h without finishing,
-twice, on two different machines. Killing the job works, but killing is a per-round remedy and
-the driver is a loop: the next round enumerates its scope, sees 1KBH again, and launches RepairPDB
-again. An intractable complex has to be dropped *before* the worklist is built, not reaped after.
+``1KBH`` cannot be repaired. RepairPDB on it has been left running past 22.5 h on one machine and
+past 10 h on another, finishing on neither. Killing the job works, but killing is a per-round
+remedy and the driver is a loop: the next round enumerates its scope, sees 1KBH again, and
+launches RepairPDB again. An intractable complex has to be dropped *before* the worklist is
+built, not reaped after.
 
 Why a driver sees it at all, given curation drops it
 ----------------------------------------------------
@@ -75,8 +76,14 @@ INTRACTABLE: Dict[str, Exclusion] = {
 
 
 def allowed() -> bool:
-    """Whether the exclusion list is currently bypassed."""
-    return os.environ.get(ALLOW_ENV, "") not in ("", "0", "false", "False")
+    """Whether the exclusion list is currently bypassed.
+
+    The test is positive, and deliberately so. A guard whose failure mode is a multi-day stall
+    must not disarm on an unrecognised value: under a negative test, ``ALLOW=no`` and ``ALLOW=off``
+    both read as a bypass and re-arm ``RepairPDB`` on the very complex this module exists to keep
+    out of the worklist.
+    """
+    return os.environ.get(ALLOW_ENV, "").strip().lower() in ("1", "true", "yes", "on")
 
 
 def is_excluded(pdb: str) -> Optional[Exclusion]:

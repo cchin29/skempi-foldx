@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Does iterating `RepairPDB` change the FoldX ΔΔG channel? Measure it.
+"""Repair-count effect on the FoldX ΔΔG channel.
 
 The pipeline runs `RepairPDB` **once**. That is FoldX's own documented recommendation, and it
 matches CATH-ddG — the only comparator paper with a fully specified protocol, and the source of
@@ -17,8 +17,8 @@ So this is a question worth answering with a measurement rather than a citation 
 it is cheap. The per-structure metric only scores complexes with at least ten mutations, and on
 the frontier-comparable CATH tier that is **13 complexes**.
 
-What this does
---------------
+Subcommands
+-----------
   probe    RepairPDB N times per complex, no mutations. Reports the heavy-atom RMSD between
            successive rounds, which answers "does it converge, and by which round?" for a few
            minutes of compute.
@@ -240,7 +240,7 @@ def cmd_run(args):
 
     # Union mutation lists, deliberately: a mutation's energy depends on the whole list, so a
     # per-dataset subset would confound the repair-count effect with a list-composition effect.
-    worklist = {p: m for p, m in worklist_single_point(skempi, only=targets).items()}
+    worklist = worklist_single_point(skempi, only=targets)
     n_mut = sum(len(v) for v in worklist.values())
     print(f"[run] {len(worklist)} complexes, {n_mut} mutations, "
           f"repair x{args.iterations}, jobs={args.jobs}")

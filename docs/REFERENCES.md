@@ -65,7 +65,7 @@ reporting the same value.
 
 > Yu, G., Bi, X., Zhao, Q. & Wang, J. USP-ddG: a unified structural paradigm with data efficacy
 > and mixture-of-experts for predicting mutational effects on protein–protein interactions.
-> *Bioinformatics* **42**(Supplement 1) (2025).
+> *Bioinformatics* **42**(Supplement 1) (2026).
 > [10.1093/bioinformatics/btag249](https://doi.org/10.1093/bioinformatics/btag249) ·
 > preprint [10.1101/2025.11.09.687124](https://doi.org/10.1101/2025.11.09.687124)
 
@@ -90,6 +90,12 @@ PPIformer and MINT appear in that file's survey table. No DOI for any of them co
 against the CrossRef API, so none is given rather than one being inferred — including for
 GraphPPI, whose row carries the strongest characterisation in the table. PROTOCOL.md states this
 at the point of use.
+
+**The benchmark subsets.** `S1102`, `S1131`, `S2003` and `S4169` are named throughout these docs
+as evaluation sets and as campaign labels. They are conventional partitions of SKEMPI reused
+across this literature rather than works in their own right; no citation is given because the
+usage here is to SKEMPI 2.0 above, whose rows they select. A consumer taking subset membership
+should take it from the benchmark definition it means to follow, not from this package.
 
 ## Method background
 

@@ -18,9 +18,9 @@ control the mutation list, and `worklist_single_point()` does that by constructi
 
 ## The evidence
 
-The five single-point campaign result directories disagree with each other on two thirds of the
-mutations they share, by up to 11 kcal/mol. That looks like stochastic side-chain optimisation and is not: it is
-a setup effect, and it is fully explained.
+The five single-point campaign result directories disagree on 3621 of the 5873 campaign-pair
+comparisons they share — just under two thirds — by up to 11 kcal/mol. That looks like stochastic
+side-chain optimisation and is not: it is a setup effect, and it is fully explained.
 
 `BuildModel` walks `individual_list.txt` sequentially in **one process**. Each entry's side-chain
 optimisation inherits the state left by the entries before it, and a fresh wild-type reference is
@@ -58,7 +58,7 @@ Worked example — `1PPF GB32Y`, same structure (`146d64b021…`) in all four ca
 
 Two campaigns with the same prefix agree exactly; the others do not.
 
-**What follows from this.** Re-running any campaign with its original mutation list reproduces it
+**Consequences.** Re-running any campaign with its original mutation list reproduces it
 exactly, so the published store is reproducible. But a *subset* computation is not
 interchangeable with a full one. `skempi_foldx/run.py` therefore computes the **union** of a
 complex's mutations (`worklist_single_point`), and `worklist_from_table` — which takes a

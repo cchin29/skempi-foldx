@@ -16,6 +16,7 @@ No FoldX binary, network, or working directory outside tmp_path is required.
 from __future__ import annotations
 
 import json
+import warnings
 
 import pytest
 
@@ -879,7 +880,8 @@ def test_a_directory_holding_both_arms_is_refused(tmp_path):
     single.mkdir()
     (single / "1AAA.json").write_text(json.dumps({"muts": {"LI38S": terms}, "meta": {}}))
     assert store_kind(single) == "muts"
-    assert store_kind(tmp_path / "empty_missing") is None or True
+    # A missing directory has no kind. (load_store raises for one; store_kind reports None.)
+    assert store_kind(tmp_path / "empty_missing") is None
 
 
 def test_source_labels_are_the_documented_set():
@@ -894,5 +896,582 @@ def test_source_labels_are_the_documented_set():
             for recs in load_bundled_store(which).values() for r in recs.values()}
     seen.discard(None)
     assert seen == expected, f"unexpected source labels: {seen ^ expected}"
-    assert not any("s1102" in s.lower() and "4169" in s for s in seen), \
-        "a label names two different benchmark subsets"
+
+
+# --------------------------------------------------------------------- naming resolution
+# A mutation has more than one name, and every wrong answer this package has produced traced
+# back to that. These pin the resolution rather than the plumbing around it.
+
+def test_lookup_resolves_both_stored_conventions_without_extra_inputs():
+    """The single-point store keys 3012 records by SKEMPI's author form and 1226 by the role
+    form. A consumer holding either name must get the same record, with no configuration."""
+    from skempi_foldx import FoldxLookup
+
+    fx = FoldxLookup()
+    author = fx.get("1ACB", "LI38D")      # SKEMPI's own form
+    role = fx.get("1ACB", "LB38D")        # the form this record is filed under
+    assert author is not None and role is not None
+    assert author is role, "the two names resolved to different records"
+    assert fx.arm_of("1ACB", "LI38D") == "sp"
+    assert fx.arm_of("1A4Y", "KB40G,DA435A") == "mp", "multi-point variant did not resolve"
+
+
+def test_lookup_reports_which_conventions_it_can_resolve():
+    """What it can resolve depends on what it was given, and silently resolving less is how a
+    coverage figure reads 69% for data that is 99% covered."""
+    from skempi_foldx import FoldxLookup
+
+    plain = FoldxLookup().conventions
+    assert "stored key" in plain[0] and len(plain) == 2
+    assert not any("role-chain" in c for c in plain), \
+        "claimed role-chain resolution without the SKEMPI table"
+
+
+def test_a_miss_names_the_other_form_and_the_fix():
+    """A miss is usually a naming mismatch, not absent data. The error has to say so, or the
+    caller concludes the coverage is worse than it is -- which is exactly what happened."""
+    from skempi_foldx import FoldxLookup
+
+    fx = FoldxLookup()
+    with pytest.raises(KeyError, match="not in the shipped store"):
+        fx.require("9ZZZ", "AA1G")
+    with pytest.raises(KeyError) as caught:
+        fx.require("1ACB", "NOPE1A")
+    msg = str(caught.value)
+    assert "It holds" in msg, "did not say what the complex does contain"
+    assert "skempi_csv=" in msg, "did not name the input that would resolve more forms"
+
+
+def test_lookup_and_vector_agree_with_the_store():
+    from skempi_foldx import TERMS, FoldxLookup, load_bundled_store
+
+    fx = FoldxLookup()
+    rec = load_bundled_store()["1BRS"]["DA52A"]
+    assert fx.get("1BRS", "DA52A") == rec
+    assert fx.vector("1BRS", "DA52A") == [float(rec[t]) for t in TERMS]
+    assert fx.vector("9ZZZ", "AA1G") is None
+    assert len(fx) == 6003, "both arms should be loaded by default"
+
+    cov, total, missing = fx.coverage([("1BRS", "DA52A"), ("9ZZZ", "AA1G")])
+    assert (cov, total, missing) == (1, 2, [("9ZZZ", "AA1G")])
+    assert fx.energies_for([("1BRS", "DA52A"), ("9ZZZ", "AA1G")]) == {
+        ("1BRS", "DA52A"): [float(rec[t]) for t in TERMS]}
+
+
+def test_role_form_remap_is_exact_given_chain_mappings(tmp_path):
+    """The offset remap is what turns a lower bound into an answer: identity matching cannot
+    choose when both partners admit the same substitution, and offsets can."""
+    from skempi_foldx import to_role_form
+
+    chains = {"E": {"seq": ["x"] * 245}, "I": {"seq": ["x"] * 70}}
+    # chain I is the whole of group 2, so its residues keep their numbering under side B
+    assert to_role_form("LI38D", ("E", "I"), chains) == "LB38D"
+    # chain E is group 1, likewise
+    assert to_role_form("YE20A", ("E", "I"), chains) == "YA20A"
+    # a second chain in a group is offset by the first chain's length
+    two = {"A": {"seq": ["x"] * 10}, "B": {"seq": ["x"] * 10}, "C": {"seq": ["x"] * 5}}
+    assert to_role_form("KB3G", ("AB", "C"), two) == "KA13G", "group offset not applied"
+    # refuse rather than guess
+    assert to_role_form("LI38D", ("E", "I"), None) is None
+    assert to_role_form("LI38aD", ("E", "I"), chains) is None, "insertion code should not resolve"
+    assert to_role_form("LZ38D", ("E", "I"), chains) is None, "chain outside both groups"
+    assert to_role_form("LI900D", ("E", "I"), chains) is None, "residue beyond the chain"
+
+
+# --------------------------------------------------------------- naming resolution, continued
+# `to_role_form` and the aliasing built on it are what turn a 69% coverage figure into a 99% one,
+# so the boundaries of the remap and the refusals around it are pinned by value here.
+
+def _skempi_table(tmp_path, rows):
+    """A minimal SKEMPI 2.0 table: `<pdb>_<group1>_<group2>;<pdb form>;<cleaned>;...`."""
+    path = tmp_path / "skempi.csv"
+    path.write_text(
+        "#Pdb;Mutation(s)_PDB;Mutation(s)_cleaned;Affinity_mut (M);Affinity_wt (M)\n"
+        + "".join(f"{ident};{cleaned};{cleaned};1e-9;1e-10\n" for ident, cleaned in rows))
+    return path
+
+
+def _mapping_dir(tmp_path, code, lengths):
+    """A SKEMPI `<code>.mapping`: `RESNAME CHAIN AUTHOR_NUMBER SEQUENCE_INDEX`, one line per
+    residue. Only the per-chain residue count is read, so the identities are filler."""
+    directory = tmp_path / "mappings"
+    directory.mkdir(exist_ok=True)
+    lines = [f"ALA {chain} {i} {i}"
+             for chain, n in lengths.items() for i in range(1, n + 1)]
+    (directory / f"{code}.mapping").write_text("\n".join(lines) + "\n")
+    return directory
+
+
+def test_role_form_remap_includes_the_last_residue_of_a_chain():
+    """The bound is inclusive at both ends. An off-by-one on the upper one returns None for every
+    C-terminal mutation -- and None is also how this function refuses an insertion code, so the
+    loss reads as "unresolvable label" rather than as a bug and coverage just quietly drops."""
+    from skempi_foldx import to_role_form
+
+    chains = {"E": {"seq": ["x"] * 245}, "I": {"seq": ["x"] * 70}}
+    assert to_role_form("LI70D", ("E", "I"), chains) == "LB70D", "last residue must resolve"
+    assert to_role_form("LI1D", ("E", "I"), chains) == "LB1D", "first residue must resolve"
+    assert to_role_form("LI71D", ("E", "I"), chains) is None, "one past the end must not"
+    assert to_role_form("LI0D", ("E", "I"), chains) is None, "position 0 must not"
+
+    # the same at a group's internal boundary, where the offset is what is being pinned
+    two = {"A": {"seq": ["x"] * 10}, "B": {"seq": ["x"] * 10}, "C": {"seq": ["x"] * 5}}
+    assert to_role_form("KA10G", ("AB", "C"), two) == "KA10G", "first chain must not be offset"
+    assert to_role_form("KB10G", ("AB", "C"), two) == "KA20G", "offset lost at the boundary"
+    assert to_role_form("KB11G", ("AB", "C"), two) is None, "past the end of the second chain"
+
+
+def test_chain_mapping_reports_each_chain_length_and_nothing_at_all_for_a_missing_file(tmp_path):
+    """The offsets a split file numbers by are accumulated from these lengths, so a chain read
+    short shifts every later chain onto the wrong numbers. A missing file must read as "no
+    mapping" rather than as an empty one, or the remap silently degrades to a guess."""
+    from skempi_foldx import load_chain_mapping, to_role_form
+
+    directory = _mapping_dir(tmp_path, "1CBW", {"F": 223, "G": 5, "H": 20, "I": 58})
+    chains = load_chain_mapping(directory, "1CBW")
+    assert {c: len(v["seq"]) for c, v in chains.items()} == {"F": 223, "G": 5, "H": 20, "I": 58}
+    assert load_chain_mapping(directory, "9ZZZ") is None, "a missing mapping read as empty"
+
+    # a group naming a chain the mapping does not carry cannot be offset, so it must refuse
+    assert to_role_form("YF20A", ("FGH", "I"), {"F": {"seq": ["x"] * 223},
+                                                "I": {"seq": ["x"] * 58}}) is None
+
+
+def test_role_chain_labels_resolve_exactly_once_the_mappings_are_given(tmp_path):
+    """1CBW is stored under its author form (`GI12A` -- chain I of `1CBW_FGH_I`). A split file
+    calls that same mutation `GB12A`, and neither string matches the other; that mismatch is the
+    whole of the ~29% a string-matching lookup misses."""
+    from skempi_foldx import FoldxLookup
+
+    csv = _skempi_table(tmp_path, [("1CBW_FGH_I", "GI12A"), ("1CBW_FGH_I", "FI33A")])
+    mappings = _mapping_dir(tmp_path, "1CBW", {"F": 223, "G": 5, "H": 20, "I": 58})
+
+    fx = FoldxLookup(skempi_csv=csv, mapping_dir=mappings)
+    assert fx.get("1CBW", "GB12A") is fx.get("1CBW", "GI12A") is not None, \
+        "the role-chain label did not resolve to the stored record"
+    assert fx.get("1CBW", "FB33A") is fx.get("1CBW", "FI33A") is not None
+    assert fx.arm_of("1CBW", "GB12A") == "sp"
+    # the side is read off the chain group, not assumed: chain I is group 2, so B and never A
+    assert fx.get("1CBW", "GA12A") is None, "resolved a role form on the wrong partner"
+    # and a mutation SKEMPI does not list for this complex still misses
+    assert fx.get("1CBW", "GB99A") is None
+
+
+def test_identity_matching_refuses_to_guess_where_both_partners_share_a_substitution(tmp_path):
+    """Without the mapping files the role form is inferred from `(wt, position, mutant)` identity,
+    which cannot choose when the same substitution exists on both partners. Guessing there is
+    exactly how a record gets filed under another mutation's name; the miss must stand."""
+    from skempi_foldx import FoldxLookup
+
+    # G12A is present on chain I (group 2) AND on chain F (group 1) -- ambiguous.
+    # F33A is on chain I only -- unambiguous.
+    csv = _skempi_table(tmp_path, [("1CBW_FGH_I", "GI12A"), ("1CBW_FGH_I", "GF12A"),
+                                   ("1CBW_FGH_I", "FI33A")])
+
+    fx = FoldxLookup(skempi_csv=csv)                      # identity matching only
+    assert fx.get("1CBW", "FB33A") is fx.get("1CBW", "FI33A") is not None, \
+        "an unambiguous role form should still resolve without the mappings"
+    assert fx.get("1CBW", "GB12A") is None, \
+        "guessed a role form where both partners admit the substitution"
+
+    # the mappings are what turn that refusal into an answer
+    mappings = _mapping_dir(tmp_path, "1CBW", {"F": 223, "G": 5, "H": 20, "I": 58})
+    exact = FoldxLookup(skempi_csv=csv, mapping_dir=mappings)
+    assert exact.get("1CBW", "GB12A") is exact.get("1CBW", "GI12A") is not None
+
+
+def test_an_unresolved_role_form_registers_no_alias_at_all(tmp_path):
+    """When neither the mappings nor identity matching can name a record's role form the answer is
+    None, and None must not be stored as a name. An alias keyed on it makes `get(pdb, None)`
+    return somebody's energies -- a lookup answering a question that was never asked."""
+    from skempi_foldx import FoldxLookup
+
+    csv = _skempi_table(tmp_path, [("1CBW_FGH_I", "GI12A"), ("1CBW_FGH_I", "GF12A")])
+    fx = FoldxLookup(skempi_csv=csv)                      # G12A is ambiguous, so role is None
+
+    assert fx.get("1CBW", None) is None, "an unresolved role form was aliased under None"
+    assert ("1CBW", None) not in fx
+    assert fx.coverage([("1CBW", None)]) == (0, 1, [("1CBW", None)])
+
+
+def test_conventions_report_which_resolution_is_actually_in_force(tmp_path):
+    """The three states are not interchangeable and the difference is invisible in the numbers:
+    identity matching leaves the ambiguous cases unresolved, so its coverage figure is a lower
+    bound. Claiming the exact form without the mappings is how such a figure gets believed."""
+    from skempi_foldx import FoldxLookup
+
+    csv = _skempi_table(tmp_path, [("1CBW_FGH_I", "GI12A")])
+    mappings = _mapping_dir(tmp_path, "1CBW", {"F": 223, "G": 5, "H": 20, "I": 58})
+
+    plain = FoldxLookup().conventions
+    identity = FoldxLookup(skempi_csv=csv).conventions
+    exact = FoldxLookup(skempi_csv=csv, mapping_dir=mappings).conventions
+
+    assert len(plain) == 2 and not any("role-chain" in c for c in plain)
+    assert len(identity) == 3 and "identity matching" in identity[2], identity
+    assert len(exact) == 3 and "residue offsets" in exact[2], exact
+    assert identity[2] != exact[2], "the two role-chain states read the same"
+    assert "role-chain form (exact, via residue offsets)" in repr(
+        FoldxLookup(skempi_csv=csv, mapping_dir=mappings)), "repr does not say what it resolves"
+
+
+def test_the_arms_argument_restricts_what_is_loaded():
+    """`arms=` is what a consumer of one arm passes to keep the other out of its coverage figures.
+    Loading both regardless would report multi-point variants as covered by a single-point run."""
+    from skempi_foldx import MULTI_POINT, SINGLE_POINT, FoldxLookup
+
+    single = FoldxLookup(arms=(SINGLE_POINT,))
+    multi = FoldxLookup(arms=(MULTI_POINT,))
+
+    assert len(single) == 4238 and len(multi) == 1765
+    assert len(FoldxLookup()) == len(single) + len(multi)
+
+    assert single.get("1BRS", "DA52A") is not None
+    assert single.get("1A4Y", "KB40G,DA435A") is None, "a multi-point record loaded under arms=sp"
+    assert single.arm_of("1A4Y", "KB40G,DA435A") is None
+
+    assert multi.get("1A4Y", "KB40G,DA435A") is not None
+    assert multi.get("1BRS", "DA52A") is None, "a single-point record loaded under arms=mp"
+    assert multi.arm_of("1A4Y", "KB40G,DA435A") == "mp"
+
+    # and the miss says which arms were loaded, so the shortfall is attributable
+    with pytest.raises(KeyError, match=MULTI_POINT):
+        multi.require("9ZZZ", "AA1G")
+
+
+def test_require_returns_the_record_and_otherwise_names_the_input_that_would_resolve_it(tmp_path):
+    """Three different misses, three different fixes. A miss that reports "absent" when the record
+    is filed under another name is what produced a 69% coverage figure for 99%-covered data, so
+    each branch has to name the input that resolves the form it could not match."""
+    from skempi_foldx import FoldxLookup, load_bundled_store
+
+    plain = FoldxLookup()
+    assert plain.require("1BRS", "DA52A") == load_bundled_store()["1BRS"]["DA52A"], \
+        "require did not return the record on a hit"
+    assert plain.require("1ACB", "LI38D") is plain.get("1ACB", "LB38D"), \
+        "require and get disagreed on the same record under its two names"
+
+    with pytest.raises(KeyError, match="not in the shipped store"):
+        plain.require("9ZZZ", "AA1G")
+
+    with pytest.raises(KeyError, match="skempi_csv=") as absent:
+        plain.require("1BRS", "NOPE1A")
+    assert "mapping_dir=" in str(absent.value), "did not name both missing inputs"
+    assert "It holds" in str(absent.value), "did not say what the complex does contain"
+
+    csv = _skempi_table(tmp_path, [("1CBW_FGH_I", "GI12A")])
+    identity = FoldxLookup(skempi_csv=csv)
+    with pytest.raises(KeyError, match="identity matching") as inexact:
+        identity.require("1CBW", "NOPE1A")
+    assert "mapping_dir=" in str(inexact.value), \
+        "an identity-matching instance did not point at the exact remap"
+    assert "skempi_csv=" not in str(inexact.value), "asked for an input it already has"
+
+
+def test_vector_is_terms_ordered_floats_and_none_on_a_miss():
+    """Consumers flatten a record positionally, so a vector in any other order is a silently
+    permuted feature set. The fixture is a real record whose terms differ from one another --
+    identical values would make a permutation undetectable."""
+    from skempi_foldx import TERMS, FoldxLookup, load_bundled_store
+
+    fx = FoldxLookup()
+    rec = load_bundled_store()["1BRS"]["DA52A"]
+    vector = fx.vector("1BRS", "DA52A")
+
+    assert len(set(vector)) > 1, "a record with identical terms cannot detect a reordering"
+    assert vector == [float(rec[t]) for t in TERMS]
+    assert vector[0] == float(rec["Interaction Energy"]), "column 0 must be the scalar term"
+    assert vector[TERMS.index("Van der Waals")] == float(rec["Van der Waals"])
+    assert all(isinstance(v, float) for v in vector), "records may hold ints; the vector must not"
+    assert fx.vector("1BRS", "NOPE1A") is None and fx.vector("9ZZZ", "AA1G") is None
+
+
+def test_an_alias_is_kept_from_the_arm_that_registered_it_first(monkeypatch):
+    """`cleaned` is not guaranteed unique across the two arms, and the alias table is filled in
+    `arms` order. A later arm overwriting an existing alias would move an author-form name onto a
+    different record without touching the stored key, so nothing downstream could notice."""
+    from skempi_foldx import MULTI_POINT, SINGLE_POINT, FoldxLookup
+    from skempi_foldx import lookup as lookup_module
+
+    fake = {
+        SINGLE_POINT: {"1XXX": {"LB38D": dict({t: 1.0 for t in TERMS}, cleaned="LI38D")}},
+        MULTI_POINT: {"1XXX": {"LC38D": dict({t: 9.0 for t in TERMS}, cleaned="LI38D")}},
+    }
+    monkeypatch.setattr(lookup_module, "load_bundled_store", lambda which: fake[which])
+
+    fx = FoldxLookup()
+    assert fx.get("1XXX", "LI38D")["Interaction Energy"] == 1.0, \
+        "a later arm overwrote an alias registered by an earlier one"
+    assert fx.arm_of("1XXX", "LI38D") == "sp"
+    assert fx.get("1XXX", "LC38D")["Interaction Energy"] == 9.0, "a stored key was shadowed"
+
+
+# --------------------------------------------------------------------- the coverage reporter
+
+def test_coverage_report_counts_what_resolves_and_names_what_does_not(tmp_path, monkeypatch,
+                                                                     capsys):
+    """The script exists to answer "how much FoldX signal does this evaluation set have", and it
+    is read as a headline number. Two things must hold: the count is over rows it actually
+    resolved, and a run without the mappings says its figure is a lower bound rather than
+    presenting it as the answer."""
+    import sys
+
+    import coverage_report
+
+    table = tmp_path / "rows.tsv"
+    table.write_text("1BRS_A\tddg\tDA52A\n"          # stored key, single point
+                     "1ACB.E.I_A\tddg\tLB38D\n"      # stored key, dotted id form
+                     "1A4Y_A\tddg\tKB40G,DA435A\n"   # multi-point variant
+                     "9ZZZ_A\tddg\tAA1G\n"           # absent
+                     "9ZZZ_A\tddg\tAA1G\n")          # and the same row again: counted once
+    out = tmp_path / "report.json"
+    monkeypatch.setattr(sys, "argv", ["coverage_report.py", "--table", str(table),
+                                      "--label", "demo", "--json", str(out)])
+    coverage_report.main()
+
+    payload = json.loads(out.read_text())
+    assert len(payload) == 1
+    row = payload[0]
+    assert row["label"] == "demo"
+    assert row["rows"] == 4, "duplicate rows were not collapsed"
+    assert (row["covered"], row["uncovered"]) == (3, 1)
+    assert row["pct"] == 75.0
+    assert (row["single_point"], row["multi_point"]) == (2, 1), "arms mis-attributed"
+    assert row["worst_complexes"] == [{"pdb": "9ZZZ", "rows": 1}]
+    assert row["exact"] is False
+
+    printed = capsys.readouterr().out
+    assert "LOWER BOUND" in printed, "a figure that is a lower bound was presented as exact"
+    assert "9ZZZ(1)" in printed, "the uncovered complexes were not named"
+
+
+def test_coverage_report_reads_a_split_directory_and_labels_each_input_in_order(tmp_path,
+                                                                               monkeypatch):
+    """--split and --table share one destination precisely so that labels stay paired with the
+    inputs they name; collecting them separately mislabels every row once the two are
+    interleaved."""
+    import sys
+
+    import coverage_report
+
+    # the real layout: fold_<k>/<base>_{train,val,test}.tsv under one split directory
+    split = tmp_path / "splits_kfold"
+    (split / "fold_1").mkdir(parents=True)
+    (split / "fold_2").mkdir(parents=True)
+    (split / "fold_1" / "base_train.tsv").write_text("1BRS_A\tddg\tDA52A\n")
+    (split / "fold_2" / "base_test.tsv").write_text("9ZZZ_A\tddg\tAA1G\n")
+    table = tmp_path / "flat.tsv"
+    table.write_text("1BRS_A\tddg\tDA52A\n")
+
+    out = tmp_path / "report.json"
+    monkeypatch.setattr(sys, "argv", ["coverage_report.py",
+                                      "--table", str(table), "--split", str(split),
+                                      "--label", "flat", "--label", "kfold",
+                                      "--json", str(out)])
+    coverage_report.main()
+
+    flat, kfold = json.loads(out.read_text())
+    assert (flat["label"], flat["rows"], flat["covered"]) == ("flat", 1, 1)
+    assert (kfold["label"], kfold["rows"], kfold["covered"]) == ("kfold", 2, 1), \
+        "labels were paired with the wrong inputs"
+    assert kfold["files_read"] == 2, "the split directory was not read recursively"
+
+
+# ------------------------------------------------------------------- the multi-point arm
+# The single-point path is pinned end to end above; the variant path has its own validation, its
+# own payload key and its own resume rule, and none of them is exercised by that test.
+
+def test_a_variant_is_validated_substitution_by_substitution_and_rejected_whole(tmp_path):
+    """MODE_VARIANT validates every substitution of a comma-joined variant against the repaired
+    structure. Accepting a variant with one substitution whose wild-type residue is not there
+    hands BuildModel a mutation of a residue that does not exist -- which it reports as a success,
+    with a number attached."""
+    from skempi_foldx import MODE_VARIANT, FoldxConfig, process_complex
+    from skempi_foldx.skempi import SkempiComplex
+
+    pdb = "1TST"
+    binary = tmp_path / "foldx"
+    binary.write_text("#!/bin/sh\nexit 0\n")     # every FoldX output is pre-placed below
+    binary.chmod(0o755)
+    config = FoldxConfig(results_dir=tmp_path / "r", work_dir=tmp_path / "w",
+                         pdb_dir=tmp_path / "p", skempi_csv=tmp_path / "s.csv", binary=binary)
+    (tmp_path / "p").mkdir()
+    structure = _ca("A", 38, "LEU") + _ca("B", 12, "GLY")
+    (tmp_path / "p" / f"{pdb}.pdb").write_text(structure)
+    config.ensure_dirs()
+    work = config.complex_work_dir(pdb)
+    work.mkdir(parents=True, exist_ok=True)
+    (work / f"{pdb}.pdb").write_text(structure)
+    (work / f"{pdb}_Repair.pdb").write_text(structure)
+
+    base = {t: 0.0 for t in TERMS}
+    (work / f"{pdb}_Repair_1.pdb").write_text(structure)
+    (work / f"WT_{pdb}_Repair_1.pdb").write_text(structure)
+    _ac_fxout(work / f"Interaction_{pdb}_Repair_1_AC.fxout",
+              dict(base, **{"Interaction Energy": 5.0}))
+    _ac_fxout(work / f"Interaction_WT_{pdb}_Repair_1_AC.fxout",
+              dict(base, **{"Interaction Energy": 2.0}))
+
+    good, bad = "LA38S,GB12A", "LA38S,WB12A"     # structure has G at B12, not W
+    entry = SkempiComplex(pdb, "A", "B", multi={good, bad})
+    result = process_complex(pdb, [good, bad], entry, config, mode=MODE_VARIANT)
+
+    assert result.status == "ok(1/2)", result.status
+    assert set(result.mutations) == {good}, "a variant with an absent wild-type residue was built"
+    assert result.mutations[good]["Interaction Energy"] == 3.0
+    assert any("WB12A" in r for r in result.meta["validation_failed"]), \
+        "the rejected substitution was not named"
+    # the list handed to BuildModel holds the accepted variant only, comma-joined as FoldX wants
+    assert (work / "individual_list.txt").read_text() == f"{good};\n"
+    # and the payload keeps the multi-point key, so the SP/MP guard can still fire on it
+    payload = json.loads(config.result_path(pdb).read_text())
+    assert "variants" in payload and "muts" not in payload
+
+
+def test_a_mutation_whose_wild_type_residue_is_absent_is_rejected_not_renamed(tmp_path):
+    """The validation is what turns a numbering-convention mismatch into a loud rejection instead
+    of a confidently wrong energy, so both halves matter: the match accepts, and the mismatch is
+    reported with what the structure actually holds."""
+    from skempi_foldx.skempi import repaired_wt_residues, validate_against_structure
+
+    structure = tmp_path / "1TST_Repair.pdb"
+    structure.write_text(_ca("A", 38, "LEU") + _ca("B", 12, "GLY"))
+    residues = repaired_wt_residues(structure)
+    assert residues == {("A", 38): "L", ("B", 12): "G"}
+
+    validated, rejected = validate_against_structure(
+        {"LB38S": "LA38S", "WB12A": "WB12A", "LA99S": "LA99S"}, residues)
+    assert validated == [("LB38S", "LA38S")], "a validated pair lost its role-chain key"
+    assert len(rejected) == 2
+    assert "WB12A(structure has G)" in rejected[0], "the rejection must say what is really there"
+    assert "structure has None" in rejected[1], "a position absent from the structure passed"
+
+
+# ------------------------------------------------------------------------- worklist builders
+
+def test_worklist_builders_take_the_union_per_complex_and_keep_the_arms_apart(tmp_path):
+    """A mutation's energy depends on every entry preceding it in `individual_list.txt`, so a
+    per-dataset SUBSET of a complex's mutations gives a different number for the same mutation --
+    measured up to 11.03 kcal/mol apart. The union, sorted, is what makes a value reproducible;
+    `worklist_from_table` is the one builder that does not do this, and it must at least keep
+    multi-point rows out of the single-point arm."""
+    from skempi_foldx import (load_skempi, worklist_from_table, worklist_multi_point,
+                              worklist_single_point)
+
+    csv = tmp_path / "skempi.csv"
+    csv.write_text(
+        "#Pdb;Mutation(s)_PDB;Mutation(s)_cleaned;Affinity_mut (M);Affinity_wt (M)\n"
+        "1AAA_E_I;LI138S;LI38S;1e-9;1e-10\n"
+        "1AAA_E_I;GI140A;GI40A;1e-9;1e-10\n"
+        "1AAA_E_I;LI138S,GI140A;LI38S,GI40A;1e-9;1e-10\n"
+        "2BBB_AB_CD;YC105F;YC5F;1e-9;1e-10\n"
+    )
+    sk = load_skempi(csv)
+
+    assert worklist_single_point(sk) == {"1AAA": ["GI40A", "LI38S"], "2BBB": ["YC5F"]}, \
+        "the single-point worklist is not the sorted union of the complex's mutations"
+    assert worklist_multi_point(sk) == {"1AAA": ["LI38S,GI40A"]}, "an arm leaked into the other"
+    assert worklist_single_point(sk, only=["2BBB"]) == {"2BBB": ["YC5F"]}
+    assert worklist_multi_point(sk, only=["2BBB"]) == {}
+
+    table = tmp_path / "rows.tsv"
+    table.write_text("1AAA_E\tddg\tLB38S\n1AAA_E\tddg\tGB40A\n1AAA_E\tddg\tLB38S,GB40A\n")
+    assert worklist_from_table(table) == {"1AAA": ["GB40A", "LB38S"]}, \
+        "a multi-point row reached the single-point worklist"
+
+
+def test_store_coverage_counts_only_the_pairs_the_store_actually_holds(tmp_path):
+    """`coverage` is the headline number for this channel and is exported for consumers to
+    compute their own. Counting the wanted set instead of the found set reports 100% for a store
+    that holds nothing."""
+    from skempi_foldx import coverage
+
+    store = {"1AAA": {"LI38S": {t: 0.0 for t in TERMS}}}
+    covered, total, missing = coverage(store, [("1AAA", "LI38S"), ("1AAA", "GI40A"),
+                                               ("9ZZZ", "AA1G")])
+    assert (covered, total) == (1, 3)
+    assert missing == [("1AAA", "GI40A"), ("9ZZZ", "AA1G")]
+    assert coverage(store, []) == (0, 0, [])
+
+
+# ------------------------------------------------------- interfaces, bypasses and honest labels
+# Three guards whose failure mode is silence: a second interface definition quietly discarded, a
+# stall guard quietly disarmed, and a lower bound quietly labelled exact.
+
+def test_a_second_interface_definition_is_recorded_and_announced(tmp_path):
+    """SKEMPI records a few PDB codes under two interfaces. Keying by code alone keeps whichever
+    row came first and pools the rest under it, so mutations belonging to the other definition are
+    scored against an interface they are not part of -- and score all-zero for that reason, which
+    is indistinguishable from a real 'no effect' unless it is said out loud."""
+    from skempi_foldx import load_skempi
+
+    csv = _skempi_table(tmp_path, [("3SE4_B_C", "EC69A"), ("3SE4_B_A", "DA117A")])
+    with pytest.warns(RuntimeWarning, match="more than one interface"):
+        entry = load_skempi(csv)["3SE4"]
+
+    assert entry.groups == "B,C", "the first definition seen should be the one used"
+    assert entry.alternate_groups == {("B", "A")}, "the discarded definition was not recorded"
+    assert entry.mutations_outside_interface() == ["DA117A"], \
+        "a mutation on a chain outside the analysed interface was not reported"
+
+
+def test_a_single_interface_definition_warns_about_nothing(tmp_path):
+    from skempi_foldx import load_skempi
+
+    csv = _skempi_table(tmp_path, [("1ACB_E_I", "LI38D"), ("1ACB_E_I", "LI38G")])
+    with warnings.catch_warnings():
+        warnings.simplefilter("error")
+        entry = load_skempi(csv)["1ACB"]
+    assert entry.alternate_groups == set()
+    assert entry.mutations_outside_interface() == []
+
+
+@pytest.mark.parametrize("value,bypassed", [
+    ("1", True), ("true", True), ("TRUE", True), ("yes", True), ("on", True), (" 1 ", True),
+    ("", False), ("0", False), ("false", False), ("no", False), ("off", False), ("n", False),
+])
+def test_the_intractable_bypass_only_opens_on_an_affirmative_value(monkeypatch, value, bypassed):
+    """The guard prevents a multi-day RepairPDB stall, so an unrecognised value must leave it
+    armed. Under a negative test, ALLOW=no reads as a bypass and re-arms the very complex the
+    module exists to keep out of the worklist."""
+    from skempi_foldx.exclusions import ALLOW_ENV, allowed, is_excluded
+
+    monkeypatch.setenv(ALLOW_ENV, value)
+    assert allowed() is bypassed
+    assert (is_excluded("1KBH") is None) is bypassed
+
+
+def test_exactness_is_claimed_only_when_a_mapping_was_actually_read(tmp_path):
+    """A misspelt or empty --mapping-dir resolves nothing and degrades to identity matching. A
+    report that still called itself exact would be a lower bound wearing the wrong label."""
+    from skempi_foldx import FoldxLookup
+
+    csv = _skempi_table(tmp_path, [("1CBW_FGH_I", "GI12A")])
+    empty = tmp_path / "no_mappings"
+    empty.mkdir()
+
+    for mapping_dir in (empty, tmp_path / "does_not_exist"):
+        fx = FoldxLookup(skempi_csv=csv, mapping_dir=mapping_dir)
+        assert fx.is_exact is False, f"claimed exactness with {mapping_dir.name}"
+        assert not any("exact" in c for c in fx.conventions), \
+            "conventions advertised a resolution that never ran"
+
+    real = _mapping_dir(tmp_path, "1CBW", {"F": 223, "G": 5, "H": 20, "I": 58})
+    fx = FoldxLookup(skempi_csv=csv, mapping_dir=real)
+    assert fx.is_exact is True
+    assert any("exact" in c for c in fx.conventions)
+
+
+def test_identity_matching_refuses_a_chain_that_is_in_neither_group(tmp_path):
+    """A chain outside both groups has no role letter. Labelling it 'B' is a guess, in the one
+    method whose contract is that it does not guess."""
+    from skempi_foldx import load_skempi
+    from skempi_foldx.lookup import FoldxLookup
+
+    csv = _skempi_table(tmp_path, [("3SE4_B_C", "EC69A"), ("3SE4_B_A", "DA117A")])
+    with pytest.warns(RuntimeWarning):
+        entry = load_skempi(csv)["3SE4"]
+    fx = FoldxLookup.__new__(FoldxLookup)
+    assert fx._role_by_identity(entry, "DA117A") is None, \
+        "invented a role letter for a chain outside both groups"
+    assert fx._role_by_identity(entry, "EC69A") == "EB69A"

@@ -31,14 +31,19 @@ mutation — because they are subsets of the largest benchmark campaign.
 ## Coverage
 
 `coverage(store, wanted)` answers "how many of these `(pdb, mutation)` pairs does the store have",
-against an explicit wanted-set rather than an inferred one:
+against an explicit wanted-set rather than an inferred one. It performs no naming resolution, so
+the store must be keyed the same way as the wanted-set: `worklist_single_point` yields SKEMPI's
+author form, which is what `key="skempi"` selects. Reading the store with the default
+`key="stored"` and asking for author forms scores 3012 of 4337 rather than 4238 — the 69.4% figure
+this file warns about below. [FoldxLookup](USAGE.md) resolves the conventions instead of requiring
+them to be matched by hand:
 
 ```python
 from skempi_foldx import coverage, load_bundled_store, load_skempi, worklist_single_point
 
 sk = load_skempi("skempi_v2.csv")
 wanted = [(pdb, m) for pdb, muts in worklist_single_point(sk).items() for m in muts]
-covered, total, missing = coverage(load_bundled_store(), wanted)
+covered, total, missing = coverage(load_bundled_store(key="skempi"), wanted)
 ```
 
 Against everything SKEMPI defines, the shipped stores are:
@@ -147,12 +152,13 @@ are comparable to a repair-count series, and it is expensive to reconstruct afte
   repairing again, so they inherited the same single repair. There is no path by which an
   iterated structure entered this store.
 
-The on-disk check covers the single-point campaigns; the multi-point working directory has since
-been pruned, so for that arm the evidence is its builder's code alone.
+The on-disk check covers the single-point campaigns. The multi-point working directory is not
+retained, so for that arm the evidence is its builder's code alone.
 
-This store is also the **provenance record for a published set of ΔΔG model results**, which
-were computed from exactly these values. It stays available and citable for that reason,
-independent of any later store that improves on it.
+These values stay fixed and available even if a later store improves on them, because a result
+computed from this store can only be reproduced against this store. A mutation's energy depends
+on the whole list it was computed in, so a rebuilt store is a different measurement, not a
+correction of the same one.
 
 Two campaigns contributed the shipped single-point values, and `_source` on every record says
 which. They are not independent measurements of the same thing: where they overlap, the

@@ -276,8 +276,8 @@ def consolidate(
         # back up by any scope enumerated from results rather than from the curated table. Drop
         # it here so the store cannot re-arm the compute loop. Any other step that materialises a
         # unified results directory needs the same guard.
-        store = {pdb: recs for pdb, recs in store.items()
-                 if pdb in filter_complexes(list(store), on_note=None, context=name)}
+        keep = set(filter_complexes(list(store), on_note=None, context=name))
+        store = {pdb: recs for pdb, recs in store.items() if pdb in keep}
         contributed = 0
         unique_complexes = 0
         for pdb, records in store.items():

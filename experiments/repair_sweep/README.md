@@ -15,7 +15,7 @@ to all of SKEMPI.
 |---|---|
 | `../repair_ablation.py` | SP arm: `probe`, `run`, `sweep`, `compare` |
 | `sweep_mp.py` | MP arm — the half `sweep` omits. Reuses the SP repair chains verbatim. |
-| `residue_check.py` | Does any repair round change *which* mutations pass WT-residue validation? |
+| `residue_check.py` | whether a repair round changes *which* mutations pass WT-residue validation |
 | `list_hashes.py` | Hashes the `individual_list.txt` files BuildModel actually consumed |
 | `launch_sweep.sh` | SP launcher |
 | `chain_finalize.sh` | verify → MP build → verify → record provenance, in that order |

@@ -13,9 +13,10 @@ structure, so a numbering mismatch fails loudly instead of scoring the wrong res
 from __future__ import annotations
 
 import csv
+import warnings
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Dict, List, Optional, Sequence, Set, Tuple
+from typing import Dict, List, Sequence, Set, Tuple
 
 AA3TO1 = {
     "ALA": "A", "ARG": "R", "ASN": "N", "ASP": "D", "CYS": "C", "GLN": "Q",
@@ -63,11 +64,32 @@ class SkempiComplex:
     """Single-point cleaned mutation strings."""
     multi: Set[str] = field(default_factory=set)
     """Multi-point variants, as the raw comma-joined cleaned string."""
+    alternate_groups: Set[Tuple[str, str]] = field(default_factory=set)
+    """Other ``(group1, group2)`` pairs SKEMPI defines for this same PDB code.
+
+    Non-empty for the few complexes SKEMPI records under more than one interface. Only
+    :attr:`group1`/:attr:`group2` reach ``--analyseComplexChains``, so a mutation belonging to an
+    alternate definition is scored against an interface it is not part of. :func:`load_skempi`
+    warns when this happens; see :meth:`mutations_outside_interface`.
+    """
 
     @property
     def groups(self) -> str:
         """The ``--analyseComplexChains`` argument."""
         return f"{self.group1},{self.group2}"
+
+    def mutations_outside_interface(self) -> List[str]:
+        """Cleaned mutations touching a chain absent from :attr:`groups`, sorted.
+
+        Empty for all but the complexes carrying an :attr:`alternate_groups` definition. A
+        mutation listed here cannot be scored meaningfully against this interface: FoldX computes
+        the interaction energy of the named groups, so a substitution on a chain outside them
+        moves neither side of ``IE(mutant) - IE(wild-type)`` and returns all-zero terms that are
+        an artifact of the pairing, not a measurement of no effect.
+        """
+        known = set(self.group1 + self.group2)
+        return sorted(m for m in (self.single | self.multi)
+                      if not {p[1] for p in m.split(",") if len(p) > 1} <= known)
 
 
 def load_skempi(path: Path) -> Dict[str, SkempiComplex]:
@@ -90,7 +112,25 @@ def load_skempi(path: Path) -> Dict[str, SkempiComplex]:
                 continue
             pdb, group1, group2 = parts[0], parts[1], parts[2]
             entry = complexes.setdefault(pdb, SkempiComplex(pdb, group1, group2))
+            if (group1, group2) != (entry.group1, entry.group2):
+                entry.alternate_groups.add((group1, group2))
             (entry.multi if "," in cleaned else entry.single).add(cleaned)
+
+    # SKEMPI records a handful of PDB codes under two different interface definitions. Keying by
+    # code alone keeps whichever appeared first and pools every mutation under it, which silently
+    # scores the other definition's mutations against an interface they are not part of. The
+    # collapse is kept for continuity with the shipped store, but it is never silent.
+    for entry in complexes.values():
+        if entry.alternate_groups:
+            stray = entry.mutations_outside_interface()
+            warnings.warn(
+                f"{entry.pdb}: SKEMPI defines more than one interface "
+                f"({entry.groups} and "
+                f"{'; '.join(f'{a},{b}' for a, b in sorted(entry.alternate_groups))}). "
+                f"All mutations are pooled under {entry.groups}"
+                + (f", leaving {len(stray)} that mutate a chain outside it" if stray else "")
+                + ". See SkempiComplex.mutations_outside_interface().",
+                RuntimeWarning, stacklevel=2)
     return complexes
 
 
