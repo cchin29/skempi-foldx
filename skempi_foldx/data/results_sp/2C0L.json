@@ -1,0 +1,63 @@
+{
+ "muts": {
+  "NA48A": {
+   "Interaction Energy": 0.0046,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0,
+   "Electrostatics": 0.0,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": 0.0,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": 0.0046,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "cleaned": "NA48A",
+   "_source": "foldx_s1102_results_S4169"
+  },
+  "QA239R": {
+   "Interaction Energy": -0.0695,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0017,
+   "Van der Waals": 0.0,
+   "Electrostatics": -0.0434,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": 0.0,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": -0.0272,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "cleaned": "QA239R",
+   "_source": "foldx_s1102_results_S4169"
+  },
+  "SA242Y": {
+   "Interaction Energy": 0.0,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0,
+   "Electrostatics": 0.0,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": 0.0,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": 0.0,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "cleaned": "SA242Y",
+   "_source": "foldx_s1102_results_S4169"
+  }
+ },
+ "meta": {
+  "pdb": "2C0L",
+  "n_ds": 3,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 3,
+  "n_mutations": 3,
+  "sources": [
+   "foldx_s1102_results_S4169"
+  ]
+ }
+}

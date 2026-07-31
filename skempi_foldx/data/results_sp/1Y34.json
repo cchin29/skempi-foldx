@@ -1,0 +1,31 @@
+{
+ "muts": {
+  "AB41E": {
+   "Interaction Energy": -0.7225,
+   "Backbone Hbond": -0.14,
+   "Sidechain Hbond": -0.0783,
+   "Van der Waals": -0.1319,
+   "Electrostatics": -1.3587,
+   "Solvation Polar": 0.4725,
+   "Solvation Hydrophobic": -0.1722,
+   "Van der Waals clashes": 0.2503,
+   "entropy sidechain": -0.1416,
+   "entropy mainchain": -0.1977,
+   "torsional clash": 0.8101,
+   "backbone clash": -0.0015,
+   "cleaned": "AI41E",
+   "_source": "foldx_s1102_results_S4169"
+  }
+ },
+ "meta": {
+  "pdb": "1Y34",
+  "n_ds": 1,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 1,
+  "n_mutations": 1,
+  "sources": [
+   "foldx_s1102_results_S4169"
+  ]
+ }
+}

@@ -1,0 +1,31 @@
+{
+ "muts": {
+  "AB75N": {
+   "Interaction Energy": -0.5171,
+   "Backbone Hbond": -0.018,
+   "Sidechain Hbond": -0.0742,
+   "Van der Waals": -0.2969,
+   "Electrostatics": 0.0086,
+   "Solvation Polar": 0.4701,
+   "Solvation Hydrophobic": -0.1341,
+   "Van der Waals clashes": -0.0096,
+   "entropy sidechain": -0.0266,
+   "entropy mainchain": -0.4426,
+   "torsional clash": 0.0062,
+   "backbone clash": -0.0904,
+   "cleaned": "AB75N",
+   "_source": "foldx_s1102_results_S4169"
+  }
+ },
+ "meta": {
+  "pdb": "2VLN",
+  "n_ds": 1,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 1,
+  "n_mutations": 1,
+  "sources": [
+   "foldx_s1102_results_S4169"
+  ]
+ }
+}

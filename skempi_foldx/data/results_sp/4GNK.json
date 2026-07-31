@@ -1,0 +1,63 @@
+{
+ "muts": {
+  "KA294A": {
+   "Interaction Energy": -0.0034,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0,
+   "Electrostatics": -0.003,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": 0.0,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": 0.0,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "cleaned": "KA294A",
+   "_source": "foldx_s1102_results_S4169"
+  },
+  "LB764A": {
+   "Interaction Energy": 0.0,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0,
+   "Electrostatics": 0.0,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": 0.0,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": 0.0,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "cleaned": "LB764A",
+   "_source": "foldx_s1102_results_S4169"
+  },
+  "TB540E": {
+   "Interaction Energy": 0.0,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0,
+   "Electrostatics": 0.0,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": 0.0,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": 0.0,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "cleaned": "TB540E",
+   "_source": "foldx_s1102_results_S4169"
+  }
+ },
+ "meta": {
+  "pdb": "4GNK",
+  "n_ds": 3,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 3,
+  "n_mutations": 3,
+  "sources": [
+   "foldx_s1102_results_S4169"
+  ]
+ }
+}

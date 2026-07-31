@@ -1,0 +1,29 @@
+{
+ "variants": {
+  "TB28A,QB29A,EB90A,NB98A": {
+   "Interaction Energy": 3.8361,
+   "Backbone Hbond": 0.5947,
+   "Sidechain Hbond": 6.3931,
+   "Van der Waals": 2.7883,
+   "Electrostatics": 0.9458,
+   "Solvation Polar": -4.249,
+   "Solvation Hydrophobic": 2.4241,
+   "Van der Waals clashes": -1.6087,
+   "entropy sidechain": -2.8318,
+   "entropy mainchain": -0.6791,
+   "torsional clash": -0.102,
+   "backbone clash": 0.1057,
+   "_source": "foldx_skempi_full_results_multipoint"
+  }
+ },
+ "meta": {
+  "pdb": "3U82",
+  "n_variants": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "n_mutations": 1,
+  "sources": [
+   "foldx_skempi_full_results_multipoint"
+  ]
+ }
+}

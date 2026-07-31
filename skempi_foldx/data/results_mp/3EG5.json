@@ -1,0 +1,44 @@
+{
+ "variants": {
+  "TB73N,SB74N,HB75N": {
+   "Interaction Energy": -2.999,
+   "Backbone Hbond": -0.072,
+   "Sidechain Hbond": -2.9236,
+   "Van der Waals": -1.1324,
+   "Electrostatics": -0.8114,
+   "Solvation Polar": 2.5147,
+   "Solvation Hydrophobic": -0.6844,
+   "Van der Waals clashes": 0.0294,
+   "entropy sidechain": 0.8818,
+   "entropy mainchain": 0.0966,
+   "torsional clash": -0.0518,
+   "backbone clash": 0.3512,
+   "_source": "foldx_skempi_full_results_multipoint"
+  },
+  "TB73N,SB74N,HB75N,HA104F": {
+   "Interaction Energy": -0.9524,
+   "Backbone Hbond": -0.0292,
+   "Sidechain Hbond": -0.2802,
+   "Van der Waals": -0.1855,
+   "Electrostatics": -0.3016,
+   "Solvation Polar": 0.3395,
+   "Solvation Hydrophobic": -0.2915,
+   "Van der Waals clashes": 0.0393,
+   "entropy sidechain": 0.5817,
+   "entropy mainchain": -0.3624,
+   "torsional clash": -0.0055,
+   "backbone clash": 0.3097,
+   "_source": "foldx_skempi_full_results_multipoint"
+  }
+ },
+ "meta": {
+  "pdb": "3EG5",
+  "n_variants": 2,
+  "validation_failed": [],
+  "n_ok": 2,
+  "n_mutations": 2,
+  "sources": [
+   "foldx_skempi_full_results_multipoint"
+  ]
+ }
+}

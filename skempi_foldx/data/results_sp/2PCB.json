@@ -1,0 +1,111 @@
+{
+ "muts": {
+  "AA193F": {
+   "Interaction Energy": -0.6629,
+   "Backbone Hbond": -0.0046,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": -0.9856,
+   "Electrostatics": 0.0509,
+   "Solvation Polar": 0.9687,
+   "Solvation Hydrophobic": -1.3806,
+   "Van der Waals clashes": 0.1629,
+   "entropy sidechain": 0.5332,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0117,
+   "backbone clash": 0.5901,
+   "cleaned": "AA193F",
+   "_source": "foldx_s1102_results_S4169"
+  },
+  "DA34N": {
+   "Interaction Energy": -0.1947,
+   "Backbone Hbond": 0.7761,
+   "Sidechain Hbond": -0.1384,
+   "Van der Waals": 0.0717,
+   "Electrostatics": 0.3137,
+   "Solvation Polar": -0.6619,
+   "Solvation Hydrophobic": 0.0407,
+   "Van der Waals clashes": -0.0691,
+   "entropy sidechain": -0.7885,
+   "entropy mainchain": 0.0352,
+   "torsional clash": 0.0127,
+   "backbone clash": 0.0578,
+   "cleaned": "DA34N",
+   "_source": "foldx_s1102_results_S4169"
+  },
+  "EA290N": {
+   "Interaction Energy": 1.0981,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0784,
+   "Electrostatics": 0.6939,
+   "Solvation Polar": 0.0262,
+   "Solvation Hydrophobic": 0.1744,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": 0.187,
+   "entropy mainchain": -0.3209,
+   "torsional clash": 0.0,
+   "backbone clash": -0.0151,
+   "cleaned": "EA290N",
+   "_source": "foldx_s1102_results_S4169"
+  },
+  "EA291Q": {
+   "Interaction Energy": 0.0659,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0005,
+   "Electrostatics": 0.0606,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": 0.0009,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": -0.0371,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "cleaned": "EA291Q",
+   "_source": "foldx_s1102_results_S4169"
+  },
+  "EA32Q": {
+   "Interaction Energy": -0.551,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": -0.0685,
+   "Electrostatics": 0.1409,
+   "Solvation Polar": 0.1191,
+   "Solvation Hydrophobic": -0.0865,
+   "Van der Waals clashes": -0.0006,
+   "entropy sidechain": 0.0593,
+   "entropy mainchain": -0.7999,
+   "torsional clash": 0.0088,
+   "backbone clash": 0.0104,
+   "cleaned": "EA32Q",
+   "_source": "foldx_s1102_results_S4169"
+  },
+  "EA35Q": {
+   "Interaction Energy": -0.3515,
+   "Backbone Hbond": 0.0268,
+   "Sidechain Hbond": -0.0013,
+   "Van der Waals": -0.0796,
+   "Electrostatics": 0.1521,
+   "Solvation Polar": -0.0593,
+   "Solvation Hydrophobic": -0.1041,
+   "Van der Waals clashes": 0.0019,
+   "entropy sidechain": -0.3362,
+   "entropy mainchain": -0.0138,
+   "torsional clash": -0.0004,
+   "backbone clash": 0.0068,
+   "cleaned": "EA35Q",
+   "_source": "foldx_s1102_results_S4169"
+  }
+ },
+ "meta": {
+  "pdb": "2PCB",
+  "n_ds": 6,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 6,
+  "n_mutations": 6,
+  "sources": [
+   "foldx_s1102_results_S4169"
+  ]
+ }
+}

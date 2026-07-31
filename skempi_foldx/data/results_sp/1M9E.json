@@ -1,0 +1,31 @@
+{
+ "muts": {
+  "AB76H": {
+   "Interaction Energy": -1.1671,
+   "Backbone Hbond": -0.5419,
+   "Sidechain Hbond": -0.6572,
+   "Van der Waals": -0.8637,
+   "Electrostatics": 0.228,
+   "Solvation Polar": 1.9722,
+   "Solvation Hydrophobic": -0.6984,
+   "Van der Waals clashes": 0.0154,
+   "entropy sidechain": -0.0944,
+   "entropy mainchain": -0.7192,
+   "torsional clash": 0.002,
+   "backbone clash": 0.2737,
+   "cleaned": "AD76H",
+   "_source": "foldx_s1102_results_S4169"
+  }
+ },
+ "meta": {
+  "pdb": "1M9E",
+  "n_ds": 1,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 1,
+  "n_mutations": 1,
+  "sources": [
+   "foldx_s1102_results_S4169"
+  ]
+ }
+}

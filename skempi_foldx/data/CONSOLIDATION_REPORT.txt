@@ -1,0 +1,38 @@
+Single-point store
+========================================
+322 complexes / 4238 mutations
+
+contribution by source (in precedence order):
+  foldx_skempi_full_results      1744 mutations    112 complexes not present in any higher-precedence source
+  foldx_s1102_results_S4169      2494 mutations    210 complexes not present in any higher-precedence source
+  foldx_s1102_results_S2003         0 mutations      0 complexes not present in any higher-precedence source
+  foldx_s1102_results_S1131         0 mutations      0 complexes not present in any higher-precedence source
+  foldx_s1102_results               0 mutations      0 complexes not present in any higher-precedence source
+
+sources contributing nothing unique (safe to retire):
+  foldx_s1102_results_S2003
+  foldx_s1102_results_S1131
+  foldx_s1102_results
+
+1970 mutations present in more than one source with differing values. FoldX is deterministic -- this means the sources passed different mutation lists to BuildModel. See docs/DETERMINISM.md:
+  1PPF     GB32Y        max|Δ| 12.831  (foldx_s1102_results_S4169 kept over foldx_s1102_results)
+  1PPF     LB18W        max|Δ| 7.286  (foldx_s1102_results_S4169 kept over foldx_s1102_results_S2003)
+  1PPF     LB18F        max|Δ| 6.453  (foldx_s1102_results_S4169 kept over foldx_s1102_results_S1131)
+  1EAW     YA52A        max|Δ| 6.095  (foldx_s1102_results_S4169 kept over foldx_s1102_results_S1131)
+  4CPA     VB37I        max|Δ| 6.008  (foldx_s1102_results_S4169 kept over foldx_s1102_results_S2003)
+  1EAW     YA52A        max|Δ| 5.702  (foldx_s1102_results_S4169 kept over foldx_s1102_results)
+  3SGB     TB11Y        max|Δ| 5.597  (foldx_s1102_results_S4169 kept over foldx_s1102_results_S2003)
+  4CPA     VB37F        max|Δ| 5.520  (foldx_s1102_results_S4169 kept over foldx_s1102_results_S2003)
+  1PPF     GB32K        max|Δ| 5.340  (foldx_s1102_results_S4169 kept over foldx_s1102_results)
+  1R0R     EB14W        max|Δ| 3.954  (foldx_s1102_results_S4169 kept over foldx_s1102_results_S2003)
+
+Excluded by skempi_foldx/exclusions.py (never computed, never shipped):
+  1KBH -- RepairPDB does not terminate; see docs/DETERMINISM.md
+
+Multi-point store
+========================================
+152 complexes / 1765 mutations
+
+contribution by source (in precedence order):
+  foldx_skempi_full_results_multipoint   1765 mutations    152 complexes not present in any higher-precedence source
+

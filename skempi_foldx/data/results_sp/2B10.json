@@ -1,0 +1,31 @@
+{
+ "muts": {
+  "SB87F": {
+   "Interaction Energy": 0.2626,
+   "Backbone Hbond": 0.6175,
+   "Sidechain Hbond": 0.7623,
+   "Van der Waals": -0.1554,
+   "Electrostatics": -0.0155,
+   "Solvation Polar": 0.0852,
+   "Solvation Hydrophobic": -0.2978,
+   "Van der Waals clashes": -0.6538,
+   "entropy sidechain": -0.1178,
+   "entropy mainchain": 0.0197,
+   "torsional clash": 0.0125,
+   "backbone clash": -0.1431,
+   "cleaned": "SB87F",
+   "_source": "foldx_s1102_results_S4169"
+  }
+ },
+ "meta": {
+  "pdb": "2B10",
+  "n_ds": 1,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 1,
+  "n_mutations": 1,
+  "sources": [
+   "foldx_s1102_results_S4169"
+  ]
+ }
+}

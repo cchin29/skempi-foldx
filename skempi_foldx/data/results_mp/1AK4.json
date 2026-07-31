@@ -1,0 +1,29 @@
+{
+ "variants": {
+  "LD83T,VD86P,HD87A,AD88M,ID91L,AD92P,MD96I": {
+   "Interaction Energy": -2.0622,
+   "Backbone Hbond": -0.1735,
+   "Sidechain Hbond": -0.0635,
+   "Van der Waals": -1.6544,
+   "Electrostatics": 0.0576,
+   "Solvation Polar": 0.9511,
+   "Solvation Hydrophobic": -2.5222,
+   "Van der Waals clashes": 0.0084,
+   "entropy sidechain": 1.7631,
+   "entropy mainchain": -0.2781,
+   "torsional clash": -0.1501,
+   "backbone clash": 0.3253,
+   "_source": "foldx_skempi_full_results_multipoint"
+  }
+ },
+ "meta": {
+  "pdb": "1AK4",
+  "n_variants": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "n_mutations": 1,
+  "sources": [
+   "foldx_skempi_full_results_multipoint"
+  ]
+ }
+}

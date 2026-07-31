@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.venv*/
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.DS_Store
+
+# FoldX working directories: gigabytes of .fxout/.pdb intermediates. Regenerable --
+# but NOT before list_hashes.py has run, because individual_list.txt lives here and it is
+# the only record of what BuildModel actually consumed. See docs/DETERMINISM.md.
+scratch/
+work/
+work_*/

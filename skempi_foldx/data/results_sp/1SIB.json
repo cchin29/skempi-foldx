@@ -1,0 +1,31 @@
+{
+ "muts": {
+  "KB46R": {
+   "Interaction Energy": -0.946,
+   "Backbone Hbond": -0.1431,
+   "Sidechain Hbond": -0.1034,
+   "Van der Waals": -0.0526,
+   "Electrostatics": -0.4454,
+   "Solvation Polar": 0.3809,
+   "Solvation Hydrophobic": 0.1152,
+   "Van der Waals clashes": 0.0024,
+   "entropy sidechain": -0.3973,
+   "entropy mainchain": -0.1929,
+   "torsional clash": 0.0592,
+   "backbone clash": 0.0792,
+   "cleaned": "KI46R",
+   "_source": "foldx_s1102_results_S4169"
+  }
+ },
+ "meta": {
+  "pdb": "1SIB",
+  "n_ds": 1,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 1,
+  "n_mutations": 1,
+  "sources": [
+   "foldx_s1102_results_S4169"
+  ]
+ }
+}

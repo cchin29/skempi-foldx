@@ -1,0 +1,47 @@
+{
+ "muts": {
+  "NA263R": {
+   "Interaction Energy": 1.2768,
+   "Backbone Hbond": 0.204,
+   "Sidechain Hbond": 0.3998,
+   "Van der Waals": -0.8581,
+   "Electrostatics": 0.2004,
+   "Solvation Polar": 1.3912,
+   "Solvation Hydrophobic": -0.8756,
+   "Van der Waals clashes": 0.0765,
+   "entropy sidechain": 0.3052,
+   "entropy mainchain": 0.328,
+   "torsional clash": 0.0726,
+   "backbone clash": -0.0629,
+   "cleaned": "NA263R",
+   "_source": "foldx_s1102_results_S4169"
+  },
+  "RA201E": {
+   "Interaction Energy": 5.2694,
+   "Backbone Hbond": -0.0295,
+   "Sidechain Hbond": 1.5962,
+   "Van der Waals": 0.2104,
+   "Electrostatics": 3.6229,
+   "Solvation Polar": -0.2875,
+   "Solvation Hydrophobic": 0.1009,
+   "Van der Waals clashes": 0.0109,
+   "entropy sidechain": -0.6686,
+   "entropy mainchain": -0.0101,
+   "torsional clash": -0.0014,
+   "backbone clash": 0.2287,
+   "cleaned": "RA201E",
+   "_source": "foldx_s1102_results_S4169"
+  }
+ },
+ "meta": {
+  "pdb": "4WND",
+  "n_ds": 2,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 2,
+  "n_mutations": 2,
+  "sources": [
+   "foldx_s1102_results_S4169"
+  ]
+ }
+}

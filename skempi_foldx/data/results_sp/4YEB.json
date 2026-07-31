@@ -1,0 +1,79 @@
+{
+ "muts": {
+  "AA114S": {
+   "Interaction Energy": 0.0,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0,
+   "Electrostatics": 0.0,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": 0.0,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": 0.0,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "cleaned": "AA114S",
+   "_source": "foldx_s1102_results_S4169"
+  },
+  "DA133A": {
+   "Interaction Energy": 0.0887,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0093,
+   "Electrostatics": 0.03,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": 0.0215,
+   "Van der Waals clashes": -0.0001,
+   "entropy sidechain": 0.0213,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "cleaned": "DA133A",
+   "_source": "foldx_s1102_results_S4169"
+  },
+  "FB131A": {
+   "Interaction Energy": 1.3298,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0405,
+   "Van der Waals": 0.4445,
+   "Electrostatics": 0.1396,
+   "Solvation Polar": -0.26,
+   "Solvation Hydrophobic": 0.6157,
+   "Van der Waals clashes": -0.0159,
+   "entropy sidechain": 0.3752,
+   "entropy mainchain": 0.0,
+   "torsional clash": -0.0098,
+   "backbone clash": 0.0,
+   "cleaned": "FB131A",
+   "_source": "foldx_s1102_results_S4169"
+  },
+  "RB88T": {
+   "Interaction Energy": 0.0,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0,
+   "Electrostatics": 0.0,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": 0.0,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": 0.0,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "cleaned": "RB88T",
+   "_source": "foldx_s1102_results_S4169"
+  }
+ },
+ "meta": {
+  "pdb": "4YEB",
+  "n_ds": 4,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 4,
+  "n_mutations": 4,
+  "sources": [
+   "foldx_s1102_results_S4169"
+  ]
+ }
+}

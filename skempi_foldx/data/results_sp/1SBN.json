@@ -1,0 +1,31 @@
+{
+ "muts": {
+  "RB38K": {
+   "Interaction Energy": -0.4204,
+   "Backbone Hbond": 0.011,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.6603,
+   "Electrostatics": 0.8122,
+   "Solvation Polar": -1.5822,
+   "Solvation Hydrophobic": -0.2017,
+   "Van der Waals clashes": -0.0153,
+   "entropy sidechain": -0.352,
+   "entropy mainchain": 0.1677,
+   "torsional clash": -0.0036,
+   "backbone clash": -0.3205,
+   "cleaned": "RI38K",
+   "_source": "foldx_s1102_results_S4169"
+  }
+ },
+ "meta": {
+  "pdb": "1SBN",
+  "n_ds": 1,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 1,
+  "n_mutations": 1,
+  "sources": [
+   "foldx_s1102_results_S4169"
+  ]
+ }
+}

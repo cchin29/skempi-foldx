@@ -1,0 +1,31 @@
+{
+ "muts": {
+  "AA167W": {
+   "Interaction Energy": 0.022,
+   "Backbone Hbond": 0.0147,
+   "Sidechain Hbond": -0.603,
+   "Van der Waals": -0.1842,
+   "Electrostatics": 0.0056,
+   "Solvation Polar": 0.1676,
+   "Solvation Hydrophobic": -0.1564,
+   "Van der Waals clashes": 0.4596,
+   "entropy sidechain": 0.3031,
+   "entropy mainchain": 0.0133,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0003,
+   "cleaned": "AA167W",
+   "_source": "foldx_skempi_full_results"
+  }
+ },
+ "meta": {
+  "pdb": "2JCC",
+  "n_ds": 1,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 1,
+  "n_mutations": 1,
+  "sources": [
+   "foldx_skempi_full_results"
+  ]
+ }
+}

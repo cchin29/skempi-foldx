@@ -1,0 +1,29 @@
+{
+ "variants": {
+  "DA52A,EA53A": {
+   "Interaction Energy": 0.2602,
+   "Backbone Hbond": -0.0092,
+   "Sidechain Hbond": -0.0126,
+   "Van der Waals": -0.01,
+   "Electrostatics": 0.0789,
+   "Solvation Polar": 0.0039,
+   "Solvation Hydrophobic": -0.0181,
+   "Van der Waals clashes": -0.0372,
+   "entropy sidechain": -0.0027,
+   "entropy mainchain": 0.2062,
+   "torsional clash": -0.0017,
+   "backbone clash": -0.0853,
+   "_source": "foldx_skempi_full_results_multipoint"
+  }
+ },
+ "meta": {
+  "pdb": "1E50",
+  "n_variants": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "n_mutations": 1,
+  "sources": [
+   "foldx_skempi_full_results_multipoint"
+  ]
+ }
+}

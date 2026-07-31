@@ -1,0 +1,47 @@
+{
+ "muts": {
+  "IA12A": {
+   "Interaction Energy": 3.3817,
+   "Backbone Hbond": 0.0565,
+   "Sidechain Hbond": 0.0656,
+   "Van der Waals": 1.6367,
+   "Electrostatics": 0.1472,
+   "Solvation Polar": -0.86,
+   "Solvation Hydrophobic": 2.959,
+   "Van der Waals clashes": -0.0128,
+   "entropy sidechain": -0.9259,
+   "entropy mainchain": 0.3312,
+   "torsional clash": -0.0158,
+   "backbone clash": -0.1066,
+   "cleaned": "IA12A",
+   "_source": "foldx_s1102_results_S4169"
+  },
+  "TA13H": {
+   "Interaction Energy": 1.6515,
+   "Backbone Hbond": -0.0007,
+   "Sidechain Hbond": 0.8169,
+   "Van der Waals": -0.2324,
+   "Electrostatics": -0.9102,
+   "Solvation Polar": 0.8884,
+   "Solvation Hydrophobic": -0.2605,
+   "Van der Waals clashes": 0.0566,
+   "entropy sidechain": 1.3464,
+   "entropy mainchain": 0.026,
+   "torsional clash": -0.0209,
+   "backbone clash": -0.0626,
+   "cleaned": "TA13H",
+   "_source": "foldx_s1102_results_S4169"
+  }
+ },
+ "meta": {
+  "pdb": "1EFN",
+  "n_ds": 2,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 2,
+  "n_mutations": 2,
+  "sources": [
+   "foldx_s1102_results_S4169"
+  ]
+ }
+}

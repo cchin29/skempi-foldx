@@ -1,0 +1,31 @@
+{
+ "muts": {
+  "RA177H": {
+   "Interaction Energy": 0.6824,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0985,
+   "Electrostatics": 0.4169,
+   "Solvation Polar": -0.2341,
+   "Solvation Hydrophobic": 0.0106,
+   "Van der Waals clashes": -0.0012,
+   "entropy sidechain": 0.0618,
+   "entropy mainchain": -0.005,
+   "torsional clash": -0.0019,
+   "backbone clash": -0.0006,
+   "cleaned": "RA177H",
+   "_source": "foldx_s1102_results_S4169"
+  }
+ },
+ "meta": {
+  "pdb": "1YCS",
+  "n_ds": 1,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 1,
+  "n_mutations": 1,
+  "sources": [
+   "foldx_s1102_results_S4169"
+  ]
+ }
+}

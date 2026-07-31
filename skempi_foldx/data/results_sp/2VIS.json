@@ -1,0 +1,31 @@
+{
+ "muts": {
+  "IC89T": {
+   "Interaction Energy": 1.2215,
+   "Backbone Hbond": 0.0298,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.2817,
+   "Electrostatics": 0.0,
+   "Solvation Polar": 0.2933,
+   "Solvation Hydrophobic": 0.8175,
+   "Van der Waals clashes": -0.0235,
+   "entropy sidechain": -0.282,
+   "entropy mainchain": 0.1115,
+   "torsional clash": -0.0069,
+   "backbone clash": -0.0483,
+   "cleaned": "IC89T",
+   "_source": "foldx_skempi_full_results"
+  }
+ },
+ "meta": {
+  "pdb": "2VIS",
+  "n_ds": 1,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 1,
+  "n_mutations": 1,
+  "sources": [
+   "foldx_skempi_full_results"
+  ]
+ }
+}

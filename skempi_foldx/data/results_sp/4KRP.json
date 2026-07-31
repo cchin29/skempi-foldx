@@ -1,0 +1,31 @@
+{
+ "muts": {
+  "EB105A": {
+   "Interaction Energy": 1.0372,
+   "Backbone Hbond": 0.0488,
+   "Sidechain Hbond": 1.7084,
+   "Van der Waals": 1.0245,
+   "Electrostatics": 1.5159,
+   "Solvation Polar": -2.6556,
+   "Solvation Hydrophobic": 0.8023,
+   "Van der Waals clashes": -0.0304,
+   "entropy sidechain": -1.7183,
+   "entropy mainchain": 0.0067,
+   "torsional clash": -0.0118,
+   "backbone clash": -0.0533,
+   "cleaned": "EB105A",
+   "_source": "foldx_s1102_results_S4169"
+  }
+ },
+ "meta": {
+  "pdb": "4KRP",
+  "n_ds": 1,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 1,
+  "n_mutations": 1,
+  "sources": [
+   "foldx_s1102_results_S4169"
+  ]
+ }
+}

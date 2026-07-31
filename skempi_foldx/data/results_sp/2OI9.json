@@ -1,0 +1,31 @@
+{
+ "muts": {
+  "FQ5R": {
+   "Interaction Energy": 0.0249,
+   "Backbone Hbond": -0.2948,
+   "Sidechain Hbond": -2.2667,
+   "Van der Waals": -0.5225,
+   "Electrostatics": -0.1078,
+   "Solvation Polar": 1.6743,
+   "Solvation Hydrophobic": 0.3631,
+   "Van der Waals clashes": 0.1864,
+   "entropy sidechain": 0.9563,
+   "entropy mainchain": 0.018,
+   "torsional clash": 0.0208,
+   "backbone clash": 0.117,
+   "cleaned": "FQ5R",
+   "_source": "foldx_skempi_full_results"
+  }
+ },
+ "meta": {
+  "pdb": "2OI9",
+  "n_ds": 1,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 1,
+  "n_mutations": 1,
+  "sources": [
+   "foldx_skempi_full_results"
+  ]
+ }
+}

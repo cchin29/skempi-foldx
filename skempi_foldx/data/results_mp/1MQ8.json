@@ -1,0 +1,119 @@
+{
+ "variants": {
+  "CB32L,CB170F": {
+   "Interaction Energy": 0.0,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0,
+   "Electrostatics": 0.0,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": 0.0,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": 0.0,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "_source": "foldx_skempi_full_results_multipoint"
+  },
+  "CB32L,CB170F,KB158C,KB165C": {
+   "Interaction Energy": 0.0004,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0,
+   "Electrostatics": 0.0001,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": 0.0,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": 0.0002,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "_source": "foldx_skempi_full_results_multipoint"
+  },
+  "CB32L,CB170F,EB155C,EB172C": {
+   "Interaction Energy": 0.0,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0,
+   "Electrostatics": 0.0,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": 0.0,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": 0.0,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "_source": "foldx_skempi_full_results_multipoint"
+  },
+  "CB32L,CB170F,KB31C,TB171C": {
+   "Interaction Energy": 0.0,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0,
+   "Electrostatics": 0.0,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": 0.0,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": 0.0,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "_source": "foldx_skempi_full_results_multipoint"
+  },
+  "CB32L,CB170F,LB160C,KB165C": {
+   "Interaction Energy": 0.0,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0,
+   "Electrostatics": 0.0,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": 0.0,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": 0.0,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "_source": "foldx_skempi_full_results_multipoint"
+  },
+  "CB32L,KB31C": {
+   "Interaction Energy": 0.0,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0,
+   "Electrostatics": 0.0,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": 0.0,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": 0.0,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "_source": "foldx_skempi_full_results_multipoint"
+  },
+  "CB170F,TB171C": {
+   "Interaction Energy": 0.0,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0,
+   "Electrostatics": 0.0,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": 0.0,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": 0.0,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "_source": "foldx_skempi_full_results_multipoint"
+  }
+ },
+ "meta": {
+  "pdb": "1MQ8",
+  "n_variants": 7,
+  "validation_failed": [],
+  "n_ok": 7,
+  "n_mutations": 7,
+  "sources": [
+   "foldx_skempi_full_results_multipoint"
+  ]
+ }
+}

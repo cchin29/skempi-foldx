@@ -1,0 +1,31 @@
+{
+ "muts": {
+  "AB95K": {
+   "Interaction Energy": -3.011,
+   "Backbone Hbond": -0.082,
+   "Sidechain Hbond": -1.1842,
+   "Van der Waals": -1.2609,
+   "Electrostatics": -1.4027,
+   "Solvation Polar": 2.3598,
+   "Solvation Hydrophobic": -1.7506,
+   "Van der Waals clashes": 0.043,
+   "entropy sidechain": 0.5068,
+   "entropy mainchain": 0.0094,
+   "torsional clash": 0.006,
+   "backbone clash": 0.0345,
+   "cleaned": "AB95K",
+   "_source": "foldx_s1102_results_S4169"
+  }
+ },
+ "meta": {
+  "pdb": "2VLO",
+  "n_ds": 1,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 1,
+  "n_mutations": 1,
+  "sources": [
+   "foldx_s1102_results_S4169"
+  ]
+ }
+}

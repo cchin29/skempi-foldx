@@ -1,0 +1,29 @@
+{
+ "variants": {
+  "GB8F,QB9K,SB65Q,HB67V,VB69M": {
+   "Interaction Energy": -1.7493,
+   "Backbone Hbond": 0.0165,
+   "Sidechain Hbond": 0.9416,
+   "Van der Waals": -1.5127,
+   "Electrostatics": -0.1683,
+   "Solvation Polar": 0.6072,
+   "Solvation Hydrophobic": -2.5163,
+   "Van der Waals clashes": 0.3464,
+   "entropy sidechain": 1.1035,
+   "entropy mainchain": -0.3543,
+   "torsional clash": -0.0066,
+   "backbone clash": 0.7156,
+   "_source": "foldx_skempi_full_results_multipoint"
+  }
+ },
+ "meta": {
+  "pdb": "3M63",
+  "n_variants": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "n_mutations": 1,
+  "sources": [
+   "foldx_skempi_full_results_multipoint"
+  ]
+ }
+}

@@ -1,0 +1,31 @@
+{
+ "muts": {
+  "RY45K": {
+   "Interaction Energy": 3.1536,
+   "Backbone Hbond": 1.4053,
+   "Sidechain Hbond": 1.9217,
+   "Van der Waals": 1.3487,
+   "Electrostatics": 0.04,
+   "Solvation Polar": -0.8525,
+   "Solvation Hydrophobic": 0.7114,
+   "Van der Waals clashes": -0.5407,
+   "entropy sidechain": -0.2841,
+   "entropy mainchain": -0.663,
+   "torsional clash": -0.0635,
+   "backbone clash": -0.328,
+   "cleaned": "RY45K",
+   "_source": "foldx_skempi_full_results"
+  }
+ },
+ "meta": {
+  "pdb": "1YQV",
+  "n_ds": 1,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 1,
+  "n_mutations": 1,
+  "sources": [
+   "foldx_skempi_full_results"
+  ]
+ }
+}

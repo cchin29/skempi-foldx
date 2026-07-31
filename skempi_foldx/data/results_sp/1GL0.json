@@ -1,0 +1,31 @@
+{
+ "muts": {
+  "MB28K": {
+   "Interaction Energy": -0.0588,
+   "Backbone Hbond": -0.6465,
+   "Sidechain Hbond": -0.6399,
+   "Van der Waals": -0.3925,
+   "Electrostatics": -0.1014,
+   "Solvation Polar": 1.3337,
+   "Solvation Hydrophobic": -0.3102,
+   "Van der Waals clashes": 0.0864,
+   "entropy sidechain": 0.6029,
+   "entropy mainchain": 0.1058,
+   "torsional clash": -0.008,
+   "backbone clash": 0.214,
+   "cleaned": "MI28K",
+   "_source": "foldx_s1102_results_S4169"
+  }
+ },
+ "meta": {
+  "pdb": "1GL0",
+  "n_ds": 1,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 1,
+  "n_mutations": 1,
+  "sources": [
+   "foldx_s1102_results_S4169"
+  ]
+ }
+}

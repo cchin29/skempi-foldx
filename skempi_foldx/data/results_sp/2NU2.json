@@ -1,0 +1,31 @@
+{
+ "muts": {
+  "RB13L": {
+   "Interaction Energy": 1.3913,
+   "Backbone Hbond": 1.9331,
+   "Sidechain Hbond": 1.8456,
+   "Van der Waals": 0.4034,
+   "Electrostatics": 0.2079,
+   "Solvation Polar": -1.7954,
+   "Solvation Hydrophobic": -1.3729,
+   "Van der Waals clashes": 0.2595,
+   "entropy sidechain": -0.5665,
+   "entropy mainchain": 0.5159,
+   "torsional clash": -0.0972,
+   "backbone clash": 0.037,
+   "cleaned": "RI13L",
+   "_source": "foldx_s1102_results_S4169"
+  }
+ },
+ "meta": {
+  "pdb": "2NU2",
+  "n_ds": 1,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 1,
+  "n_mutations": 1,
+  "sources": [
+   "foldx_s1102_results_S4169"
+  ]
+ }
+}

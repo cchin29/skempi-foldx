@@ -1,0 +1,29 @@
+{
+ "variants": {
+  "LC34G,VC35D": {
+   "Interaction Energy": 5.5467,
+   "Backbone Hbond": 0.0011,
+   "Sidechain Hbond": 0.0216,
+   "Van der Waals": 1.8362,
+   "Electrostatics": -0.2957,
+   "Solvation Polar": 0.624,
+   "Solvation Hydrophobic": 3.9156,
+   "Van der Waals clashes": -0.029,
+   "entropy sidechain": -0.3042,
+   "entropy mainchain": -0.3152,
+   "torsional clash": -0.0194,
+   "backbone clash": -0.0948,
+   "_source": "foldx_skempi_full_results_multipoint"
+  }
+ },
+ "meta": {
+  "pdb": "4CVW",
+  "n_variants": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "n_mutations": 1,
+  "sources": [
+   "foldx_skempi_full_results_multipoint"
+  ]
+ }
+}

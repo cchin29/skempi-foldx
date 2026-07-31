@@ -1,0 +1,47 @@
+{
+ "muts": {
+  "AB66V": {
+   "Interaction Energy": -0.8229,
+   "Backbone Hbond": -0.0726,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": -0.4062,
+   "Electrostatics": -0.181,
+   "Solvation Polar": 0.4281,
+   "Solvation Hydrophobic": -0.6991,
+   "Van der Waals clashes": 0.207,
+   "entropy sidechain": -0.1411,
+   "entropy mainchain": -0.0028,
+   "torsional clash": 0.0448,
+   "backbone clash": 0.0803,
+   "cleaned": "AC66V",
+   "_source": "foldx_s1102_results_S4169"
+  },
+  "RB101G": {
+   "Interaction Energy": 0.0,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0,
+   "Electrostatics": 0.0,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": 0.0,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": 0.0,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "cleaned": "RC101G",
+   "_source": "foldx_s1102_results_S4169"
+  }
+ },
+ "meta": {
+  "pdb": "4RA0",
+  "n_ds": 2,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 2,
+  "n_mutations": 2,
+  "sources": [
+   "foldx_s1102_results_S4169"
+  ]
+ }
+}

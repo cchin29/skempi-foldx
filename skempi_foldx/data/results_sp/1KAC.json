@@ -1,0 +1,47 @@
+{
+ "muts": {
+  "PA15S": {
+   "Interaction Energy": 0.3433,
+   "Backbone Hbond": 0.0109,
+   "Sidechain Hbond": -1.4516,
+   "Van der Waals": 0.3917,
+   "Electrostatics": 0.229,
+   "Solvation Polar": -0.2614,
+   "Solvation Hydrophobic": 1.1659,
+   "Van der Waals clashes": -0.0006,
+   "entropy sidechain": 0.236,
+   "entropy mainchain": 0.0361,
+   "torsional clash": -0.0128,
+   "backbone clash": -0.0014,
+   "cleaned": "PA15S",
+   "_source": "foldx_s1102_results_S4169"
+  },
+  "SA87Y": {
+   "Interaction Energy": -2.6571,
+   "Backbone Hbond": -1.0022,
+   "Sidechain Hbond": -0.8797,
+   "Van der Waals": -1.2536,
+   "Electrostatics": -0.0209,
+   "Solvation Polar": 1.1441,
+   "Solvation Hydrophobic": -1.5502,
+   "Van der Waals clashes": 0.1542,
+   "entropy sidechain": 0.6772,
+   "entropy mainchain": 0.0507,
+   "torsional clash": 0.0232,
+   "backbone clash": 0.1275,
+   "cleaned": "SA87Y",
+   "_source": "foldx_s1102_results_S4169"
+  }
+ },
+ "meta": {
+  "pdb": "1KAC",
+  "n_ds": 2,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 2,
+  "n_mutations": 2,
+  "sources": [
+   "foldx_s1102_results_S4169"
+  ]
+ }
+}

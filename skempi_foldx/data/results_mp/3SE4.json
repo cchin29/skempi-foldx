@@ -1,0 +1,44 @@
+{
+ "variants": {
+  "KB134A,EC69A": {
+   "Interaction Energy": -0.1198,
+   "Backbone Hbond": -0.0626,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.4002,
+   "Electrostatics": 0.132,
+   "Solvation Polar": -0.4712,
+   "Solvation Hydrophobic": 0.6289,
+   "Van der Waals clashes": -0.1745,
+   "entropy sidechain": -0.1177,
+   "entropy mainchain": -0.4549,
+   "torsional clash": -0.0001,
+   "backbone clash": 0.1039,
+   "_source": "foldx_skempi_full_results_multipoint"
+  },
+  "KB134R,EC69A": {
+   "Interaction Energy": -0.3153,
+   "Backbone Hbond": -0.0112,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": -0.0726,
+   "Electrostatics": -0.1219,
+   "Solvation Polar": 0.1163,
+   "Solvation Hydrophobic": 0.2034,
+   "Van der Waals clashes": -0.1524,
+   "entropy sidechain": -0.093,
+   "entropy mainchain": -0.1979,
+   "torsional clash": 0.0048,
+   "backbone clash": 0.0609,
+   "_source": "foldx_skempi_full_results_multipoint"
+  }
+ },
+ "meta": {
+  "pdb": "3SE4",
+  "n_variants": 2,
+  "validation_failed": [],
+  "n_ok": 2,
+  "n_mutations": 2,
+  "sources": [
+   "foldx_skempi_full_results_multipoint"
+  ]
+ }
+}

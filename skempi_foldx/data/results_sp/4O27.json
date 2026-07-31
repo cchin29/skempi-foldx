@@ -1,0 +1,79 @@
+{
+ "muts": {
+  "EB122A": {
+   "Interaction Energy": 0.3441,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.7505,
+   "Van der Waals": 0.2804,
+   "Electrostatics": 0.947,
+   "Solvation Polar": -1.1161,
+   "Solvation Hydrophobic": 0.1871,
+   "Van der Waals clashes": -0.0033,
+   "entropy sidechain": -0.4564,
+   "entropy mainchain": -0.1416,
+   "torsional clash": -0.0019,
+   "backbone clash": 0.0,
+   "cleaned": "EB122A",
+   "_source": "foldx_s1102_results_S4169"
+  },
+  "EB42A": {
+   "Interaction Energy": 1.26,
+   "Backbone Hbond": 0.5177,
+   "Sidechain Hbond": 0.8207,
+   "Van der Waals": 0.9281,
+   "Electrostatics": 0.3853,
+   "Solvation Polar": -2.7438,
+   "Solvation Hydrophobic": 0.5365,
+   "Van der Waals clashes": -0.3432,
+   "entropy sidechain": 0.7111,
+   "entropy mainchain": -0.0448,
+   "torsional clash": 0.0104,
+   "backbone clash": -0.5192,
+   "cleaned": "EB42A",
+   "_source": "foldx_s1102_results_S4169"
+  },
+  "KA88A": {
+   "Interaction Energy": 1.3384,
+   "Backbone Hbond": 0.879,
+   "Sidechain Hbond": 1.732,
+   "Van der Waals": 1.3969,
+   "Electrostatics": 1.622,
+   "Solvation Polar": -4.2085,
+   "Solvation Hydrophobic": 1.3789,
+   "Van der Waals clashes": 0.0007,
+   "entropy sidechain": -1.2347,
+   "entropy mainchain": -0.3267,
+   "torsional clash": -0.0007,
+   "backbone clash": -0.0345,
+   "cleaned": "KA88A",
+   "_source": "foldx_s1102_results_S4169"
+  },
+  "YA215A": {
+   "Interaction Energy": 3.5142,
+   "Backbone Hbond": 0.1318,
+   "Sidechain Hbond": 1.5288,
+   "Van der Waals": 1.497,
+   "Electrostatics": 0.32,
+   "Solvation Polar": -1.4966,
+   "Solvation Hydrophobic": 2.0132,
+   "Van der Waals clashes": -0.024,
+   "entropy sidechain": -0.4089,
+   "entropy mainchain": -0.0225,
+   "torsional clash": -0.0246,
+   "backbone clash": -0.2659,
+   "cleaned": "YA215A",
+   "_source": "foldx_s1102_results_S4169"
+  }
+ },
+ "meta": {
+  "pdb": "4O27",
+  "n_ds": 4,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 4,
+  "n_mutations": 4,
+  "sources": [
+   "foldx_s1102_results_S4169"
+  ]
+ }
+}

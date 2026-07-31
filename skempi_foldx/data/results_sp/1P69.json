@@ -1,0 +1,31 @@
+{
+ "muts": {
+  "SA15P": {
+   "Interaction Energy": -0.8714,
+   "Backbone Hbond": 0.5966,
+   "Sidechain Hbond": 0.8582,
+   "Van der Waals": -0.2839,
+   "Electrostatics": -0.2237,
+   "Solvation Polar": -0.2123,
+   "Solvation Hydrophobic": -0.9812,
+   "Van der Waals clashes": 0.0613,
+   "entropy sidechain": 0.1741,
+   "entropy mainchain": -0.8966,
+   "torsional clash": -0.0181,
+   "backbone clash": -0.1067,
+   "cleaned": "SA15P",
+   "_source": "foldx_s1102_results_S4169"
+  }
+ },
+ "meta": {
+  "pdb": "1P69",
+  "n_ds": 1,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 1,
+  "n_mutations": 1,
+  "sources": [
+   "foldx_s1102_results_S4169"
+  ]
+ }
+}

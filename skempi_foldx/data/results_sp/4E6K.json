@@ -1,0 +1,63 @@
+{
+ "muts": {
+  "KG40A": {
+   "Interaction Energy": 1.5392,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.2719,
+   "Electrostatics": 0.124,
+   "Solvation Polar": -0.2664,
+   "Solvation Hydrophobic": 0.402,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": -0.2815,
+   "entropy mainchain": 1.1519,
+   "torsional clash": -0.0,
+   "backbone clash": -0.0005,
+   "cleaned": "KG40A",
+   "_source": "foldx_skempi_full_results"
+  },
+  "LG5A": {
+   "Interaction Energy": 3.3737,
+   "Backbone Hbond": 0.0832,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 1.7036,
+   "Electrostatics": -0.0009,
+   "Solvation Polar": -0.8002,
+   "Solvation Hydrophobic": 3.4127,
+   "Van der Waals clashes": -0.0001,
+   "entropy sidechain": -1.0322,
+   "entropy mainchain": 0.0187,
+   "torsional clash": -0.0112,
+   "backbone clash": -0.4138,
+   "cleaned": "LG5A",
+   "_source": "foldx_skempi_full_results"
+  },
+  "YG2F": {
+   "Interaction Energy": -0.0445,
+   "Backbone Hbond": -0.0366,
+   "Sidechain Hbond": 1.1027,
+   "Van der Waals": -0.1224,
+   "Electrostatics": -0.0017,
+   "Solvation Polar": -0.0543,
+   "Solvation Hydrophobic": -0.3482,
+   "Van der Waals clashes": 0.0099,
+   "entropy sidechain": -0.5833,
+   "entropy mainchain": -0.0107,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0031,
+   "cleaned": "YG2F",
+   "_source": "foldx_skempi_full_results"
+  }
+ },
+ "meta": {
+  "pdb": "4E6K",
+  "n_ds": 3,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 3,
+  "n_mutations": 3,
+  "sources": [
+   "foldx_skempi_full_results"
+  ]
+ }
+}

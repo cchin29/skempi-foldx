@@ -1,0 +1,29 @@
+{
+ "variants": {
+  "GI34P,PI35G": {
+   "Interaction Energy": 1.3319,
+   "Backbone Hbond": 0.0627,
+   "Sidechain Hbond": 0.0091,
+   "Van der Waals": 0.5329,
+   "Electrostatics": 0.0382,
+   "Solvation Polar": -0.2825,
+   "Solvation Hydrophobic": 0.7085,
+   "Van der Waals clashes": 0.2984,
+   "entropy sidechain": 0.0952,
+   "entropy mainchain": 0.0905,
+   "torsional clash": -0.1185,
+   "backbone clash": -0.0026,
+   "_source": "foldx_skempi_full_results_multipoint"
+  }
+ },
+ "meta": {
+  "pdb": "4CPA",
+  "n_variants": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "n_mutations": 1,
+  "sources": [
+   "foldx_skempi_full_results_multipoint"
+  ]
+ }
+}

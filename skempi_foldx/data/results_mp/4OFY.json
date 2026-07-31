@@ -1,0 +1,44 @@
+{
+ "variants": {
+  "QA34A,FA40A": {
+   "Interaction Energy": 4.416,
+   "Backbone Hbond": -0.4144,
+   "Sidechain Hbond": 1.8641,
+   "Van der Waals": 2.2716,
+   "Electrostatics": 0.0424,
+   "Solvation Polar": -1.645,
+   "Solvation Hydrophobic": 3.289,
+   "Van der Waals clashes": 0.0753,
+   "entropy sidechain": -1.4623,
+   "entropy mainchain": 0.4007,
+   "torsional clash": -0.0052,
+   "backbone clash": -0.1545,
+   "_source": "foldx_skempi_full_results_multipoint"
+  },
+  "QA34A,MA36A,FA40A,SA87A": {
+   "Interaction Energy": 5.5284,
+   "Backbone Hbond": 0.2994,
+   "Sidechain Hbond": 2.1909,
+   "Van der Waals": 3.5619,
+   "Electrostatics": 0.0703,
+   "Solvation Polar": -2.725,
+   "Solvation Hydrophobic": 4.7529,
+   "Van der Waals clashes": -0.6267,
+   "entropy sidechain": -3.0431,
+   "entropy mainchain": 1.0637,
+   "torsional clash": -0.0158,
+   "backbone clash": -0.3127,
+   "_source": "foldx_skempi_full_results_multipoint"
+  }
+ },
+ "meta": {
+  "pdb": "4OFY",
+  "n_variants": 2,
+  "validation_failed": [],
+  "n_ok": 2,
+  "n_mutations": 2,
+  "sources": [
+   "foldx_skempi_full_results_multipoint"
+  ]
+ }
+}

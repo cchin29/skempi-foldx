@@ -1,0 +1,29 @@
+{
+ "variants": {
+  "TC44A,YC45A": {
+   "Interaction Energy": 1.3605,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.5518,
+   "Electrostatics": 0.0166,
+   "Solvation Polar": -0.5642,
+   "Solvation Hydrophobic": 0.6847,
+   "Van der Waals clashes": -0.1625,
+   "entropy sidechain": -0.3622,
+   "entropy mainchain": 1.176,
+   "torsional clash": -0.0062,
+   "backbone clash": -0.0124,
+   "_source": "foldx_skempi_full_results_multipoint"
+  }
+ },
+ "meta": {
+  "pdb": "1FCC",
+  "n_variants": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "n_mutations": 1,
+  "sources": [
+   "foldx_skempi_full_results_multipoint"
+  ]
+ }
+}

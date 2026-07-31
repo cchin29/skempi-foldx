@@ -1,0 +1,31 @@
+{
+ "muts": {
+  "KA79D": {
+   "Interaction Energy": 1.3125,
+   "Backbone Hbond": 0.0065,
+   "Sidechain Hbond": 0.608,
+   "Van der Waals": 0.5147,
+   "Electrostatics": 0.7208,
+   "Solvation Polar": -0.7308,
+   "Solvation Hydrophobic": 0.7073,
+   "Van der Waals clashes": 0.0168,
+   "entropy sidechain": -0.6659,
+   "entropy mainchain": -0.0385,
+   "torsional clash": -0.0031,
+   "backbone clash": -0.023,
+   "cleaned": "KA79D",
+   "_source": "foldx_s1102_results_S4169"
+  }
+ },
+ "meta": {
+  "pdb": "2G2W",
+  "n_ds": 1,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 1,
+  "n_mutations": 1,
+  "sources": [
+   "foldx_s1102_results_S4169"
+  ]
+ }
+}

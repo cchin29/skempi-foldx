@@ -1,0 +1,29 @@
+{
+ "variants": {
+  "LB20T,VB26Y,YB91V": {
+   "Interaction Energy": 2.7781,
+   "Backbone Hbond": -0.087,
+   "Sidechain Hbond": -0.4717,
+   "Van der Waals": -0.0823,
+   "Electrostatics": -0.1329,
+   "Solvation Polar": 1.7121,
+   "Solvation Hydrophobic": 1.0789,
+   "Van der Waals clashes": 0.1148,
+   "entropy sidechain": 0.5368,
+   "entropy mainchain": 0.1162,
+   "torsional clash": -0.0069,
+   "backbone clash": 0.3394,
+   "_source": "foldx_skempi_full_results_multipoint"
+  }
+ },
+ "meta": {
+  "pdb": "1SBB",
+  "n_variants": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "n_mutations": 1,
+  "sources": [
+   "foldx_skempi_full_results_multipoint"
+  ]
+ }
+}

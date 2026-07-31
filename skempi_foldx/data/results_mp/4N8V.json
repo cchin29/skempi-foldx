@@ -1,0 +1,29 @@
+{
+ "variants": {
+  "QG61P,DG62V": {
+   "Interaction Energy": -0.3316,
+   "Backbone Hbond": 0.0497,
+   "Sidechain Hbond": 0.7522,
+   "Van der Waals": 0.411,
+   "Electrostatics": 0.9332,
+   "Solvation Polar": -1.8417,
+   "Solvation Hydrophobic": -0.4655,
+   "Van der Waals clashes": 0.0225,
+   "entropy sidechain": 0.0337,
+   "entropy mainchain": -0.4291,
+   "torsional clash": 0.0217,
+   "backbone clash": 0.0479,
+   "_source": "foldx_skempi_full_results_multipoint"
+  }
+ },
+ "meta": {
+  "pdb": "4N8V",
+  "n_variants": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "n_mutations": 1,
+  "sources": [
+   "foldx_skempi_full_results_multipoint"
+  ]
+ }
+}

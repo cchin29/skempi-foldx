@@ -1,0 +1,29 @@
+{
+ "variants": {
+  "TA13H,EA14H": {
+   "Interaction Energy": 1.244,
+   "Backbone Hbond": -0.022,
+   "Sidechain Hbond": 0.8104,
+   "Van der Waals": -0.0718,
+   "Electrostatics": -0.4239,
+   "Solvation Polar": 0.8631,
+   "Solvation Hydrophobic": 0.0691,
+   "Van der Waals clashes": -0.0049,
+   "entropy sidechain": 0.2214,
+   "entropy mainchain": -0.1537,
+   "torsional clash": -0.0215,
+   "backbone clash": -0.0759,
+   "_source": "foldx_skempi_full_results_multipoint"
+  }
+ },
+ "meta": {
+  "pdb": "1EFN",
+  "n_variants": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "n_mutations": 1,
+  "sources": [
+   "foldx_skempi_full_results_multipoint"
+  ]
+ }
+}

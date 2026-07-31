@@ -1,0 +1,47 @@
+{
+ "muts": {
+  "EB52A": {
+   "Interaction Energy": -0.7262,
+   "Backbone Hbond": 0.0218,
+   "Sidechain Hbond": 0.005,
+   "Van der Waals": 0.8517,
+   "Electrostatics": 0.1547,
+   "Solvation Polar": -1.8413,
+   "Solvation Hydrophobic": 1.0729,
+   "Van der Waals clashes": -0.0474,
+   "entropy sidechain": -0.4975,
+   "entropy mainchain": -0.1056,
+   "torsional clash": -0.0096,
+   "backbone clash": -0.0433,
+   "cleaned": "EB52A",
+   "_source": "foldx_s1102_results_S4169"
+  },
+  "EB52R": {
+   "Interaction Energy": -4.3332,
+   "Backbone Hbond": -0.0045,
+   "Sidechain Hbond": -2.3749,
+   "Van der Waals": -0.3883,
+   "Electrostatics": -0.8768,
+   "Solvation Polar": -0.1363,
+   "Solvation Hydrophobic": -0.2633,
+   "Van der Waals clashes": -0.0142,
+   "entropy sidechain": 0.5169,
+   "entropy mainchain": -0.1024,
+   "torsional clash": 0.0066,
+   "backbone clash": 0.0007,
+   "cleaned": "EB52R",
+   "_source": "foldx_s1102_results_S4169"
+  }
+ },
+ "meta": {
+  "pdb": "5CYK",
+  "n_ds": 2,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 2,
+  "n_mutations": 2,
+  "sources": [
+   "foldx_s1102_results_S4169"
+  ]
+ }
+}

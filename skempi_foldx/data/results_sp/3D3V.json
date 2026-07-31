@@ -1,0 +1,79 @@
+{
+ "muts": {
+  "EE30A": {
+   "Interaction Energy": 2.6588,
+   "Backbone Hbond": 0.031,
+   "Sidechain Hbond": 1.737,
+   "Van der Waals": 0.3755,
+   "Electrostatics": 0.3203,
+   "Solvation Polar": -0.707,
+   "Solvation Hydrophobic": 0.3765,
+   "Van der Waals clashes": -0.0713,
+   "entropy sidechain": 0.0151,
+   "entropy mainchain": 0.6041,
+   "torsional clash": -0.0079,
+   "backbone clash": -0.3333,
+   "cleaned": "EE30A",
+   "_source": "foldx_skempi_full_results"
+  },
+  "LE97A": {
+   "Interaction Energy": 3.1411,
+   "Backbone Hbond": 0.053,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 1.4278,
+   "Electrostatics": 0.0208,
+   "Solvation Polar": -0.444,
+   "Solvation Hydrophobic": 2.8479,
+   "Van der Waals clashes": -0.0537,
+   "entropy sidechain": -0.6693,
+   "entropy mainchain": -0.0412,
+   "torsional clash": -0.0003,
+   "backbone clash": -0.2437,
+   "cleaned": "LE97A",
+   "_source": "foldx_skempi_full_results"
+  },
+  "YC8A": {
+   "Interaction Energy": 2.8359,
+   "Backbone Hbond": -0.0143,
+   "Sidechain Hbond": 1.7402,
+   "Van der Waals": 1.2372,
+   "Electrostatics": 0.3932,
+   "Solvation Polar": -1.3341,
+   "Solvation Hydrophobic": 1.6461,
+   "Van der Waals clashes": -0.0,
+   "entropy sidechain": -0.8371,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0046,
+   "backbone clash": -0.3682,
+   "cleaned": "YC8A",
+   "_source": "foldx_skempi_full_results"
+  },
+  "YC8F": {
+   "Interaction Energy": 1.3887,
+   "Backbone Hbond": 0.0037,
+   "Sidechain Hbond": 1.7581,
+   "Van der Waals": 0.1353,
+   "Electrostatics": 0.0364,
+   "Solvation Polar": -0.3525,
+   "Solvation Hydrophobic": -0.0561,
+   "Van der Waals clashes": -0.0113,
+   "entropy sidechain": -0.1245,
+   "entropy mainchain": 0.0,
+   "torsional clash": -0.0002,
+   "backbone clash": -0.0124,
+   "cleaned": "YC8F",
+   "_source": "foldx_skempi_full_results"
+  }
+ },
+ "meta": {
+  "pdb": "3D3V",
+  "n_ds": 4,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 4,
+  "n_mutations": 4,
+  "sources": [
+   "foldx_skempi_full_results"
+  ]
+ }
+}

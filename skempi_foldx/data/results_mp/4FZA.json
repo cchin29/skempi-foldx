@@ -1,0 +1,44 @@
+{
+ "variants": {
+  "FA168E,VA214A": {
+   "Interaction Energy": 3.7928,
+   "Backbone Hbond": -0.7452,
+   "Sidechain Hbond": -0.7065,
+   "Van der Waals": 0.8034,
+   "Electrostatics": 0.104,
+   "Solvation Polar": 1.6596,
+   "Solvation Hydrophobic": 2.2514,
+   "Van der Waals clashes": -0.0355,
+   "entropy sidechain": -0.574,
+   "entropy mainchain": 1.0262,
+   "torsional clash": 0.0125,
+   "backbone clash": 0.1751,
+   "_source": "foldx_skempi_full_results_multipoint"
+  },
+  "LB74E,LB79E": {
+   "Interaction Energy": 4.588,
+   "Backbone Hbond": -0.6708,
+   "Sidechain Hbond": -0.6945,
+   "Van der Waals": -0.1223,
+   "Electrostatics": 0.2363,
+   "Solvation Polar": 3.3757,
+   "Solvation Hydrophobic": 1.216,
+   "Van der Waals clashes": 0.0374,
+   "entropy sidechain": 1.1458,
+   "entropy mainchain": 0.1503,
+   "torsional clash": -0.113,
+   "backbone clash": 0.1465,
+   "_source": "foldx_skempi_full_results_multipoint"
+  }
+ },
+ "meta": {
+  "pdb": "4FZA",
+  "n_variants": 2,
+  "validation_failed": [],
+  "n_ok": 2,
+  "n_mutations": 2,
+  "sources": [
+   "foldx_skempi_full_results_multipoint"
+  ]
+ }
+}

@@ -1,0 +1,31 @@
+{
+ "muts": {
+  "YA87S": {
+   "Interaction Energy": 3.9678,
+   "Backbone Hbond": 1.4434,
+   "Sidechain Hbond": 1.2766,
+   "Van der Waals": 1.7373,
+   "Electrostatics": 0.1725,
+   "Solvation Polar": -1.6385,
+   "Solvation Hydrophobic": 2.181,
+   "Van der Waals clashes": -0.0346,
+   "entropy sidechain": -0.7754,
+   "entropy mainchain": -0.3872,
+   "torsional clash": -0.0074,
+   "backbone clash": -0.2955,
+   "cleaned": "YA87S",
+   "_source": "foldx_s1102_results_S4169"
+  }
+ },
+ "meta": {
+  "pdb": "1P6A",
+  "n_ds": 1,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 1,
+  "n_mutations": 1,
+  "sources": [
+   "foldx_s1102_results_S4169"
+  ]
+ }
+}

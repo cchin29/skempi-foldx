@@ -1,0 +1,74 @@
+{
+ "variants": {
+  "AA6S,KA7E": {
+   "Interaction Energy": 0.3029,
+   "Backbone Hbond": 0.0056,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.1141,
+   "Electrostatics": 0.0425,
+   "Solvation Polar": -0.2573,
+   "Solvation Hydrophobic": 0.225,
+   "Van der Waals clashes": -0.001,
+   "entropy sidechain": 0.2309,
+   "entropy mainchain": 0.0,
+   "torsional clash": -0.0005,
+   "backbone clash": -0.1357,
+   "_source": "foldx_skempi_full_results_multipoint"
+  },
+  "AA9E,GA13S": {
+   "Interaction Energy": 1.3435,
+   "Backbone Hbond": -0.2183,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": -1.7105,
+   "Electrostatics": -0.3035,
+   "Solvation Polar": 3.3656,
+   "Solvation Hydrophobic": -2.2598,
+   "Van der Waals clashes": 0.9662,
+   "entropy sidechain": 1.8149,
+   "entropy mainchain": -0.2911,
+   "torsional clash": 0.1246,
+   "backbone clash": -0.1586,
+   "_source": "foldx_skempi_full_results_multipoint"
+  },
+  "AA6S,KA7E,AA9E,GA13S": {
+   "Interaction Energy": 1.3631,
+   "Backbone Hbond": -0.2081,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": -1.7784,
+   "Electrostatics": -0.2941,
+   "Solvation Polar": 3.8887,
+   "Solvation Hydrophobic": -2.0325,
+   "Van der Waals clashes": 0.3451,
+   "entropy sidechain": 1.8075,
+   "entropy mainchain": -0.2895,
+   "torsional clash": 0.1175,
+   "backbone clash": -0.1027,
+   "_source": "foldx_skempi_full_results_multipoint"
+  },
+  "IA27E,IA38E": {
+   "Interaction Energy": 0.0325,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0,
+   "Electrostatics": 0.0046,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": 0.0,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": 0.029,
+   "entropy mainchain": 0.0,
+   "torsional clash": -0.0013,
+   "backbone clash": 0.0,
+   "_source": "foldx_skempi_full_results_multipoint"
+  }
+ },
+ "meta": {
+  "pdb": "2OOB",
+  "n_variants": 4,
+  "validation_failed": [],
+  "n_ok": 4,
+  "n_mutations": 4,
+  "sources": [
+   "foldx_skempi_full_results_multipoint"
+  ]
+ }
+}

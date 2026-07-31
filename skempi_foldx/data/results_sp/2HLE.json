@@ -1,0 +1,47 @@
+{
+ "muts": {
+  "KA141Q": {
+   "Interaction Energy": 2.4271,
+   "Backbone Hbond": 0.7988,
+   "Sidechain Hbond": 1.1667,
+   "Van der Waals": 0.3861,
+   "Electrostatics": 1.3761,
+   "Solvation Polar": -1.8449,
+   "Solvation Hydrophobic": 0.7528,
+   "Van der Waals clashes": 0.0426,
+   "entropy sidechain": -0.304,
+   "entropy mainchain": -0.1464,
+   "torsional clash": -0.0029,
+   "backbone clash": -0.2479,
+   "cleaned": "KA141Q",
+   "_source": "foldx_s1102_results_S4169"
+  },
+  "LA87R": {
+   "Interaction Energy": 1.0436,
+   "Backbone Hbond": -0.0623,
+   "Sidechain Hbond": -0.0016,
+   "Van der Waals": 0.2316,
+   "Electrostatics": -0.036,
+   "Solvation Polar": 0.5215,
+   "Solvation Hydrophobic": 0.7988,
+   "Van der Waals clashes": 0.0543,
+   "entropy sidechain": -0.3017,
+   "entropy mainchain": -0.0121,
+   "torsional clash": -0.0319,
+   "backbone clash": -0.0097,
+   "cleaned": "LA87R",
+   "_source": "foldx_s1102_results_S4169"
+  }
+ },
+ "meta": {
+  "pdb": "2HLE",
+  "n_ds": 2,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 2,
+  "n_mutations": 2,
+  "sources": [
+   "foldx_s1102_results_S4169"
+  ]
+ }
+}

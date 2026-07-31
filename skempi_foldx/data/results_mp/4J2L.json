@@ -1,0 +1,74 @@
+{
+ "variants": {
+  "VA23A,SA34D": {
+   "Interaction Energy": 0.0188,
+   "Backbone Hbond": -0.3081,
+   "Sidechain Hbond": 0.5542,
+   "Van der Waals": 0.0232,
+   "Electrostatics": -0.463,
+   "Solvation Polar": 0.2237,
+   "Solvation Hydrophobic": -0.0968,
+   "Van der Waals clashes": 0.0911,
+   "entropy sidechain": 0.0836,
+   "entropy mainchain": -0.0353,
+   "torsional clash": 0.01,
+   "backbone clash": -0.079,
+   "_source": "foldx_skempi_full_results_multipoint"
+  },
+  "VA23A,LA118E": {
+   "Interaction Energy": 1.7186,
+   "Backbone Hbond": 0.0531,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.2405,
+   "Electrostatics": -0.7664,
+   "Solvation Polar": 1.748,
+   "Solvation Hydrophobic": 1.1554,
+   "Van der Waals clashes": -0.7405,
+   "entropy sidechain": 0.0869,
+   "entropy mainchain": 0.0944,
+   "torsional clash": -0.101,
+   "backbone clash": -0.1136,
+   "_source": "foldx_skempi_full_results_multipoint"
+  },
+  "SA34D,LA118E": {
+   "Interaction Energy": 2.4885,
+   "Backbone Hbond": -0.2778,
+   "Sidechain Hbond": 0.5782,
+   "Van der Waals": 1.2044,
+   "Electrostatics": -1.01,
+   "Solvation Polar": 0.8852,
+   "Solvation Hydrophobic": 2.4232,
+   "Van der Waals clashes": -0.2664,
+   "entropy sidechain": -0.4184,
+   "entropy mainchain": -0.0778,
+   "torsional clash": -0.4396,
+   "backbone clash": -0.8684,
+   "_source": "foldx_skempi_full_results_multipoint"
+  },
+  "VA23A,SA34D,LA118E": {
+   "Interaction Energy": 1.4354,
+   "Backbone Hbond": -0.3054,
+   "Sidechain Hbond": 0.5001,
+   "Van der Waals": 1.5391,
+   "Electrostatics": -0.7939,
+   "Solvation Polar": -0.4215,
+   "Solvation Hydrophobic": 2.7345,
+   "Van der Waals clashes": -0.1129,
+   "entropy sidechain": -1.0841,
+   "entropy mainchain": -0.0777,
+   "torsional clash": -0.4543,
+   "backbone clash": -0.898,
+   "_source": "foldx_skempi_full_results_multipoint"
+  }
+ },
+ "meta": {
+  "pdb": "4J2L",
+  "n_variants": 4,
+  "validation_failed": [],
+  "n_ok": 4,
+  "n_mutations": 4,
+  "sources": [
+   "foldx_skempi_full_results_multipoint"
+  ]
+ }
+}

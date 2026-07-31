@@ -1,0 +1,47 @@
+{
+ "muts": {
+  "SC115L": {
+   "Interaction Energy": 0.9075,
+   "Backbone Hbond": 0.503,
+   "Sidechain Hbond": 0.4675,
+   "Van der Waals": -0.8584,
+   "Electrostatics": 0.0,
+   "Solvation Polar": 0.1717,
+   "Solvation Hydrophobic": -2.0148,
+   "Van der Waals clashes": 0.5173,
+   "entropy sidechain": 0.278,
+   "entropy mainchain": -0.1978,
+   "torsional clash": 2.041,
+   "backbone clash": 0.6151,
+   "cleaned": "SC115L",
+   "_source": "foldx_skempi_full_results"
+  },
+  "TC89I": {
+   "Interaction Energy": -1.2406,
+   "Backbone Hbond": -0.0311,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": -0.333,
+   "Electrostatics": 0.0,
+   "Solvation Polar": -0.244,
+   "Solvation Hydrophobic": -0.9904,
+   "Van der Waals clashes": 0.1389,
+   "entropy sidechain": 0.1908,
+   "entropy mainchain": 0.0331,
+   "torsional clash": -0.0049,
+   "backbone clash": 0.2077,
+   "cleaned": "TC89I",
+   "_source": "foldx_skempi_full_results"
+  }
+ },
+ "meta": {
+  "pdb": "2VIR",
+  "n_ds": 2,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 2,
+  "n_mutations": 2,
+  "sources": [
+   "foldx_skempi_full_results"
+  ]
+ }
+}

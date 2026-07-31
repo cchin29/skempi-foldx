@@ -1,0 +1,29 @@
+{
+ "variants": {
+  "HA167A,HB188A": {
+   "Interaction Energy": 3.8827,
+   "Backbone Hbond": 0.1464,
+   "Sidechain Hbond": 3.6502,
+   "Van der Waals": 2.986,
+   "Electrostatics": 0.4881,
+   "Solvation Polar": -4.4421,
+   "Solvation Hydrophobic": 3.0158,
+   "Van der Waals clashes": -0.2501,
+   "entropy sidechain": -1.4922,
+   "entropy mainchain": 0.0,
+   "torsional clash": -0.0096,
+   "backbone clash": 0.08,
+   "_source": "foldx_skempi_full_results_multipoint"
+  }
+ },
+ "meta": {
+  "pdb": "3MZG",
+  "n_variants": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "n_mutations": 1,
+  "sources": [
+   "foldx_skempi_full_results_multipoint"
+  ]
+ }
+}

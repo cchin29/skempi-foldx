@@ -1,0 +1,31 @@
+{
+ "muts": {
+  "AB81E": {
+   "Interaction Energy": -0.6681,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": -0.0174,
+   "Electrostatics": -0.0759,
+   "Solvation Polar": 0.0709,
+   "Solvation Hydrophobic": -0.002,
+   "Van der Waals clashes": 0.0001,
+   "entropy sidechain": -0.572,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "cleaned": "AD81E",
+   "_source": "foldx_s1102_results_S4169"
+  }
+ },
+ "meta": {
+  "pdb": "1X1W",
+  "n_ds": 1,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 1,
+  "n_mutations": 1,
+  "sources": [
+   "foldx_s1102_results_S4169"
+  ]
+ }
+}

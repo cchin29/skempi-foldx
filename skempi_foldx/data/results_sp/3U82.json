@@ -1,0 +1,31 @@
+{
+ "muts": {
+  "IB45A": {
+   "Interaction Energy": 1.7643,
+   "Backbone Hbond": -0.3227,
+   "Sidechain Hbond": 0.2972,
+   "Van der Waals": 0.9758,
+   "Electrostatics": 0.1273,
+   "Solvation Polar": -0.3545,
+   "Solvation Hydrophobic": 1.7208,
+   "Van der Waals clashes": -0.3826,
+   "entropy sidechain": -0.144,
+   "entropy mainchain": -0.0529,
+   "torsional clash": -0.1002,
+   "backbone clash": -0.1686,
+   "cleaned": "IB45A",
+   "_source": "foldx_s1102_results_S4169"
+  }
+ },
+ "meta": {
+  "pdb": "3U82",
+  "n_ds": 1,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 1,
+  "n_mutations": 1,
+  "sources": [
+   "foldx_s1102_results_S4169"
+  ]
+ }
+}

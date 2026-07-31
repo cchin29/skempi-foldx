@@ -1,0 +1,29 @@
+{
+ "variants": {
+  "KE153A,HE154A,RE155A": {
+   "Interaction Energy": 0.1525,
+   "Backbone Hbond": -0.0004,
+   "Sidechain Hbond": 0.744,
+   "Van der Waals": 0.7247,
+   "Electrostatics": 0.6785,
+   "Solvation Polar": -1.5231,
+   "Solvation Hydrophobic": 0.7743,
+   "Van der Waals clashes": -0.2295,
+   "entropy sidechain": -1.4187,
+   "entropy mainchain": 0.0334,
+   "torsional clash": 0.0029,
+   "backbone clash": -0.0497,
+   "_source": "foldx_skempi_full_results_multipoint"
+  }
+ },
+ "meta": {
+  "pdb": "4X4M",
+  "n_variants": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "n_mutations": 1,
+  "sources": [
+   "foldx_skempi_full_results_multipoint"
+  ]
+ }
+}

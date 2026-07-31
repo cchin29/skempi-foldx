@@ -1,0 +1,29 @@
+{
+ "variants": {
+  "KI30M,AI31G": {
+   "Interaction Energy": 0.7588,
+   "Backbone Hbond": 1.5114,
+   "Sidechain Hbond": 1.5071,
+   "Van der Waals": 0.5683,
+   "Electrostatics": -0.1287,
+   "Solvation Polar": -2.1752,
+   "Solvation Hydrophobic": 0.6012,
+   "Van der Waals clashes": 0.0506,
+   "entropy sidechain": -0.3706,
+   "entropy mainchain": -0.7111,
+   "torsional clash": -0.0139,
+   "backbone clash": -0.1117,
+   "_source": "foldx_skempi_full_results_multipoint"
+  }
+ },
+ "meta": {
+  "pdb": "1GL1",
+  "n_variants": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "n_mutations": 1,
+  "sources": [
+   "foldx_skempi_full_results_multipoint"
+  ]
+ }
+}

@@ -1,0 +1,31 @@
+{
+ "muts": {
+  "AB188H": {
+   "Interaction Energy": -0.754,
+   "Backbone Hbond": -0.0483,
+   "Sidechain Hbond": -1.6815,
+   "Van der Waals": -1.2056,
+   "Electrostatics": 0.0011,
+   "Solvation Polar": 2.138,
+   "Solvation Hydrophobic": -0.9128,
+   "Van der Waals clashes": 0.0124,
+   "entropy sidechain": 0.8962,
+   "entropy mainchain": -0.0105,
+   "torsional clash": 0.008,
+   "backbone clash": 0.1114,
+   "cleaned": "AB188H",
+   "_source": "foldx_s1102_results_S4169"
+  }
+ },
+ "meta": {
+  "pdb": "3NCC",
+  "n_ds": 1,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 1,
+  "n_mutations": 1,
+  "sources": [
+   "foldx_s1102_results_S4169"
+  ]
+ }
+}

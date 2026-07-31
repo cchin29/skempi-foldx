@@ -1,0 +1,63 @@
+{
+ "muts": {
+  "KA225E": {
+   "Interaction Energy": 0.8645,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0543,
+   "Electrostatics": 0.644,
+   "Solvation Polar": -0.1522,
+   "Solvation Hydrophobic": 0.0762,
+   "Van der Waals clashes": -0.0007,
+   "entropy sidechain": -0.1651,
+   "entropy mainchain": -0.0487,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "cleaned": "KA225E",
+   "_source": "foldx_s1102_results_S4169"
+  },
+  "RA221E": {
+   "Interaction Energy": 4.545,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 2.7341,
+   "Van der Waals": 0.287,
+   "Electrostatics": 1.6826,
+   "Solvation Polar": -0.4629,
+   "Solvation Hydrophobic": 0.0851,
+   "Van der Waals clashes": 0.001,
+   "entropy sidechain": -0.7963,
+   "entropy mainchain": 0.1808,
+   "torsional clash": 0.0003,
+   "backbone clash": 0.0033,
+   "cleaned": "RA221E",
+   "_source": "foldx_s1102_results_S4169"
+  },
+  "RA224E": {
+   "Interaction Energy": 0.4686,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0047,
+   "Electrostatics": 0.2888,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": 0.0108,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": -0.0704,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "cleaned": "RA224E",
+   "_source": "foldx_s1102_results_S4169"
+  }
+ },
+ "meta": {
+  "pdb": "3WWN",
+  "n_ds": 3,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 3,
+  "n_mutations": 3,
+  "sources": [
+   "foldx_s1102_results_S4169"
+  ]
+ }
+}

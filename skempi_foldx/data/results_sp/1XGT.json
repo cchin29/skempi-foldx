@@ -1,0 +1,79 @@
+{
+ "muts": {
+  "LB33A": {
+   "Interaction Energy": 1.3577,
+   "Backbone Hbond": 0.0187,
+   "Sidechain Hbond": 0.1547,
+   "Van der Waals": 0.7336,
+   "Electrostatics": 0.1011,
+   "Solvation Polar": -0.6243,
+   "Solvation Hydrophobic": 1.2695,
+   "Van der Waals clashes": -0.0237,
+   "entropy sidechain": -0.3197,
+   "entropy mainchain": 0.0575,
+   "torsional clash": -0.0097,
+   "backbone clash": -0.0697,
+   "cleaned": "LB33A",
+   "_source": "foldx_skempi_full_results"
+  },
+  "LB33F": {
+   "Interaction Energy": 2.0101,
+   "Backbone Hbond": -0.0415,
+   "Sidechain Hbond": -0.0148,
+   "Van der Waals": -0.5317,
+   "Electrostatics": -0.0187,
+   "Solvation Polar": 0.4143,
+   "Solvation Hydrophobic": -0.6536,
+   "Van der Waals clashes": 3.2391,
+   "entropy sidechain": -0.4599,
+   "entropy mainchain": -0.0383,
+   "torsional clash": 0.142,
+   "backbone clash": 0.0465,
+   "cleaned": "LB33F",
+   "_source": "foldx_skempi_full_results"
+  },
+  "LB33I": {
+   "Interaction Energy": 0.4122,
+   "Backbone Hbond": 0.0209,
+   "Sidechain Hbond": 0.0512,
+   "Van der Waals": 0.25,
+   "Electrostatics": 0.0332,
+   "Solvation Polar": -0.2385,
+   "Solvation Hydrophobic": 0.4356,
+   "Van der Waals clashes": -0.0408,
+   "entropy sidechain": -0.0923,
+   "entropy mainchain": 0.0,
+   "torsional clash": -0.007,
+   "backbone clash": 0.0185,
+   "cleaned": "LB33I",
+   "_source": "foldx_skempi_full_results"
+  },
+  "LB33V": {
+   "Interaction Energy": 0.9591,
+   "Backbone Hbond": 0.0424,
+   "Sidechain Hbond": 0.1503,
+   "Van der Waals": 0.5932,
+   "Electrostatics": 0.0818,
+   "Solvation Polar": -0.5691,
+   "Solvation Hydrophobic": 1.0121,
+   "Van der Waals clashes": -0.0259,
+   "entropy sidechain": -0.3168,
+   "entropy mainchain": 0.0,
+   "torsional clash": -0.0088,
+   "backbone clash": -0.0715,
+   "cleaned": "LB33V",
+   "_source": "foldx_skempi_full_results"
+  }
+ },
+ "meta": {
+  "pdb": "1XGT",
+  "n_ds": 4,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 4,
+  "n_mutations": 4,
+  "sources": [
+   "foldx_skempi_full_results"
+  ]
+ }
+}

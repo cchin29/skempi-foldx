@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "skempi-foldx"
+version = "0.1.0"
+description = "FoldX binding ddG for SKEMPI 2.0: the pipeline, and the computed results"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Connor Chin", email = "cchin29@stanford.edu" }]
+keywords = ["FoldX", "SKEMPI", "ddG", "protein-protein interaction", "binding affinity"]
+classifiers = [
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
+
+# Deliberately empty. Reading the shipped results needs nothing beyond the standard library,
+# which is most of the point -- a consumer should not inherit a numeric stack to look up a
+# per-mutation energy. Running the pipeline needs a FoldX 5 binary, which is not a Python
+# dependency and is not redistributable.
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[project.urls]
+Homepage = "https://github.com/cchin29/skempi-foldx"
+Repository = "https://github.com/cchin29/skempi-foldx"
+
+[tool.setuptools]
+packages = ["skempi_foldx"]
+
+# The results ARE the deliverable, so they must be in the wheel. They previously sat in a
+# top-level data/ outside the package, which no packaging directive can reach -- so
+# `pip install skempi-foldx` shipped the pipeline and none of the results, and the README's
+# own quickstart returned an empty store.
+[tool.setuptools.package-data]
+skempi_foldx = ["data/results_sp/*.json", "data/results_mp/*.json", "data/*.txt"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

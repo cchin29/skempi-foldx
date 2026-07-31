@@ -1,0 +1,31 @@
+{
+ "muts": {
+  "AA17H": {
+   "Interaction Energy": 5.0098,
+   "Backbone Hbond": 0.2448,
+   "Sidechain Hbond": -0.0896,
+   "Van der Waals": -0.2089,
+   "Electrostatics": 0.0644,
+   "Solvation Polar": 0.0723,
+   "Solvation Hydrophobic": -0.2872,
+   "Van der Waals clashes": 5.2355,
+   "entropy sidechain": -0.2502,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.1614,
+   "backbone clash": -0.4032,
+   "cleaned": "AA17H",
+   "_source": "foldx_s1102_results_S4169"
+  }
+ },
+ "meta": {
+  "pdb": "3N0P",
+  "n_ds": 1,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 1,
+  "n_mutations": 1,
+  "sources": [
+   "foldx_s1102_results_S4169"
+  ]
+ }
+}

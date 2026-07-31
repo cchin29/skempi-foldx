@@ -1,0 +1,47 @@
+{
+ "muts": {
+  "AA27K": {
+   "Interaction Energy": -0.6948,
+   "Backbone Hbond": -0.0142,
+   "Sidechain Hbond": -1.6506,
+   "Van der Waals": -0.9089,
+   "Electrostatics": -0.5691,
+   "Solvation Polar": 2.3539,
+   "Solvation Hydrophobic": -0.959,
+   "Van der Waals clashes": 0.1379,
+   "entropy sidechain": 1.1011,
+   "entropy mainchain": -0.0011,
+   "torsional clash": 0.0641,
+   "backbone clash": 0.3871,
+   "cleaned": "AA27K",
+   "_source": "foldx_s1102_results_S4169"
+  },
+  "AB36D": {
+   "Interaction Energy": 1.807,
+   "Backbone Hbond": 0.5304,
+   "Sidechain Hbond": -0.1244,
+   "Van der Waals": -0.5366,
+   "Electrostatics": -0.6163,
+   "Solvation Polar": 1.9005,
+   "Solvation Hydrophobic": -0.4868,
+   "Van der Waals clashes": 0.0405,
+   "entropy sidechain": 0.5695,
+   "entropy mainchain": 0.3386,
+   "torsional clash": 0.0169,
+   "backbone clash": 0.0039,
+   "cleaned": "AD36D",
+   "_source": "foldx_s1102_results_S4169"
+  }
+ },
+ "meta": {
+  "pdb": "1B2U",
+  "n_ds": 2,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 2,
+  "n_mutations": 2,
+  "sources": [
+   "foldx_s1102_results_S4169"
+  ]
+ }
+}

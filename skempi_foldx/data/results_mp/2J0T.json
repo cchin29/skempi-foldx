@@ -1,0 +1,119 @@
+{
+ "variants": {
+  "TD2L,VD4S": {
+   "Interaction Energy": 1.4596,
+   "Backbone Hbond": 0.0197,
+   "Sidechain Hbond": 0.757,
+   "Van der Waals": -0.5288,
+   "Electrostatics": 0.0411,
+   "Solvation Polar": -0.2596,
+   "Solvation Hydrophobic": -1.2703,
+   "Van der Waals clashes": 1.7075,
+   "entropy sidechain": 0.7378,
+   "entropy mainchain": 0.2185,
+   "torsional clash": 0.0368,
+   "backbone clash": 0.0104,
+   "_source": "foldx_skempi_full_results_multipoint"
+  },
+  "TD2L,VD4S,SD68A": {
+   "Interaction Energy": 0.8691,
+   "Backbone Hbond": 0.5153,
+   "Sidechain Hbond": 1.1569,
+   "Van der Waals": -0.4245,
+   "Electrostatics": -0.0083,
+   "Solvation Polar": -0.6569,
+   "Solvation Hydrophobic": -1.7482,
+   "Van der Waals clashes": 1.5163,
+   "entropy sidechain": 0.2923,
+   "entropy mainchain": 0.193,
+   "torsional clash": 0.0337,
+   "backbone clash": 0.0443,
+   "_source": "foldx_skempi_full_results_multipoint"
+  },
+  "TD2S,VD4A": {
+   "Interaction Energy": 2.5076,
+   "Backbone Hbond": 0.1066,
+   "Sidechain Hbond": 0.0008,
+   "Van der Waals": 1.0279,
+   "Electrostatics": 0.022,
+   "Solvation Polar": -0.8352,
+   "Solvation Hydrophobic": 1.9181,
+   "Van der Waals clashes": -0.003,
+   "entropy sidechain": -0.204,
+   "entropy mainchain": 0.4769,
+   "torsional clash": -0.0024,
+   "backbone clash": -0.0001,
+   "_source": "foldx_skempi_full_results_multipoint"
+  },
+  "TD2R,VD4I": {
+   "Interaction Energy": 1.1553,
+   "Backbone Hbond": -1.4484,
+   "Sidechain Hbond": 0.1987,
+   "Van der Waals": -2.0567,
+   "Electrostatics": -0.2268,
+   "Solvation Polar": 4.1274,
+   "Solvation Hydrophobic": -1.4892,
+   "Van der Waals clashes": 0.1716,
+   "entropy sidechain": 1.5564,
+   "entropy mainchain": 0.361,
+   "torsional clash": 0.1722,
+   "backbone clash": 0.0795,
+   "_source": "foldx_skempi_full_results_multipoint"
+  },
+  "TD2S,VD4A,SD68Y": {
+   "Interaction Energy": 3.557,
+   "Backbone Hbond": 0.2786,
+   "Sidechain Hbond": 1.0155,
+   "Van der Waals": -0.5177,
+   "Electrostatics": 0.0505,
+   "Solvation Polar": 0.0484,
+   "Solvation Hydrophobic": -0.7157,
+   "Van der Waals clashes": 2.8359,
+   "entropy sidechain": 0.102,
+   "entropy mainchain": 0.4407,
+   "torsional clash": 0.0188,
+   "backbone clash": 0.2557,
+   "_source": "foldx_skempi_full_results_multipoint"
+  },
+  "CD1S,FD12Y": {
+   "Interaction Energy": -0.0848,
+   "Backbone Hbond": -0.6402,
+   "Sidechain Hbond": -0.2991,
+   "Van der Waals": 0.0662,
+   "Electrostatics": -0.0366,
+   "Solvation Polar": 0.0781,
+   "Solvation Hydrophobic": 0.3881,
+   "Van der Waals clashes": 0.68,
+   "entropy sidechain": -0.4363,
+   "entropy mainchain": 0.2281,
+   "torsional clash": 0.0326,
+   "backbone clash": 0.081,
+   "_source": "foldx_skempi_full_results_multipoint"
+  },
+  "VD69A,AD103V": {
+   "Interaction Energy": 0.2964,
+   "Backbone Hbond": 0.0001,
+   "Sidechain Hbond": 0.0151,
+   "Van der Waals": 0.4562,
+   "Electrostatics": 0.0358,
+   "Solvation Polar": -0.6957,
+   "Solvation Hydrophobic": 0.7767,
+   "Van der Waals clashes": 0.0369,
+   "entropy sidechain": -0.3045,
+   "entropy mainchain": 0.0045,
+   "torsional clash": -0.0215,
+   "backbone clash": 0.0194,
+   "_source": "foldx_skempi_full_results_multipoint"
+  }
+ },
+ "meta": {
+  "pdb": "2J0T",
+  "n_variants": 7,
+  "validation_failed": [],
+  "n_ok": 7,
+  "n_mutations": 7,
+  "sources": [
+   "foldx_skempi_full_results_multipoint"
+  ]
+ }
+}

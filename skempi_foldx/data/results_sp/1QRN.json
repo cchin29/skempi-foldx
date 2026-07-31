@@ -1,0 +1,31 @@
+{
+ "muts": {
+  "AC6P": {
+   "Interaction Energy": -0.4971,
+   "Backbone Hbond": -0.0239,
+   "Sidechain Hbond": 0.0123,
+   "Van der Waals": -0.1302,
+   "Electrostatics": 0.0018,
+   "Solvation Polar": -0.0158,
+   "Solvation Hydrophobic": -0.2901,
+   "Van der Waals clashes": 0.0077,
+   "entropy sidechain": 0.0042,
+   "entropy mainchain": -0.0748,
+   "torsional clash": 0.0119,
+   "backbone clash": -0.031,
+   "cleaned": "AC6P",
+   "_source": "foldx_skempi_full_results"
+  }
+ },
+ "meta": {
+  "pdb": "1QRN",
+  "n_ds": 1,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 1,
+  "n_mutations": 1,
+  "sources": [
+   "foldx_skempi_full_results"
+  ]
+ }
+}

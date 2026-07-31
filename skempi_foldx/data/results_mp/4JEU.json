@@ -1,0 +1,29 @@
+{
+ "variants": {
+  "LB147A,EB148A": {
+   "Interaction Energy": 1.1874,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.632,
+   "Van der Waals": 0.4572,
+   "Electrostatics": 1.1995,
+   "Solvation Polar": -1.0363,
+   "Solvation Hydrophobic": 0.3427,
+   "Van der Waals clashes": -0.2316,
+   "entropy sidechain": -0.473,
+   "entropy mainchain": 0.0078,
+   "torsional clash": -0.0014,
+   "backbone clash": 0.0,
+   "_source": "foldx_skempi_full_results_multipoint"
+  }
+ },
+ "meta": {
+  "pdb": "4JEU",
+  "n_variants": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "n_mutations": 1,
+  "sources": [
+   "foldx_skempi_full_results_multipoint"
+  ]
+ }
+}

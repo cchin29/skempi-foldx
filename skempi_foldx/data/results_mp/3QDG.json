@@ -1,0 +1,44 @@
+{
+ "variants": {
+  "DD26W,LE95W": {
+   "Interaction Energy": -1.9393,
+   "Backbone Hbond": -0.0204,
+   "Sidechain Hbond": -0.2543,
+   "Van der Waals": -1.4583,
+   "Electrostatics": -1.0952,
+   "Solvation Polar": 1.4342,
+   "Solvation Hydrophobic": -1.9259,
+   "Van der Waals clashes": 1.1809,
+   "entropy sidechain": 0.1107,
+   "entropy mainchain": 0.346,
+   "torsional clash": 0.0351,
+   "backbone clash": 0.8324,
+   "_source": "foldx_skempi_full_results_multipoint"
+  },
+  "DD26Y,LE95W": {
+   "Interaction Energy": -2.131,
+   "Backbone Hbond": -0.0041,
+   "Sidechain Hbond": -0.0546,
+   "Van der Waals": -1.2535,
+   "Electrostatics": -0.5434,
+   "Solvation Polar": 1.341,
+   "Solvation Hydrophobic": -1.3269,
+   "Van der Waals clashes": 0.2246,
+   "entropy sidechain": -0.3222,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0029,
+   "backbone clash": 0.8961,
+   "_source": "foldx_skempi_full_results_multipoint"
+  }
+ },
+ "meta": {
+  "pdb": "3QDG",
+  "n_variants": 2,
+  "validation_failed": [],
+  "n_ok": 2,
+  "n_mutations": 2,
+  "sources": [
+   "foldx_skempi_full_results_multipoint"
+  ]
+ }
+}

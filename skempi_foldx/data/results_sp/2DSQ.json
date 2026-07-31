@@ -1,0 +1,79 @@
+{
+ "muts": {
+  "RA20A": {
+   "Interaction Energy": 0.0,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0,
+   "Electrostatics": 0.0,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": 0.0,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": 0.0,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "cleaned": "RI20A",
+   "_source": "foldx_s1102_results_S4169"
+  },
+  "RA35A": {
+   "Interaction Energy": -1.3067,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0401,
+   "Electrostatics": -0.16,
+   "Solvation Polar": -0.119,
+   "Solvation Hydrophobic": 0.0022,
+   "Van der Waals clashes": -0.0063,
+   "entropy sidechain": -1.0149,
+   "entropy mainchain": 0.1148,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0119,
+   "cleaned": "RI35A",
+   "_source": "foldx_s1102_results_S4169"
+  },
+  "RA40A": {
+   "Interaction Energy": 0.0763,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0,
+   "Electrostatics": 0.0476,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": 0.0,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": -0.0002,
+   "entropy mainchain": -0.0007,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "cleaned": "RI40A",
+   "_source": "foldx_s1102_results_S4169"
+  },
+  "RA41A": {
+   "Interaction Energy": -0.0463,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0092,
+   "Electrostatics": -0.0198,
+   "Solvation Polar": -0.0251,
+   "Solvation Hydrophobic": 0.0047,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": 0.0086,
+   "entropy mainchain": -0.0114,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "cleaned": "RI41A",
+   "_source": "foldx_s1102_results_S4169"
+  }
+ },
+ "meta": {
+  "pdb": "2DSQ",
+  "n_ds": 4,
+  "unresolved": [],
+  "validation_failed": [],
+  "n_ok": 4,
+  "n_mutations": 4,
+  "sources": [
+   "foldx_s1102_results_S4169"
+  ]
+ }
+}
