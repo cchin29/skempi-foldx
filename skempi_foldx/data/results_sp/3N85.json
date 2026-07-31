@@ -14,7 +14,7 @@
    "torsional clash": -0.0006,
    "backbone clash": 0.0392,
    "cleaned": "SH32A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "SH32Y": {
    "Interaction Energy": 4.105,
@@ -30,7 +30,7 @@
    "torsional clash": 0.0034,
    "backbone clash": 0.3128,
    "cleaned": "SH32Y",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "SH50G": {
    "Interaction Energy": -0.0617,
@@ -46,7 +46,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "SH50G",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "SH52Y": {
    "Interaction Energy": 10.0549,
@@ -62,7 +62,7 @@
    "torsional clash": -0.023,
    "backbone clash": 0.1086,
    "cleaned": "SH52Y",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "WH100F": {
    "Interaction Energy": -0.0651,
@@ -78,7 +78,7 @@
    "torsional clash": 0.0194,
    "backbone clash": -0.022,
    "cleaned": "WH100F",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "WH30K": {
    "Interaction Energy": 0.58,
@@ -94,7 +94,7 @@
    "torsional clash": 0.0004,
    "backbone clash": 0.0566,
    "cleaned": "WH30K",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "WH30R": {
    "Interaction Energy": 0.5723,
@@ -110,7 +110,7 @@
    "torsional clash": 0.0055,
    "backbone clash": -0.0395,
    "cleaned": "WH30R",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "WL91F": {
    "Interaction Energy": -0.0618,
@@ -126,7 +126,7 @@
    "torsional clash": 0.0013,
    "backbone clash": 0.0,
    "cleaned": "WL91F",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "WL94Y": {
    "Interaction Energy": -0.3359,
@@ -142,7 +142,7 @@
    "torsional clash": 0.0038,
    "backbone clash": 0.1009,
    "cleaned": "WL94Y",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   }
  },
  "meta": {
@@ -153,7 +153,7 @@
   "n_ok": 9,
   "n_mutations": 9,
   "sources": [
-   "foldx_skempi_full_results"
+   "full_skempi"
   ]
  }
 }

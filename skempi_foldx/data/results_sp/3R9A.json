@@ -14,7 +14,7 @@
    "torsional clash": 0.0016,
    "backbone clash": 0.1773,
    "cleaned": "AA323W",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "GA165R": {
    "Interaction Energy": 0.0,
@@ -30,7 +30,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "GA165R",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "VA331D": {
    "Interaction Energy": 0.0064,
@@ -46,7 +46,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "VA331D",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "YA325A": {
    "Interaction Energy": 0.0309,
@@ -62,7 +62,7 @@
    "torsional clash": -0.0003,
    "backbone clash": 0.2173,
    "cleaned": "YA325A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "YA325W": {
    "Interaction Energy": -0.1432,
@@ -78,7 +78,7 @@
    "torsional clash": -0.0001,
    "backbone clash": 0.0014,
    "cleaned": "YA325W",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   }
  },
  "meta": {
@@ -89,7 +89,7 @@
   "n_ok": 5,
   "n_mutations": 5,
   "sources": [
-   "foldx_skempi_full_results"
+   "full_skempi"
   ]
  }
 }

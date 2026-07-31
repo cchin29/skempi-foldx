@@ -14,7 +14,7 @@
    "torsional clash": 0.025,
    "backbone clash": 0.0026,
    "cleaned": "HH101Y",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "HH107A": {
    "Interaction Energy": 0.0437,
@@ -30,7 +30,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "HH107A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "NH31H": {
    "Interaction Energy": 0.8326,
@@ -46,7 +46,7 @@
    "torsional clash": 0.0021,
    "backbone clash": 0.0756,
    "cleaned": "NH31H",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "SH105T": {
    "Interaction Energy": 0.5331,
@@ -62,7 +62,7 @@
    "torsional clash": 0.0029,
    "backbone clash": 0.0078,
    "cleaned": "SH105T",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "TH28D": {
    "Interaction Energy": -0.4706,
@@ -78,7 +78,7 @@
    "torsional clash": -0.0,
    "backbone clash": 0.0,
    "cleaned": "TH28D",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "TH59A": {
    "Interaction Energy": 0.1955,
@@ -94,7 +94,7 @@
    "torsional clash": -0.0003,
    "backbone clash": -0.0604,
    "cleaned": "TH59A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "YH27A": {
    "Interaction Energy": -0.0005,
@@ -110,7 +110,7 @@
    "torsional clash": 0.0,
    "backbone clash": -0.0557,
    "cleaned": "YH27A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "YH54A": {
    "Interaction Energy": 1.3969,
@@ -126,7 +126,7 @@
    "torsional clash": -0.0045,
    "backbone clash": -0.1315,
    "cleaned": "YH54A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "YH54W": {
    "Interaction Energy": -0.1416,
@@ -142,7 +142,7 @@
    "torsional clash": 0.0013,
    "backbone clash": 0.017,
    "cleaned": "YH54W",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "YH99A": {
    "Interaction Energy": 1.7346,
@@ -158,7 +158,7 @@
    "torsional clash": 0.0015,
    "backbone clash": -0.0379,
    "cleaned": "YH99A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   }
  },
  "meta": {
@@ -169,7 +169,7 @@
   "n_ok": 10,
   "n_mutations": 10,
   "sources": [
-   "foldx_skempi_full_results"
+   "full_skempi"
   ]
  }
 }

@@ -13,7 +13,7 @@
    "entropy mainchain": 0.0128,
    "torsional clash": -0.0216,
    "backbone clash": -0.011,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "WW438A,SW439A,EW440A": {
    "Interaction Energy": 2.756,
@@ -28,7 +28,7 @@
    "entropy mainchain": 0.3857,
    "torsional clash": 0.0225,
    "backbone clash": -0.2369,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "YW434A,DW435A": {
    "Interaction Energy": 3.5323,
@@ -43,7 +43,7 @@
    "entropy mainchain": 0.0552,
    "torsional clash": -0.0252,
    "backbone clash": -0.1889,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "YW434A,YW437A": {
    "Interaction Energy": 7.4159,
@@ -58,7 +58,7 @@
    "entropy mainchain": 0.2986,
    "torsional clash": -0.0946,
    "backbone clash": -0.3362,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   }
  },
  "meta": {
@@ -68,7 +68,7 @@
   "n_ok": 4,
   "n_mutations": 4,
   "sources": [
-   "foldx_skempi_full_results_multipoint"
+   "full_skempi_multipoint"
   ]
  }
 }

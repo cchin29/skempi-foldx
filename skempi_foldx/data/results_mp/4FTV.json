@@ -13,7 +13,7 @@
    "entropy mainchain": 0.383,
    "torsional clash": -0.0027,
    "backbone clash": -0.1027,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "DD93A,RA65A": {
    "Interaction Energy": 3.6235,
@@ -28,7 +28,7 @@
    "entropy mainchain": 0.7304,
    "torsional clash": -0.13,
    "backbone clash": -0.41,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "EA63Q,DD93A": {
    "Interaction Energy": 2.4659,
@@ -43,7 +43,7 @@
    "entropy mainchain": 0.8042,
    "torsional clash": 0.2416,
    "backbone clash": -0.3435,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "EA63Q,KA66A": {
    "Interaction Energy": 0.3236,
@@ -58,7 +58,7 @@
    "entropy mainchain": 0.102,
    "torsional clash": -0.0042,
    "backbone clash": 0.1265,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "EA63Q,DD93A,KA66A": {
    "Interaction Energy": 3.5288,
@@ -73,7 +73,7 @@
    "entropy mainchain": 0.867,
    "torsional clash": -0.0516,
    "backbone clash": -0.2966,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "ME98A,SE99G,AE100G,QE101R": {
    "Interaction Energy": 2.9025,
@@ -88,7 +88,7 @@
    "entropy mainchain": 0.7834,
    "torsional clash": -0.0507,
    "backbone clash": -1.0212,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "SE99G,AE100G,QE101R": {
    "Interaction Energy": 3.2849,
@@ -103,7 +103,7 @@
    "entropy mainchain": 0.552,
    "torsional clash": -0.0353,
    "backbone clash": -0.9219,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "ME98A,AE100G,QE101R": {
    "Interaction Energy": 1.7073,
@@ -118,7 +118,7 @@
    "entropy mainchain": -0.0685,
    "torsional clash": -0.0402,
    "backbone clash": -0.5863,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "ME98A,QE101E": {
    "Interaction Energy": -0.289,
@@ -133,7 +133,7 @@
    "entropy mainchain": -0.0322,
    "torsional clash": -0.0254,
    "backbone clash": -0.0311,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   }
  },
  "meta": {
@@ -143,7 +143,7 @@
   "n_ok": 9,
   "n_mutations": 9,
   "sources": [
-   "foldx_skempi_full_results_multipoint"
+   "full_skempi_multipoint"
   ]
  }
 }

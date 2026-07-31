@@ -77,9 +77,40 @@ def bundled_path(which: str = SINGLE_POINT) -> Path:
     return path
 
 
-def load_bundled_store(which: str = SINGLE_POINT) -> Dict[str, Dict[str, dict]]:
-    """The shipped results, loaded by name: ``results_sp`` or ``results_mp``."""
-    return load_store(bundled_path(which))
+def reindex_by_skempi_id(records: Dict[str, dict]) -> Dict[str, dict]:
+    """Re-key one complex's records by SKEMPI's own mutation string.
+
+    The single-point store carries two key conventions -- 3012 records under SKEMPI's
+    author-chain form (``LI38D``) and 1226 under the role-chain form (``LB38D``), where the two
+    binding partners are named ``A``/``B``. Both name the same mutation, and every record carries
+    the author-chain form in ``cleaned``.
+
+    So a lookup by SKEMPI identifier misses about 29% of the single-point store unless the
+    records are re-indexed. This does that, in memory.
+
+    The stored keys are deliberately NOT rewritten on disk. A consumer that joins these energies
+    onto its own labels may map role chains onto author chains itself, in which case it needs the
+    role-chain key to be present; rewriting the store to one convention drops such a consumer's
+    coverage without any error, because the join simply stops matching. Choose the convention at
+    read time instead.
+    """
+    return {r.get("cleaned", k): r for k, r in records.items()}
+
+
+def load_bundled_store(which: str = SINGLE_POINT,
+                       key: str = "stored") -> Dict[str, Dict[str, dict]]:
+    """The shipped results, loaded by name: ``results_sp`` or ``results_mp``.
+
+    ``key="skempi"`` re-indexes every complex by SKEMPI's mutation string, which is what a lookup
+    like ``store["1ACB"]["LI38D"]`` expects. The default ``"stored"`` preserves the keys as
+    written -- see :func:`reindex_by_skempi_id` for why both exist.
+    """
+    if key not in ("stored", "skempi"):
+        raise ValueError(f'key must be "stored" or "skempi", not {key!r}')
+    store = load_store(bundled_path(which))
+    if key == "skempi":
+        store = {pdb: reindex_by_skempi_id(recs) for pdb, recs in store.items()}
+    return store
 
 
 def load_complex(path: Path) -> Tuple[Dict[str, dict], dict]:
@@ -126,12 +157,29 @@ def load_store(directory: Path) -> Dict[str, Dict[str, dict]]:
 
 def store_kind(directory: Path) -> Optional[str]:
     """Whether a results directory holds single-point (``muts``) or multi-point (``variants``)
-    records. ``None`` if it is empty or holds neither."""
+    records. ``None`` if it is empty or holds neither.
+
+    Raises if a single directory holds both. That is not a hypothetical: the two arms are separate
+    BuildModel campaigns whose per-complex files share a filename, so pointing both at one
+    directory leaves each complex holding whichever arm ran last.
+
+    Returning on the first non-empty file would report one kind for such a directory, and the
+    cross-source check in :func:`consolidate` would then see a single consistent kind and pass --
+    the guard failing open on exactly the input it exists to reject. Every file is inspected.
+    """
+    found: Dict[str, str] = {}
     for path in sorted(Path(directory).glob("*.json")):
         records, kind, _ = load_complex_kind(path)
         if records:
-            return kind
-    return None
+            found.setdefault(kind, path.name)
+    if len(found) > 1:
+        raise ValueError(
+            f"{directory} holds both {SINGLE_KEY!r} and {MULTI_KEY!r} records "
+            f"(e.g. {found[SINGLE_KEY]} and {found[MULTI_KEY]}). Single- and multi-point results "
+            f"are separate campaigns and share a per-complex filename, so one directory cannot "
+            f"hold both without each complex meaning whichever arm ran last. Keep them apart."
+        )
+    return next(iter(found), None)
 
 
 @dataclass

@@ -13,7 +13,7 @@
    "entropy mainchain": 0.693,
    "torsional clash": -0.0068,
    "backbone clash": -0.0129,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "SC26D,TC31E,NC93A": {
    "Interaction Energy": 1.6331,
@@ -28,7 +28,7 @@
    "entropy mainchain": 0.6735,
    "torsional clash": -0.0067,
    "backbone clash": -0.0129,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "SC26D,TC31E,NC93A,ND56A,TD61E": {
    "Interaction Energy": 1.5479,
@@ -43,7 +43,7 @@
    "entropy mainchain": 0.6548,
    "torsional clash": -0.0103,
    "backbone clash": 0.0967,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   }
  },
  "meta": {
@@ -53,7 +53,7 @@
   "n_ok": 3,
   "n_mutations": 3,
   "sources": [
-   "foldx_skempi_full_results_multipoint"
+   "full_skempi_multipoint"
   ]
  }
 }

@@ -14,7 +14,7 @@
    "torsional clash": -0.0002,
    "backbone clash": 0.0791,
    "cleaned": "KA66A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "TA163A": {
    "Interaction Energy": 1.2002,
@@ -30,7 +30,7 @@
    "torsional clash": 0.0003,
    "backbone clash": -0.1463,
    "cleaned": "TA163A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "WA167A": {
    "Interaction Energy": 0.4854,
@@ -46,7 +46,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0173,
    "cleaned": "WA167A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   }
  },
  "meta": {
@@ -57,7 +57,7 @@
   "n_ok": 3,
   "n_mutations": 3,
   "sources": [
-   "foldx_skempi_full_results"
+   "full_skempi"
   ]
  }
 }

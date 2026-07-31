@@ -14,7 +14,7 @@
    "torsional clash": 0.0,
    "backbone clash": -0.0522,
    "cleaned": "NB18A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "NB18G": {
    "Interaction Energy": 0.0562,
@@ -30,7 +30,7 @@
    "torsional clash": -0.0002,
    "backbone clash": -0.0522,
    "cleaned": "NB18G",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "NB18T": {
    "Interaction Energy": -0.0372,
@@ -46,7 +46,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "NB18T",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   }
  },
  "meta": {
@@ -57,7 +57,7 @@
   "n_ok": 3,
   "n_mutations": 3,
   "sources": [
-   "foldx_s1102_results_S4169"
+   "S4169"
   ]
  }
 }

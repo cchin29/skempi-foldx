@@ -14,7 +14,7 @@
    "torsional clash": -0.0,
    "backbone clash": -0.0005,
    "cleaned": "KG40A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "LG5A": {
    "Interaction Energy": 3.3737,
@@ -30,7 +30,7 @@
    "torsional clash": -0.0112,
    "backbone clash": -0.4138,
    "cleaned": "LG5A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "YG2F": {
    "Interaction Energy": -0.0445,
@@ -46,7 +46,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0031,
    "cleaned": "YG2F",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   }
  },
  "meta": {
@@ -57,7 +57,7 @@
   "n_ok": 3,
   "n_mutations": 3,
   "sources": [
-   "foldx_skempi_full_results"
+   "full_skempi"
   ]
  }
 }

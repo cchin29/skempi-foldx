@@ -13,7 +13,7 @@
    "entropy mainchain": 0.0582,
    "torsional clash": 0.0,
    "backbone clash": 0.0,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "RB5A,NB10D": {
    "Interaction Energy": 4.2653,
@@ -28,7 +28,7 @@
    "entropy mainchain": 0.0582,
    "torsional clash": -0.027,
    "backbone clash": -0.0147,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "KB30A,RB35G": {
    "Interaction Energy": 7.5381,
@@ -43,7 +43,7 @@
    "entropy mainchain": 0.8363,
    "torsional clash": -0.0195,
    "backbone clash": -0.3071,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   }
  },
  "meta": {
@@ -53,7 +53,7 @@
   "n_ok": 3,
   "n_mutations": 3,
   "sources": [
-   "foldx_skempi_full_results_multipoint"
+   "full_skempi_multipoint"
   ]
  }
 }

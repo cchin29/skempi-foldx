@@ -14,7 +14,7 @@
    "torsional clash": -0.0694,
    "backbone clash": 0.1132,
    "cleaned": "DD30N",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "ED93A": {
    "Interaction Energy": 1.3741,
@@ -30,7 +30,7 @@
    "torsional clash": -0.2007,
    "backbone clash": -0.5554,
    "cleaned": "ED93A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "EE28A": {
    "Interaction Energy": 2.6347,
@@ -46,7 +46,7 @@
    "torsional clash": -0.0002,
    "backbone clash": -0.1394,
    "cleaned": "EE28A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "KA66A": {
    "Interaction Energy": 1.3687,
@@ -62,7 +62,7 @@
    "torsional clash": -0.0637,
    "backbone clash": -0.0258,
    "cleaned": "KA66A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "RA65A": {
    "Interaction Energy": 3.5593,
@@ -78,7 +78,7 @@
    "torsional clash": -0.2013,
    "backbone clash": -0.4333,
    "cleaned": "RA65A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "YC5A": {
    "Interaction Energy": 2.1496,
@@ -94,7 +94,7 @@
    "torsional clash": -0.5062,
    "backbone clash": -0.442,
    "cleaned": "YC5A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "YC5F": {
    "Interaction Energy": -1.9339,
@@ -110,7 +110,7 @@
    "torsional clash": -0.6502,
    "backbone clash": -0.0884,
    "cleaned": "YC5F",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "YC5W": {
    "Interaction Energy": 1.0351,
@@ -126,7 +126,7 @@
    "torsional clash": -0.479,
    "backbone clash": 0.0196,
    "cleaned": "YC5W",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "YC8A": {
    "Interaction Energy": 2.1404,
@@ -142,7 +142,7 @@
    "torsional clash": -0.003,
    "backbone clash": -0.3704,
    "cleaned": "YC8A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "YE99A": {
    "Interaction Energy": 0.6186,
@@ -158,7 +158,7 @@
    "torsional clash": -0.2893,
    "backbone clash": -0.282,
    "cleaned": "YE99A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   }
  },
  "meta": {
@@ -169,7 +169,7 @@
   "n_ok": 10,
   "n_mutations": 10,
   "sources": [
-   "foldx_skempi_full_results"
+   "full_skempi"
   ]
  }
 }

@@ -14,7 +14,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "EH64K",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "VH50T": {
    "Interaction Energy": 0.085,
@@ -30,7 +30,7 @@
    "torsional clash": -0.0237,
    "backbone clash": 0.0,
    "cleaned": "VH50T",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "YL52E": {
    "Interaction Energy": 0.2622,
@@ -46,7 +46,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "YL52E",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   }
  },
  "meta": {
@@ -57,7 +57,7 @@
   "n_ok": 3,
   "n_mutations": 3,
   "sources": [
-   "foldx_skempi_full_results"
+   "full_skempi"
   ]
  }
 }

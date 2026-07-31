@@ -14,7 +14,7 @@
    "torsional clash": -0.0015,
    "backbone clash": -0.2213,
    "cleaned": "AC42G",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "GC21V": {
    "Interaction Energy": 9.5662,
@@ -30,7 +30,7 @@
    "torsional clash": 0.3667,
    "backbone clash": 0.5396,
    "cleaned": "GC21V",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "PC18A": {
    "Interaction Energy": 1.6065,
@@ -46,7 +46,7 @@
    "torsional clash": 0.0004,
    "backbone clash": -0.1019,
    "cleaned": "PC18A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "PC19A": {
    "Interaction Energy": 0.126,
@@ -62,7 +62,7 @@
    "torsional clash": 0.0011,
    "backbone clash": -0.0218,
    "cleaned": "PC19A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "PC5A": {
    "Interaction Energy": 1.0838,
@@ -78,7 +78,7 @@
    "torsional clash": 0.0035,
    "backbone clash": 0.0275,
    "cleaned": "PC5A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "PC67A": {
    "Interaction Energy": 0.4145,
@@ -94,7 +94,7 @@
    "torsional clash": 0.0119,
    "backbone clash": -0.0198,
    "cleaned": "PC67A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "WC47Y": {
    "Interaction Energy": 1.8371,
@@ -110,7 +110,7 @@
    "torsional clash": 0.0098,
    "backbone clash": 0.1044,
    "cleaned": "WC47Y",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   }
  },
  "meta": {
@@ -121,7 +121,7 @@
   "n_ok": 7,
   "n_mutations": 7,
   "sources": [
-   "foldx_skempi_full_results"
+   "full_skempi"
   ]
  }
 }

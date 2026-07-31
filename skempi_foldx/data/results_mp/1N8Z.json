@@ -13,7 +13,7 @@
    "entropy mainchain": -0.1851,
    "torsional clash": 0.001,
    "backbone clash": -0.0637,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "NA30S,HA91F,YA92W,TA94S,DB102W,YB105F,YB109V": {
    "Interaction Energy": 3.4482,
@@ -28,7 +28,7 @@
    "entropy mainchain": -0.1356,
    "torsional clash": -0.0771,
    "backbone clash": 0.0773,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "RB50A,RB59A": {
    "Interaction Energy": 2.7574,
@@ -43,7 +43,7 @@
    "entropy mainchain": 0.3888,
    "torsional clash": -0.2136,
    "backbone clash": -0.0166,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   }
  },
  "meta": {
@@ -53,7 +53,7 @@
   "n_ok": 3,
   "n_mutations": 3,
   "sources": [
-   "foldx_skempi_full_results_multipoint"
+   "full_skempi_multipoint"
   ]
  }
 }

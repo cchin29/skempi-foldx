@@ -13,7 +13,7 @@
    "entropy mainchain": -0.0054,
    "torsional clash": 0.1864,
    "backbone clash": 1.0995,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "DD26Y,LE95W": {
    "Interaction Energy": -1.6459,
@@ -28,7 +28,7 @@
    "entropy mainchain": 0.0,
    "torsional clash": -0.0067,
    "backbone clash": 0.6908,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   }
  },
  "meta": {
@@ -38,7 +38,7 @@
   "n_ok": 2,
   "n_mutations": 2,
   "sources": [
-   "foldx_skempi_full_results_multipoint"
+   "full_skempi_multipoint"
   ]
  }
 }

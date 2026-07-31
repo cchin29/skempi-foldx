@@ -14,7 +14,7 @@
    "torsional clash": -0.0003,
    "backbone clash": -0.0796,
    "cleaned": "FH103A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "HH104A": {
    "Interaction Energy": -0.2467,
@@ -30,7 +30,7 @@
    "torsional clash": -0.0003,
    "backbone clash": 0.0,
    "cleaned": "HH104A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "WH105A": {
    "Interaction Energy": 1.9453,
@@ -46,7 +46,7 @@
    "torsional clash": -0.0058,
    "backbone clash": 0.0581,
    "cleaned": "WH105A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   }
  },
  "meta": {
@@ -57,7 +57,7 @@
   "n_ok": 3,
   "n_mutations": 3,
   "sources": [
-   "foldx_skempi_full_results"
+   "full_skempi"
   ]
  }
 }

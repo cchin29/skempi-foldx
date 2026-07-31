@@ -14,7 +14,7 @@
    "torsional clash": -0.0005,
    "backbone clash": 0.0124,
    "cleaned": "AC86T",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "FB84V": {
    "Interaction Energy": 0.0361,
@@ -30,7 +30,7 @@
    "torsional clash": 0.0005,
    "backbone clash": -0.0019,
    "cleaned": "FC84V",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "RB85G": {
    "Interaction Energy": -0.0832,
@@ -46,7 +46,7 @@
    "torsional clash": -0.0216,
    "backbone clash": -0.2826,
    "cleaned": "RC85G",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "TB88V": {
    "Interaction Energy": 0.5005,
@@ -62,7 +62,7 @@
    "torsional clash": -0.1329,
    "backbone clash": -0.0202,
    "cleaned": "TC88V",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "TB89A": {
    "Interaction Energy": -0.3606,
@@ -78,7 +78,7 @@
    "torsional clash": -0.0023,
    "backbone clash": -0.2757,
    "cleaned": "TC89A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "YB87A": {
    "Interaction Energy": 4.5623,
@@ -94,7 +94,7 @@
    "torsional clash": -0.03,
    "backbone clash": -0.2052,
    "cleaned": "YC87A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "YB87I": {
    "Interaction Energy": 2.401,
@@ -110,7 +110,7 @@
    "torsional clash": 0.6748,
    "backbone clash": -0.0098,
    "cleaned": "YC87I",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   }
  },
  "meta": {
@@ -121,7 +121,7 @@
   "n_ok": 7,
   "n_mutations": 7,
   "sources": [
-   "foldx_s1102_results_S4169"
+   "S4169"
   ]
  }
 }

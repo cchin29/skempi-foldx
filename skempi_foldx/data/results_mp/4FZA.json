@@ -13,7 +13,7 @@
    "entropy mainchain": 1.0262,
    "torsional clash": 0.0125,
    "backbone clash": 0.1751,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "LB74E,LB79E": {
    "Interaction Energy": 4.588,
@@ -28,7 +28,7 @@
    "entropy mainchain": 0.1503,
    "torsional clash": -0.113,
    "backbone clash": 0.1465,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   }
  },
  "meta": {
@@ -38,7 +38,7 @@
   "n_ok": 2,
   "n_mutations": 2,
   "sources": [
-   "foldx_skempi_full_results_multipoint"
+   "full_skempi_multipoint"
   ]
  }
 }

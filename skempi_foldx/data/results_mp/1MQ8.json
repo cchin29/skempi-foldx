@@ -13,7 +13,7 @@
    "entropy mainchain": 0.0,
    "torsional clash": 0.0,
    "backbone clash": 0.0,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "CB32L,CB170F,KB158C,KB165C": {
    "Interaction Energy": 0.0004,
@@ -28,7 +28,7 @@
    "entropy mainchain": 0.0,
    "torsional clash": 0.0,
    "backbone clash": 0.0,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "CB32L,CB170F,EB155C,EB172C": {
    "Interaction Energy": 0.0,
@@ -43,7 +43,7 @@
    "entropy mainchain": 0.0,
    "torsional clash": 0.0,
    "backbone clash": 0.0,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "CB32L,CB170F,KB31C,TB171C": {
    "Interaction Energy": 0.0,
@@ -58,7 +58,7 @@
    "entropy mainchain": 0.0,
    "torsional clash": 0.0,
    "backbone clash": 0.0,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "CB32L,CB170F,LB160C,KB165C": {
    "Interaction Energy": 0.0,
@@ -73,7 +73,7 @@
    "entropy mainchain": 0.0,
    "torsional clash": 0.0,
    "backbone clash": 0.0,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "CB32L,KB31C": {
    "Interaction Energy": 0.0,
@@ -88,7 +88,7 @@
    "entropy mainchain": 0.0,
    "torsional clash": 0.0,
    "backbone clash": 0.0,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "CB170F,TB171C": {
    "Interaction Energy": 0.0,
@@ -103,7 +103,7 @@
    "entropy mainchain": 0.0,
    "torsional clash": 0.0,
    "backbone clash": 0.0,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   }
  },
  "meta": {
@@ -113,7 +113,7 @@
   "n_ok": 7,
   "n_mutations": 7,
   "sources": [
-   "foldx_skempi_full_results_multipoint"
+   "full_skempi_multipoint"
   ]
  }
 }

@@ -14,7 +14,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0059,
    "cleaned": "HE154A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "HE154E": {
    "Interaction Energy": 0.5042,
@@ -30,7 +30,7 @@
    "torsional clash": 0.0008,
    "backbone clash": 0.0404,
    "cleaned": "HE154E",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "KE153A": {
    "Interaction Energy": 0.402,
@@ -46,7 +46,7 @@
    "torsional clash": -0.0052,
    "backbone clash": -0.1512,
    "cleaned": "KE153A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "KE153E": {
    "Interaction Energy": 1.1808,
@@ -62,7 +62,7 @@
    "torsional clash": -0.0014,
    "backbone clash": 0.014,
    "cleaned": "KE153E",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "RE155A": {
    "Interaction Energy": 0.3502,
@@ -78,7 +78,7 @@
    "torsional clash": -0.0004,
    "backbone clash": 0.0449,
    "cleaned": "RE155A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "RE155E": {
    "Interaction Energy": 0.3181,
@@ -94,7 +94,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "RE155E",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   }
  },
  "meta": {
@@ -105,7 +105,7 @@
   "n_ok": 6,
   "n_mutations": 6,
   "sources": [
-   "foldx_skempi_full_results"
+   "full_skempi"
   ]
  }
 }

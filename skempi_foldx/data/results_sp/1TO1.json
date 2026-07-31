@@ -14,7 +14,7 @@
    "torsional clash": 0.0565,
    "backbone clash": 0.1946,
    "cleaned": "AI42Y",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   }
  },
  "meta": {
@@ -25,7 +25,7 @@
   "n_ok": 1,
   "n_mutations": 1,
   "sources": [
-   "foldx_s1102_results_S4169"
+   "S4169"
   ]
  }
 }

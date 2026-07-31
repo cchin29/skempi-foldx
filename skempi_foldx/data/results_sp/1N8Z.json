@@ -14,7 +14,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0822,
    "cleaned": "DB102W",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "FC539A": {
    "Interaction Energy": 0.1404,
@@ -30,7 +30,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "FC539A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "HA91F": {
    "Interaction Energy": 0.9239,
@@ -46,7 +46,7 @@
    "torsional clash": -0.0005,
    "backbone clash": -0.0224,
    "cleaned": "HA91F",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "LC509A": {
    "Interaction Energy": 0.0,
@@ -62,7 +62,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "LC509A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "NA30S": {
    "Interaction Energy": 2.6164,
@@ -78,7 +78,7 @@
    "torsional clash": -0.0068,
    "backbone clash": -0.0788,
    "cleaned": "NA30S",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "RB50A": {
    "Interaction Energy": 2.6467,
@@ -94,7 +94,7 @@
    "torsional clash": -0.0324,
    "backbone clash": 0.0846,
    "cleaned": "RB50A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "RB59A": {
    "Interaction Energy": 0.7109,
@@ -110,7 +110,7 @@
    "torsional clash": -0.012,
    "backbone clash": -0.0033,
    "cleaned": "RB59A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "SC535A": {
    "Interaction Energy": 0.0,
@@ -126,7 +126,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "SC535A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "TA94S": {
    "Interaction Energy": 0.1474,
@@ -142,7 +142,7 @@
    "torsional clash": -0.0591,
    "backbone clash": -0.0013,
    "cleaned": "TA94S",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "VC536A": {
    "Interaction Energy": 0.0,
@@ -158,7 +158,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "VC536A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "YB105F": {
    "Interaction Energy": -0.8041,
@@ -174,7 +174,7 @@
    "torsional clash": -0.0125,
    "backbone clash": 0.1446,
    "cleaned": "YB105F",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "YB109V": {
    "Interaction Energy": -0.0023,
@@ -190,7 +190,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "YB109V",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   }
  },
  "meta": {
@@ -201,7 +201,7 @@
   "n_ok": 12,
   "n_mutations": 12,
   "sources": [
-   "foldx_skempi_full_results"
+   "full_skempi"
   ]
  }
 }

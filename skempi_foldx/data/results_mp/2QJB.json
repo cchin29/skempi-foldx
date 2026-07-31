@@ -13,7 +13,7 @@
    "entropy mainchain": 0.3135,
    "torsional clash": -0.16,
    "backbone clash": -0.0074,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "TC43A,LC47M,GC48K,LC49Y,HC11G,EC15D,TC30A,MC31I": {
    "Interaction Energy": -0.5653,
@@ -28,7 +28,7 @@
    "entropy mainchain": 0.313,
    "torsional clash": 0.1526,
    "backbone clash": 0.9541,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "RC57K,TC59S,IC61K,PC62A,HC63Q,QC64L,SC67T,TC43A,LC47M,GC48K,LC49Y,HC11G,EC15D,TC30A,MC31I": {
    "Interaction Energy": 1.6668,
@@ -43,7 +43,7 @@
    "entropy mainchain": 0.5659,
    "torsional clash": -0.1442,
    "backbone clash": 0.8177,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   }
  },
  "meta": {
@@ -53,7 +53,7 @@
   "n_ok": 3,
   "n_mutations": 3,
   "sources": [
-   "foldx_skempi_full_results_multipoint"
+   "full_skempi_multipoint"
   ]
  }
 }

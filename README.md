@@ -65,7 +65,7 @@ store["1BRS"]["DA52A"]
 #  'Solvation Hydrophobic': 0.0086, 'Van der Waals clashes': -0.0001,
 #  'entropy sidechain': -0.0381,    'entropy mainchain': 0.0,
 #  'torsional clash': -0.0,         'backbone clash': 0.0,
-#  'cleaned': 'DA52A',              '_source': 'foldx_s1102_results_S4169'}
+#  'cleaned': 'DA52A',              '_source': 'S4169'}
 ```
 
 A negative interaction energy means FoldX predicts the mutant binds *more* tightly. For a single
@@ -144,8 +144,19 @@ Two more that cost time to learn:
 ## Provenance and licence
 
 The code is MIT. The data is derived from SKEMPI 2.0 (CC BY 4.0) and produced with licensed
-software — read [NOTICE](NOTICE) before redistributing it. Citations with DOIs for everything
-named in these docs are in [docs/REFERENCES.md](docs/REFERENCES.md).
+software — read [NOTICE](NOTICE) before redistributing it. Citations with DOIs for the data
+sources, the tools and the comparator methods are in [docs/REFERENCES.md](docs/REFERENCES.md).
+That list is not exhaustive: seven works named in the docs carry no citation because no DOI for
+them could be confirmed, and REFERENCES.md names each one rather than leaving the gap silent.
 
 Extracted from a research fork of MuLAN, where this began as a score channel for a ΔΔG predictor.
 None of that project's code is here, which is what lets this one be permissively licensed.
+
+## Acknowledgements
+
+This work was carried out during a 2026 summer research internship at the Laboratoire de Biologie
+Computationnelle, Quantitative et Synthétique (UMR 7238, CNRS–Sorbonne Université), Institut de
+Biologie Paris-Seine, Paris.
+
+The internship was supported by a fellowship from the France-Stanford Center for Interdisciplinary
+Studies, Stanford Global Studies Division, Stanford University.

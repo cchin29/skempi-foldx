@@ -14,7 +14,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "DC167A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "LC165A": {
    "Interaction Energy": -0.0338,
@@ -30,7 +30,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "LC165A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "NC188A": {
    "Interaction Energy": 0.0031,
@@ -46,7 +46,7 @@
    "torsional clash": -0.0001,
    "backbone clash": -0.1003,
    "cleaned": "NC188A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "TC156A": {
    "Interaction Energy": 0.0509,
@@ -62,7 +62,7 @@
    "torsional clash": -0.5718,
    "backbone clash": 0.0008,
    "cleaned": "TC156A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "TC159A": {
    "Interaction Energy": -0.0011,
@@ -78,7 +78,7 @@
    "torsional clash": -0.0029,
    "backbone clash": 0.0,
    "cleaned": "TC159A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "TC186A": {
    "Interaction Energy": 0.0177,
@@ -94,7 +94,7 @@
    "torsional clash": -0.002,
    "backbone clash": -0.0666,
    "cleaned": "TC186A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "VC187A": {
    "Interaction Energy": -0.0899,
@@ -110,7 +110,7 @@
    "torsional clash": -0.0071,
    "backbone clash": -0.2139,
    "cleaned": "VC187A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "YC145A": {
    "Interaction Energy": 4.1093,
@@ -126,7 +126,7 @@
    "torsional clash": -0.0384,
    "backbone clash": 0.0206,
    "cleaned": "YC145A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "YC146A": {
    "Interaction Energy": 0.8536,
@@ -142,7 +142,7 @@
    "torsional clash": -0.0202,
    "backbone clash": -0.0218,
    "cleaned": "YC146A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   }
  },
  "meta": {
@@ -153,7 +153,7 @@
   "n_ok": 9,
   "n_mutations": 9,
   "sources": [
-   "foldx_skempi_full_results"
+   "full_skempi"
   ]
  }
 }

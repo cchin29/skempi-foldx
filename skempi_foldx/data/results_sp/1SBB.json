@@ -14,7 +14,7 @@
    "torsional clash": 0.0754,
    "backbone clash": -0.0197,
    "cleaned": "LB20T",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "VB26Y": {
    "Interaction Energy": 0.0985,
@@ -30,7 +30,7 @@
    "torsional clash": 0.0213,
    "backbone clash": 0.2351,
    "cleaned": "VB26Y",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "YB91V": {
    "Interaction Energy": 0.3366,
@@ -46,7 +46,7 @@
    "torsional clash": 0.002,
    "backbone clash": 0.2069,
    "cleaned": "YB91V",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   }
  },
  "meta": {
@@ -57,7 +57,7 @@
   "n_ok": 3,
   "n_mutations": 3,
   "sources": [
-   "foldx_s1102_results_S4169"
+   "S4169"
   ]
  }
 }

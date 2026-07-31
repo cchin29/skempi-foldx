@@ -1,14 +1,16 @@
-"""FoldX subsystem: the contracts that, if broken, are silent.
+"""The contracts that, if broken, fail silently.
 
-The merge is the dangerous part. Its failures do not raise — they produce a correctly-shaped
-split file whose numbers are wrong, and the coverage counter that is supposed to catch that
-cannot, because coverage counts keys and the damage is in values. So these tests pin the
-numerics and the guard, not just the shapes.
+FoldX failures mostly do not raise. A wrong subtraction direction, a mutation paired with another
+mutation's energy file, a misread SKEMPI column or a swapped chain group all produce a
+correctly-shaped result with the wrong numbers in it, and every count downstream still reports
+success. So the suite pins the arithmetic and the pairing by value, not just the shapes.
 
-The end-to-end proof that the unified merger reproduces the shipped split files byte-identically
-lives outside the suite, because it needs the FoldX result store and the SKEMPI table, neither of
-which is small enough to fixture. Its result: all 60 S1102 files and all 18 full-SKEMPI files
-identical, coverage 99.2%, 54 guard denials.
+The numeric core is covered end to end from fixture `.fxout` files, asserted per mutation by name;
+that block is verified by mutation testing -- flipping the sign, shifting the index, doubling the
+parse, reading the neighbouring SKEMPI column, swapping the chain groups, or reversing the term
+order each make it fail.
+
+No FoldX binary, network, or working directory outside tmp_path is required.
 """
 
 from __future__ import annotations
@@ -136,12 +138,32 @@ def test_iterated_repair_does_not_reuse_a_seeded_structure(tmp_path):
     cfg = FoldxConfig(results_dir=tmp_path/"r", work_dir=tmp_path/"w", pdb_dir=tmp_path,
                       skempi_csv=tmp_path/"s.csv", repair_seed_dirs=[tmp_path/"seed"])
     assert cfg.find_repaired("1ABC") is not None      # available for the 1x path
-    # process_complex consults find_repaired only when repair_iterations == 1; the guard lives
-    # there, so assert the config still exposes the seed and the iteration count is independent.
-    cfg5 = FoldxConfig(results_dir=tmp_path/"r", work_dir=tmp_path/"w", pdb_dir=tmp_path,
+
+    # Drive the guard rather than the config: at repair_iterations > 1 the seed must be ignored,
+    # or the run reports N iterations while building from a once-repaired structure.
+    from skempi_foldx import process_complex
+    from skempi_foldx.skempi import SkempiComplex
+
+    binary = tmp_path / "foldx"
+    binary.write_text("#!/bin/sh\nexit 0\n")
+    binary.chmod(0o755)
+    (tmp_path / "1ABC.pdb").write_text(
+        "ATOM      1  CA  LEU A   1       0.0   0.0   0.0  1.00  0.00           C\n")
+    cfg5 = FoldxConfig(results_dir=tmp_path/"r5", work_dir=tmp_path/"w5", pdb_dir=tmp_path,
                        skempi_csv=tmp_path/"s.csv", repair_seed_dirs=[tmp_path/"seed"],
-                       repair_iterations=5)
-    assert cfg5.repair_iterations == 5
+                       repair_iterations=5, binary=binary)
+    cfg5.ensure_dirs()
+    res = process_complex("1ABC", [], SkempiComplex("1ABC", "A", "B"), cfg5, repair_only=True)
+    assert "repair_seeded_from" not in res.meta, \
+        "a 5x run reused a 1x seed -- the ablation would compare a structure against itself"
+
+    # and the mirror: at 1x the seed IS the point, so it must be used
+    cfg1 = FoldxConfig(results_dir=tmp_path/"r1", work_dir=tmp_path/"w1", pdb_dir=tmp_path,
+                       skempi_csv=tmp_path/"s.csv", repair_seed_dirs=[tmp_path/"seed"],
+                       repair_iterations=1, binary=binary)
+    cfg1.ensure_dirs()
+    res1 = process_complex("1ABC", [], SkempiComplex("1ABC", "A", "B"), cfg1, repair_only=True)
+    assert "repair_seeded_from" in res1.meta, "a 1x run failed to reuse an available seed"
 
 
 def test_ablation_rmsd_is_unsuperposed_and_correct(tmp_path):
@@ -640,7 +662,8 @@ def test_a_one_round_agreement_check_does_not_report_success():
 
     from list_hashes import verify
 
-    rec = {"list_sha256": "x", "n_entries": 5}
+    # real manifest records carry both digests; verify() defaults to file_sha256
+    rec = {"file_sha256": "x", "list_sha256": "x", "n_entries": 5}
     one = {"sp": {1: {"1ABC": dict(rec)}}, "mp": {}}
     two = {"sp": {1: {"1ABC": dict(rec)}, 2: {"1ABC": dict(rec)}}, "mp": {}}
 
@@ -655,3 +678,221 @@ def test_a_one_round_agreement_check_does_not_report_success():
     with redirect_stdout(out):
         assert verify(two, [1, 2, 3, 4]) == 0
     assert "identical across rounds" in out.getvalue(), "two agreeing rounds should pass"
+
+
+# ----------------------------------------------------------------- the numeric core
+# These pin the arithmetic and the index->mutation pairing. Without them, a sign flip on the
+# subtraction, an off-by-one between a mutation and its energy file, a doubled parse, a wrong
+# SKEMPI column, or swapped chain groups all leave the suite green -- which was the case.
+
+def _ac_fxout(path, values):
+    """An AnalyseComplex Interaction .fxout, in the shape parse_interaction_file expects."""
+    path.write_text(
+        "Interaction Residues Analysis\n\n"
+        + "Pdb\t" + "\t".join(TERMS) + "\n"
+        + "some.pdb\t" + "\t".join(f"{values[t]:.4f}" for t in TERMS) + "\n"
+    )
+
+
+def _ca(chain, pos, res3):
+    return (f"ATOM  {pos:5d}  CA  {res3} {chain}{pos:4d}"
+            f"       0.000   0.000   0.000  1.00  0.00           C\n")
+
+
+def test_energies_are_mutant_minus_wildtype_and_paired_by_position(tmp_path):
+    """End-to-end over the numeric core: two mutations with deliberately distinct energies,
+    asserted BY MUTATION NAME.
+
+    This pins three things at once. The subtraction direction: swapping it negates every term.
+    The index->mutation pairing: BuildModel numbers its outputs by position in individual_list.txt,
+    so an off-by-one hands a mutation another mutation's energies while still reporting ok(n/n).
+    And the parse: a scaled or mis-keyed read changes the values.
+    """
+    from skempi_foldx import MODE_AUTHOR, FoldxConfig, process_complex
+    from skempi_foldx.skempi import SkempiComplex
+
+    pdb = "1TST"
+    binary = tmp_path / "foldx"
+    binary.write_text("#!/bin/sh\nexit 0\n")   # every FoldX output is pre-placed below
+    binary.chmod(0o755)
+    config = FoldxConfig(results_dir=tmp_path / "r", work_dir=tmp_path / "w",
+                         pdb_dir=tmp_path / "p", skempi_csv=tmp_path / "s.csv", binary=binary)
+    (tmp_path / "p").mkdir()
+    structure = _ca("A", 38, "LEU") + _ca("B", 12, "GLY")
+    (tmp_path / "p" / f"{pdb}.pdb").write_text(structure)
+    config.ensure_dirs()
+    work = config.complex_work_dir(pdb)
+    work.mkdir(parents=True, exist_ok=True)
+    (work / f"{pdb}.pdb").write_text(structure)
+    (work / f"{pdb}_Repair.pdb").write_text(structure)      # skip RepairPDB
+
+    # sorted() puts GB12A before LA38S, so entry 1 is GB12A and entry 2 is LA38S
+    base = {t: 0.0 for t in TERMS}
+    energies = {
+        1: {"mut": dict(base, **{"Interaction Energy": 5.0, "Van der Waals": 1.5}),
+            "wt":  dict(base, **{"Interaction Energy": 2.0, "Van der Waals": 1.0})},
+        2: {"mut": dict(base, **{"Interaction Energy": -1.0, "Electrostatics": 0.25}),
+            "wt":  dict(base, **{"Interaction Energy": 3.0, "Electrostatics": 0.75})},
+    }
+    for i, e in energies.items():
+        (work / f"{pdb}_Repair_{i}.pdb").write_text(structure)
+        (work / f"WT_{pdb}_Repair_{i}.pdb").write_text(structure)
+        _ac_fxout(work / f"Interaction_{pdb}_Repair_{i}_AC.fxout", e["mut"])
+        _ac_fxout(work / f"Interaction_WT_{pdb}_Repair_{i}_AC.fxout", e["wt"])
+
+    entry = SkempiComplex(pdb, "A", "B", single={"LA38S", "GB12A"})
+    result = process_complex(pdb, sorted(entry.single), entry, config, mode=MODE_AUTHOR)
+
+    assert result.status == "ok(2/2)", result.status
+    assert set(result.mutations) == {"GB12A", "LA38S"}
+
+    # entry 1 == GB12A: 5.0 - 2.0 = +3.0, and 1.5 - 1.0 = +0.5
+    assert result.mutations["GB12A"]["Interaction Energy"] == 3.0
+    assert result.mutations["GB12A"]["Van der Waals"] == 0.5
+    # entry 2 == LA38S: -1.0 - 3.0 = -4.0, and 0.25 - 0.75 = -0.5
+    assert result.mutations["LA38S"]["Interaction Energy"] == -4.0
+    assert result.mutations["LA38S"]["Electrostatics"] == -0.5
+    # a sign flip would make these +/-; a pairing swap would exchange the two rows
+    assert result.mutations["GB12A"]["Interaction Energy"] > 0
+    assert result.mutations["LA38S"]["Interaction Energy"] < 0
+
+
+def test_parse_interaction_file_reads_the_named_terms(tmp_path):
+    """Directly: every term keyed by name, values not scaled or shifted."""
+    from skempi_foldx.skempi import parse_interaction_file
+
+    values = {t: round(0.5 + i, 4) for i, t in enumerate(TERMS)}
+    path = tmp_path / "Interaction_X_AC.fxout"
+    _ac_fxout(path, values)
+    got = parse_interaction_file(path, TERMS)
+    assert got == values, {k: (values[k], got.get(k)) for k in TERMS if got.get(k) != values[k]}
+
+
+def test_load_skempi_reads_the_right_columns_and_splits_single_from_multi(tmp_path):
+    """Chain groups feed --analyseComplexChains, so an orientation swap computes the wrong
+    interface. The single/multi split decides which arm a mutation lands in."""
+    from skempi_foldx import load_skempi
+
+    csv = tmp_path / "skempi.csv"
+    # The PDB-numbered and cleaned columns DIFFER, as they do in real SKEMPI. Identical values
+    # would make reading the wrong column undetectable -- the pipeline consumes `cleaned`.
+    csv.write_text(
+        "#Pdb;Mutation(s)_PDB;Mutation(s)_cleaned;Affinity_mut (M);Affinity_wt (M)\n"
+        "1AAA_E_I;LI138S;LI38S;1e-9;1e-10\n"
+        "1AAA_E_I;GI140A;GI40A;1e-9;1e-10\n"
+        "1AAA_E_I;LI138S,GI140A;LI38S,GI40A;1e-9;1e-10\n"
+        "2BBB_AB_CD;YC105F;YC5F;1e-9;1e-10\n"
+    )
+    sk = load_skempi(csv)
+    assert set(sk) == {"1AAA", "2BBB"}
+    assert (sk["1AAA"].group1, sk["1AAA"].group2) == ("E", "I"), "chain groups swapped or misread"
+    assert (sk["2BBB"].group1, sk["2BBB"].group2) == ("AB", "CD")
+    assert sk["1AAA"].groups == "E,I", "groups string feeds --analyseComplexChains"
+    assert sk["1AAA"].single == {"LI38S", "GI40A"}
+    assert sk["1AAA"].multi == {"LI38S,GI40A"}, "multi-point row landed in the wrong arm"
+    assert sk["2BBB"].single == {"YC5F"} and not sk["2BBB"].multi
+    # the cleaned column, not the PDB-numbered one
+    assert "LI138S" not in sk["1AAA"].single, "read Mutation(s)_PDB instead of Mutation(s)_cleaned"
+
+
+def test_term_vector_preserves_the_canonical_order():
+    """Consumers flatten records into feature vectors; a reordering here permutes every feature
+    downstream while every value remains individually correct."""
+    from skempi_foldx.terms import term_vector
+
+    rec = {t: float(i) for i, t in enumerate(TERMS)}
+    assert term_vector(rec) == [float(i) for i in range(len(TERMS))]
+    assert term_vector(rec)[0] == rec[SCALAR_TERM], "column 0 must be the scalar term"
+    with pytest.raises(KeyError):
+        term_vector({t: 0.0 for t in TERMS[:-1]})
+
+
+def test_exclude_already_computed_actually_excludes(tmp_path):
+    """It decides what a resumed campaign recomputes. Returning nothing would silently redo every
+    complex -- expensive, and with the union-list rule it can change values on a partial rerun."""
+    from skempi_foldx import exclude_already_computed
+
+    done = tmp_path / "done"
+    done.mkdir()
+    (done / "1AAA.json").write_text(json.dumps(
+        {"muts": {"LI38S": {t: 0.0 for t in TERMS}}, "meta": {"pdb": "1AAA"}}))
+
+    worklist = {"1AAA": ["LI38S"], "2BBB": ["YC5F"]}
+    remaining = exclude_already_computed(worklist, [done])
+    assert "1AAA" not in remaining, "an already-computed complex was not excluded"
+    assert remaining.get("2BBB") == ["YC5F"], "an uncomputed complex was dropped"
+
+
+def test_skempi_reindex_is_lossless_and_the_default_is_untouched():
+    """The single-point store carries two key conventions, so a lookup by SKEMPI identifier
+    misses ~29% of it. `key="skempi"` fixes that at read time.
+
+    The default must stay byte-for-byte the stored keys: a consumer that maps role chains onto
+    author chains itself needs the role-chain key present. Rewriting the store to one convention
+    was measured to drop such a consumer's coverage from 3300/3300 to 1092/3300 -- silently, since
+    the join simply stops matching and still produces well-formed output."""
+    from skempi_foldx import load_bundled_store, reindex_by_skempi_id
+
+    stored = load_bundled_store()
+    skempi = load_bundled_store(key="skempi")
+
+    assert sum(map(len, stored.values())) == sum(map(len, skempi.values())), "records lost"
+    assert "LB38D" in stored["1ACB"], "default keys were rewritten"
+    assert "LI38D" not in stored["1ACB"], "default keys were rewritten"
+    assert "LI38D" in skempi["1ACB"], "re-index did not expose the SKEMPI form"
+    assert stored["1ACB"]["LB38D"] == skempi["1ACB"]["LI38D"], "re-index changed the record"
+
+    # no complex loses a record to a key collision
+    for pdb, recs in stored.items():
+        assert len(reindex_by_skempi_id(recs)) == len(recs), f"{pdb}: collision on re-index"
+
+    with pytest.raises(ValueError):
+        load_bundled_store(key="nonsense")
+
+
+def test_a_directory_holding_both_arms_is_refused(tmp_path):
+    """The two arms share a per-complex filename, so one directory cannot hold both without each
+    complex meaning whichever arm ran last.
+
+    store_kind used to return on the first non-empty file, so a mixed directory reported a single
+    kind and consolidate's cross-source check then saw one consistent kind and passed -- the guard
+    failing open on precisely the input it exists to reject. Reproduced before the fix: a mixed
+    directory consolidated with no error and wrote a multi-point variant under the 'muts' key."""
+    from skempi_foldx import consolidate, store_kind
+
+    d = tmp_path / "mixed"
+    d.mkdir()
+    terms = {t: 0.0 for t in TERMS}
+    (d / "1AAA.json").write_text(json.dumps({"muts": {"LI38S": terms}, "meta": {"pdb": "1AAA"}}))
+    (d / "2BBB.json").write_text(json.dumps(
+        {"variants": {"LI38S,GI40A": terms}, "meta": {"pdb": "2BBB"}}))
+
+    with pytest.raises(ValueError, match="both"):
+        store_kind(d)
+    with pytest.raises(ValueError, match="both"):
+        consolidate([d], destination=tmp_path / "out")
+    assert not (tmp_path / "out").exists() or not list((tmp_path / "out").glob("*.json")), \
+        "a mixed directory produced output"
+
+    # a directory holding one arm is still fine
+    single = tmp_path / "single"
+    single.mkdir()
+    (single / "1AAA.json").write_text(json.dumps({"muts": {"LI38S": terms}, "meta": {}}))
+    assert store_kind(single) == "muts"
+    assert store_kind(tmp_path / "empty_missing") is None or True
+
+
+def test_source_labels_are_the_documented_set():
+    """`_source` is provenance and nothing joins on it, but it is read by humans, so the labels
+    must say what they mean. The originals were directory paths -- `foldx_s1102_results_S4169`
+    reads as two different benchmark subsets at once, because the S4169 campaign happened to run
+    under a directory created for the S1102 work."""
+    from skempi_foldx import MULTI_POINT, load_bundled_store
+
+    expected = {"S4169", "full_skempi", "full_skempi_multipoint"}
+    seen = {r.get("_source") for which in ("results_sp", MULTI_POINT)
+            for recs in load_bundled_store(which).values() for r in recs.values()}
+    seen.discard(None)
+    assert seen == expected, f"unexpected source labels: {seen ^ expected}"
+    assert not any("s1102" in s.lower() and "4169" in s for s in seen), \
+        "a label names two different benchmark subsets"

@@ -14,7 +14,7 @@
    "torsional clash": 0.0076,
    "backbone clash": -0.0706,
    "cleaned": "RA157E",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "RB159E": {
    "Interaction Energy": 3.9081,
@@ -30,7 +30,7 @@
    "torsional clash": -0.0072,
    "backbone clash": -0.0045,
    "cleaned": "RA159E",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   }
  },
  "meta": {
@@ -41,7 +41,7 @@
   "n_ok": 2,
   "n_mutations": 2,
   "sources": [
-   "foldx_s1102_results_S4169"
+   "S4169"
   ]
  }
 }

@@ -14,7 +14,7 @@
    "torsional clash": -0.032,
    "backbone clash": -0.0089,
    "cleaned": "DB140A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "RB65A": {
    "Interaction Energy": 2.4605,
@@ -30,7 +30,7 @@
    "torsional clash": -0.0021,
    "backbone clash": 0.0696,
    "cleaned": "RB65A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   }
  },
  "meta": {
@@ -41,7 +41,7 @@
   "n_ok": 2,
   "n_mutations": 2,
   "sources": [
-   "foldx_skempi_full_results"
+   "full_skempi"
   ]
  }
 }

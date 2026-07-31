@@ -14,7 +14,7 @@
    "torsional clash": -0.127,
    "backbone clash": -0.4532,
    "cleaned": "HA357A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "HA357K": {
    "Interaction Energy": 2.116,
@@ -30,7 +30,7 @@
    "torsional clash": -0.2438,
    "backbone clash": -0.0505,
    "cleaned": "HA357K",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "HA357Q": {
    "Interaction Energy": -0.0987,
@@ -46,7 +46,7 @@
    "torsional clash": -0.2371,
    "backbone clash": 0.0138,
    "cleaned": "HA357Q",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   }
  },
  "meta": {
@@ -57,7 +57,7 @@
   "n_ok": 3,
   "n_mutations": 3,
   "sources": [
-   "foldx_s1102_results_S4169"
+   "S4169"
   ]
  }
 }

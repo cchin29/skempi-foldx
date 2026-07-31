@@ -1,6 +1,6 @@
 """FoldX binding ΔΔG for SKEMPI 2.0 — compute it, or just use the results.
 
-    from skempi_foldx import load_store
+    from skempi_foldx import load_bundled_store
     store = load_bundled_store()               # {pdb: {mutation: {12 energy terms}}}
 
 Two things ship here, and the second is the one most people want:
@@ -58,6 +58,7 @@ from .store import (
     load_complex,
     load_complex_kind,
     load_store,
+    reindex_by_skempi_id,
     source_label,
     store_kind,
     write_store,
@@ -78,5 +79,6 @@ __all__ = [
     "ConsolidationReport", "audit", "consolidate", "coverage", "source_label",
     "DATA_DIR", "SINGLE_POINT", "MULTI_POINT", "bundled_path", "load_bundled_store",
     "load_complex", "load_complex_kind", "load_store", "store_kind",
+    "reindex_by_skempi_id",
     "infer_kind", "write_store",
 ]

@@ -13,7 +13,7 @@
    "entropy mainchain": 0.2531,
    "torsional clash": -0.0193,
    "backbone clash": -0.2757,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "QC40A,DC63A,QC89L": {
    "Interaction Energy": 0.8027,
@@ -28,7 +28,7 @@
    "entropy mainchain": 0.2965,
    "torsional clash": -0.0154,
    "backbone clash": -0.1979,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   }
  },
  "meta": {
@@ -38,7 +38,7 @@
   "n_ok": 2,
   "n_mutations": 2,
   "sources": [
-   "foldx_skempi_full_results_multipoint"
+   "full_skempi_multipoint"
   ]
  }
 }

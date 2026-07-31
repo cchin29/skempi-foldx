@@ -20,12 +20,13 @@ Data provenance
         https://life.bsc.es/pid/skempi2
 
     SKEMPI 2.0 is released under **CC BY 4.0**. What is redistributed here is an *adaptation*:
-    `skempi_foldx/data/results_{sp,mp}/` carries SKEMPI's per-complex mutation lists and its
-    verbatim `cleaned` mutation strings, alongside energies we computed. What is **not**
-    redistributed: SKEMPI's measured affinities, its structures, or the database itself, all of
-    which come from BSC and are required to run the pipeline. CC BY 4.0 permits the adaptation and
-    requires that the licence be identified and the modification indicated, which this paragraph
-    does.
+    `skempi_foldx/data/results_{sp,mp}/` carries SKEMPI's per-complex mutation lists, alongside
+    energies we computed. Only the single-point records carry SKEMPI's verbatim `cleaned` mutation
+    string as a field; the multi-point records have no `cleaned` field, because their key already
+    is SKEMPI's own variant string. What is **not** redistributed: SKEMPI's measured affinities,
+    its structures, or the database itself, all of which come from BSC and are required to run the
+    pipeline. CC BY 4.0 permits the adaptation and requires that the licence be identified and the
+    modification indicated, which this paragraph does.
 
   * **Protein Data Bank** structures, via SKEMPI's cleaned PDB set. Not redistributed here.
 
@@ -38,7 +39,7 @@ Data provenance
 A caveat on the computed energies
 ---------------------------------
 
-The MIT licence above covers this repository's code. Whether FoldX's own licence permits
+The MIT licence in LICENSE covers this repository's code. Whether FoldX's own licence permits
 redistribution of energies computed with it is a question for the CRG's terms, not something this
 file can settle. The values are shipped here on the reading that they are derived measurements
 rather than a redistribution of the software, and because the alternative -- every group
@@ -47,8 +48,10 @@ re-purchasing a licence and re-spending the CPU-weeks to recompute the same dete
 terms directly rather than relying on this paragraph.
 
 
-Full citations with DOIs for every work named here or under docs/ are collected in
-docs/REFERENCES.md.
+Full citations with DOIs for every work named in this file are collected in docs/REFERENCES.md,
+together with the data sources, tools and comparator methods named under docs/. That list is not
+exhaustive of everything the docs name: seven works carry no citation because no DOI for them
+could be confirmed, and docs/REFERENCES.md identifies each one.
 
 
 Related work

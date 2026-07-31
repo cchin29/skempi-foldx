@@ -13,7 +13,7 @@
    "entropy mainchain": 0.134,
    "torsional clash": -0.045,
    "backbone clash": -0.0649,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "YP6F,TP11S": {
    "Interaction Energy": 1.3828,
@@ -28,7 +28,7 @@
    "entropy mainchain": -0.0579,
    "torsional clash": 0.022,
    "backbone clash": -0.1938,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   }
  },
  "meta": {
@@ -38,7 +38,7 @@
   "n_ok": 2,
   "n_mutations": 2,
   "sources": [
-   "foldx_skempi_full_results_multipoint"
+   "full_skempi_multipoint"
   ]
  }
 }

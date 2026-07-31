@@ -13,7 +13,7 @@
    "entropy mainchain": 0.1264,
    "torsional clash": -0.0215,
    "backbone clash": 0.0132,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "KB30A,VB33I": {
    "Interaction Energy": -0.3463,
@@ -28,7 +28,7 @@
    "entropy mainchain": -0.016,
    "torsional clash": -0.0125,
    "backbone clash": -0.0071,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "KB30A,NB16R": {
    "Interaction Energy": -2.1609,
@@ -43,7 +43,7 @@
    "entropy mainchain": 0.4193,
    "torsional clash": -0.0333,
    "backbone clash": 0.0,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "KB30A,FB6W,NB16R": {
    "Interaction Energy": -1.4229,
@@ -58,7 +58,7 @@
    "entropy mainchain": 0.4982,
    "torsional clash": -0.0206,
    "backbone clash": 0.0664,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "KB30A,FB6W,NB16R,VB33I": {
    "Interaction Energy": -1.9779,
@@ -73,7 +73,7 @@
    "entropy mainchain": 0.5164,
    "torsional clash": -0.0134,
    "backbone clash": -0.0408,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "KB30A,FB6W,RB12L,NB16R,VB33I": {
    "Interaction Energy": -1.2116,
@@ -88,7 +88,7 @@
    "entropy mainchain": 0.2573,
    "torsional clash": -0.0162,
    "backbone clash": -0.052,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "KB30A,FB6W,VB14E,NB16R,VB33I": {
    "Interaction Energy": 1.3415,
@@ -103,7 +103,7 @@
    "entropy mainchain": 0.3009,
    "torsional clash": -0.0072,
    "backbone clash": -0.0117,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "KB30A,FB6W,RB12L,VB14E,NB16R,KB29R,VB33I": {
    "Interaction Energy": -1.7146,
@@ -118,7 +118,7 @@
    "entropy mainchain": 0.2066,
    "torsional clash": 0.0376,
    "backbone clash": -0.0456,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "KB30A,TA35A": {
    "Interaction Energy": 0.6165,
@@ -133,7 +133,7 @@
    "entropy mainchain": 0.0368,
    "torsional clash": -0.0231,
    "backbone clash": 0.0,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "KB30A,TA35A,NB16R": {
    "Interaction Energy": -1.5381,
@@ -148,7 +148,7 @@
    "entropy mainchain": 0.5682,
    "torsional clash": -0.0244,
    "backbone clash": 0.0,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "TA35A,NB16R": {
    "Interaction Energy": -1.858,
@@ -163,7 +163,7 @@
    "entropy mainchain": 0.6021,
    "torsional clash": 0.002,
    "backbone clash": 0.0,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "KB30A,YA32C,CA118S": {
    "Interaction Energy": 0.6756,
@@ -178,7 +178,7 @@
    "entropy mainchain": -0.0202,
    "torsional clash": -0.0239,
    "backbone clash": 0.0,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "KB30A,YA32C,CA118S,NB16R": {
    "Interaction Energy": -1.038,
@@ -193,7 +193,7 @@
    "entropy mainchain": 0.3357,
    "torsional clash": -0.0214,
    "backbone clash": 0.0001,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "YA32C,CA118S": {
    "Interaction Energy": -0.0034,
@@ -208,7 +208,7 @@
    "entropy mainchain": 0.0,
    "torsional clash": 0.0,
    "backbone clash": 0.0,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "YA32C,CA118S,NB16R": {
    "Interaction Energy": -2.2675,
@@ -223,7 +223,7 @@
    "entropy mainchain": 0.4527,
    "torsional clash": 0.0,
    "backbone clash": 0.0,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   }
  },
  "meta": {
@@ -233,7 +233,7 @@
   "n_ok": 15,
   "n_mutations": 15,
   "sources": [
-   "foldx_skempi_full_results_multipoint"
+   "full_skempi_multipoint"
   ]
  }
 }

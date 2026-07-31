@@ -14,7 +14,7 @@
    "torsional clash": 0.0022,
    "backbone clash": 0.0,
    "cleaned": "AN29V",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "SA60R": {
    "Interaction Energy": -0.3101,
@@ -30,7 +30,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "SN60R",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   }
  },
  "meta": {
@@ -41,7 +41,7 @@
   "n_ok": 2,
   "n_mutations": 2,
   "sources": [
-   "foldx_s1102_results_S4169"
+   "S4169"
   ]
  }
 }

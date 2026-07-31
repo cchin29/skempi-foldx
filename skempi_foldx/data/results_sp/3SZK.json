@@ -14,7 +14,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "DC120A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "DC121A": {
    "Interaction Energy": -0.054,
@@ -30,7 +30,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "DC121A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "DC48A": {
    "Interaction Energy": 0.1053,
@@ -46,7 +46,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "DC48A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "DC51A": {
    "Interaction Energy": 0.0071,
@@ -62,7 +62,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "DC51A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "EC123A": {
    "Interaction Energy": -0.2046,
@@ -78,7 +78,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "EC123A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "EC124A": {
    "Interaction Energy": -0.0066,
@@ -94,7 +94,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "EC124A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "FC43A": {
    "Interaction Energy": 0.4618,
@@ -110,7 +110,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0382,
    "cleaned": "FC43A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "FC44A": {
    "Interaction Energy": 2.8406,
@@ -126,7 +126,7 @@
    "torsional clash": -0.0037,
    "backbone clash": -0.3232,
    "cleaned": "FC44A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "GC122A": {
    "Interaction Energy": 0.0027,
@@ -142,7 +142,7 @@
    "torsional clash": -0.0007,
    "backbone clash": -0.0217,
    "cleaned": "GC122A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "HC42A": {
    "Interaction Energy": -0.061,
@@ -158,7 +158,7 @@
    "torsional clash": 0.0006,
    "backbone clash": 0.0083,
    "cleaned": "HC42A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "KC56A": {
    "Interaction Energy": 0.0,
@@ -174,7 +174,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "KC56A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "KC57A": {
    "Interaction Energy": 0.0,
@@ -190,7 +190,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "KC57A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "NC35A": {
    "Interaction Energy": 0.0002,
@@ -206,7 +206,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "NC35A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "NC66A": {
    "Interaction Energy": 1.5486,
@@ -222,7 +222,7 @@
    "torsional clash": -0.0048,
    "backbone clash": 0.002,
    "cleaned": "NC66A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "QC39A": {
    "Interaction Energy": -0.0293,
@@ -238,7 +238,7 @@
    "torsional clash": 0.0,
    "backbone clash": -0.0282,
    "cleaned": "QC39A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "SC69A": {
    "Interaction Energy": -0.0994,
@@ -254,7 +254,7 @@
    "torsional clash": -0.0086,
    "backbone clash": 0.0,
    "cleaned": "SC69A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "TC38A": {
    "Interaction Energy": -0.0116,
@@ -270,7 +270,7 @@
    "torsional clash": 0.0004,
    "backbone clash": 0.0398,
    "cleaned": "TC38A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "TC70A": {
    "Interaction Energy": 1.0934,
@@ -286,7 +286,7 @@
    "torsional clash": 0.0002,
    "backbone clash": -0.0289,
    "cleaned": "TC70A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "VC27A": {
    "Interaction Energy": 0.0,
@@ -302,7 +302,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "VC27A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "YC40A": {
    "Interaction Energy": 0.4434,
@@ -318,7 +318,7 @@
    "torsional clash": 0.0,
    "backbone clash": -0.1621,
    "cleaned": "YC40A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "YC41A": {
    "Interaction Energy": 1.2451,
@@ -334,7 +334,7 @@
    "torsional clash": -0.0051,
    "backbone clash": -0.2792,
    "cleaned": "YC41A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   }
  },
  "meta": {
@@ -345,7 +345,7 @@
   "n_ok": 21,
   "n_mutations": 21,
   "sources": [
-   "foldx_skempi_full_results"
+   "full_skempi"
   ]
  }
 }

@@ -14,7 +14,7 @@
    "torsional clash": -0.2806,
    "backbone clash": -0.6638,
    "cleaned": "LA118E",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "LC20S": {
    "Interaction Energy": 4.0615,
@@ -30,7 +30,7 @@
    "torsional clash": 0.0139,
    "backbone clash": 0.0778,
    "cleaned": "LC20S",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "SA34D": {
    "Interaction Energy": -0.303,
@@ -46,7 +46,7 @@
    "torsional clash": 0.0104,
    "backbone clash": -0.0902,
    "cleaned": "SA34D",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "VA23A": {
    "Interaction Energy": 0.3773,
@@ -62,7 +62,7 @@
    "torsional clash": -0.0003,
    "backbone clash": 0.0112,
    "cleaned": "VA23A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "WC17A": {
    "Interaction Energy": 3.9774,
@@ -78,7 +78,7 @@
    "torsional clash": -0.0595,
    "backbone clash": -0.6352,
    "cleaned": "WC17A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   }
  },
  "meta": {
@@ -89,7 +89,7 @@
   "n_ok": 5,
   "n_mutations": 5,
   "sources": [
-   "foldx_skempi_full_results"
+   "full_skempi"
   ]
  }
 }

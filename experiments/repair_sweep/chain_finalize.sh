@@ -15,9 +15,12 @@ set -euo pipefail
 
 # Repo root: two levels up from this script. Override any of these in the environment.
 ROOT=${SKEMPI_FOLDX_ROOT:-"$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"}
-RUN=${SWEEP_RUN:-"$ROOT/scratch/foldx_repair_sweep"}
+RUN=${SWEEP_RUN:-"$ROOT/scratch"}
 PDBS=${SKEMPI_PDBS:-"$ROOT/scratch/skempi2/PDBs"}
-BASE="$RUN/scratch/foldx_repair_ablation/sweep_4x"
+# Must match sweep_mp.py, list_hashes.py and residue_check.py, which each resolve
+# <repo>/scratch/foldx_repair_ablation/sweep_<N>x from their own ROOT. A second `scratch/`
+# segment here would point the chain-input audit at a tree nothing else writes.
+BASE="$RUN/foldx_repair_ablation/sweep_4x"
 EXCLUDE=${SWEEP_EXCLUDE:-""}
 JOBS=${JOBS:-36}
 : "${FOLDX_BIN:?set FOLDX_BIN to the FoldX 5 binary}"

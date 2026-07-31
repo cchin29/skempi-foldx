@@ -14,7 +14,7 @@
    "torsional clash": 0.1092,
    "backbone clash": -0.0492,
    "cleaned": "AA9E",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "GA13S": {
    "Interaction Energy": -0.2157,
@@ -30,7 +30,7 @@
    "torsional clash": 0.0089,
    "backbone clash": 0.1174,
    "cleaned": "GA13S",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "KA7E": {
    "Interaction Energy": -0.127,
@@ -46,7 +46,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0883,
    "cleaned": "KA7E",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   }
  },
  "meta": {
@@ -57,7 +57,7 @@
   "n_ok": 3,
   "n_mutations": 3,
   "sources": [
-   "foldx_s1102_results_S4169"
+   "S4169"
   ]
  }
 }

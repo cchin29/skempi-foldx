@@ -14,7 +14,7 @@
    "torsional clash": -0.0101,
    "backbone clash": 0.0452,
    "cleaned": "DA720R",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "DA720W": {
    "Interaction Energy": 1.4175,
@@ -30,7 +30,7 @@
    "torsional clash": -0.0336,
    "backbone clash": -0.0926,
    "cleaned": "DA720W",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "LB34G": {
    "Interaction Energy": 3.2265,
@@ -46,7 +46,7 @@
    "torsional clash": -0.0166,
    "backbone clash": 0.0031,
    "cleaned": "LC34G",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "LB34W": {
    "Interaction Energy": 0.1911,
@@ -62,7 +62,7 @@
    "torsional clash": 0.0933,
    "backbone clash": 0.1481,
    "cleaned": "LC34W",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "RB27A": {
    "Interaction Energy": 6.0178,
@@ -78,7 +78,7 @@
    "torsional clash": -0.0141,
    "backbone clash": -0.2271,
    "cleaned": "RC27A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "RB31A": {
    "Interaction Energy": 3.4627,
@@ -94,7 +94,7 @@
    "torsional clash": -0.0037,
    "backbone clash": -0.2363,
    "cleaned": "RC31A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "RB31W": {
    "Interaction Energy": 1.5079,
@@ -110,7 +110,7 @@
    "torsional clash": 0.0006,
    "backbone clash": 0.0072,
    "cleaned": "RC31W",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "VB35D": {
    "Interaction Energy": 2.1024,
@@ -126,7 +126,7 @@
    "torsional clash": -0.0022,
    "backbone clash": -0.0453,
    "cleaned": "VC35D",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   }
  },
  "meta": {
@@ -137,7 +137,7 @@
   "n_ok": 8,
   "n_mutations": 8,
   "sources": [
-   "foldx_s1102_results_S4169"
+   "S4169"
   ]
  }
 }

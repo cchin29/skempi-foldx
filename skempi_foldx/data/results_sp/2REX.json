@@ -14,7 +14,7 @@
    "torsional clash": -0.0033,
    "backbone clash": 0.1526,
    "cleaned": "LA70Y",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "YB97F": {
    "Interaction Energy": -0.8005,
@@ -30,7 +30,7 @@
    "torsional clash": -0.0008,
    "backbone clash": -0.0353,
    "cleaned": "YB97F",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   }
  },
  "meta": {
@@ -41,7 +41,7 @@
   "n_ok": 2,
   "n_mutations": 2,
   "sources": [
-   "foldx_s1102_results_S4169"
+   "S4169"
   ]
  }
 }

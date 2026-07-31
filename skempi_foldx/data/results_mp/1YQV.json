@@ -13,7 +13,7 @@
    "entropy mainchain": -0.7147,
    "torsional clash": -0.0031,
    "backbone clash": -0.0776,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "RY68K,TY40S,IY55V,SY91T": {
    "Interaction Energy": 5.077,
@@ -28,7 +28,7 @@
    "entropy mainchain": 0.0339,
    "torsional clash": -0.0532,
    "backbone clash": 0.0489,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   }
  },
  "meta": {
@@ -38,7 +38,7 @@
   "n_ok": 2,
   "n_mutations": 2,
   "sources": [
-   "foldx_skempi_full_results_multipoint"
+   "full_skempi_multipoint"
   ]
  }
 }

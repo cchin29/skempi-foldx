@@ -14,7 +14,7 @@
    "torsional clash": -0.0143,
    "backbone clash": -0.1127,
    "cleaned": "EC1A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "GC4A": {
    "Interaction Energy": -1.0137,
@@ -30,7 +30,7 @@
    "torsional clash": 0.0015,
    "backbone clash": 0.2093,
    "cleaned": "GC4A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "GC6A": {
    "Interaction Energy": 0.2341,
@@ -46,7 +46,7 @@
    "torsional clash": -0.0003,
    "backbone clash": -0.1101,
    "cleaned": "GC6A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "IC5A": {
    "Interaction Energy": 1.5429,
@@ -62,7 +62,7 @@
    "torsional clash": -0.0101,
    "backbone clash": 0.0152,
    "cleaned": "IC5A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "IC7A": {
    "Interaction Energy": 0.0317,
@@ -78,7 +78,7 @@
    "torsional clash": -0.0027,
    "backbone clash": 0.0247,
    "cleaned": "IC7A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "LC8A": {
    "Interaction Energy": 1.1973,
@@ -94,7 +94,7 @@
    "torsional clash": -0.0219,
    "backbone clash": -0.1591,
    "cleaned": "LC8A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "TC9A": {
    "Interaction Energy": 0.2531,
@@ -110,7 +110,7 @@
    "torsional clash": 0.0001,
    "backbone clash": -0.017,
    "cleaned": "TC9A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   }
  },
  "meta": {
@@ -121,7 +121,7 @@
   "n_ok": 7,
   "n_mutations": 7,
   "sources": [
-   "foldx_skempi_full_results"
+   "full_skempi"
   ]
  }
 }

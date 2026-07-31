@@ -13,7 +13,7 @@
    "entropy mainchain": -0.5105,
    "torsional clash": -0.0332,
    "backbone clash": -0.0814,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "KH210T,KH215T": {
    "Interaction Energy": 0.0,
@@ -28,7 +28,7 @@
    "entropy mainchain": 0.0,
    "torsional clash": 0.0,
    "backbone clash": 0.0,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "EL3V,GL76R,TL77V,QL78E,EL80G": {
    "Interaction Energy": -0.0073,
@@ -43,7 +43,7 @@
    "entropy mainchain": 0.0,
    "torsional clash": 0.0,
    "backbone clash": 0.0,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "TL89S,ML92I,VL93D,TL94K": {
    "Interaction Energy": 0.6796,
@@ -58,7 +58,7 @@
    "entropy mainchain": 0.7467,
    "torsional clash": 0.0045,
    "backbone clash": 0.1857,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "EL3V,GL76R,TL77V,QL78E,EL80G,TL89S,ML92I,VL93D,TL94K": {
    "Interaction Energy": 0.5422,
@@ -73,7 +73,7 @@
    "entropy mainchain": -0.233,
    "torsional clash": -0.0029,
    "backbone clash": 0.1372,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "EL3V,GL76R,TL77V,QL78E,EL80G,FH103A,HH104A,WH105A": {
    "Interaction Energy": 3.7609,
@@ -88,7 +88,7 @@
    "entropy mainchain": -0.5569,
    "torsional clash": -0.0137,
    "backbone clash": -0.0359,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "EL3V,GL76R,TL77V,QL78E,EL80G,DH54N": {
    "Interaction Energy": 0.1346,
@@ -103,7 +103,7 @@
    "entropy mainchain": 0.0,
    "torsional clash": 0.0,
    "backbone clash": 0.0,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   }
  },
  "meta": {
@@ -113,7 +113,7 @@
   "n_ok": 7,
   "n_mutations": 7,
   "sources": [
-   "foldx_skempi_full_results_multipoint"
+   "full_skempi_multipoint"
   ]
  }
 }

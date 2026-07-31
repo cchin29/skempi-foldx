@@ -14,7 +14,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "KB65D",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "NA32G": {
    "Interaction Energy": 0.4511,
@@ -30,7 +30,7 @@
    "torsional clash": -0.0095,
    "backbone clash": -0.0893,
    "cleaned": "NA32G",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "NA32Y": {
    "Interaction Energy": -1.2734,
@@ -46,7 +46,7 @@
    "torsional clash": 0.0488,
    "backbone clash": 0.096,
    "cleaned": "NA32Y",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "NA92A": {
    "Interaction Energy": -0.2441,
@@ -62,7 +62,7 @@
    "torsional clash": -0.0001,
    "backbone clash": -0.2853,
    "cleaned": "NA92A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "SB57A": {
    "Interaction Energy": -0.1865,
@@ -78,7 +78,7 @@
    "torsional clash": -0.0074,
    "backbone clash": -0.1519,
    "cleaned": "SB57A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "SB57V": {
    "Interaction Energy": -1.9439,
@@ -94,7 +94,7 @@
    "torsional clash": 0.055,
    "backbone clash": 0.0525,
    "cleaned": "SB57V",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "TB28D": {
    "Interaction Energy": -0.8094,
@@ -110,7 +110,7 @@
    "torsional clash": 0.0002,
    "backbone clash": 0.0,
    "cleaned": "TB28D",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "TB31A": {
    "Interaction Energy": 0.4685,
@@ -126,7 +126,7 @@
    "torsional clash": -0.0154,
    "backbone clash": -0.05,
    "cleaned": "TB31A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "TB31V": {
    "Interaction Energy": -0.1504,
@@ -142,7 +142,7 @@
    "torsional clash": 0.0806,
    "backbone clash": -0.0194,
    "cleaned": "TB31V",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "TB31W": {
    "Interaction Energy": -0.5091,
@@ -158,7 +158,7 @@
    "torsional clash": -0.0151,
    "backbone clash": -0.0163,
    "cleaned": "TB31W",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "TB58D": {
    "Interaction Energy": -0.3112,
@@ -174,7 +174,7 @@
    "torsional clash": -0.0004,
    "backbone clash": -0.0118,
    "cleaned": "TB58D",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   }
  },
  "meta": {
@@ -185,7 +185,7 @@
   "n_ok": 11,
   "n_mutations": 11,
   "sources": [
-   "foldx_skempi_full_results"
+   "full_skempi"
   ]
  }
 }

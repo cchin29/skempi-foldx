@@ -13,7 +13,7 @@
    "entropy mainchain": -0.3891,
    "torsional clash": -0.0101,
    "backbone clash": -0.0544,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "TB8V,TB9N": {
    "Interaction Energy": -0.8692,
@@ -28,7 +28,7 @@
    "entropy mainchain": -0.0956,
    "torsional clash": 0.0318,
    "backbone clash": -0.0991,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   }
  },
  "meta": {
@@ -38,7 +38,7 @@
   "n_ok": 2,
   "n_mutations": 2,
   "sources": [
-   "foldx_skempi_full_results_multipoint"
+   "full_skempi_multipoint"
   ]
  }
 }

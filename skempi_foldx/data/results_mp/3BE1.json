@@ -13,7 +13,7 @@
    "entropy mainchain": 0.323,
    "torsional clash": -0.0022,
    "backbone clash": -0.1011,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "DL28N,PL30A,RL31K,SL32T,YL57F,TL97S,TL98S,KH30S,DH31G,TH54S,NH55E,GH100V,DH102V": {
    "Interaction Energy": 3.6281,
@@ -28,7 +28,7 @@
    "entropy mainchain": 0.2365,
    "torsional clash": -0.0742,
    "backbone clash": -0.0761,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "DL28N,PL30A,RL31K,SL32T,TL97S,TL98S": {
    "Interaction Energy": 2.7171,
@@ -43,7 +43,7 @@
    "entropy mainchain": -0.2941,
    "torsional clash": 0.0014,
    "backbone clash": -0.0554,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "DL28N,PL30A,RL31K,SL32T,TL97S,TL98S,KH30S,DH31G,TH54S,NH55E,GH100V,DH102V": {
    "Interaction Energy": 6.0749,
@@ -58,7 +58,7 @@
    "entropy mainchain": 0.7193,
    "torsional clash": -0.0715,
    "backbone clash": -0.0638,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "DL28N,PL30A,RL31K,SL32T,TL97S,TL98S,KH30S,DH31G,TH54S,NH55E,GH100V,DH102V,YL36A": {
    "Interaction Energy": 4.4768,
@@ -73,7 +73,7 @@
    "entropy mainchain": -0.2274,
    "torsional clash": -0.0214,
    "backbone clash": -0.1254,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "DL28N,PL30A,RL31K,SL32T,TL97S,TL98S,KH30S,DH31G,TH54S,NH55E,GH100V,DH102V,YL36A,IL33A": {
    "Interaction Energy": 5.9502,
@@ -88,7 +88,7 @@
    "entropy mainchain": 0.8281,
    "torsional clash": -0.0354,
    "backbone clash": -0.003,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "DL28N,PL30A,RL31K,SL32T,TL97S,TL98S,KH30S,DH31G,TH54S,NH55E,GH100V,DH102V,RH50A,RH59A": {
    "Interaction Energy": 9.1012,
@@ -103,7 +103,7 @@
    "entropy mainchain": 0.0936,
    "torsional clash": -0.0487,
    "backbone clash": -0.1319,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   }
  },
  "meta": {
@@ -113,7 +113,7 @@
   "n_ok": 7,
   "n_mutations": 7,
   "sources": [
-   "foldx_skempi_full_results_multipoint"
+   "full_skempi_multipoint"
   ]
  }
 }

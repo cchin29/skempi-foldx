@@ -13,7 +13,7 @@
    "entropy mainchain": 0.0,
    "torsional clash": 0.0526,
    "backbone clash": -0.1126,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "WG13M,MG231A,CG14W,CG110V,CG27I,CG226Q": {
    "Interaction Energy": 0.079,
@@ -28,7 +28,7 @@
    "entropy mainchain": -0.0139,
    "torsional clash": 0.0,
    "backbone clash": 0.0527,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "KG66C,EG103C,WG13M,MG231A,CG14W,CG110V,CG27I,CG226Q": {
    "Interaction Energy": 0.001,
@@ -43,7 +43,7 @@
    "entropy mainchain": -0.0139,
    "torsional clash": 0.0,
    "backbone clash": 0.0512,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "WG13M,MG231A,CG14W,CG110V": {
    "Interaction Energy": 0.0004,
@@ -58,7 +58,7 @@
    "entropy mainchain": 0.0,
    "torsional clash": 0.0,
    "backbone clash": 0.0,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "KG66C,EG102C,WG13M,MG231A,CG14W,CG110V,CG27I,CG226Q": {
    "Interaction Energy": -0.0014,
@@ -73,7 +73,7 @@
    "entropy mainchain": 0.0,
    "torsional clash": 0.0,
    "backbone clash": 0.0,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "GG229C,WG13M,MG231A,CG14W,CG110V,CG27I,CG226Q": {
    "Interaction Energy": 0.0605,
@@ -88,7 +88,7 @@
    "entropy mainchain": 0.0019,
    "torsional clash": 0.0,
    "backbone clash": 0.0222,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "CG27I,CG226Q,MG231A": {
    "Interaction Energy": -0.0002,
@@ -103,7 +103,7 @@
    "entropy mainchain": 0.0,
    "torsional clash": 0.0,
    "backbone clash": 0.0,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "CG27I,CG226Q": {
    "Interaction Energy": 0.0,
@@ -118,7 +118,7 @@
    "entropy mainchain": 0.0,
    "torsional clash": 0.0,
    "backbone clash": 0.0,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "WG13M,MG231A,CG14W,CG110V,KG66C,EG102C": {
    "Interaction Energy": 0.2544,
@@ -133,7 +133,7 @@
    "entropy mainchain": -0.0137,
    "torsional clash": 0.0016,
    "backbone clash": 0.0871,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "KG66C,EG102C,CG27I,CG226Q": {
    "Interaction Energy": 0.0065,
@@ -148,7 +148,7 @@
    "entropy mainchain": 0.0,
    "torsional clash": 0.0,
    "backbone clash": 0.0,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "GG229C,MG231A": {
    "Interaction Energy": 0.0607,
@@ -163,7 +163,7 @@
    "entropy mainchain": 0.0019,
    "torsional clash": 0.0,
    "backbone clash": 0.0222,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   }
  },
  "meta": {
@@ -173,7 +173,7 @@
   "n_ok": 11,
   "n_mutations": 11,
   "sources": [
-   "foldx_skempi_full_results_multipoint"
+   "full_skempi_multipoint"
   ]
  }
 }

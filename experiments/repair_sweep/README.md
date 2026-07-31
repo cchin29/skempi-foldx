@@ -5,7 +5,7 @@ Repairs every complex **4 times**, saving each round, then runs BuildModel + Ana
 paid once per complex and shared across rounds, and across the SP and MP arms.
 
 Why: on the 13 CATH T≥10 complexes, 5× repair moved the FoldX-alone per-structure Spearman from
-0.398 to 0.459 (paired Δ +0.060, 95% CI [+0.020, +0.100]) — past the published FoldX row of 0.430.
+0.398 to 0.459 (paired Δ +0.060, 95% CI [+0.020, +0.100]) — past the published single-point FoldX row of 0.4458.
 Structure converges by round 4 (median RMSD 0.013 Å from round 4→5). This widens that measurement
 to all of SKEMPI.
 
@@ -51,8 +51,8 @@ sweep therefore invert against intuition:
 
 | arm | entries | complexes | measured per round |
 |---|---:|---:|---|
-| single-point | 4334 | 322 | faster, despite 2.3× the entries |
-| multi-point | 1890 | 152 | **~2 h** |
+| single-point | 4334 | 322 | faster, despite 2.5× the entries |
+| multi-point | 1765 | 152 | **~2 h** |
 
 Measured shape of one multi-point round, 152 complexes on 36 workers:
 

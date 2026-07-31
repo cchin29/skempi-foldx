@@ -90,8 +90,13 @@ def collect(rounds):
     return out
 
 
-def verify(data, rounds, key="list_sha256"):
-    """Report per-arm drift. Returns the number of drifting complexes."""
+def verify(data, rounds, key="file_sha256"):
+    """Report per-arm drift. Returns the number of drifting complexes.
+
+    ``key`` defaults to the canonical convention, matching the CLI: ``list_sha256`` is the
+    DIAGNOSTIC-ONLY normalisation described in the module docstring, and defaulting to it would
+    compute the drift verdict over bytes that no store ever hashes.
+    """
     total_drift = 0
     for arm in ARMS:
         per_round = data[arm]

@@ -13,7 +13,7 @@
    "entropy mainchain": -0.0613,
    "torsional clash": 0.0687,
    "backbone clash": 0.5018,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "WD8A,ED19R": {
    "Interaction Energy": 10.731,
@@ -28,7 +28,7 @@
    "entropy mainchain": -0.2899,
    "torsional clash": -0.0469,
    "backbone clash": -0.2656,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   }
  },
  "meta": {
@@ -38,7 +38,7 @@
   "n_ok": 2,
   "n_mutations": 2,
   "sources": [
-   "foldx_skempi_full_results_multipoint"
+   "full_skempi_multipoint"
   ]
  }
 }

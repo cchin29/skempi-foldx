@@ -14,7 +14,7 @@
    "torsional clash": -0.1864,
    "backbone clash": -0.0269,
    "cleaned": "DH98A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "FH94A": {
    "Interaction Energy": 2.9014,
@@ -30,7 +30,7 @@
    "torsional clash": 0.0002,
    "backbone clash": 0.0925,
    "cleaned": "FH94A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "FH96A": {
    "Interaction Energy": 2.1148,
@@ -46,7 +46,7 @@
    "torsional clash": -0.0077,
    "backbone clash": -0.0053,
    "cleaned": "FH96A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "LG50A": {
    "Interaction Energy": 1.7692,
@@ -62,7 +62,7 @@
    "torsional clash": -0.0195,
    "backbone clash": -0.2531,
    "cleaned": "LG50A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "NG29A": {
    "Interaction Energy": 0.4409,
@@ -78,7 +78,7 @@
    "torsional clash": -0.0094,
    "backbone clash": -0.0571,
    "cleaned": "NG29A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "NH50A": {
    "Interaction Energy": -0.0046,
@@ -94,7 +94,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "NH50A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "QH48A": {
    "Interaction Energy": 0.7895,
@@ -110,7 +110,7 @@
    "torsional clash": -0.0144,
    "backbone clash": -0.2029,
    "cleaned": "QH48A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "RH95A": {
    "Interaction Energy": 3.844,
@@ -126,7 +126,7 @@
    "torsional clash": -0.1884,
    "backbone clash": 0.0755,
    "cleaned": "RH95A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "YG31A": {
    "Interaction Energy": 2.4597,
@@ -142,7 +142,7 @@
    "torsional clash": -0.0291,
    "backbone clash": -0.0478,
    "cleaned": "YG31A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "YG33F": {
    "Interaction Energy": -1.3898,
@@ -158,7 +158,7 @@
    "torsional clash": 0.0182,
    "backbone clash": -0.1033,
    "cleaned": "YG33F",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "YH101F": {
    "Interaction Energy": 1.399,
@@ -174,7 +174,7 @@
    "torsional clash": -0.0006,
    "backbone clash": 0.0211,
    "cleaned": "YH101F",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "YH46F": {
    "Interaction Energy": 0.6416,
@@ -190,7 +190,7 @@
    "torsional clash": -0.0,
    "backbone clash": -0.0168,
    "cleaned": "YH46F",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   }
  },
  "meta": {
@@ -201,7 +201,7 @@
   "n_ok": 12,
   "n_mutations": 12,
   "sources": [
-   "foldx_skempi_full_results"
+   "full_skempi"
   ]
  }
 }

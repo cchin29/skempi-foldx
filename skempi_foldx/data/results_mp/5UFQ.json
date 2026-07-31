@@ -13,7 +13,7 @@
    "entropy mainchain": 0.1313,
    "torsional clash": 0.032,
    "backbone clash": 0.0485,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "QC25R,KC55G": {
    "Interaction Energy": 0.785,
@@ -28,7 +28,7 @@
    "entropy mainchain": 0.1244,
    "torsional clash": 0.0008,
    "backbone clash": -0.044,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   }
  },
  "meta": {
@@ -38,7 +38,7 @@
   "n_ok": 2,
   "n_mutations": 2,
   "sources": [
-   "foldx_skempi_full_results_multipoint"
+   "full_skempi_multipoint"
   ]
  }
 }

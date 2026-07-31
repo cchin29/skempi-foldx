@@ -14,7 +14,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "AA545V",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "GA503E": {
    "Interaction Energy": 7.2597,
@@ -30,7 +30,7 @@
    "torsional clash": 0.0179,
    "backbone clash": 0.5465,
    "cleaned": "GA503E",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "HA462A": {
    "Interaction Energy": 0.4852,
@@ -46,7 +46,7 @@
    "torsional clash": -0.0051,
    "backbone clash": 0.0408,
    "cleaned": "HA462A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "HA462F": {
    "Interaction Energy": 0.8265,
@@ -62,7 +62,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0386,
    "cleaned": "HA462F",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "HB157A": {
    "Interaction Energy": 1.0633,
@@ -78,7 +78,7 @@
    "torsional clash": 0.0104,
    "backbone clash": -0.0059,
    "cleaned": "HB157A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "HB157F": {
    "Interaction Energy": 0.3972,
@@ -94,7 +94,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "HB157F",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   }
  },
  "meta": {
@@ -105,7 +105,7 @@
   "n_ok": 6,
   "n_mutations": 6,
   "sources": [
-   "foldx_skempi_full_results"
+   "full_skempi"
   ]
  }
 }

@@ -343,7 +343,7 @@ def cmd_compare(args):
     print("  - all-zero  -> repair count does not matter here; report it and keep one repair.")
     print("  - small     -> keep one repair, quote these numbers as the sensitivity.")
     print("  - large     -> the choice is load-bearing; rescore the FoldX-alone baseline")
-    print("                 against the published FoldX row (0.383 here vs 0.430 published)")
+    print("                 against the published FoldX row (0.398 here vs 0.4458 published)")
     print("                 before deciding which protocol to publish.")
 
 
@@ -387,10 +387,18 @@ def cmd_sweep(args):
                           work_dir=base / f"round_{r}" / "work",
                           pdb_dir=chain.pdb_dir, skempi_csv=chain.skempi_csv)
         cfg.ensure_dirs()
-        seeded = 0
+        # Seeding and submission must cover the SAME complexes. Skipping only the seed while
+        # still submitting the full worklist looks harmless -- but cfg leaves repair_iterations
+        # at 1, so process_complex finds no pre-placed structure, runs a fresh SINGLE RepairPDB,
+        # and writes an ordinary ok(n/n) result into round_<r>/results. That complex's round-r
+        # value is then a 1x-repaired number sitting in an r-times-repaired store, which is
+        # precisely the confound this experiment measures. Nothing downstream can detect it: the
+        # mutation lists are identical, so the list hashes match and `compare` reports clean.
+        seeded, missing = [], []
         for pdb in targets:
             src = chain.complex_work_dir(pdb) / f"repair_round_{r}.pdb"
             if not src.exists():
+                missing.append(pdb)
                 continue
             work = cfg.complex_work_dir(pdb)
             work.mkdir(parents=True, exist_ok=True)
@@ -399,9 +407,17 @@ def cmd_sweep(args):
                 shutil.copy(src, work / f"{pdb}_Repair.pdb")
             if not (work / f"{pdb}.pdb").exists():
                 shutil.copy(cfg.pdb_dir / f"{pdb}.pdb", work / f"{pdb}.pdb")
-            seeded += 1
-        print(f"[sweep]   seeded {seeded}/{len(targets)} repaired structures")
-        run_campaign({p: v for p, v in worklist.items()}, skempi, cfg,
+            seeded.append(pdb)
+        if missing:
+            sys.exit(
+                f"[sweep] {len(missing)} complexes have no repair_round_{r}.pdb: "
+                f"{', '.join(missing[:12])}{'...' if len(missing) > 12 else ''}\n"
+                f"[sweep] Phase 1 did not complete for these. Re-run the sweep to finish the "
+                f"repair chains before building, or pass --complexes to restrict the run. "
+                f"Building the rest anyway would write 1x-repaired values into round {r}."
+            )
+        print(f"[sweep]   seeded {len(seeded)}/{len(targets)} repaired structures")
+        run_campaign({p: v for p, v in worklist.items() if p in set(seeded)}, skempi, cfg,
                      mode=MODE_AUTHOR, jobs=args.jobs)
 
     print(f"\n[sweep] done. Stores under {base}/round_<r>/results")

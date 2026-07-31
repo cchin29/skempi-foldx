@@ -14,7 +14,7 @@
    "torsional clash": -0.0063,
    "backbone clash": -0.0288,
    "cleaned": "DE29A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "NE21A": {
    "Interaction Energy": 0.534,
@@ -30,7 +30,7 @@
    "torsional clash": -0.0041,
    "backbone clash": -0.0274,
    "cleaned": "NE21A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "QE25A": {
    "Interaction Energy": 0.9781,
@@ -46,7 +46,7 @@
    "torsional clash": -0.0024,
    "backbone clash": -0.0278,
    "cleaned": "QE25A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   }
  },
  "meta": {
@@ -57,7 +57,7 @@
   "n_ok": 3,
   "n_mutations": 3,
   "sources": [
-   "foldx_skempi_full_results"
+   "full_skempi"
   ]
  }
 }

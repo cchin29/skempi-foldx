@@ -14,7 +14,7 @@
    "torsional clash": 0.5769,
    "backbone clash": -0.0373,
    "cleaned": "AB33F",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "AB33I": {
    "Interaction Energy": -0.5759,
@@ -30,7 +30,7 @@
    "torsional clash": 0.0077,
    "backbone clash": 0.0077,
    "cleaned": "AB33I",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "AB33L": {
    "Interaction Energy": 0.6544,
@@ -46,7 +46,7 @@
    "torsional clash": 0.0102,
    "backbone clash": -0.04,
    "cleaned": "AB33L",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "AB33V": {
    "Interaction Energy": 0.3526,
@@ -62,7 +62,7 @@
    "torsional clash": 0.0144,
    "backbone clash": 0.0801,
    "cleaned": "AB33V",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   }
  },
  "meta": {
@@ -73,7 +73,7 @@
   "n_ok": 4,
   "n_mutations": 4,
   "sources": [
-   "foldx_skempi_full_results"
+   "full_skempi"
   ]
  }
 }

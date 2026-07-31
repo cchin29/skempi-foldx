@@ -14,7 +14,7 @@
    "torsional clash": -0.0103,
    "backbone clash": 0.0829,
    "cleaned": "DB112A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "RB30A": {
    "Interaction Energy": 4.5566,
@@ -30,7 +30,7 @@
    "torsional clash": -0.0602,
    "backbone clash": -0.1645,
    "cleaned": "RB30A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   }
  },
  "meta": {
@@ -41,7 +41,7 @@
   "n_ok": 2,
   "n_mutations": 2,
   "sources": [
-   "foldx_s1102_results_S4169"
+   "S4169"
   ]
  }
 }

@@ -14,7 +14,7 @@
    "torsional clash": -0.0007,
    "backbone clash": -0.0635,
    "cleaned": "EB124A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "EB49A": {
    "Interaction Energy": 0.735,
@@ -30,7 +30,7 @@
    "torsional clash": 0.0012,
    "backbone clash": -0.0509,
    "cleaned": "EB49A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "KA77A": {
    "Interaction Energy": 0.8229,
@@ -46,7 +46,7 @@
    "torsional clash": -0.0103,
    "backbone clash": -0.0884,
    "cleaned": "KA77A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   }
  },
  "meta": {
@@ -57,7 +57,7 @@
   "n_ok": 3,
   "n_mutations": 3,
   "sources": [
-   "foldx_s1102_results_S4169"
+   "S4169"
   ]
  }
 }

@@ -13,7 +13,7 @@
    "entropy mainchain": 0.0,
    "torsional clash": 0.0002,
    "backbone clash": 0.0199,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "GA12D,QB25R": {
    "Interaction Energy": -0.0002,
@@ -28,7 +28,7 @@
    "entropy mainchain": 0.0333,
    "torsional clash": 0.0004,
    "backbone clash": 0.0721,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "GA12D,QB25R,EB33G,DB34G": {
    "Interaction Energy": -0.6212,
@@ -43,7 +43,7 @@
    "entropy mainchain": 0.1042,
    "torsional clash": 0.0014,
    "backbone clash": -0.0052,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   }
  },
  "meta": {
@@ -53,7 +53,7 @@
   "n_ok": 3,
   "n_mutations": 3,
   "sources": [
-   "foldx_skempi_full_results_multipoint"
+   "full_skempi_multipoint"
   ]
  }
 }

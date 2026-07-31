@@ -14,7 +14,7 @@
    "torsional clash": -0.0576,
    "backbone clash": -0.5073,
    "cleaned": "KC4A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "LC6A": {
    "Interaction Energy": 2.7369,
@@ -30,7 +30,7 @@
    "torsional clash": -0.0389,
    "backbone clash": -0.1267,
    "cleaned": "LC6A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   }
  },
  "meta": {
@@ -41,7 +41,7 @@
   "n_ok": 2,
   "n_mutations": 2,
   "sources": [
-   "foldx_skempi_full_results"
+   "full_skempi"
   ]
  }
 }

@@ -13,7 +13,7 @@
    "entropy mainchain": 0.402,
    "torsional clash": 0.1979,
    "backbone clash": -0.2411,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "TD52Q,PD53S,WD54S,AE49G,IE50A,QE51G": {
    "Interaction Energy": 4.6362,
@@ -28,7 +28,7 @@
    "entropy mainchain": 0.1119,
    "torsional clash": -0.0264,
    "backbone clash": -0.1336,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "TD52Q,PD53S,WD54S,AE49G,IE50A,QE51G,TE52I,LD96T,LD97S,DD98G,TD100S,LE94V": {
    "Interaction Energy": 5.8216,
@@ -43,7 +43,7 @@
    "entropy mainchain": 0.272,
    "torsional clash": 0.2178,
    "backbone clash": -0.7194,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "YD32D,TD52Q,PD53S,WD54S,AE49G,IE50A,QE51G,TE52I,LD96T,LD97S,DD98G,TD100S,LE94V": {
    "Interaction Energy": 9.0428,
@@ -58,7 +58,7 @@
    "entropy mainchain": 0.0346,
    "torsional clash": 0.1472,
    "backbone clash": -0.7575,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   }
  },
  "meta": {
@@ -68,7 +68,7 @@
   "n_ok": 4,
   "n_mutations": 4,
   "sources": [
-   "foldx_skempi_full_results_multipoint"
+   "full_skempi_multipoint"
   ]
  }
 }

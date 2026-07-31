@@ -13,7 +13,7 @@
    "entropy mainchain": -0.1537,
    "torsional clash": -0.0215,
    "backbone clash": -0.0759,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   }
  },
  "meta": {
@@ -23,7 +23,7 @@
   "n_ok": 1,
   "n_mutations": 1,
   "sources": [
-   "foldx_skempi_full_results_multipoint"
+   "full_skempi_multipoint"
   ]
  }
 }

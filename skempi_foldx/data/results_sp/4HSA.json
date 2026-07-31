@@ -14,7 +14,7 @@
    "torsional clash": 0.003,
    "backbone clash": -0.0552,
    "cleaned": "HA59S",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "RA28V": {
    "Interaction Energy": 0.0,
@@ -30,7 +30,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "RA28V",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "WA40V": {
    "Interaction Energy": 0.0,
@@ -46,7 +46,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "WA40V",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "YA58I": {
    "Interaction Energy": 0.6927,
@@ -62,7 +62,7 @@
    "torsional clash": 0.0917,
    "backbone clash": 0.1769,
    "cleaned": "YA58I",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   }
  },
  "meta": {
@@ -73,7 +73,7 @@
   "n_ok": 4,
   "n_mutations": 4,
   "sources": [
-   "foldx_skempi_full_results"
+   "full_skempi"
   ]
  }
 }

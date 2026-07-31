@@ -14,7 +14,7 @@
    "torsional clash": -0.2369,
    "backbone clash": 0.0416,
    "cleaned": "FC1M",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "FA26A": {
    "Interaction Energy": 0.0111,
@@ -30,7 +30,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "FC26A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "FA26W": {
    "Interaction Energy": 0.0,
@@ -46,7 +46,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "FC26W",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "IA12W": {
    "Interaction Energy": -0.042,
@@ -62,7 +62,7 @@
    "torsional clash": 0.004,
    "backbone clash": 0.0513,
    "cleaned": "IC12W",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "IA27A": {
    "Interaction Energy": 1.4166,
@@ -78,7 +78,7 @@
    "torsional clash": -1.0577,
    "backbone clash": 0.1097,
    "cleaned": "IC27A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "KA31A": {
    "Interaction Energy": 0.6066,
@@ -94,7 +94,7 @@
    "torsional clash": -0.002,
    "backbone clash": 0.1195,
    "cleaned": "KC31A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "KA3D": {
    "Interaction Energy": -0.0061,
@@ -110,7 +110,7 @@
    "torsional clash": -0.0001,
    "backbone clash": -0.0648,
    "cleaned": "KC3D",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "LA13D": {
    "Interaction Energy": 2.8717,
@@ -126,7 +126,7 @@
    "torsional clash": -0.1071,
    "backbone clash": -0.1758,
    "cleaned": "LC13D",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "LA40W": {
    "Interaction Energy": -0.0215,
@@ -142,7 +142,7 @@
    "torsional clash": 0.0001,
    "backbone clash": 0.0478,
    "cleaned": "LC40W",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "NA24A": {
    "Interaction Energy": 0.7873,
@@ -158,7 +158,7 @@
    "torsional clash": -1.0733,
    "backbone clash": 0.1628,
    "cleaned": "NC24A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "NA24F": {
    "Interaction Energy": -0.9253,
@@ -174,7 +174,7 @@
    "torsional clash": 0.1053,
    "backbone clash": -0.0023,
    "cleaned": "NC24F",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "NA2F": {
    "Interaction Energy": 0.0863,
@@ -190,7 +190,7 @@
    "torsional clash": -0.011,
    "backbone clash": 0.0194,
    "cleaned": "NC2F",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "NA2Q": {
    "Interaction Energy": 0.264,
@@ -206,7 +206,7 @@
    "torsional clash": -0.0004,
    "backbone clash": -0.0562,
    "cleaned": "NC2Q",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "NA7F": {
    "Interaction Energy": 0.1906,
@@ -222,7 +222,7 @@
    "torsional clash": 0.1499,
    "backbone clash": -0.0105,
    "cleaned": "NC7F",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "QA28K": {
    "Interaction Energy": 0.25,
@@ -238,7 +238,7 @@
    "torsional clash": -0.0869,
    "backbone clash": 0.061,
    "cleaned": "QC28K",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "QA28L": {
    "Interaction Energy": -0.498,
@@ -254,7 +254,7 @@
    "torsional clash": 0.007,
    "backbone clash": 0.0519,
    "cleaned": "QC28L",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "YA10F": {
    "Interaction Energy": 0.4538,
@@ -270,7 +270,7 @@
    "torsional clash": -0.0093,
    "backbone clash": -0.0704,
    "cleaned": "YC10F",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "YA10W": {
    "Interaction Energy": 0.7195,
@@ -286,7 +286,7 @@
    "torsional clash": -0.0599,
    "backbone clash": -0.4032,
    "cleaned": "YC10W",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   }
  },
  "meta": {
@@ -297,7 +297,7 @@
   "n_ok": 18,
   "n_mutations": 18,
   "sources": [
-   "foldx_s1102_results_S4169"
+   "S4169"
   ]
  }
 }

@@ -14,7 +14,7 @@
    "torsional clash": -0.0128,
    "backbone clash": -0.0014,
    "cleaned": "PA15S",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "SA87Y": {
    "Interaction Energy": -2.6571,
@@ -30,7 +30,7 @@
    "torsional clash": 0.0232,
    "backbone clash": 0.1275,
    "cleaned": "SA87Y",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   }
  },
  "meta": {
@@ -41,7 +41,7 @@
   "n_ok": 2,
   "n_mutations": 2,
   "sources": [
-   "foldx_s1102_results_S4169"
+   "S4169"
   ]
  }
 }

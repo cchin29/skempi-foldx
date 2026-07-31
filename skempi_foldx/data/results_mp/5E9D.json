@@ -13,7 +13,7 @@
    "entropy mainchain": -0.0354,
    "torsional clash": 0.0,
    "backbone clash": 0.0,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "GD27E,VE49D": {
    "Interaction Energy": 0.9821,
@@ -28,7 +28,7 @@
    "entropy mainchain": -0.0158,
    "torsional clash": -0.0601,
    "backbone clash": 0.0001,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "GD27E,AE98Y": {
    "Interaction Energy": -0.2439,
@@ -43,7 +43,7 @@
    "entropy mainchain": -0.0245,
    "torsional clash": -0.0024,
    "backbone clash": -0.0297,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "TD90Q,AE98Y": {
    "Interaction Energy": 0.0608,
@@ -58,7 +58,7 @@
    "entropy mainchain": 0.031,
    "torsional clash": 0.0084,
    "backbone clash": -0.0149,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "GD27E,TD90Q,AE98Y": {
    "Interaction Energy": -0.6621,
@@ -73,7 +73,7 @@
    "entropy mainchain": -0.9574,
    "torsional clash": -0.0041,
    "backbone clash": -0.0877,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "GD27R,TD90Q,VE49E,AE98D": {
    "Interaction Energy": -2.1575,
@@ -88,7 +88,7 @@
    "entropy mainchain": -0.1125,
    "torsional clash": 0.0084,
    "backbone clash": 0.0633,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "GD27E,TD90Q,VE49D,AE98E": {
    "Interaction Energy": -0.9858,
@@ -103,7 +103,7 @@
    "entropy mainchain": 0.4286,
    "torsional clash": 0.0248,
    "backbone clash": 0.021,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "GD27R,TD90Q,VE49E,AE98V": {
    "Interaction Energy": -2.1899,
@@ -118,7 +118,7 @@
    "entropy mainchain": -0.0837,
    "torsional clash": -0.0157,
    "backbone clash": 0.0634,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   }
  },
  "meta": {
@@ -128,7 +128,7 @@
   "n_ok": 8,
   "n_mutations": 8,
   "sources": [
-   "foldx_skempi_full_results_multipoint"
+   "full_skempi_multipoint"
   ]
  }
 }

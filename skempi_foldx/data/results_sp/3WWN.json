@@ -14,7 +14,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "KA225E",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "RA221E": {
    "Interaction Energy": 4.545,
@@ -30,7 +30,7 @@
    "torsional clash": 0.0003,
    "backbone clash": 0.0033,
    "cleaned": "RA221E",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "RA224E": {
    "Interaction Energy": 0.4686,
@@ -46,7 +46,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "RA224E",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   }
  },
  "meta": {
@@ -57,7 +57,7 @@
   "n_ok": 3,
   "n_mutations": 3,
   "sources": [
-   "foldx_s1102_results_S4169"
+   "S4169"
   ]
  }
 }

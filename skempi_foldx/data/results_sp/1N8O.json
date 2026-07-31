@@ -14,7 +14,7 @@
    "torsional clash": -0.0034,
    "backbone clash": 0.0628,
    "cleaned": "ME80K",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "ME80L": {
    "Interaction Energy": -0.148,
@@ -30,7 +30,7 @@
    "torsional clash": 0.0173,
    "backbone clash": 0.0189,
    "cleaned": "ME80L",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "ME80R": {
    "Interaction Energy": 2.4802,
@@ -46,7 +46,7 @@
    "torsional clash": 0.1321,
    "backbone clash": 0.0341,
    "cleaned": "ME80R",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   }
  },
  "meta": {
@@ -57,7 +57,7 @@
   "n_ok": 3,
   "n_mutations": 3,
   "sources": [
-   "foldx_skempi_full_results"
+   "full_skempi"
   ]
  }
 }

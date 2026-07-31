@@ -14,7 +14,7 @@
    "torsional clash": -0.027,
    "backbone clash": 0.0,
    "cleaned": "KB30A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "NB16R": {
    "Interaction Energy": -2.3537,
@@ -30,7 +30,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "NB16R",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "TA35A": {
    "Interaction Energy": 0.1668,
@@ -46,7 +46,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "TA35A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   }
  },
  "meta": {
@@ -57,7 +57,7 @@
   "n_ok": 3,
   "n_mutations": 3,
   "sources": [
-   "foldx_s1102_results_S4169"
+   "S4169"
   ]
  }
 }

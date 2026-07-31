@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 # SP arm of the FoldX repair-count sweep.
 #
-# --store: NOT the driver's default (ROOT/data/foldx/results_sp). On a compute box that path may
-# not exist, load_store returns {}, and `--scope all` would silently run zero complexes. Point it
-# at the campaign store that actually has results.
+# --store: NOT the driver's default (skempi_foldx/data/results_sp, the bundled store, which always
+# exists). That default is the shipped consolidated store, not the campaign working store this
+# sweep re-runs from, so `--scope all` against it would enumerate the wrong set. Point it at the
+# campaign store that actually has the results being swept. The guard below still exists because
+# an overridden SWEEP_STORE can name a path that is absent, and load_store then returns {} and
+# `--scope all` silently runs zero complexes.
 #
 # 1KBH is not named here: it lives in skempi_foldx/exclusions.py, which every entry point consults,
 # so it cannot be reintroduced by forgetting a flag -- 2120 residues / 33k atoms, against 26k for

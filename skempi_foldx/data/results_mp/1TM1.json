@@ -13,7 +13,7 @@
    "entropy mainchain": 0.5567,
    "torsional clash": -0.0058,
    "backbone clash": -0.0169,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "TI39A,EI41A": {
    "Interaction Energy": 1.474,
@@ -28,7 +28,7 @@
    "entropy mainchain": 0.1742,
    "torsional clash": -0.0403,
    "backbone clash": -0.2024,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "TI39D,EI41A": {
    "Interaction Energy": 1.3173,
@@ -43,7 +43,7 @@
    "entropy mainchain": -0.0419,
    "torsional clash": 0.0809,
    "backbone clash": -0.1184,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "EI41S,MI40R": {
    "Interaction Energy": 1.8223,
@@ -58,7 +58,7 @@
    "entropy mainchain": -0.7608,
    "torsional clash": -0.0279,
    "backbone clash": 0.0994,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   }
  },
  "meta": {
@@ -68,7 +68,7 @@
   "n_ok": 4,
   "n_mutations": 4,
   "sources": [
-   "foldx_skempi_full_results_multipoint"
+   "full_skempi_multipoint"
   ]
  }
 }

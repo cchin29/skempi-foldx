@@ -13,7 +13,7 @@
    "entropy mainchain": 0.4007,
    "torsional clash": -0.0052,
    "backbone clash": -0.1545,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "QA34A,MA36A,FA40A,SA87A": {
    "Interaction Energy": 5.5284,
@@ -28,7 +28,7 @@
    "entropy mainchain": 1.0637,
    "torsional clash": -0.0158,
    "backbone clash": -0.3127,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   }
  },
  "meta": {
@@ -38,7 +38,7 @@
   "n_ok": 2,
   "n_mutations": 2,
   "sources": [
-   "foldx_skempi_full_results_multipoint"
+   "full_skempi_multipoint"
   ]
  }
 }

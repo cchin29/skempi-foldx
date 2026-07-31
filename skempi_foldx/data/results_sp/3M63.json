@@ -14,7 +14,7 @@
    "torsional clash": -0.0017,
    "backbone clash": -0.2076,
    "cleaned": "DA46A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "EA33A": {
    "Interaction Energy": 0.0613,
@@ -30,7 +30,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "EA33A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "EA55A": {
    "Interaction Energy": -0.2619,
@@ -46,7 +46,7 @@
    "torsional clash": 0.0,
    "backbone clash": -0.09,
    "cleaned": "EA55A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "FA113A": {
    "Interaction Energy": 2.0603,
@@ -62,7 +62,7 @@
    "torsional clash": -0.0027,
    "backbone clash": -0.007,
    "cleaned": "FA113A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "GA102A": {
    "Interaction Energy": 0.9514,
@@ -78,7 +78,7 @@
    "torsional clash": 0.0043,
    "backbone clash": 0.0427,
    "cleaned": "GA102A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "IA110A": {
    "Interaction Energy": 2.8659,
@@ -94,7 +94,7 @@
    "torsional clash": -0.0181,
    "backbone clash": 0.0024,
    "cleaned": "IA110A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "LA50A": {
    "Interaction Energy": 0.8157,
@@ -110,7 +110,7 @@
    "torsional clash": -0.0018,
    "backbone clash": -0.0194,
    "cleaned": "LA50A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "RA98A": {
    "Interaction Energy": 0.6605,
@@ -126,7 +126,7 @@
    "torsional clash": -0.0022,
    "backbone clash": -0.2098,
    "cleaned": "RA98A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "TA54A": {
    "Interaction Energy": 0.528,
@@ -142,7 +142,7 @@
    "torsional clash": 0.0,
    "backbone clash": -0.0541,
    "cleaned": "TA54A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "VA106A": {
    "Interaction Energy": 1.9467,
@@ -158,7 +158,7 @@
    "torsional clash": -0.0039,
    "backbone clash": 0.0542,
    "cleaned": "VA106A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "YA103A": {
    "Interaction Energy": 1.0184,
@@ -174,7 +174,7 @@
    "torsional clash": -0.002,
    "backbone clash": -0.4328,
    "cleaned": "YA103A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   }
  },
  "meta": {
@@ -185,7 +185,7 @@
   "n_ok": 11,
   "n_mutations": 11,
   "sources": [
-   "foldx_s1102_results_S4169"
+   "S4169"
   ]
  }
 }

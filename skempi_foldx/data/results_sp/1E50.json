@@ -14,7 +14,7 @@
    "torsional clash": -0.0554,
    "backbone clash": 0.1272,
    "cleaned": "DA8A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "KA86M": {
    "Interaction Energy": 0.2946,
@@ -30,7 +30,7 @@
    "torsional clash": -0.0009,
    "backbone clash": 0.0494,
    "cleaned": "KA86M",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "MA48A": {
    "Interaction Energy": 0.6,
@@ -46,7 +46,7 @@
    "torsional clash": -0.0034,
    "backbone clash": 0.0117,
    "cleaned": "MA48A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "NA11A": {
    "Interaction Energy": -0.6882,
@@ -62,7 +62,7 @@
    "torsional clash": -0.0214,
    "backbone clash": -0.0233,
    "cleaned": "NA11A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "NA51A": {
    "Interaction Energy": 0.3172,
@@ -78,7 +78,7 @@
    "torsional clash": 0.0024,
    "backbone clash": -0.041,
    "cleaned": "NA51A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "NB62A": {
    "Interaction Energy": 1.422,
@@ -94,7 +94,7 @@
    "torsional clash": -0.0142,
    "backbone clash": -0.1022,
    "cleaned": "NB62A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "NB99A": {
    "Interaction Energy": 1.8669,
@@ -110,7 +110,7 @@
    "torsional clash": -0.1892,
    "backbone clash": 0.0067,
    "cleaned": "NB99A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "RA84A": {
    "Interaction Energy": -0.0596,
@@ -126,7 +126,7 @@
    "torsional clash": 0.0001,
    "backbone clash": 0.0041,
    "cleaned": "RA84A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "RB32A": {
    "Interaction Energy": 1.6485,
@@ -142,7 +142,7 @@
    "torsional clash": -0.0219,
    "backbone clash": -0.0619,
    "cleaned": "RB32A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "SA56A": {
    "Interaction Energy": 0.1902,
@@ -158,7 +158,7 @@
    "torsional clash": -0.0038,
    "backbone clash": 0.0773,
    "cleaned": "SA56A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "SB64A": {
    "Interaction Energy": -0.7958,
@@ -174,7 +174,7 @@
    "torsional clash": -0.0,
    "backbone clash": 0.0,
    "cleaned": "SB64A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "TA103A": {
    "Interaction Energy": 1.6072,
@@ -190,7 +190,7 @@
    "torsional clash": -0.0439,
    "backbone clash": -0.0258,
    "cleaned": "TA103A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "TA91A": {
    "Interaction Energy": 0.6605,
@@ -206,7 +206,7 @@
    "torsional clash": -0.1375,
    "backbone clash": 0.0094,
    "cleaned": "TA91A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "VA101A": {
    "Interaction Energy": 2.4302,
@@ -222,7 +222,7 @@
    "torsional clash": -0.0453,
    "backbone clash": -0.1224,
    "cleaned": "VA101A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "VB57A": {
    "Interaction Energy": 0.4261,
@@ -238,7 +238,7 @@
    "torsional clash": -0.0063,
    "backbone clash": 0.0573,
    "cleaned": "VB57A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "YA55A": {
    "Interaction Energy": 1.8674,
@@ -254,7 +254,7 @@
    "torsional clash": -0.0323,
    "backbone clash": 0.0026,
    "cleaned": "YA55A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   }
  },
  "meta": {
@@ -265,7 +265,7 @@
   "n_ok": 16,
   "n_mutations": 16,
   "sources": [
-   "foldx_s1102_results_S4169"
+   "S4169"
   ]
  }
 }

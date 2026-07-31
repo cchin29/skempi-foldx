@@ -13,7 +13,7 @@
    "entropy mainchain": 0.2307,
    "torsional clash": 0.0111,
    "backbone clash": 0.0014,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "AC7I,GC4A": {
    "Interaction Energy": -0.8596,
@@ -28,7 +28,7 @@
    "entropy mainchain": -0.0083,
    "torsional clash": 0.0449,
    "backbone clash": 0.3739,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "AC7I,IC5A": {
    "Interaction Energy": 1.6247,
@@ -43,7 +43,7 @@
    "entropy mainchain": -0.0692,
    "torsional clash": -0.0518,
    "backbone clash": -0.005,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "AC7I,GC6A": {
    "Interaction Energy": 0.6303,
@@ -58,7 +58,7 @@
    "entropy mainchain": 0.2981,
    "torsional clash": 0.0295,
    "backbone clash": 0.0482,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "AC7I,LC8A": {
    "Interaction Energy": 1.2249,
@@ -73,7 +73,7 @@
    "entropy mainchain": 0.4096,
    "torsional clash": 0.0108,
    "backbone clash": 0.0395,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "AC7I,TC9A": {
    "Interaction Energy": 0.0148,
@@ -88,7 +88,7 @@
    "entropy mainchain": 0.268,
    "torsional clash": 0.0057,
    "backbone clash": 0.1086,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   }
  },
  "meta": {
@@ -98,7 +98,7 @@
   "n_ok": 6,
   "n_mutations": 6,
   "sources": [
-   "foldx_skempi_full_results_multipoint"
+   "full_skempi_multipoint"
   ]
  }
 }

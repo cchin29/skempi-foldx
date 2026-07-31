@@ -13,7 +13,7 @@
    "entropy mainchain": -0.0,
    "torsional clash": 0.0019,
    "backbone clash": -0.0,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "ID51S,ND52I,SD15I,ID16N": {
    "Interaction Energy": 7.3966,
@@ -28,7 +28,7 @@
    "entropy mainchain": -0.0893,
    "torsional clash": 0.3197,
    "backbone clash": 0.49,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "ID51S,ND52I": {
    "Interaction Energy": 7.2626,
@@ -43,7 +43,7 @@
    "entropy mainchain": -0.0911,
    "torsional clash": 0.3733,
    "backbone clash": 0.5231,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "RD14N,KD50N,SD15I,ID16N": {
    "Interaction Energy": 1.1836,
@@ -58,7 +58,7 @@
    "entropy mainchain": 0.0397,
    "torsional clash": 0.0103,
    "backbone clash": -0.1261,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "ID51S,ID16N": {
    "Interaction Energy": 3.2626,
@@ -73,7 +73,7 @@
    "entropy mainchain": -0.0102,
    "torsional clash": -0.0147,
    "backbone clash": 0.084,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "ND52I,SD15I": {
    "Interaction Energy": 5.9365,
@@ -88,7 +88,7 @@
    "entropy mainchain": -0.0714,
    "torsional clash": 0.1658,
    "backbone clash": 0.2249,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "AD18F,AD54F,SD15I,ID16N": {
    "Interaction Energy": 1.4039,
@@ -103,7 +103,7 @@
    "entropy mainchain": 0.4096,
    "torsional clash": 0.1312,
    "backbone clash": -0.0648,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "LD20Y,LD56Y,SD15I,ID16N": {
    "Interaction Energy": 2.9088,
@@ -118,7 +118,7 @@
    "entropy mainchain": 0.0,
    "torsional clash": 0.0179,
    "backbone clash": 0.2553,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "DD23Q,DD59Q,SD15I,ID16N": {
    "Interaction Energy": 0.2362,
@@ -133,7 +133,7 @@
    "entropy mainchain": 0.2611,
    "torsional clash": -0.0026,
    "backbone clash": -0.0435,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   }
  },
  "meta": {
@@ -143,7 +143,7 @@
   "n_ok": 9,
   "n_mutations": 9,
   "sources": [
-   "foldx_skempi_full_results_multipoint"
+   "full_skempi_multipoint"
   ]
  }
 }

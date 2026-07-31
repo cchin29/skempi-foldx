@@ -14,7 +14,7 @@
    "torsional clash": -0.0049,
    "backbone clash": -0.2296,
    "cleaned": "DA46A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "EA32A": {
    "Interaction Energy": 1.0692,
@@ -30,7 +30,7 @@
    "torsional clash": -0.0,
    "backbone clash": 0.0343,
    "cleaned": "EA32A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "EA55A": {
    "Interaction Energy": 0.0315,
@@ -46,7 +46,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "EA55A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "FB7A": {
    "Interaction Energy": 1.6524,
@@ -62,7 +62,7 @@
    "torsional clash": -0.0031,
    "backbone clash": -0.2788,
    "cleaned": "FB7A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "GA102A": {
    "Interaction Energy": 2.7189,
@@ -78,7 +78,7 @@
    "torsional clash": 0.0071,
    "backbone clash": 0.0261,
    "cleaned": "GA102A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "IA110A": {
    "Interaction Energy": 2.5063,
@@ -94,7 +94,7 @@
    "torsional clash": -0.0092,
    "backbone clash": -0.0347,
    "cleaned": "IA110A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "IB43A": {
    "Interaction Energy": 2.8105,
@@ -110,7 +110,7 @@
    "torsional clash": 0.0232,
    "backbone clash": -0.197,
    "cleaned": "IB43A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "KB8A": {
    "Interaction Energy": 0.1893,
@@ -126,7 +126,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "KB8A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "LA50A": {
    "Interaction Energy": 1.0207,
@@ -142,7 +142,7 @@
    "torsional clash": -0.0049,
    "backbone clash": 0.0,
    "cleaned": "LA50A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "MB69A": {
    "Interaction Energy": 1.8223,
@@ -158,7 +158,7 @@
    "torsional clash": -0.007,
    "backbone clash": -0.2318,
    "cleaned": "MB69A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "QB50A": {
    "Interaction Energy": 0.4534,
@@ -174,7 +174,7 @@
    "torsional clash": -0.0194,
    "backbone clash": -0.0002,
    "cleaned": "QB50A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "QB65A": {
    "Interaction Energy": -0.0379,
@@ -190,7 +190,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "QB65A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "RA98A": {
    "Interaction Energy": 0.9209,
@@ -206,7 +206,7 @@
    "torsional clash": -0.0137,
    "backbone clash": -0.1718,
    "cleaned": "RA98A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "SB45A": {
    "Interaction Energy": 1.1794,
@@ -222,7 +222,7 @@
    "torsional clash": -0.0058,
    "backbone clash": -0.1695,
    "cleaned": "SB45A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "TA54A": {
    "Interaction Energy": 0.7638,
@@ -238,7 +238,7 @@
    "torsional clash": -0.0125,
    "backbone clash": 0.008,
    "cleaned": "TA54A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "VB48A": {
    "Interaction Energy": 1.1731,
@@ -254,7 +254,7 @@
    "torsional clash": -0.0261,
    "backbone clash": -0.0806,
    "cleaned": "VB48A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "VB67A": {
    "Interaction Energy": 0.9971,
@@ -270,7 +270,7 @@
    "torsional clash": -0.0005,
    "backbone clash": 0.0,
    "cleaned": "VB67A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "YA103A": {
    "Interaction Energy": 0.9054,
@@ -286,7 +286,7 @@
    "torsional clash": -0.0162,
    "backbone clash": -0.5554,
    "cleaned": "YA103A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   }
  },
  "meta": {
@@ -297,7 +297,7 @@
   "n_ok": 18,
   "n_mutations": 18,
   "sources": [
-   "foldx_s1102_results_S4169"
+   "S4169"
   ]
  }
 }

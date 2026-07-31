@@ -13,7 +13,7 @@
    "entropy mainchain": 0.2369,
    "torsional clash": -0.0047,
    "backbone clash": -0.0475,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "VB14A,EA37A": {
    "Interaction Energy": 6.0171,
@@ -28,7 +28,7 @@
    "entropy mainchain": 0.5904,
    "torsional clash": -0.0107,
    "backbone clash": -0.1037,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "DA30E,EA31K": {
    "Interaction Energy": 0.5739,
@@ -43,7 +43,7 @@
    "entropy mainchain": -0.0248,
    "torsional clash": 0.0,
    "backbone clash": 0.0,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   }
  },
  "meta": {
@@ -53,7 +53,7 @@
   "n_ok": 3,
   "n_mutations": 3,
   "sources": [
-   "foldx_skempi_full_results_multipoint"
+   "full_skempi_multipoint"
   ]
  }
 }

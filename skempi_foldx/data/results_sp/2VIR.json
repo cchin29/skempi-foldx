@@ -14,7 +14,7 @@
    "torsional clash": 2.041,
    "backbone clash": 0.6151,
    "cleaned": "SC115L",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "TC89I": {
    "Interaction Energy": -1.2406,
@@ -30,7 +30,7 @@
    "torsional clash": -0.0049,
    "backbone clash": 0.2077,
    "cleaned": "TC89I",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   }
  },
  "meta": {
@@ -41,7 +41,7 @@
   "n_ok": 2,
   "n_mutations": 2,
   "sources": [
-   "foldx_skempi_full_results"
+   "full_skempi"
   ]
  }
 }

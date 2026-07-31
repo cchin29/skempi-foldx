@@ -14,7 +14,7 @@
    "torsional clash": 0.0001,
    "backbone clash": 0.0,
    "cleaned": "FA227A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "FA227D": {
    "Interaction Energy": 1.6357,
@@ -30,7 +30,7 @@
    "torsional clash": -0.0,
    "backbone clash": 0.0,
    "cleaned": "FA227D",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "RA12A": {
    "Interaction Energy": 0.0,
@@ -46,7 +46,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "RA12A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "RA131A": {
    "Interaction Energy": 0.9294,
@@ -62,7 +62,7 @@
    "torsional clash": -0.029,
    "backbone clash": 0.0007,
    "cleaned": "RA131A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "RA202A": {
    "Interaction Energy": -0.0409,
@@ -78,7 +78,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "RA202A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "RA202E": {
    "Interaction Energy": -0.0156,
@@ -94,7 +94,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "RA202E",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "RA209A": {
    "Interaction Energy": 0.1269,
@@ -110,7 +110,7 @@
    "torsional clash": -0.0126,
    "backbone clash": 0.0007,
    "cleaned": "RA209A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "RA209E": {
    "Interaction Energy": 0.1775,
@@ -126,7 +126,7 @@
    "torsional clash": 0.0064,
    "backbone clash": 0.0007,
    "cleaned": "RA209E",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "RA228A": {
    "Interaction Energy": 0.0531,
@@ -142,7 +142,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "RA228A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "RA228E": {
    "Interaction Energy": 0.016,
@@ -158,7 +158,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "RA228E",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "RA97A": {
    "Interaction Energy": 0.0552,
@@ -174,7 +174,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "RA97A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   }
  },
  "meta": {
@@ -185,7 +185,7 @@
   "n_ok": 11,
   "n_mutations": 11,
   "sources": [
-   "foldx_s1102_results_S4169"
+   "S4169"
   ]
  }
 }

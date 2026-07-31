@@ -14,7 +14,7 @@
    "torsional clash": -0.0064,
    "backbone clash": 0.0148,
    "cleaned": "DB126A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "DB126K": {
    "Interaction Energy": 1.8312,
@@ -30,7 +30,7 @@
    "torsional clash": -0.0003,
    "backbone clash": 0.0149,
    "cleaned": "DB126K",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "DB176A": {
    "Interaction Energy": 1.1338,
@@ -46,7 +46,7 @@
    "torsional clash": -0.007,
    "backbone clash": 0.0348,
    "cleaned": "DB176A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "DB176E": {
    "Interaction Energy": 0.5038,
@@ -62,7 +62,7 @@
    "torsional clash": -0.0109,
    "backbone clash": 0.0071,
    "cleaned": "DB176E",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "DB176N": {
    "Interaction Energy": 1.3812,
@@ -78,7 +78,7 @@
    "torsional clash": -0.0016,
    "backbone clash": -0.0258,
    "cleaned": "DB176N",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "DB87A": {
    "Interaction Energy": -4.0465,
@@ -94,7 +94,7 @@
    "torsional clash": -0.0175,
    "backbone clash": -0.0042,
    "cleaned": "DB87A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "DB87R": {
    "Interaction Energy": -2.4551,
@@ -110,7 +110,7 @@
    "torsional clash": 0.0265,
    "backbone clash": 0.0701,
    "cleaned": "DB87R",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "DC99K": {
    "Interaction Energy": 0.3081,
@@ -126,7 +126,7 @@
    "torsional clash": -0.0257,
    "backbone clash": -0.0012,
    "cleaned": "DC99K",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "EB92A": {
    "Interaction Energy": 0.0015,
@@ -142,7 +142,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0005,
    "cleaned": "EB92A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "EC8R": {
    "Interaction Energy": 0.8077,
@@ -158,7 +158,7 @@
    "torsional clash": 0.0058,
    "backbone clash": 0.0431,
    "cleaned": "EC8R",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "IB91A": {
    "Interaction Energy": 0.0948,
@@ -174,7 +174,7 @@
    "torsional clash": 0.0,
    "backbone clash": -0.0001,
    "cleaned": "IB91A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "IC6G": {
    "Interaction Energy": 0.2267,
@@ -190,7 +190,7 @@
    "torsional clash": -0.0206,
    "backbone clash": 0.1041,
    "cleaned": "IC6G",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "KB121A": {
    "Interaction Energy": 0.0023,
@@ -206,7 +206,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "KB121A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "KB89A": {
    "Interaction Energy": 0.4642,
@@ -222,7 +222,7 @@
    "torsional clash": -0.0224,
    "backbone clash": -0.1149,
    "cleaned": "KB89A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "KB89D": {
    "Interaction Energy": 1.3199,
@@ -238,7 +238,7 @@
    "torsional clash": -0.0146,
    "backbone clash": -0.0948,
    "cleaned": "KB89D",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "KB90A": {
    "Interaction Energy": 0.7059,
@@ -254,7 +254,7 @@
    "torsional clash": -0.0003,
    "backbone clash": -0.0157,
    "cleaned": "KB90A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "KB90D": {
    "Interaction Energy": 0.3061,
@@ -270,7 +270,7 @@
    "torsional clash": 0.0,
    "backbone clash": -0.0079,
    "cleaned": "KB90D",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "LB122A": {
    "Interaction Energy": 0.0037,
@@ -286,7 +286,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "LB122A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "LC15D": {
    "Interaction Energy": 0.2114,
@@ -302,7 +302,7 @@
    "torsional clash": -0.0262,
    "backbone clash": 0.0936,
    "cleaned": "LC15D",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "NB81A": {
    "Interaction Energy": 0.0032,
@@ -318,7 +318,7 @@
    "torsional clash": 0.0,
    "backbone clash": -0.0195,
    "cleaned": "NB81A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "NC14D": {
    "Interaction Energy": 0.1131,
@@ -334,7 +334,7 @@
    "torsional clash": 0.0012,
    "backbone clash": 0.0,
    "cleaned": "NC14D",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "NC4E": {
    "Interaction Energy": -0.9726,
@@ -350,7 +350,7 @@
    "torsional clash": -0.0965,
    "backbone clash": 0.1294,
    "cleaned": "NC4E",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "QB120A": {
    "Interaction Energy": 0.2558,
@@ -366,7 +366,7 @@
    "torsional clash": -0.0,
    "backbone clash": 0.0,
    "cleaned": "QB120A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "RB156Q": {
    "Interaction Energy": 0.0,
@@ -382,7 +382,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "RB156Q",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "RB178A": {
    "Interaction Energy": 4.7543,
@@ -398,7 +398,7 @@
    "torsional clash": -0.0731,
    "backbone clash": -0.5556,
    "cleaned": "RB178A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "RB178D": {
    "Interaction Energy": 4.2484,
@@ -414,7 +414,7 @@
    "torsional clash": -0.0219,
    "backbone clash": -0.434,
    "cleaned": "RB178D",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "RB178M": {
    "Interaction Energy": 2.5606,
@@ -430,7 +430,7 @@
    "torsional clash": -0.0366,
    "backbone clash": -0.4897,
    "cleaned": "RB178M",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "RB80A": {
    "Interaction Energy": -0.0976,
@@ -446,7 +446,7 @@
    "torsional clash": -0.0281,
    "backbone clash": -0.0239,
    "cleaned": "RB80A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "RB80D": {
    "Interaction Energy": 1.6283,
@@ -462,7 +462,7 @@
    "torsional clash": -0.0273,
    "backbone clash": 0.0112,
    "cleaned": "RB80D",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "RC10D": {
    "Interaction Energy": 0.8327,
@@ -478,7 +478,7 @@
    "torsional clash": -0.0219,
    "backbone clash": -0.4085,
    "cleaned": "RC10D",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "RC11D": {
    "Interaction Energy": 1.9923,
@@ -494,7 +494,7 @@
    "torsional clash": -0.0303,
    "backbone clash": -0.1281,
    "cleaned": "RC11D",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "SB123A": {
    "Interaction Energy": 0.2951,
@@ -510,7 +510,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0744,
    "cleaned": "SB123A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "TB88A": {
    "Interaction Energy": 0.5959,
@@ -526,7 +526,7 @@
    "torsional clash": 0.0,
    "backbone clash": -0.0065,
    "cleaned": "TB88A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "YB82A": {
    "Interaction Energy": 0.0143,
@@ -542,7 +542,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "YB82A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "YB82F": {
    "Interaction Energy": 0.0074,
@@ -558,7 +558,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "YB82F",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   }
  },
  "meta": {
@@ -569,7 +569,7 @@
   "n_ok": 35,
   "n_mutations": 35,
   "sources": [
-   "foldx_skempi_full_results"
+   "full_skempi"
   ]
  }
 }

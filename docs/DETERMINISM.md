@@ -6,9 +6,11 @@ this pipeline, and the intuitive reading of the evidence is the wrong one.
 The short version: FoldX 5.1 `BuildModel` is deterministic. Same repaired structure and same
 `individual_list.txt` prefix gives the same number, to the last decimal, always. But a mutation's
 ΔΔG depends on *every entry preceding it in that list* — so computing a subset of a complex's
-mutations does not give the same answers as computing all of them.
+mutations does not give the same answers as computing all of them. The size of that effect,
+measured here: the same mutation of the same complex moves by a median of 0.067 kcal/mol between
+two campaigns' mutation lists, and by as much as 11.03.
 
-The inference a spread like this invites — "FoldX is stochastic, so seed it or average over
+The inference a spread of that size invites — "FoldX is stochastic, so seed it or average over
 runs" — is the wrong one. There is nothing to average. Seeding would do nothing. The fix is to
 control the mutation list, and `worklist_single_point()` does that by construction.
 
@@ -16,8 +18,8 @@ control the mutation list, and `worklist_single_point()` does that by constructi
 
 ## The evidence
 
-The five campaign result directories disagree with each other on two thirds of the mutations they
-share, by up to 11 kcal/mol. That looks like stochastic side-chain optimisation and is not: it is
+The five single-point campaign result directories disagree with each other on two thirds of the
+mutations they share, by up to 11 kcal/mol. That looks like stochastic side-chain optimisation and is not: it is
 a setup effect, and it is fully explained.
 
 `BuildModel` walks `individual_list.txt` sequentially in **one process**. Each entry's side-chain
@@ -29,8 +31,9 @@ result is therefore a function of
 
 not of the mutation alone.
 
-Measured across the five campaigns, on 5873 pairwise comparisons of the same mutation of the same
-complex:
+Measured over all five single-point campaign result directories — every pair of campaigns that
+computed the same mutation of the same complex, 5873 such pairs, which is the population the two
+rows below partition:
 
 | | pairs | differ | median \|Δ\| | max \|Δ\| |
 |---|---|---|---|---|
@@ -67,8 +70,8 @@ single-point record:
 
 | source campaign | records | complexes | mutation list |
 |---|---:|---:|---|
-| `foldx_s1102_results_S4169` | 2494 (58.8%) | 210 | a per-dataset **subset** |
-| `foldx_skempi_full_results` | 1744 (41.2%) | 112 | the **union** for those complexes |
+| `S4169` | 2494 (58.8%) | 210 | a per-dataset **subset** |
+| `full_skempi` | 1744 (41.2%) | 112 | the **union** for those complexes |
 
 So roughly three fifths of the shipped single-point values were computed under a subset list and
 are **not** the union-list answer for that mutation. `skempi_foldx/data/CONSOLIDATION_REPORT.txt`
@@ -96,9 +99,10 @@ has two different answers depending on what is being asked.
 
 **Re-running a campaign as it was run: exact.** Same structure, same list, same numbers.
 
-**Computing the same mutation under a different subset: not exact.** Quantified over the four
-independently-listed campaigns (1528 mutations shared, 10631 campaign-pair comparisons), on
-`Interaction Energy`:
+**Computing the same mutation under a different subset: not exact.** Quantified on
+`Interaction Energy` over the campaigns driven from independently constructed mutation lists, as
+recorded when the measurement was made: 1528 mutations shared, 10631 campaign-pair comparisons.
+See the note on populations below before quoting either figure.
 
 | | |
 |---|---|
@@ -114,6 +118,27 @@ Per-term ICC ranges from 0.99 (Van der Waals, Solvation Hydrophobic) down to **0
 clash)**, 0.93 (Van der Waals clashes) and 0.92 (entropy mainchain) — the clash and entropy terms
 are the least stable, and they are terms the scalar arm never sees.
 
+**A note on populations, because three appear in this document and they do not reconcile.**
+
+* **5873** — the determinism table above. Every campaign-pair comparison of the same mutation of
+  the same complex, over all five single-point campaign result directories. Internally consistent:
+  its two rows sum to it (1722 + 4151).
+* **10631** — the agreement statistics in this section. This figure was recorded against "the four
+  independently-listed campaigns" with 1528 shared mutations, and that attribution is
+  **arithmetically impossible**: four campaigns admit C(4,2) = 6 pairs per mutation, so at most
+  1528 × 6 = 9168 comparisons. Five campaigns admit C(5,2) = 10, i.e. up to 15 280, which does
+  accommodate 10631. Either the campaign count or the shared-mutation count was misrecorded, and
+  **which one cannot be determined from this repository** — the source campaign directories are
+  not shipped here, so neither figure can be recomputed. The statistics in the table above are
+  reported exactly as measured and should be treated as **unverified** until they are recomputed
+  from the campaign directories.
+* **3096** — the sign-stability denominator below. A third population, matching neither of the
+  other two, and what it counts was not recorded. Also **unverified**.
+
+None of this changes the qualitative conclusion, which rests on the determinism table and the
+worked example rather than on the agreement statistics. It does mean the agreement statistics
+should not be quoted with a stated denominator.
+
 **It is concentrated, not diffuse.** 185 of 252 shared complexes agree on *every* mutation; 10
 disagree on every one. Three complexes — `1PPF`, `1R0R`, `3SGB`, the OMTKY3 protease–inhibitor
 saturation-mutagenesis sets — account for **half** of all absolute disagreement, and the top ten
@@ -127,7 +152,8 @@ mutation's *binding* ΔΔG is ≈0 under any list ordering.
 
 **Sign stability.** Two campaigns disagree on the sign of `Interaction Energy` for 2.4% of shared
 mutations — but almost all are noise around zero (median magnitude 0.22 kcal/mol). Flips where
-both sides exceed 0.5 kcal/mol: **4 of 3096**. At ±2.0 kcal/mol: **none**.
+both sides exceed 0.5 kcal/mol: **4 of 3096** — the third denominator noted above, unreconciled
+with the other two. At ±2.0 kcal/mol: **none**.
 
 **Downstream exposure.** Substituting one campaign's values for another's and re-standardizing
 per fold moves, of FoldX-covered rows: ~1.3% by more than 0.5 standardized units on the **scalar**
@@ -135,8 +161,8 @@ arm, and ~5% on the **12-term** arm — the decomposed arm is roughly twice as e
 reads twelve chances at the noise including the least stable terms. Under an adversarial
 worst-case swap those become 2.6% and 9.3%.
 
-None of this affects the shipped store, which is a fixed set of byte-copies (below). The exposure
-is to *regeneration*.
+None of this affects the shipped store, which is a fixed set of byte-copies — see
+[STORE.md](STORE.md), *Provenance of the shipped store*. The exposure is to *regeneration*.
 
 ## Mechanism, and the literature
 
@@ -186,13 +212,15 @@ number; the full-SKEMPI run covers both arms:
 | FoldX-alone per-structure Spearman, **5×** | **0.4585** [0.3455, 0.5695] |
 | paired Δ (cluster bootstrap over complexes) | **+0.060, 95% CI [+0.020, +0.100]** |
 
-The published FoldX baseline on this split is 0.4303 — between the two. That is the likely
+The published FoldX baseline for single-point mutations on this split is 0.4458 (CATH-ddG
+Table 2, FoldX row, per-PPI SpearmanR; the All-mutation figure is 0.4303 and the multi-point
+0.5479) — between the two. That is the likely
 explanation for a single-repair FoldX-alone number sitting below the published one.
 
 This does not contradict Usmanova: they measured *folding* ΔΔG and self-consistency bias; this
 measures *binding* ΔΔG correlation with experiment.
 
-Caveats worth keeping attached to the number: 11 complexes on one tier, and this is FoldX used
+Caveats worth keeping attached to the number: 13 complexes on one tier, and this is FoldX used
 *alone* — whether a downstream model consuming these energies improves on better inputs requires
 a retrain. Reproduce or widen with `experiments/repair_ablation.py`.
 
@@ -213,7 +241,9 @@ What actually distinguishes a defensible pipeline here is *reporting*, not the s
 template found in this literature is a single sentence from Meli et al. (*IJMS* 2024): "The macros
 'PositionScan' and 'BuildModel' were run by using default settings (i.e., number of runs: 1, pH 7,
 temperature 298 K, and ionic strength 0.05 M)." That is more protocol detail than any of the
-comparator papers give.
+comparator papers give. **That attribution is unsourced**: the paper could not be identified
+against the CrossRef API from the *IJMS* 2024 details recorded with the quotation, so
+[REFERENCES.md](REFERENCES.md) gives no DOI for it rather than an inferred one.
 
 **Platform note.** The multi-point campaign ran on Linux while the single-point campaigns ran on
 Apple Silicon. There is no vendor statement on cross-platform bitwise agreement, so the two should

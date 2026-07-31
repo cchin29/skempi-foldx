@@ -13,7 +13,7 @@
    "entropy mainchain": 0.9729,
    "torsional clash": 0.0146,
    "backbone clash": 0.0517,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "YM9G,YM37A": {
    "Interaction Energy": -0.8179,
@@ -28,7 +28,7 @@
    "entropy mainchain": -0.27,
    "torsional clash": -0.0003,
    "backbone clash": -0.0275,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "TA7G,MA8A": {
    "Interaction Energy": 4.2418,
@@ -43,7 +43,7 @@
    "entropy mainchain": 1.6528,
    "torsional clash": -0.0019,
    "backbone clash": -0.0357,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   }
  },
  "meta": {
@@ -53,7 +53,7 @@
   "n_ok": 3,
   "n_mutations": 3,
   "sources": [
-   "foldx_skempi_full_results_multipoint"
+   "full_skempi_multipoint"
   ]
  }
 }

@@ -14,7 +14,7 @@
    "torsional clash": -0.0271,
    "backbone clash": -0.2615,
    "cleaned": "DB92A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "RB15A": {
    "Interaction Energy": 1.8267,
@@ -30,7 +30,7 @@
    "torsional clash": -0.0069,
    "backbone clash": -0.0425,
    "cleaned": "RB15A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   }
  },
  "meta": {
@@ -41,7 +41,7 @@
   "n_ok": 2,
   "n_mutations": 2,
   "sources": [
-   "foldx_s1102_results_S4169"
+   "S4169"
   ]
  }
 }

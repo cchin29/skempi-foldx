@@ -14,7 +14,7 @@
    "torsional clash": 0.072,
    "backbone clash": -0.0007,
    "cleaned": "LI38D",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "LB38E": {
    "Interaction Energy": 3.7786,
@@ -30,7 +30,7 @@
    "torsional clash": 0.0238,
    "backbone clash": 0.0164,
    "cleaned": "LI38E",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "LB38G": {
    "Interaction Energy": 3.7751,
@@ -46,7 +46,7 @@
    "torsional clash": 0.0945,
    "backbone clash": -0.1543,
    "cleaned": "LI38G",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "LB38I": {
    "Interaction Energy": 3.4473,
@@ -62,7 +62,7 @@
    "torsional clash": 0.7273,
    "backbone clash": 0.1444,
    "cleaned": "LI38I",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "LB38P": {
    "Interaction Energy": 4.937,
@@ -78,7 +78,7 @@
    "torsional clash": 0.0552,
    "backbone clash": -0.6757,
    "cleaned": "LI38P",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "LB38S": {
    "Interaction Energy": 3.518,
@@ -94,7 +94,7 @@
    "torsional clash": 0.0152,
    "backbone clash": 0.0748,
    "cleaned": "LI38S",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   }
  },
  "meta": {
@@ -105,7 +105,7 @@
   "n_ok": 6,
   "n_mutations": 6,
   "sources": [
-   "foldx_s1102_results_S4169"
+   "S4169"
   ]
  }
 }

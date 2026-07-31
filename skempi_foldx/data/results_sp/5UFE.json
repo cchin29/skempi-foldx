@@ -14,7 +14,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "GA12C",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "GA12D": {
    "Interaction Energy": -0.0074,
@@ -30,7 +30,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "GA12D",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "GA12V": {
    "Interaction Energy": 0.0,
@@ -46,7 +46,7 @@
    "torsional clash": 0.0,
    "backbone clash": 0.0,
    "cleaned": "GA12V",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "QB25R": {
    "Interaction Energy": -1.1608,
@@ -62,7 +62,7 @@
    "torsional clash": 0.0032,
    "backbone clash": 0.0539,
    "cleaned": "QB25R",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   }
  },
  "meta": {
@@ -73,7 +73,7 @@
   "n_ok": 4,
   "n_mutations": 4,
   "sources": [
-   "foldx_s1102_results_S4169"
+   "S4169"
   ]
  }
 }

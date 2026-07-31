@@ -13,7 +13,7 @@
    "entropy mainchain": 0.2095,
    "torsional clash": 0.0,
    "backbone clash": -0.1569,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "RD27A,RA170A": {
    "Interaction Energy": 0.9079,
@@ -28,7 +28,7 @@
    "entropy mainchain": 0.1411,
    "torsional clash": -0.0496,
    "backbone clash": -0.1811,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "QD30L,LC1A": {
    "Interaction Energy": -0.6181,
@@ -43,7 +43,7 @@
    "entropy mainchain": -0.195,
    "torsional clash": -0.0145,
    "backbone clash": -0.1723,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "QD30V,LC1A": {
    "Interaction Energy": 0.4126,
@@ -58,7 +58,7 @@
    "entropy mainchain": -0.0055,
    "torsional clash": -0.0086,
    "backbone clash": -0.2358,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "QD30V,YA159A": {
    "Interaction Energy": -0.478,
@@ -73,7 +73,7 @@
    "entropy mainchain": 0.051,
    "torsional clash": 0.0044,
    "backbone clash": -0.085,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "EA63Q,QD30V": {
    "Interaction Energy": -0.0602,
@@ -88,7 +88,7 @@
    "entropy mainchain": -0.0023,
    "torsional clash": 0.0111,
    "backbone clash": -0.0801,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "EA63Q,KA66A": {
    "Interaction Energy": 0.1002,
@@ -103,7 +103,7 @@
    "entropy mainchain": 0.0945,
    "torsional clash": -0.0008,
    "backbone clash": 0.0356,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "EA63Q,QD30V,KA66A": {
    "Interaction Energy": 0.4726,
@@ -118,7 +118,7 @@
    "entropy mainchain": 0.0932,
    "torsional clash": 0.0005,
    "backbone clash": -0.0521,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "SD31A,YC5A": {
    "Interaction Energy": 4.5343,
@@ -133,7 +133,7 @@
    "entropy mainchain": -0.0141,
    "torsional clash": -0.0783,
    "backbone clash": -0.4671,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "SD31A,YC5F": {
    "Interaction Energy": 1.833,
@@ -148,7 +148,7 @@
    "entropy mainchain": -0.076,
    "torsional clash": -0.0171,
    "backbone clash": -0.1102,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "YD50A,QA155A": {
    "Interaction Energy": 1.9869,
@@ -163,7 +163,7 @@
    "entropy mainchain": 0.5068,
    "torsional clash": -0.1004,
    "backbone clash": -0.1407,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "ND52A,EA166A": {
    "Interaction Energy": 0.9894,
@@ -178,7 +178,7 @@
    "entropy mainchain": 0.0,
    "torsional clash": -0.0176,
    "backbone clash": 0.0014,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "KD66A,TA163A": {
    "Interaction Energy": 0.7719,
@@ -193,7 +193,7 @@
    "entropy mainchain": 0.3041,
    "torsional clash": -0.0552,
    "backbone clash": -0.0789,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "KD66A,EA166A": {
    "Interaction Energy": 1.192,
@@ -208,7 +208,7 @@
    "entropy mainchain": 0.2875,
    "torsional clash": -0.0591,
    "backbone clash": -0.1103,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "TD91A,YC5A": {
    "Interaction Energy": 5.281,
@@ -223,7 +223,7 @@
    "entropy mainchain": 0.7111,
    "torsional clash": -0.0837,
    "backbone clash": -0.5989,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "TD92A,RA65A": {
    "Interaction Energy": 1.8044,
@@ -238,7 +238,7 @@
    "entropy mainchain": 0.0052,
    "torsional clash": -0.0009,
    "backbone clash": -0.2903,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "DD93N,RA65A": {
    "Interaction Energy": 3.5915,
@@ -253,7 +253,7 @@
    "entropy mainchain": 0.0473,
    "torsional clash": 0.0123,
    "backbone clash": -0.1719,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "SD94A,YC5A": {
    "Interaction Energy": 4.3321,
@@ -268,7 +268,7 @@
    "entropy mainchain": 0.0705,
    "torsional clash": -0.0859,
    "backbone clash": -0.4418,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "WD95A,AA69G": {
    "Interaction Energy": 2.9968,
@@ -283,7 +283,7 @@
    "entropy mainchain": 0.3843,
    "torsional clash": -0.0004,
    "backbone clash": -0.3421,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "EE28A,YC8A": {
    "Interaction Energy": 1.7758,
@@ -298,7 +298,7 @@
    "entropy mainchain": 0.0733,
    "torsional clash": -0.0003,
    "backbone clash": -0.3439,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "RE92A,YC5A": {
    "Interaction Energy": 4.4974,
@@ -313,7 +313,7 @@
    "entropy mainchain": 0.1108,
    "torsional clash": -0.0762,
    "backbone clash": -0.7972,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "RE92A,YC5F": {
    "Interaction Energy": 2.1367,
@@ -328,7 +328,7 @@
    "entropy mainchain": 0.0769,
    "torsional clash": -0.0246,
    "backbone clash": -0.3958,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "PE100A,YC5A": {
    "Interaction Energy": 5.6179,
@@ -343,7 +343,7 @@
    "entropy mainchain": -0.2376,
    "torsional clash": -0.0419,
    "backbone clash": -0.5441,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "PE100A,QA155A": {
    "Interaction Energy": 1.6079,
@@ -358,7 +358,7 @@
    "entropy mainchain": -0.2626,
    "torsional clash": 0.0047,
    "backbone clash": 0.0283,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "DD93A,QA72A": {
    "Interaction Energy": 3.3466,
@@ -373,7 +373,7 @@
    "entropy mainchain": 0.4697,
    "torsional clash": -0.0112,
    "backbone clash": -0.1193,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "RE99A,YC5A": {
    "Interaction Energy": 4.6995,
@@ -388,7 +388,7 @@
    "entropy mainchain": 0.1287,
    "torsional clash": -0.0249,
    "backbone clash": -0.5335,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "GE97S,GE98A,RE99E": {
    "Interaction Energy": -1.5573,
@@ -403,7 +403,7 @@
    "entropy mainchain": -0.6991,
    "torsional clash": 0.0266,
    "backbone clash": 0.894,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "AE96M,GE97S,GE98A,RE99E": {
    "Interaction Energy": -2.0238,
@@ -418,7 +418,7 @@
    "entropy mainchain": -0.8352,
    "torsional clash": 0.02,
    "backbone clash": 0.5029,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "AE96M,GE97S,GE98A": {
    "Interaction Energy": -2.1722,
@@ -433,7 +433,7 @@
    "entropy mainchain": -0.7877,
    "torsional clash": 0.0265,
    "backbone clash": 1.047,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "AE96M,GE97S,GE98A,RE99Q": {
    "Interaction Energy": -2.4608,
@@ -448,7 +448,7 @@
    "entropy mainchain": -0.6878,
    "torsional clash": 0.0252,
    "backbone clash": 1.072,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "DD26W,RD27F,SD51M,SD94T": {
    "Interaction Energy": -2.5809,
@@ -463,7 +463,7 @@
    "entropy mainchain": 0.3197,
    "torsional clash": 0.0223,
    "backbone clash": 0.7615,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "DD26W,RD27F,GD28T,SD51M,SD94T": {
    "Interaction Energy": -3.2363,
@@ -478,7 +478,7 @@
    "entropy mainchain": 0.365,
    "torsional clash": 0.4168,
    "backbone clash": 0.8513,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "DD26W,RD27F,SD51M,SD94T,VC7R": {
    "Interaction Energy": -3.1144,
@@ -493,7 +493,7 @@
    "entropy mainchain": 0.0768,
    "torsional clash": 0.1012,
    "backbone clash": 1.0543,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "GD28I,SD94A": {
    "Interaction Energy": -2.7687,
@@ -508,7 +508,7 @@
    "entropy mainchain": 0.0385,
    "torsional clash": 0.0624,
    "backbone clash": 0.4234,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "GD28I,SD94T": {
    "Interaction Energy": -2.8178,
@@ -523,7 +523,7 @@
    "entropy mainchain": -0.0182,
    "torsional clash": 0.1572,
    "backbone clash": 0.5722,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "GD28L,SD94A": {
    "Interaction Energy": -3.6579,
@@ -538,7 +538,7 @@
    "entropy mainchain": 0.0385,
    "torsional clash": 0.3734,
    "backbone clash": 0.5598,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "GD28L,SD94T": {
    "Interaction Energy": -3.4697,
@@ -553,7 +553,7 @@
    "entropy mainchain": -0.0199,
    "torsional clash": 0.4516,
    "backbone clash": 0.7035,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "GD28M,SD94A": {
    "Interaction Energy": -3.9374,
@@ -568,7 +568,7 @@
    "entropy mainchain": 0.0385,
    "torsional clash": 0.1194,
    "backbone clash": 0.7124,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "GD28M,SD94T": {
    "Interaction Energy": -3.5682,
@@ -583,7 +583,7 @@
    "entropy mainchain": 0.0572,
    "torsional clash": 0.0899,
    "backbone clash": 0.5665,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "GD28M,SD51M,SD94T": {
    "Interaction Energy": -4.6632,
@@ -598,7 +598,7 @@
    "entropy mainchain": -0.0311,
    "torsional clash": 0.103,
    "backbone clash": 0.8426,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "GD28T,SD51M,SD94T": {
    "Interaction Energy": -3.0381,
@@ -613,7 +613,7 @@
    "entropy mainchain": -0.1117,
    "torsional clash": 0.1265,
    "backbone clash": 0.5465,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "RD27F,GD28M,SD51M,SD94T": {
    "Interaction Energy": -5.1233,
@@ -628,7 +628,7 @@
    "entropy mainchain": -0.1103,
    "torsional clash": 0.0878,
    "backbone clash": 1.3043,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "RD27F,GD28T,SD51M,SD94T": {
    "Interaction Energy": -3.6112,
@@ -643,7 +643,7 @@
    "entropy mainchain": -0.1025,
    "torsional clash": 0.0763,
    "backbone clash": 0.5508,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "DD26W,GD28M,SD51M,SD94T": {
    "Interaction Energy": -5.0213,
@@ -658,7 +658,7 @@
    "entropy mainchain": 0.1966,
    "torsional clash": 0.187,
    "backbone clash": 1.474,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "DD26W,GD28T,SD51M,SD94T": {
    "Interaction Energy": -3.49,
@@ -673,7 +673,7 @@
    "entropy mainchain": 0.1839,
    "torsional clash": 0.1506,
    "backbone clash": 0.6778,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "GE98A,RE99Q": {
    "Interaction Energy": -0.3908,
@@ -688,7 +688,7 @@
    "entropy mainchain": -0.0172,
    "torsional clash": 0.0285,
    "backbone clash": 0.551,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "AE96M,GE97S": {
    "Interaction Energy": -1.9774,
@@ -703,7 +703,7 @@
    "entropy mainchain": -1.0557,
    "torsional clash": -0.0068,
    "backbone clash": 0.5499,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "GD28T,AE96M,GE97S,GE98A": {
    "Interaction Energy": -3.2677,
@@ -718,7 +718,7 @@
    "entropy mainchain": -0.2246,
    "torsional clash": 0.0721,
    "backbone clash": 1.2448,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "GD28T,AE96M,GE97S,GE98A,RE99Q": {
    "Interaction Energy": -3.9582,
@@ -733,7 +733,7 @@
    "entropy mainchain": -0.823,
    "torsional clash": 0.0699,
    "backbone clash": 1.1658,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "DD26W,AE96M,GE97S,GE98A,RE99Q": {
    "Interaction Energy": -2.5765,
@@ -748,7 +748,7 @@
    "entropy mainchain": 0.1032,
    "torsional clash": 0.0284,
    "backbone clash": 0.9341,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "DD26W,RD27F,SD51M,AE96M,GE97S,GE98A,RE99Q": {
    "Interaction Energy": -4.2887,
@@ -763,7 +763,7 @@
    "entropy mainchain": 0.6115,
    "torsional clash": -0.0071,
    "backbone clash": 1.462,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "DD26W,RD27F,SD51M,SD94T,AE96M,GE97S,GE98A,RE99Q": {
    "Interaction Energy": -4.3781,
@@ -778,7 +778,7 @@
    "entropy mainchain": 0.1411,
    "torsional clash": 0.0726,
    "backbone clash": 1.5776,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "KD97P,AE50P,RE99P": {
    "Interaction Energy": -0.1848,
@@ -793,7 +793,7 @@
    "entropy mainchain": 0.4395,
    "torsional clash": -0.0588,
    "backbone clash": -0.215,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "KD97P,RE99P": {
    "Interaction Energy": -0.4829,
@@ -808,7 +808,7 @@
    "entropy mainchain": 0.2943,
    "torsional clash": -0.0239,
    "backbone clash": -0.1948,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "DD26W,RD27F,GD28T,SD51M,SD94T,RE99P": {
    "Interaction Energy": -3.205,
@@ -823,7 +823,7 @@
    "entropy mainchain": 0.593,
    "torsional clash": 0.3275,
    "backbone clash": 0.7404,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "DD26W,RD27F,GD28T,SD51M,SD94T,KD97P,AE50P,RE99P": {
    "Interaction Energy": -3.9576,
@@ -838,7 +838,7 @@
    "entropy mainchain": 0.4074,
    "torsional clash": 0.3272,
    "backbone clash": 0.9049,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   }
  },
  "meta": {
@@ -848,7 +848,7 @@
   "n_ok": 56,
   "n_mutations": 56,
   "sources": [
-   "foldx_skempi_full_results_multipoint"
+   "full_skempi_multipoint"
   ]
  }
 }

@@ -6,6 +6,12 @@ citation pattern. (One near-miss worth recording: a plausible-looking DOI for th
 differing by one digit, belongs to a different paper on the same topic in the same journal and
 year.)
 
+**This list is not exhaustive of the works named under `docs/`.** It covers the data sources, the
+tools, the comparator methods this protocol is measured against, and the method background. Seven
+further works are named in the docs without a citation because no DOI for them could be confirmed;
+each is listed below at the point where it would otherwise appear, so the gap is visible rather
+than silent.
+
 ## The data and the tool
 
 **SKEMPI 2.0** — the source of every mutation, chain grouping and cleaned mutation string here.
@@ -24,6 +30,15 @@ non-profit institutions, paid for commercial use.
 > molecules and a new graphical interface. *Bioinformatics* **35**(20):4168–4169 (2019).
 > [10.1093/bioinformatics/btz184](https://doi.org/10.1093/bioinformatics/btz184) ·
 > <https://foldxsuite.crg.eu/>
+
+**FoldX, revised force field** — the FoldX authors' own 2025 revision, the source of the
+`--numberOfRuns=5`-with-the-median recommendation weighed in [DETERMINISM.md](DETERMINISM.md).
+Its reported gain was measured on folding benchmarks, not on SKEMPI binding data.
+
+> Delgado, J., Reche, R., Cianferoni, D., Orlando, G., van der Kant, R., Rousseau, F.,
+> Schymkowitz, J. & Serrano, L. FoldX force field revisited, an improved version.
+> *Bioinformatics* **41**(2) (2025).
+> [10.1093/bioinformatics/btaf064](https://doi.org/10.1093/bioinformatics/btaf064)
 
 **pyFoldX** — Python bindings for FoldX. A different thing from this package, and the right
 answer when bindings are what is needed.
@@ -44,11 +59,15 @@ CATH-superfamily partition used as an evaluation split.
 > **41**(Supplement 1):i362–i372 (2025).
 > [10.1093/bioinformatics/btaf228](https://doi.org/10.1093/bioinformatics/btaf228)
 
-**USP-ddG** — consumes FoldX empirical energy terms as one of its channels.
+**USP-ddG** — consumes FoldX empirical energy terms as one of its channels. **Shares its first,
+second and last authors with CATH-ddG above**, which matters for any inference drawn from the two
+reporting the same value.
 
-> USP-ddG: a unified structural paradigm with data efficacy and mixture-of-experts for predicting
-> mutational effects on protein–protein interactions. *bioRxiv* 2025.11.09.687124 (2025).
-> [10.1101/2025.11.09.687124](https://doi.org/10.1101/2025.11.09.687124)
+> Yu, G., Bi, X., Zhao, Q. & Wang, J. USP-ddG: a unified structural paradigm with data efficacy
+> and mixture-of-experts for predicting mutational effects on protein–protein interactions.
+> *Bioinformatics* **42**(Supplement 1) (2025).
+> [10.1093/bioinformatics/btag249](https://doi.org/10.1093/bioinformatics/btag249) ·
+> preprint [10.1101/2025.11.09.687124](https://doi.org/10.1101/2025.11.09.687124)
 
 **RDE-Network** — the source of the `block_list` that this package's `1KBH` exclusion follows.
 
@@ -57,6 +76,20 @@ CATH-superfamily partition used as an evaluation split.
 > *bioRxiv* 2023.02.28.530137.
 > [10.1101/2023.02.28.530137](https://doi.org/10.1101/2023.02.28.530137) ·
 > <https://github.com/luost26/RDE-PPI>
+
+**GearBind** — builds mutant structures with FoldX for training and reports a FoldX baseline,
+without stating a repair count.
+
+> Cai, H., Zhang, Z., Wang, M., Zhong, B., Li, Q., Zhong, Y., Wu, Y., Ying, T. *et al.*
+> Pretrainable geometric graph neural network for antibody affinity maturation.
+> *Nature Communications* **15**:7785 (2024).
+> [10.1038/s41467-024-51563-8](https://doi.org/10.1038/s41467-024-51563-8)
+
+**Named in [PROTOCOL.md](PROTOCOL.md) without a citation.** ProtBFF, Prompt-DDG, BA-DDG, GraphPPI,
+PPIformer and MINT appear in that file's survey table. No DOI for any of them could be confirmed
+against the CrossRef API, so none is given rather than one being inferred — including for
+GraphPPI, whose row carries the strongest characterisation in the table. PROTOCOL.md states this
+at the point of use.
 
 ## Method background
 
@@ -69,6 +102,20 @@ the reason the repair-count question here is measured rather than assumed. See
 > systematic bias in programs for prediction change of stability upon mutation. *Bioinformatics*
 > **34**(21):3653–3658 (2018).
 > [10.1093/bioinformatics/bty340](https://doi.org/10.1093/bioinformatics/bty340)
+
+**Structural sensitivity of FoldX.** The 0.61 kcal/mol spread across different PDB structures of
+the same protein, quoted in [DETERMINISM.md](DETERMINISM.md) as one of the published magnitudes
+that rule out a stochastic explanation for the 11 kcal/mol observed here.
+
+> Caldararu, O., Blundell, T. L. & Kepp, K. P. A base measure of precision for protein stability
+> predictors: structural sensitivity. *BMC Bioinformatics* **22**:88 (2021).
+> [10.1186/s12859-021-04030-w](https://doi.org/10.1186/s12859-021-04030-w)
+
+**Meli et al. 2024** — quoted in [DETERMINISM.md](DETERMINISM.md) as the best protocol-reporting
+template found in this literature. **No citation is given here**: the paper could not be
+identified against the CrossRef API from the *IJMS* 2024 attribution recorded with the quotation,
+and inferring a DOI would be worse than leaving the gap visible. The quoted sentence should be
+treated as unsourced until the paper is located.
 
 **CD-HIT** — used to build the ≤60% sequence-identity clustered evaluation splits.
 

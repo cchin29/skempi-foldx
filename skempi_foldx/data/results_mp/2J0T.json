@@ -13,7 +13,7 @@
    "entropy mainchain": 0.2185,
    "torsional clash": 0.0368,
    "backbone clash": 0.0104,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "TD2L,VD4S,SD68A": {
    "Interaction Energy": 0.8691,
@@ -28,7 +28,7 @@
    "entropy mainchain": 0.193,
    "torsional clash": 0.0337,
    "backbone clash": 0.0443,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "TD2S,VD4A": {
    "Interaction Energy": 2.5076,
@@ -43,7 +43,7 @@
    "entropy mainchain": 0.4769,
    "torsional clash": -0.0024,
    "backbone clash": -0.0001,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "TD2R,VD4I": {
    "Interaction Energy": 1.1553,
@@ -58,7 +58,7 @@
    "entropy mainchain": 0.361,
    "torsional clash": 0.1722,
    "backbone clash": 0.0795,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "TD2S,VD4A,SD68Y": {
    "Interaction Energy": 3.557,
@@ -73,7 +73,7 @@
    "entropy mainchain": 0.4407,
    "torsional clash": 0.0188,
    "backbone clash": 0.2557,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "CD1S,FD12Y": {
    "Interaction Energy": -0.0848,
@@ -88,7 +88,7 @@
    "entropy mainchain": 0.2281,
    "torsional clash": 0.0326,
    "backbone clash": 0.081,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "VD69A,AD103V": {
    "Interaction Energy": 0.2964,
@@ -103,7 +103,7 @@
    "entropy mainchain": 0.0045,
    "torsional clash": -0.0215,
    "backbone clash": 0.0194,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   }
  },
  "meta": {
@@ -113,7 +113,7 @@
   "n_ok": 7,
   "n_mutations": 7,
   "sources": [
-   "foldx_skempi_full_results_multipoint"
+   "full_skempi_multipoint"
   ]
  }
 }

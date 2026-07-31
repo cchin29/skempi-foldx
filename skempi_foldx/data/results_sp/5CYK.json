@@ -14,7 +14,7 @@
    "torsional clash": -0.0096,
    "backbone clash": -0.0433,
    "cleaned": "EB52A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "EB52R": {
    "Interaction Energy": -4.3332,
@@ -30,7 +30,7 @@
    "torsional clash": 0.0066,
    "backbone clash": 0.0007,
    "cleaned": "EB52R",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   }
  },
  "meta": {
@@ -41,7 +41,7 @@
   "n_ok": 2,
   "n_mutations": 2,
   "sources": [
-   "foldx_s1102_results_S4169"
+   "S4169"
   ]
  }
 }

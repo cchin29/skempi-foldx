@@ -13,7 +13,7 @@
    "entropy mainchain": -0.1846,
    "torsional clash": 0.0448,
    "backbone clash": 0.1986,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "GC61D,AC66V,RC101G": {
    "Interaction Energy": -1.4295,
@@ -28,7 +28,7 @@
    "entropy mainchain": 0.1308,
    "torsional clash": 0.0273,
    "backbone clash": 0.2336,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "SC6G,AC66V,RC101G": {
    "Interaction Energy": -0.821,
@@ -43,7 +43,7 @@
    "entropy mainchain": -0.0028,
    "torsional clash": 0.0414,
    "backbone clash": 0.08,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "SC6G,GC61D,AC66V": {
    "Interaction Energy": -1.432,
@@ -58,7 +58,7 @@
    "entropy mainchain": -0.1807,
    "torsional clash": 0.045,
    "backbone clash": 0.1987,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "AC66V,RC101G": {
    "Interaction Energy": -0.8216,
@@ -73,7 +73,7 @@
    "entropy mainchain": -0.0028,
    "torsional clash": 0.0426,
    "backbone clash": 0.0801,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "GC61D,AC66V": {
    "Interaction Energy": -1.4743,
@@ -88,7 +88,7 @@
    "entropy mainchain": -0.1822,
    "torsional clash": 0.04,
    "backbone clash": 0.1983,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "SC6G,AC66V": {
    "Interaction Energy": -0.8229,
@@ -103,7 +103,7 @@
    "entropy mainchain": -0.0028,
    "torsional clash": 0.0433,
    "backbone clash": 0.0802,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   }
  },
  "meta": {
@@ -113,7 +113,7 @@
   "n_ok": 7,
   "n_mutations": 7,
   "sources": [
-   "foldx_skempi_full_results_multipoint"
+   "full_skempi_multipoint"
   ]
  }
 }

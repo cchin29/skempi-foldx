@@ -14,7 +14,7 @@
    "torsional clash": -0.0178,
    "backbone clash": 0.0,
    "cleaned": "RB86A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   },
   "YA246A": {
    "Interaction Energy": 3.4279,
@@ -30,7 +30,7 @@
    "torsional clash": -0.0015,
    "backbone clash": -0.3421,
    "cleaned": "YA246A",
-   "_source": "foldx_s1102_results_S4169"
+   "_source": "S4169"
   }
  },
  "meta": {
@@ -41,7 +41,7 @@
   "n_ok": 2,
   "n_mutations": 2,
   "sources": [
-   "foldx_s1102_results_S4169"
+   "S4169"
   ]
  }
 }

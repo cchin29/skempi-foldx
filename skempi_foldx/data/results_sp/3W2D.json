@@ -14,7 +14,7 @@
    "torsional clash": 0.1913,
    "backbone clash": -0.0374,
    "cleaned": "KA67N",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "KA67Q": {
    "Interaction Energy": 1.8582,
@@ -30,7 +30,7 @@
    "torsional clash": -0.0054,
    "backbone clash": 0.0256,
    "cleaned": "KA67Q",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "KA67R": {
    "Interaction Energy": 0.1256,
@@ -46,7 +46,7 @@
    "torsional clash": 0.0425,
    "backbone clash": 0.023,
    "cleaned": "KA67R",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "YA45E": {
    "Interaction Energy": 3.5723,
@@ -62,7 +62,7 @@
    "torsional clash": 0.0627,
    "backbone clash": -0.481,
    "cleaned": "YA45E",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "YA45F": {
    "Interaction Energy": 0.5931,
@@ -78,7 +78,7 @@
    "torsional clash": -0.0158,
    "backbone clash": -0.0908,
    "cleaned": "YA45F",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "YA45L": {
    "Interaction Energy": 1.2873,
@@ -94,7 +94,7 @@
    "torsional clash": -0.0888,
    "backbone clash": -0.4472,
    "cleaned": "YA45L",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   }
  },
  "meta": {
@@ -105,7 +105,7 @@
   "n_ok": 6,
   "n_mutations": 6,
   "sources": [
-   "foldx_skempi_full_results"
+   "full_skempi"
   ]
  }
 }

@@ -13,7 +13,7 @@
    "entropy mainchain": 0.0966,
    "torsional clash": -0.0518,
    "backbone clash": 0.3512,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "TB73N,SB74N,HB75N,HA104F": {
    "Interaction Energy": -0.9524,
@@ -28,7 +28,7 @@
    "entropy mainchain": -0.3624,
    "torsional clash": -0.0055,
    "backbone clash": 0.3097,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   }
  },
  "meta": {
@@ -38,7 +38,7 @@
   "n_ok": 2,
   "n_mutations": 2,
   "sources": [
-   "foldx_skempi_full_results_multipoint"
+   "full_skempi_multipoint"
   ]
  }
 }

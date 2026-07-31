@@ -13,7 +13,7 @@
    "entropy mainchain": 0.0,
    "torsional clash": 0.0002,
    "backbone clash": 0.0,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "IB15S,NB16I,SB51I,IB52N": {
    "Interaction Energy": 8.9849,
@@ -28,7 +28,7 @@
    "entropy mainchain": 0.0186,
    "torsional clash": 0.3164,
    "backbone clash": 0.6,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "IB15S,NB16I": {
    "Interaction Energy": 9.0828,
@@ -43,7 +43,7 @@
    "entropy mainchain": 0.0189,
    "torsional clash": 0.3088,
    "backbone clash": 0.6009,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "RB14N,KB50N,SB51I,IB52N": {
    "Interaction Energy": 2.2514,
@@ -58,7 +58,7 @@
    "entropy mainchain": 0.0033,
    "torsional clash": -0.0115,
    "backbone clash": -0.0471,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "IB15S,IB52N": {
    "Interaction Energy": 3.7922,
@@ -73,7 +73,7 @@
    "entropy mainchain": -0.0077,
    "torsional clash": -0.0037,
    "backbone clash": 0.2151,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "NB16I,SB51I": {
    "Interaction Energy": 5.4203,
@@ -88,7 +88,7 @@
    "entropy mainchain": 0.0271,
    "torsional clash": 0.3159,
    "backbone clash": 0.1974,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "AB18F,AB54F,SB51I,IB52N": {
    "Interaction Energy": 0.6662,
@@ -103,7 +103,7 @@
    "entropy mainchain": 0.0281,
    "torsional clash": 0.3379,
    "backbone clash": -0.0719,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "LB20Y,LB56Y,SB51I,IB52N": {
    "Interaction Energy": 0.7854,
@@ -118,7 +118,7 @@
    "entropy mainchain": -0.0704,
    "torsional clash": 0.0127,
    "backbone clash": 0.1343,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   },
   "DB23Q,DB59Q,SB51I,IB52N": {
    "Interaction Energy": 2.0723,
@@ -133,7 +133,7 @@
    "entropy mainchain": -0.172,
    "torsional clash": -0.0213,
    "backbone clash": -0.0947,
-   "_source": "foldx_skempi_full_results_multipoint"
+   "_source": "full_skempi_multipoint"
   }
  },
  "meta": {
@@ -143,7 +143,7 @@
   "n_ok": 9,
   "n_mutations": 9,
   "sources": [
-   "foldx_skempi_full_results_multipoint"
+   "full_skempi_multipoint"
   ]
  }
 }

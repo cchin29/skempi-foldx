@@ -14,7 +14,7 @@
    "torsional clash": -0.0154,
    "backbone clash": -0.1928,
    "cleaned": "DC43A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "DC43R": {
    "Interaction Energy": 8.0731,
@@ -30,7 +30,7 @@
    "torsional clash": 0.0525,
    "backbone clash": 0.4185,
    "cleaned": "DC43R",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "EC77A": {
    "Interaction Energy": 3.8979,
@@ -46,7 +46,7 @@
    "torsional clash": -0.0003,
    "backbone clash": -0.0161,
    "cleaned": "EC77A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "EC77R": {
    "Interaction Energy": 6.0331,
@@ -62,7 +62,7 @@
    "torsional clash": 0.0328,
    "backbone clash": -0.0556,
    "cleaned": "EC77R",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "KA248A": {
    "Interaction Energy": 1.5564,
@@ -78,7 +78,7 @@
    "torsional clash": -0.0071,
    "backbone clash": -0.2111,
    "cleaned": "KA248A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "KA248E": {
    "Interaction Energy": 1.8194,
@@ -94,7 +94,7 @@
    "torsional clash": 0.0041,
    "backbone clash": -0.206,
    "cleaned": "KA248E",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "RA252A": {
    "Interaction Energy": 6.2223,
@@ -110,7 +110,7 @@
    "torsional clash": -0.0166,
    "backbone clash": 0.1097,
    "cleaned": "RA252A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "RA252E": {
    "Interaction Energy": 8.7741,
@@ -126,7 +126,7 @@
    "torsional clash": -0.0079,
    "backbone clash": 0.0295,
    "cleaned": "RA252E",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "RA258A": {
    "Interaction Energy": 4.0478,
@@ -142,7 +142,7 @@
    "torsional clash": -0.0016,
    "backbone clash": -0.268,
    "cleaned": "RA258A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "RA258E": {
    "Interaction Energy": 6.1881,
@@ -158,7 +158,7 @@
    "torsional clash": 0.0002,
    "backbone clash": -0.4089,
    "cleaned": "RA258E",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   },
   "WC7A": {
    "Interaction Energy": 6.7709,
@@ -174,7 +174,7 @@
    "torsional clash": 0.0001,
    "backbone clash": -0.3093,
    "cleaned": "WC7A",
-   "_source": "foldx_skempi_full_results"
+   "_source": "full_skempi"
   }
  },
  "meta": {
@@ -185,7 +185,7 @@
   "n_ok": 11,
   "n_mutations": 11,
   "sources": [
-   "foldx_skempi_full_results"
+   "full_skempi"
   ]
  }
 }

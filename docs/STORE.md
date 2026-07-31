@@ -18,30 +18,80 @@ FoldX outputs are per-complex JSON: `{"muts": {"<mutation>": {<12 terms>, "clean
 …}`
 (multi-point files use `"variants"` and key on the raw comma-joined SKEMPI mutation string).
 
-These accumulated across five separate campaigns — the S1102 set, three benchmark sets
-(S1131 / S2003 / S4169) and the full-SKEMPI remainder — which is why the working tree carries
-several result directories. **The redundancy is almost total**: `S1131`, `S2003` and the S1102 set
-contribute *zero* complexes that `S4169` does not already contain, and the full-SKEMPI remainder
-is
-disjoint from all of them by construction. The union is 322 single-point complexes, plus 152
-multi-point, for 344 distinct complexes overall. `skempi_foldx/store.py` consolidates them, and
-reports what each
-source actually contributed: **three of the five directories contribute nothing** — not one
-complex, not one mutation — because they are subsets of the largest benchmark campaign.
+These accumulated across five separate single-point campaigns — the S1102 set, three benchmark
+sets (S1131 / S2003 / S4169) and the full-SKEMPI remainder — which is why the working tree carries
+several result directories. A sixth campaign produced the multi-point arm. **The redundancy is
+almost total**: `S1131`, `S2003` and the S1102 set contribute *zero* complexes that `S4169` does
+not already contain, and the full-SKEMPI remainder is disjoint from all of them by construction.
+The union is 322 single-point complexes, plus 152 multi-point, for 344 distinct complexes overall.
+`skempi_foldx/store.py` consolidates them, and reports what each source actually contributed:
+**three of the five single-point directories contribute nothing** — not one complex, not one
+mutation — because they are subsets of the largest benchmark campaign.
 
 ## Coverage
 
-Coverage is the fraction of split rows that receive a real FoldX score rather than the imputed
-train-mean. It is not 100%, and the residual has two distinct causes worth separating:
+`coverage(store, wanted)` answers "how many of these `(pdb, mutation)` pairs does the store have",
+against an explicit wanted-set rather than an inferred one:
 
-* **genuinely absent** — the complex or mutation was never computed;
-* **denied by the grouping guard** — the merger refuses to score a row whose SKEMPI chain grouping
-  it cannot match unambiguously, rather than guessing. `3SE4.B.A` is the recurring case.
+```python
+from skempi_foldx import coverage, load_bundled_store, load_skempi, worklist_single_point
 
-Current single-point coverage is ~99%, and it got there almost entirely by *plumbing* rather than
-by new compute: the climb from 28% to 58% to 88% to 99% was mostly a matter of pointing the
-mergers at result directories that already existed on disk. A low coverage number is worth
-auditing against what is actually being read before any CPU is spent on it.
+sk = load_skempi("skempi_v2.csv")
+wanted = [(pdb, m) for pdb, muts in worklist_single_point(sk).items() for m in muts]
+covered, total, missing = coverage(load_bundled_store(), wanted)
+```
+
+Against everything SKEMPI defines, the shipped stores are:
+
+| | shipped | SKEMPI defines | |
+|---|---:|---:|---|
+| single-point | 4238 | 4337 | 97.7% |
+| multi-point | 1765 | 1848 | 95.5% |
+
+The shortfall has exactly two causes, and they are worth separating because only one of them is
+in principle recoverable:
+
+* **`1KBH` — 3 single-point and 83 multi-point entries.** FoldX cannot repair it, so no
+  structure-based method has these. Not recoverable. See below.
+* **96 single-point entries never computed.** The campaigns contributing those complexes ran
+  against per-dataset mutation *subsets* rather than each complex's full list. Recoverable by
+  recomputing with `worklist_single_point()`.
+
+Excluding `1KBH`, that is 97.8% of the reachable single-point set and **100%** of the reachable
+multi-point set.
+
+## Two key conventions in the single-point store
+
+**A lookup by SKEMPI's mutation string misses 1226 of the 4238 single-point records.** The store
+was assembled from campaigns that used two different key conventions:
+
+| keyed by | entries | example |
+|---|---:|---|
+| SKEMPI's author-chain form — what SKEMPI calls `cleaned` | 3012 | `1ACB` → `LI38D` |
+| the role-chain form, where the partners are named `A`/`B` | 1226 | `1ACB` → `LB38D` |
+
+Both name the same mutation. `store["1ACB"]["LI38D"]` raises `KeyError`; the value is under
+`LB38D`. Every record carries the author-chain form in its `cleaned` field, and no complex has
+two records resolving to the same `cleaned` value, so the mapping is unambiguous in both
+directions.
+
+To look up by SKEMPI identifier, ask for that convention at read time:
+
+```python
+store = load_bundled_store(key="skempi")
+store["1ACB"]["LI38D"]["Interaction Energy"]     # 3.6068
+```
+
+`reindex_by_skempi_id(records)` does the same for one complex's records.
+
+**The stored keys are deliberately not rewritten on disk.** A consumer that maps role chains onto
+author chains itself needs the role-chain key to be present. Rewriting the store to a single
+convention was measured against one such consumer: its coverage fell from 3300/3300 to 1092/3300,
+with no error raised — the join simply stops matching and still writes well-formed output. Choose
+the convention when reading, not on disk.
+
+The multi-point store has no such split: all 1765 keys are SKEMPI variant strings, and its
+records carry no `cleaned` field because the key already is it.
 
 ## Intractable complexes
 
@@ -88,35 +138,27 @@ silently changing which rows every split contains.
 per-record `meta`, so it is stated here with its evidence — it determines whether these numbers
 are comparable to a repair-count series, and it is expensive to reconstruct after the fact:
 
-- All seven campaign builders invoke `RepairPDB` exactly once per complex, with no iteration
-  construct anywhere in them.
+- All six campaign builders — the five single-point campaigns above plus the multi-point one —
+  invoke `RepairPDB` exactly once per complex, with no iteration construct anywhere in them.
 - Of the 717 per-complex working directories those campaigns left, **717 carry exactly one
   `<pdb>_Repair.pdb` and none carries a `repair_round_<i>.pdb`** — the file an iterated chain
   necessarily writes. No `_original.pdb` or `_chain.pdb` scaffolding either.
-- The campaigns that reuse structures (`_bench`, `_delta`) *seed* from an existing
-  `<pdb>_Repair.pdb` rather than repairing again, so they inherit the same single repair. There
-  is no path by which an iterated structure entered this store.
+- Campaigns that reused structures *seeded* from an existing `<pdb>_Repair.pdb` rather than
+  repairing again, so they inherited the same single repair. There is no path by which an
+  iterated structure entered this store.
 
 The on-disk check covers the single-point campaigns; the multi-point working directory has since
 been pruned, so for that arm the evidence is its builder's code alone.
 
-This store is also the **provenance record for a published set of ΔΔG model results**: those
-splits were merged from exactly these values. It stays available and citable for that reason,
+This store is also the **provenance record for a published set of ΔΔG model results**, which
+were computed from exactly these values. It stays available and citable for that reason,
 independent of any later store that improves on it.
 
-Worth knowing before treating any two directories as independent measurements:
-
-- `results_all` contains **no original compute**. It is 211 byte-identical copies of the S4169
-  campaign plus 112 of the full-SKEMPI campaign.
-- `results_remainder` is **not** an independent recompute, despite reading like one: it is
-  **byte-identical to the full-SKEMPI campaign on all 65 complexes they share**. The
-  often-quoted "40 of 2473 mutations differ" comparison is therefore roughly half
-  self-against-self; its non-identical half compares two campaigns that shared repaired
-  structures and agree to *r* = 0.9991.
-
-So the 1.6% figure and the 66.7% figure are both correct and not in conflict: they measure
-different things. **66.7% is the honest answer to "what changes if the mutation lists change";
-1.6% describes two directories that are largely the same bytes.**
+Two campaigns contributed the shipped single-point values, and `_source` on every record says
+which. They are not independent measurements of the same thing: where they overlap, the
+difference between them is the mutation-list effect described in
+[DETERMINISM.md](DETERMINISM.md), not measurement noise. Treating agreement between them as
+corroboration would be a mistake — and treating disagreement as a bug would be a different one.
 
 ## Two common misreadings
 
