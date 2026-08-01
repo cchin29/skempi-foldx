@@ -1,0 +1,2 @@
+# The two campaign drivers are bash; CRLF on a Windows checkout would break them.
+*.sh text eol=lf

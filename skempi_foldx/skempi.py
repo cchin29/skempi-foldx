@@ -81,11 +81,14 @@ class SkempiComplex:
     def mutations_outside_interface(self) -> List[str]:
         """Cleaned mutations touching a chain absent from :attr:`groups`, sorted.
 
-        Empty for all but the complexes carrying an :attr:`alternate_groups` definition. A
-        mutation listed here cannot be scored meaningfully against this interface: FoldX computes
-        the interaction energy of the named groups, so a substitution on a chain outside them
-        moves neither side of ``IE(mutant) - IE(wild-type)`` and returns all-zero terms that are
-        an artifact of the pairing, not a measurement of no effect.
+        Empty for all but the complexes carrying an :attr:`alternate_groups` definition. FoldX
+        computes the interaction energy of the named groups, so a mutation listed here is not
+        scored meaningfully against this interface -- but it fails in one of two ways. A mutation
+        lying wholly outside the pair moves neither side of ``IE(mutant) - IE(wild-type)`` and
+        returns essentially zero, an artifact of the pairing rather than a measurement of no
+        effect. A multi-point variant with one component inside and one outside returns a real
+        energy carrying only the inside component's contribution, which does not look wrong at
+        all. This reports both.
         """
         known = set(self.group1 + self.group2)
         return sorted(m for m in (self.single | self.multi)
@@ -121,15 +124,18 @@ def load_skempi(path: Path) -> Dict[str, SkempiComplex]:
     # scores the other definition's mutations against an interface they are not part of. The
     # collapse is kept for continuity with the shipped store, but it is never silent.
     for entry in complexes.values():
-        if entry.alternate_groups:
-            stray = entry.mutations_outside_interface()
+        # A second definition is only a problem when it contributes mutations the kept one does
+        # not: where the two pairings share every mutation, each was already computed against a
+        # pairing SKEMPI associates with it, and warning there would cry wolf on the one complex
+        # that is fine. `alternate_groups` still records it for inspection either way.
+        stray = entry.mutations_outside_interface() if entry.alternate_groups else []
+        if stray:
             warnings.warn(
                 f"{entry.pdb}: SKEMPI defines more than one interface "
                 f"({entry.groups} and "
                 f"{'; '.join(f'{a},{b}' for a, b in sorted(entry.alternate_groups))}). "
-                f"All mutations are pooled under {entry.groups}"
-                + (f", leaving {len(stray)} that mutate a chain outside it" if stray else "")
-                + ". See SkempiComplex.mutations_outside_interface().",
+                f"All mutations are pooled under {entry.groups}, leaving {len(stray)} that "
+                f"mutate a chain outside it. See SkempiComplex.mutations_outside_interface().",
                 RuntimeWarning, stacklevel=2)
     return complexes
 

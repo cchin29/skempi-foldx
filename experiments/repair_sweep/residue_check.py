@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Does any repair round change which mutations pass WT-residue validation? Check all 345.
+"""WT-residue validation across repair rounds, over all 344 complexes.
 
 The failure this guards against
 -------------------------------
@@ -15,7 +15,7 @@ Relationship to `list_hashes.py`
 --------------------------------
 `list_hashes.py` is the stronger check but only covers complexes BuildModel has already reached.
 This one needs `chain_work/` alone, so it can run the moment the repair phase finishes — before
-any BuildModel — and covers all 345. Run both: this one early and broadly, that one as the record
+any BuildModel — and covers all 344. Run both: this one early and broadly, that one as the record
 of what FoldX actually consumed.
 """
 
@@ -110,7 +110,7 @@ def main():
               f"identical in every round, so repair count is the only variable.")
     elif clean:
         print(f"✅ clean on {len(done)}/{len(universe)} — but {len(incomplete)} chains are still "
-              f"incomplete, so this is NOT yet the full-345 result. Re-run when the sweep ends.")
+              f"incomplete, so this is NOT yet the full-344 result. Re-run when the sweep ends.")
     else:
         print("⚠ CONFOUNDED for the complexes listed above: their list composition co-varies with "
               "repair round. Drop them from the comparison, or the deltas are not interpretable.")

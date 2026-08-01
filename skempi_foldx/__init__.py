@@ -6,7 +6,8 @@
 Two things ship here, and the second is the one most people want:
 
 1. **The pipeline.** ``RepairPDB -> BuildModel -> AnalyseComplex`` over SKEMPI's chain groups,
-   yielding ΔΔG_int = IE(mutant) - IE(wild-type) decomposed into FoldX's 12 energy terms.
+   yielding ΔΔG_int = IE(mutant) - IE(wild-type), reported as the total and eleven of its
+   component terms.
    Resumable per complex, parallel across complexes, and honest about what it could not compute.
 
 2. **The results.** 322 complexes / 4238 single-point mutations and 152 / 1765 multi-point
@@ -25,10 +26,14 @@ fact about this pipeline.
 from .config import FoldxConfig, default_config
 from .lookup import FoldxLookup, load_chain_mapping, to_role_form
 from .exclusions import (
+    COLLAPSED_INTERFACES,
     INTRACTABLE,
+    N_INTERFACE_SUSPECT,
+    CollapsedInterface,
     Exclusion,
     filter_complexes,
     filter_worklist,
+    interface_suspect,
     is_excluded,
 )
 from .run import (
@@ -73,6 +78,7 @@ __all__ = [
     "FoldxConfig", "default_config",
     "FoldxLookup", "load_chain_mapping", "to_role_form",
     "INTRACTABLE", "Exclusion", "is_excluded", "filter_complexes", "filter_worklist",
+    "COLLAPSED_INTERFACES", "CollapsedInterface", "N_INTERFACE_SUSPECT", "interface_suspect",
     "MODE_AUTHOR", "MODE_ROLE", "MODE_VARIANT",
     "ComplexResult", "process_complex", "run_campaign", "format_individual_list",
     "worklist_from_table", "worklist_single_point", "worklist_multi_point",

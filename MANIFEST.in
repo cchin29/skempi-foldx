@@ -1,0 +1,11 @@
+# The sdist must be able to build AND to verify itself. setuptools' default heuristic picks up
+# tests/test_*.py but not conftest.py, and conftest is what puts experiments/ on sys.path -- an
+# sdist without both fails nine tests that pass in a checkout, which reads as a broken release
+# rather than as an incomplete archive.
+include LICENSE NOTICE README.md CHANGELOG.md CITATION.cff
+graft tests
+graft experiments
+graft docs
+recursive-include skempi_foldx/data *.json *.txt
+global-exclude __pycache__ *.py[cod] .DS_Store
+prune **/.pytest_cache

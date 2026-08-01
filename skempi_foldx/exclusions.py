@@ -122,3 +122,69 @@ def filter_worklist(worklist: Mapping[str, Iterable[str]], on_note=print,
     """:func:`filter_complexes` over a ``{pdb: mutations}`` worklist."""
     keep = set(filter_complexes(list(worklist), on_note=on_note, context=context))
     return {pdb: list(muts) for pdb, muts in worklist.items() if pdb in keep}
+
+
+@dataclass(frozen=True)
+class CollapsedInterface:
+    """A PDB code SKEMPI records under more than one pair of chain groups."""
+
+    pdb: str
+    kept: tuple
+    """The pairing :func:`~skempi_foldx.load_skempi` keeps -- the one its first row gave."""
+    alternates: tuple
+    """The other pairings SKEMPI defines for this code."""
+    outside: frozenset
+    """Cleaned mutations touching a chain absent from :attr:`kept`.
+
+    Every one was scored against :attr:`kept` regardless, so its value answers a question SKEMPI
+    does not ask of it. Empty when both pairings share all their mutations.
+    """
+
+    @property
+    def groups(self) -> str:
+        return ",".join(self.kept)
+
+
+#: Complexes whose SKEMPI rows carry more than one interface definition.
+#:
+#: ``load_skempi`` keys on the PDB code, so one pairing wins and every mutation is pooled under
+#: it. This registry is shipped as data so the affected mutations can be identified without
+#: ``skempi_v2.csv``, which this package does not redistribute -- otherwise the one check a
+#: consumer needs would require the one file they may not have.
+COLLAPSED_INTERFACES: Dict[str, CollapsedInterface] = {
+    "2C5D": CollapsedInterface(
+        pdb="2C5D", kept=("A", "C"), alternates=(("AB", "CD"),),
+        outside=frozenset([
+            "AA126V,AB126V", "EC30R,EC33R,ED30R,EC33R", "EC30R,ED30R", "EC33R,ED33R",
+            "FA207A,FB207A", "FA209A,FB209A", "KA34E,KB34E", "KC178E,KD178E",
+            "LA324A,LB324A", "LC105E,LD105E", "QC28R,QD28R", "QC96R,QD96R",
+            "RA32E,KA34E,RB32E,KA34E", "RA32E,RB32E", "TA26D,TB26D", "TC182E,TD182E",
+            "TC51R,TD51R", "WA238F,WB238F", "YA364A,YB364A"]),
+    ),
+    "3SE3": CollapsedInterface(
+        pdb="3SE3", kept=("B", "A"), alternates=(("B", "C"),), outside=frozenset(),
+    ),
+    "3SE4": CollapsedInterface(
+        pdb="3SE4", kept=("B", "C"), alternates=(("B", "A"),),
+        outside=frozenset([
+            "DA117A", "FA223A", "FA273A", "LA116A", "NA140T", "NA227A", "NA230A",
+            "RA226A", "SA120A", "TA166A", "YA148A", "YA55A"]),
+    ),
+}
+
+#: How many shipped records are affected, across every complex above.
+N_INTERFACE_SUSPECT = sum(len(c.outside) for c in COLLAPSED_INTERFACES.values())
+
+
+def interface_suspect(pdb: str, cleaned: str) -> bool:
+    """Whether a record was scored against an interface SKEMPI does not pair it with.
+
+    ``cleaned`` is the SKEMPI author-chain form. Two shapes of defect are covered, and they fail
+    differently: a mutation lying wholly outside the analysed pair moves neither side of
+    ``IE(mutant) - IE(wildtype)`` and returns essentially zero, while a multi-point variant with
+    one component inside and one outside returns a real energy carrying only the inside
+    component's contribution. The second is wrong without looking wrong, so discarding zeros is
+    not sufficient protection.
+    """
+    entry = COLLAPSED_INTERFACES.get(pdb)
+    return bool(entry and cleaned in entry.outside)

@@ -4,8 +4,9 @@
 Why this file exists
 --------------------
 `cmd_sweep` builds its worklist with `worklist_single_point`, so it sweeps single-point mutations
-only. The sweep's cost model — 345 complexes, 6006 mutations+variants — covers both arms: 345 is
-exactly |SP complexes (323) u MP complexes (153)|. This file drives the multi-point half, without
+only. The sweep's cost model — 344 complexes, 6099 mutations+variants — covers both arms, counted
+after the 1KBH exclusion: 344 is exactly |SP complexes (322) u MP complexes (152)|, and 6099 is
+4334 single-point plus 1765 multi-point. This file drives the multi-point half, without
 touching the SP driver or the SP results.
 
 Everything expensive is shared: the repair chain is per COMPLEX, not per mutation, so the four

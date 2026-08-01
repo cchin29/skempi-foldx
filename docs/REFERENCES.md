@@ -6,16 +6,14 @@ citation pattern. (One near-miss worth recording: a plausible-looking DOI for th
 differing by one digit, belongs to a different paper on the same topic in the same journal and
 year.)
 
-**This list is not exhaustive of the works named under `docs/`.** It covers the data sources, the
-tools, the comparator methods this protocol is measured against, and the method background. Seven
-further works are named in the docs without a citation because no DOI for them could be confirmed;
-each is listed below at the point where it would otherwise appear, so the gap is visible rather
-than silent.
+This covers every work named under `docs/`: the data sources, the tools, the comparator methods
+this protocol is measured against, and the method background.
 
 ## The data and the tool
 
 **SKEMPI 2.0** — the source of every mutation, chain grouping and cleaned mutation string here.
-Released under CC BY 4.0; see [NOTICE](../NOTICE) for what is and is not redistributed.
+Released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/); see
+[NOTICE](../NOTICE) for what is and is not redistributed.
 
 > Jankauskaitė, J., Jiménez-García, B., Dapkūnas, J., Fernández-Recio, J. & Moal, I. H.
 > SKEMPI 2.0: an updated benchmark of changes in protein–protein binding energy, kinetics and
@@ -51,7 +49,7 @@ answer when bindings are what is needed.
 
 Characterised in [PROTOCOL.md](PROTOCOL.md).
 
-**CATH-ddG** — the only comparator with a fully specified FoldX protocol, and the source of the
+**CATH-ddG** — the comparator whose FoldX protocol is specified in most detail, and the source of the
 CATH-superfamily partition used as an evaluation split.
 
 > Yu, G., Bi, X., Ma, T., Li, Y. & Wang, J. CATH-ddG: towards robust mutation effect prediction
@@ -59,9 +57,8 @@ CATH-superfamily partition used as an evaluation split.
 > **41**(Supplement 1):i362–i372 (2025).
 > [10.1093/bioinformatics/btaf228](https://doi.org/10.1093/bioinformatics/btaf228)
 
-**USP-ddG** — consumes FoldX empirical energy terms as one of its channels. **Shares its first,
-second and last authors with CATH-ddG above**, which matters for any inference drawn from the two
-reporting the same value.
+**USP-ddG** — consumes FoldX empirical energy terms as one of its channels, and reports the same
+FoldX baseline row as CATH-ddG above.
 
 > Yu, G., Bi, X., Zhao, Q. & Wang, J. USP-ddG: a unified structural paradigm with data efficacy
 > and mixture-of-experts for predicting mutational effects on protein–protein interactions.
@@ -77,19 +74,52 @@ reporting the same value.
 > [10.1101/2023.02.28.530137](https://doi.org/10.1101/2023.02.28.530137) ·
 > <https://github.com/luost26/RDE-PPI>
 
-**GearBind** — builds mutant structures with FoldX for training and reports a FoldX baseline,
-without stating a repair count.
+**GearBind** — builds mutant structures with FoldX for training and reports a FoldX baseline; the
+command sequence is given in prose, the repair count is not.
 
 > Cai, H., Zhang, Z., Wang, M., Zhong, B., Li, Q., Zhong, Y., Wu, Y., Ying, T. *et al.*
 > Pretrainable geometric graph neural network for antibody affinity maturation.
 > *Nature Communications* **15**:7785 (2024).
 > [10.1038/s41467-024-51563-8](https://doi.org/10.1038/s41467-024-51563-8)
 
-**Named in [PROTOCOL.md](PROTOCOL.md) without a citation.** ProtBFF, Prompt-DDG, BA-DDG, GraphPPI,
-PPIformer and MINT appear in that file's survey table. No DOI for any of them could be confirmed
-against the CrossRef API, so none is given rather than one being inferred — including for
-GraphPPI, whose row carries the strongest characterisation in the table. PROTOCOL.md states this
-at the point of use.
+**Also characterised in [PROTOCOL.md](PROTOCOL.md).** Six further methods appear in that file's
+survey table. Most are conference papers whose venues do not register DOIs, so an arXiv identifier
+is given where that is the citable form.
+
+> Feldman, J., Maechler, A., Wang, D. & Shakhnovich, E. I. A General Framework for Injecting
+> Biophysical Priors into Protein Embeddings. *bioRxiv* 2025.12.23.696257 (2025). — **ProtBFF**
+> [10.64898/2025.12.23.696257](https://doi.org/10.64898/2025.12.23.696257)
+
+> Wu, L., Tian, Y., Lin, H., Huang, Y., Li, S., Chawla, N. V. & Li, S. Z. Learning to Predict
+> Mutational Effects of Protein-Protein Interactions by Microenvironment-aware Hierarchical Prompt
+> Learning. *ICML* (2024), PMLR 235:53847–53859. — **Prompt-DDG**
+> [arXiv:2405.10348](https://arxiv.org/abs/2405.10348)
+
+> Jiao, X., Mao, W., Jin, W., Yang, P., Chen, H. & Shen, C. Boltzmann-Aligned Inverse Folding
+> Model as a Predictor of Mutational Effects on Protein–Protein Interactions. *ICLR* (2025). —
+> **BA-DDG** [arXiv:2410.09543](https://arxiv.org/abs/2410.09543)
+
+> Liu, X., Luo, Y., Song, S. & Peng, J. Pre-training of Graph Neural Network for Modeling Effects
+> of Mutations on Protein-Protein Binding Affinity (2020). — **GraphPPI**
+> [arXiv:2008.12473](https://arxiv.org/abs/2008.12473)
+>
+> The published form of this preprint appears to be Liu, Luo, Li, Song & Peng, *PLoS Comput Biol*
+> **17**(8):e1009284 (2021),
+> [10.1371/journal.pcbi.1009284](https://doi.org/10.1371/journal.pcbi.1009284), where the method is
+> renamed **GeoPPI**: arXiv's record for the preprint gives that DOI as its related publication,
+> and the two share benchmarks, head architecture and case study. Neither document states the link,
+> so both identifiers are given — the arXiv one for the name *GraphPPI*, which appears only in the
+> preprint, and the DOI for the peer-reviewed form. The survey row in
+> [PROTOCOL.md](PROTOCOL.md) is read from the preprint; the published version reports its FoldX
+> baseline as its own run rather than a quoted one.
+
+> Bushuiev, A., Bushuiev, R., Kouba, P. *et al.* Learning to Design Protein-Protein Interactions
+> with Enhanced Generalization. *ICLR* (2024). — **PPIformer**
+> [arXiv:2310.18515](https://arxiv.org/abs/2310.18515)
+
+> Ullanat, V., Jing, B., Sledzieski, S. & Berger, B. Learning the language of protein-protein
+> interactions. *Nature Communications* **17**:1199 (2026). — **MINT**
+> [10.1038/s41467-025-67971-3](https://doi.org/10.1038/s41467-025-67971-3)
 
 **The benchmark subsets.** `S1102`, `S1131`, `S2003` and `S4169` are named throughout these docs
 as evaluation sets and as campaign labels. They are conventional partitions of SKEMPI reused
@@ -117,11 +147,14 @@ that rule out a stochastic explanation for the 11 kcal/mol observed here.
 > predictors: structural sensitivity. *BMC Bioinformatics* **22**:88 (2021).
 > [10.1186/s12859-021-04030-w](https://doi.org/10.1186/s12859-021-04030-w)
 
-**Meli et al. 2024** — quoted in [DETERMINISM.md](DETERMINISM.md) as the best protocol-reporting
-template found in this literature. **No citation is given here**: the paper could not be
-identified against the CrossRef API from the *IJMS* 2024 attribution recorded with the quotation,
-and inferring a DOI would be worse than leaving the gap visible. The quoted sentence should be
-treated as unsourced until the paper is located.
+**Protocol reporting.** Quoted in [DETERMINISM.md](DETERMINISM.md) as the best protocol-reporting
+template found in this literature: it states the repair count, the run count and the environment
+parameters in two sentences, which no comparator paper does.
+
+> Vincenzi, M., Mercurio, F. A., La Manna, S., Palumbo, R., Pirone, L., Marasco, D., Pedone, E. M.
+> & Leone, M. Exploring a Potential Optimization Route for Peptide Ligands of the Sam Domain from
+> the Lipid Phosphatase Ship2. *International Journal of Molecular Sciences* **25**(19):10616
+> (2024). [10.3390/ijms251910616](https://doi.org/10.3390/ijms251910616)
 
 **CD-HIT** — used to build the ≤60% sequence-identity clustered evaluation splits.
 
@@ -138,7 +171,7 @@ treated as unsourced until the paper is located.
 ## Origin of this package
 
 **MuLAN** — this code began as a FoldX score channel inside a research fork of MuLAN. None of
-that project's code is present here, which is what allows this one to be MIT licensed; see
+that project's code is present here; see
 [NOTICE](../NOTICE).
 
 > Lombardi, G. & Carbone, A. MuLAN: Mutation-driven Light Attention Networks for investigating

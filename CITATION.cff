@@ -1,0 +1,53 @@
+cff-version: 1.2.0
+message: "If these energies are used in published work, cite this package and the sources below."
+title: "skempi-foldx: FoldX binding ddG for SKEMPI 2.0"
+abstract: >-
+  Precomputed FoldX interaction-energy changes for protein-protein binding mutations defined by
+  SKEMPI 2.0, with the campaign pipeline that produced them. Twelve decomposed AnalyseComplex
+  terms per mutation -- the total and eleven of its components -- as mutant minus wild-type,
+  over 6003 records. Energy values are tied to a
+  release: a mutation's ddG depends on the whole mutation list it was computed in.
+type: software
+authors:
+  - family-names: Chin
+    given-names: Connor
+    email: cchin29@stanford.edu
+version: 0.1.0
+date-released: "2026-08-01"
+license: MIT AND CC-BY-4.0
+repository-code: "https://github.com/cchin29/skempi-foldx"
+keywords:
+  - FoldX
+  - SKEMPI
+  - protein-protein interaction
+  - binding affinity
+  - ddG
+references:
+  - type: article
+    title: "SKEMPI 2.0: an updated benchmark of changes in protein-protein binding energy, kinetics and thermodynamics upon mutation"
+    doi: 10.1093/bioinformatics/bty635
+    year: 2019
+    authors:
+      - family-names: Jankauskaite
+        given-names: Justina
+      - family-names: Jimenez-Garcia
+        given-names: Brian
+      - family-names: Dapkunas
+        given-names: Justas
+      - family-names: Fernandez-Recio
+        given-names: Juan
+      - family-names: Moal
+        given-names: Iain H.
+  - type: article
+    title: "FoldX 5.0: working with RNA, small molecules and a new graphical interface"
+    doi: 10.1093/bioinformatics/btz184
+    year: 2019
+    authors:
+      - family-names: Delgado
+        given-names: Javier
+      - family-names: Radusky
+        given-names: Leandro G.
+      - family-names: Cianferoni
+        given-names: Damiano
+      - family-names: Serrano
+        given-names: Luis

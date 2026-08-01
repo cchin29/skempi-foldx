@@ -19,17 +19,29 @@ control the mutation list, and `worklist_single_point()` does that by constructi
 ## The evidence
 
 The five single-point campaign result directories disagree on 3621 of the 5873 campaign-pair
-comparisons they share — just under two thirds — by up to 11 kcal/mol. That looks like stochastic
+comparisons they share, 61.7%, by up to 11 kcal/mol. That looks like stochastic
 side-chain optimisation and is not: it is a setup effect, and it is fully explained.
 
-`BuildModel` walks `individual_list.txt` sequentially in **one process**. Each entry's side-chain
-optimisation inherits the state left by the entries before it, and a fresh wild-type reference is
-re-optimised per entry — so both terms of `IE(mutant) − IE(wildtype)` move together. A mutation's
-result is therefore a function of
+`BuildModel` walks `individual_list.txt` sequentially in **one process**, and a fresh wild-type
+reference is rebuilt per entry — which is required, since each mutation repacks different
+neighbours and so needs its own reference. Empirically, a mutation's result is a function of
 
-    (repaired structure, every entry preceding it in individual_list.txt)
+    (repaired structure, the list it was computed in)
 
 not of the mutation alone.
+
+**The mechanism behind that is not established here.** FoldX documents each line of
+`individual_list.txt` as an independent mutant built from the input structure, so the coupling is
+not the mutant structures accumulating. The likeliest remaining candidate is process-level state
+carried between entries — a rotamer search order or random stream not reset per line, which is
+consistent with what the vendor does say about `--numberOfRuns` changing the rotamer set and the
+order of rotamer moves. That is a hypothesis; what is measured below is the dependence itself.
+
+Nor do the measurements separate *which* preceding entries matter from *how many*: list content
+and list position covary in every campaign pair compared here, so "depends on the preceding
+entries" and "depends on the index" are not distinguished. The operational consequence is the same
+either way — a subset computation is not interchangeable with a union one — which is why the
+guidance does not rest on the mechanism.
 
 Measured over all five single-point campaign result directories — every pair of campaigns that
 computed the same mutation of the same complex, 5873 such pairs, which is the population the two
@@ -70,13 +82,20 @@ single-point record:
 
 | source campaign | records | complexes | mutation list |
 |---|---:|---:|---|
-| `S4169` | 2494 (58.8%) | 210 | a per-dataset **subset** |
+| `S4169` | 2494 (58.8%) | 210 | that benchmark's per-complex list |
 | `full_skempi` | 1744 (41.2%) | 112 | the **union** for those complexes |
 
-So roughly three fifths of the shipped single-point values were computed under a subset list and
-are **not** the union-list answer for that mutation. `skempi_foldx/data/CONSOLIDATION_REPORT.txt`
-corroborates
-it directly: 1970 mutations appear in more than one source with differing values, and S4169 is
+So roughly three fifths of the shipped single-point values were computed by a campaign built
+around one benchmark rather than around each complex's full list. For most of them that made no
+difference to the membership of the list: comparing each `S4169` complex's stored keys against
+`worklist_single_point`, 183 complexes carrying 2207 records hold the complete list, and 27
+complexes carrying 287 records hold a strict subset of it. Membership is not the whole of it — the
+value depends on the list a mutation was computed in, and that is a property of the campaign
+rather than of the mutation — but a blanket claim that these are subset answers would be wrong for
+88.5% of them. What `skempi_foldx/data/CONSOLIDATION_REPORT.txt` corroborates is the dependence
+itself: the report records 1970 comparisons in which a source's value for a mutation differs from
+the one already kept — one per additional source holding it, not one per mutation, so fewer
+mutations than that are involved — and S4169 is
 the kept source — including `1PPF GB32Y` at 8.5354, which is exactly the S4169 row of the worked
 example above, where the same mutation reads 9.8185 and 19.5701 under other lists.
 
@@ -116,18 +135,24 @@ See the note on populations below before quoting either figure.
 
 Per-term ICC ranges from 0.99 (Van der Waals, Solvation Hydrophobic) down to **0.90 (torsional
 clash)**, 0.93 (Van der Waals clashes) and 0.92 (entropy mainchain) — the clash and entropy terms
-are the least stable, and they are terms the scalar arm never sees.
+are the least stable, and a consumer reading only the summary `Interaction Energy` never sees
+them.
 
 **A note on populations, because three appear in this document and they do not reconcile.**
 
-* **5873** — the determinism table above. Every campaign-pair comparison of the same mutation of
-  the same complex, over all five single-point campaign result directories. Internally consistent:
-  its two rows sum to it (1722 + 4151).
+* **5873** — the determinism table above: every campaign-pair comparison of the same mutation of
+  the same complex, over all five single-point campaign result directories. Alone among the three,
+  the *mechanism* it supports is independently re-testable on any FoldX binary — one complex, two
+  list orderings, minutes of compute. The population itself is not: those campaign directories are
+  not shipped here, so it can no more be recomputed from this repository than the two below. Its
+  two rows sum to it (1722 + 4151), a consistency check rather than a verification.
 * **10631** — the agreement statistics in this section. This figure was recorded against "the four
   independently-listed campaigns" with 1528 shared mutations, and that attribution is
   **arithmetically impossible**: four campaigns admit C(4,2) = 6 pairs per mutation, so at most
-  1528 × 6 = 9168 comparisons. Five campaigns admit C(5,2) = 10, i.e. up to 15 280, which does
-  accommodate 10631. Either the campaign count or the shared-mutation count was misrecorded, and
+  1528 × 6 = 9168 comparisons. Five campaigns admit C(5,2) = 10, an upper bound of 15 280; 10631
+  clears that bound but is not thereby explained by it — five is where the contradiction stops, not
+  a reading the figures establish. Either the campaign count or the shared-mutation count was
+  misrecorded, and
   **which one cannot be determined from this repository** — the source campaign directories are
   not shipped here, so neither figure can be recomputed. The statistics in the table above are
   reported exactly as measured and should be treated as **unverified** until they are recomputed
@@ -214,8 +239,10 @@ number; the full-SKEMPI run covers both arms:
 
 The published FoldX baseline for single-point mutations on this split is 0.4458 (CATH-ddG
 Table 2, FoldX row, per-PPI SpearmanR; the All-mutation figure is 0.4303 and the multi-point
-0.5479) — between the two. That is the likely
-explanation for a single-repair FoldX-alone number sitting below the published one.
+0.5479) — between the two. Repair count is **not** the explanation: CATH-ddG reports one repair
+too ([PROTOCOL.md](PROTOCOL.md)), so both sit at ×1. What differs is the engine version (5.0 there,
+5.1 here), CATH-ddG's additional `Optimize` step, and the mutation lists each value was computed
+in. Which of those accounts for the gap is not determined here.
 
 This does not contradict Usmanova: they measured *folding* ΔΔG and self-consistency bias; this
 measures *binding* ΔΔG correlation with experiment.
@@ -237,16 +264,15 @@ with the median, but three things qualify that:
 3. every published baseline row these results sit beside was produced with undocumented
    single-run defaults.
 
-What actually distinguishes a defensible pipeline here is *reporting*, not the setting. The best
-template found in this literature is a single sentence from Meli et al. (*IJMS* 2024): "The macros
-'PositionScan' and 'BuildModel' were run by using default settings (i.e., number of runs: 1, pH 7,
-temperature 298 K, and ionic strength 0.05 M)." That is more protocol detail than any of the
-comparator papers give. **That attribution is unsourced**: the paper could not be identified
-against the CrossRef API from the *IJMS* 2024 details recorded with the quotation, so
-[REFERENCES.md](REFERENCES.md) gives no DOI for it rather than an inferred one.
+*Reporting* is what distinguishes a defensible pipeline here, not the setting. The best template
+found in this literature is a pair of sentences from Vincenzi *et al.* (*IJMS* 2024): "As the in
+silico protocol started from a Haddock optimized structure, no 'RepairPDB' cycles were performed.
+The macros 'PositionScan' and 'BuildModel' were run by using default settings (i.e., number of
+runs: 1, pH 7, temperature 298 K, and ionic strength 0.05 M)." That is more protocol detail than
+any of the comparator papers give, and it states the repair count, the run count and the
+environment parameters — including a repair count of zero, with the reason for it.
 
 **Platform note.** The multi-point campaign ran on Linux while the single-point campaigns ran on
 Apple Silicon. There is no vendor statement on cross-platform bitwise agreement, so the two should
 not be assumed interchangeable. In practice it cannot matter here: the multi-point store shares
 zero mutation keys with the single-point ones.
-

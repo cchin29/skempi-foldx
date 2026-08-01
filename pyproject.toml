@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=61"]
+requires = ["setuptools>=77"]  # PEP 639 license expression + license-files
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -8,8 +8,10 @@ version = "0.1.0"
 description = "FoldX binding ddG for SKEMPI 2.0: the pipeline, and the computed results"
 readme = "README.md"
 requires-python = ">=3.9"
-license = "MIT"
-license-files = ["LICENSE"]
+license = "MIT AND CC-BY-4.0"
+# NOTICE carries the CC BY 4.0 identification and the statement of modification that must
+# travel with the data, and LICENSE points at it -- so it has to be in the artifact too.
+license-files = ["LICENSE", "NOTICE"]
 authors = [{ name = "Connor Chin", email = "cchin29@stanford.edu" }]
 keywords = ["FoldX", "SKEMPI", "ddG", "protein-protein interaction", "binding affinity"]
 classifiers = [
@@ -34,8 +36,8 @@ Repository = "https://github.com/cchin29/skempi-foldx"
 [tool.setuptools]
 packages = ["skempi_foldx"]
 
-# The results ARE the deliverable, so they must be in the wheel. They previously sat in a
-# top-level data/ outside the package, which no packaging directive can reach -- so
+# The results ARE the deliverable, so they must be in the wheel. They must live inside the
+# package directory: a top-level data/ is unreachable by any packaging directive, so
 # `pip install skempi-foldx` shipped the pipeline and none of the results, and the README's
 # own quickstart returned an empty store.
 [tool.setuptools.package-data]

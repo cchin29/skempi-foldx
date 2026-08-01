@@ -6,13 +6,12 @@ a FoldX licence (free for academic and non-profit institutions, paid for commerc
 and CPU-weeks to reproduce.
 
 ```python
-from skempi_foldx import load_bundled_store, coverage, audit
+from skempi_foldx import load_bundled_store, coverage
 
 store = load_bundled_store()              # {pdb: {mutation: {term: value}}}
 ```
 
 ---
-
 
 FoldX outputs are per-complex JSON: `{"muts": {"<mutation>": {<12 terms>, "cleaned": …}}, "meta":
 …}`
@@ -28,15 +27,40 @@ The union is 322 single-point complexes, plus 152 multi-point, for 344 distinct 
 **three of the five single-point directories contribute nothing** — not one complex, not one
 mutation — because they are subsets of the largest benchmark campaign.
 
+## Agreement with experiment
+
+Coverage says how many rows carry a value; it says nothing about whether the values are right.
+Against SKEMPI's own measured affinities, converted to ΔΔG as `RT·ln(Kd_mut / Kd_wt)` at each
+row's recorded temperature:
+
+| arm | n | Pearson r | Spearman ρ | MAE (kcal/mol) |
+|---|---|---|---|---|
+| single-point | 4059 | 0.419 | 0.435 | 1.14 |
+| multi-point | 1578 | 0.515 | 0.574 | 1.88 |
+
+Reproducing those figures requires three choices. Rows whose affinity is qualified rather than
+numeric (`n.b`, `unf`, `>1E-04`) are dropped, and a mutation appearing on more than one SKEMPI row
+is counted once, keeping the first — both move the result: keeping the qualified rows gives
+n = 4168 and 1636, and keeping the last row instead of the first moves the single-point Spearman
+to 0.436. The third, 298 K standing in for a blank temperature, changes no reported digit, because
+only one blank survives the other two filters.
+
+That is ordinary for FoldX on SKEMPI, and it sits alongside the published per-PPI figures quoted
+in [DETERMINISM.md](DETERMINISM.md). The correlation is a property of FoldX rather than of this
+store, and it is not offered as validation of the protocol. What it establishes is narrower, and
+it is the check coverage cannot perform: the values behave like FoldX values, so a systematic
+corruption between computation and packaging would have shown up here — an inverted sign above
+all, which would leave every coverage figure unchanged.
+
 ## Coverage
 
 `coverage(store, wanted)` answers "how many of these `(pdb, mutation)` pairs does the store have",
 against an explicit wanted-set rather than an inferred one. It performs no naming resolution, so
 the store must be keyed the same way as the wanted-set: `worklist_single_point` yields SKEMPI's
-author form, which is what `key="skempi"` selects. Reading the store with the default
-`key="stored"` and asking for author forms scores 3012 of 4337 rather than 4238 — the 69.4% figure
-this file warns about below. [FoldxLookup](USAGE.md) resolves the conventions instead of requiring
-them to be matched by hand:
+author form, and `key="skempi"` selects that convention. Reading the store with the default
+`key="stored"` and asking for author forms scores 3012 of 4337 rather than 4238 — 69.4%. The
+*Two key conventions* section below describes the mismatch. [FoldxLookup](USAGE.md) resolves the
+conventions instead of requiring them to be matched by hand:
 
 ```python
 from skempi_foldx import coverage, load_bundled_store, load_skempi, worklist_single_point
@@ -53,17 +77,38 @@ Against everything SKEMPI defines, the shipped stores are:
 | single-point | 4238 | 4337 | 97.7% |
 | multi-point | 1765 | 1848 | 95.5% |
 
-The shortfall has exactly two causes, and they are worth separating because only one of them is
+The shortfall has three causes, and they are worth separating because only one of them is
 in principle recoverable:
 
 * **`1KBH` — 3 single-point and 83 multi-point entries.** FoldX cannot repair it, so no
   structure-based method has these. Not recoverable. See below.
-* **96 single-point entries never computed.** The campaigns contributing those complexes ran
+* **80 single-point entries never computed.** The campaigns contributing those complexes ran
   against per-dataset mutation *subsets* rather than each complex's full list. Recoverable by
   recomputing with `worklist_single_point()`.
+* **16 single-point entries the chain mapping declined to resolve.** These come from complexes
+  computed against the union list, so a subset does not explain them. They are eight complete
+  pairs, and **both members of every pair are absent** — `1DVF YA32A`/`YB32A`,
+  `3HFM YH50A`/`YL50A`, `1DAN DT39A`/`DU39A`, and five more.
 
-Excluding `1KBH`, that is 97.8% of the reachable single-point set and **100%** of the reachable
-multi-point set.
+  Each pair carries the same substitution on two chains of the *same* group, so the role letter
+  cannot separate them: both are partner `A`, or both partner `B`. `map_role_to_author` matches on
+  `(wild type, position, mutant)` and narrows by role; where that still leaves two candidates it
+  refuses both rather than guessing, and the refusal is recorded per complex in the shipped
+  `meta.unresolved`. The case where the same substitution appears on *different* partners does
+  resolve: role narrowing separates them, and `1DVF YA49A`/`YC49A` are both shipped.
+  Recoverable only by disambiguating with residue offsets, as `FoldxLookup` does for lookups.
+
+Excluding `1KBH`, that is 97.8% of the reachable single-point set and 100% of the reachable
+multi-point set. Both denominators count SKEMPI rows keyed by PDB code, which is how
+`load_skempi` counts them, and three codes carry two interface definitions each. Keying per
+definition gives 4343 single-point and 1850 multi-point rows, over 324 and 155 definitions of
+323 and 153 distinct codes; counting only records scored against a pairing SKEMPI associates with
+them, the stores cover **97.3%** and **94.4%** of those.
+Those two pairs are not one measurement recomputed: the first excludes `1KBH` and the second does
+not. With `1KBH` out of both, the per-definition figures are 97.4% and 98.8%, so neither arm is
+complete under that parse and the 100% above is a property of the by-code parse rather than of the
+store.
+See [USAGE.md](USAGE.md#complexes-skempi-defines-twice).
 
 ## Two key conventions in the single-point store
 
@@ -178,4 +223,3 @@ enough for a real defect: a join that gained a second candidate key left coverag
 handing ~13 mutations another mutation's ΔΔG, and surfaced only because downstream accuracy
 *fell*. Any change to the join should be checked by diffing the 12-term values per
 `(pdb, mutation)`, not the key sets.
-

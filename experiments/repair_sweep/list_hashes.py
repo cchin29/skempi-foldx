@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Hash the `individual_list.txt` each round actually fed to BuildModel, and verify it never drifts.
 
-Covers all 345 complexes of a sweep, including runs whose result JSONs carry no recorded
+Covers all 344 complexes of a sweep, including runs whose result JSONs carry no recorded
 `meta["mutation_list_sha256"]` and would otherwise be reported "not verifiable".
 
 Why this can be done after the fact without weakening the evidence

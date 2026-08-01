@@ -1,8 +1,9 @@
 """The FoldX energy-term contract.
 
-These twelve terms, in this order, are what ``AnalyseComplex`` reports and what a decomposed
-result record contains. The order is load-bearing for any consumer that flattens a record into a
-feature vector. Written under one order and read under another, it yields permuted features and
+These twelve terms, in this order, are what a result record contains: ``Interaction Energy``,
+the total, followed by eleven of its components. ``AnalyseComplex`` reports about twenty-one
+energy columns, so the eleven do not sum to the total and the total is not redundant with them.
+The order is load-bearing for any consumer that flattens a record into a feature vector. Written under one order and read under another, it yields permuted features and
 a plausible-looking, wrong result.
 
 This module is the single definition, and consumers should import it rather than keep a copy: two

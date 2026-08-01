@@ -126,8 +126,16 @@ def main():
     exact = lookup.is_exact
     print(f"resolving: {', '.join(lookup.conventions)}")
     if not exact:
-        print("figures are a LOWER BOUND for role-chain labels -- pass --skempi-csv and "
-              "--mapping-dir to make them exact")
+        if lookup.skempi is None:
+            print("figures are a LOWER BOUND for role-chain labels -- pass --skempi-csv and "
+                  "--mapping-dir to make them exact")
+        elif lookup._mappings_read:
+            print(f"figures are a LOWER BOUND for role-chain labels in the complexes whose "
+                  f"mapping was missing: {lookup._mappings_read} of "
+                  f"{lookup._mappings_wanted} mappings were read")
+        else:
+            print("figures are a LOWER BOUND for role-chain labels -- no mapping file was read, "
+                  "so role forms fall back to identity matching; check --mapping-dir")
     print()
 
     print(f"{'evaluation set':44s} {'rows':>6s} {'covered':>8s} {'':>6s} {'SP':>6s} {'MP':>6s}")

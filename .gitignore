@@ -10,6 +10,24 @@ dist/
 # FoldX working directories: gigabytes of .fxout/.pdb intermediates. Regenerable --
 # but NOT before list_hashes.py has run, because individual_list.txt lives here and it is
 # the only record of what BuildModel actually consumed. See docs/DETERMINISM.md.
+# FoldX itself is never redistributable, and neither is its licensed support data. A contributor
+# working outside the default directories should not be able to commit any of it by accident.
+foldx
+foldx_*
+foldx[0-9]*
+foldxLinux*
+foldxMac*
+foldx*/
+rotabase.txt
+molecules/
+*.fxout
+*_Repair.pdb
+*_Repair_*.pdb
+WT_*.pdb
+repair_round_*.pdb
+individual_list.txt
+.env
+
 scratch/
 work/
 work_*/

@@ -122,7 +122,8 @@ def main():
     ap.add_argument("--plan", action="store_true", help="resolve and print, without running FoldX")
     ap.add_argument("--include-kept", action="store_true",
                     help="also recompute the surviving definition's own list, so each pairing's "
-                         "values come from one list rather than from the pooled one")
+                         "values come from one list rather than from the pooled one. An arm the "
+                         "other definition never touches is unaffected and recomputes identically")
     ap.add_argument("--seed-repairs", action="append", default=[], metavar="DIR",
                     help="campaign work directory holding an existing <pdb>/<pdb>_Repair.pdb "
                          "(repeatable); reuses the repair the shipped values were built on")
@@ -145,6 +146,8 @@ def main():
         return
     if not args.out:
         ap.error("--out is required unless --plan is given")
+    if not args.pdb_dir:
+        ap.error("--pdb-dir is required to run; FoldX needs the structures")
 
     for c in plan:
         # Named for the interface, not the complex: two pairings of one code write the same
