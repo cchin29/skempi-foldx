@@ -1,7 +1,7 @@
 """Where FoldX, its inputs, and its outputs live.
 
 These are carried in a config object passed explicitly to each task, not in module-level globals.
-Globals a driver assigns at import time (``bd.WORK = ...; bd.RESULTS = ...``) work, but they make
+Globals a driver assigns at import time (``some_module.WORK = ...``) work, but they make
 the engine's behaviour depend on which module last assigned to them, and every driver then needs
 its own process-pool initializer to re-apply them inside each worker.
 
@@ -15,7 +15,9 @@ import os
 import shutil
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Optional, Sequence
+from typing import Dict, Optional, Sequence
+
+from .store import check_identifier, check_code
 
 
 @dataclass
@@ -42,11 +44,13 @@ class FoldxConfig:
     repair_iterations: int = 1
     """How many times to apply ``RepairPDB``, feeding each result into the next.
 
-    One is FoldX's own documented recommendation and matches CATH-ddG, the only comparator with
-    a fully specified protocol. Some groups iterate 5-10 times; the only controlled test of that
-    (Usmanova et al. 2018) found no effect on folding ΔΔG or bias. Kept configurable so the
-    question can be **measured** here rather than assumed — see
-    ``experiments/repair_ablation.py``.
+    One matches CATH-ddG, the only comparator with a fully specified protocol. FoldX's own
+    documentation says to repair before modelling without naming a count; reading that as a
+    recommendation of one is Usmanova et al.'s, and is attributed to them in ``docs/DETERMINISM.md``.
+    Some groups iterate 5-10 times; that same controlled test (Usmanova et al. 2018) found no
+    effect on *folding* ΔΔG or bias. For the *binding* ΔΔG measured here the repair count does move
+    the numbers, so this is kept configurable and the question is **measured** rather than assumed —
+    see ``experiments/repair_ablation.py`` and ``docs/DETERMINISM.md``.
 
     Changing this invalidates every downstream energy for the complex, so an ablation must
     recompute BuildModel and AnalyseComplex too.
@@ -57,6 +61,14 @@ class FoldxConfig:
 
     RepairPDB dominates the runtime, and a complex repaired for one campaign is repaired for
     all of them. Seeding from a sibling campaign turns a full run into BuildModel-only."""
+
+    sibling_records: Optional[Dict[str, Sequence[str]]] = None
+    """``{pdb: [record names]}`` — every record computed from one structure, for repair reuse.
+
+    Filled in by a driver that computes a code one interface definition at a time. Left ``None``
+    everywhere else, where record and code are the same string and the code-level search finds
+    the repair on its own.
+    """
 
     def __post_init__(self):
         self.results_dir = Path(self.results_dir)
@@ -90,9 +102,12 @@ class FoldxConfig:
         if not path.exists():
             resolved = shutil.which(str(candidate))
             if resolved:
-                return Path(resolved)
+                return Path(resolved).resolve()
             raise FileNotFoundError(f"FOLDX_BIN points at {path}, which does not exist.")
-        return path
+        # Resolved, because the caller runs it with cwd= set to a work directory. A bare name
+        # that exists relative to the current directory would pass the check above and then be
+        # looked up on PATH by execvp -- so the binary that runs need not be the one checked.
+        return path.resolve()
 
     # -- layout ------------------------------------------------------------------------------
     def ensure_dirs(self) -> None:
@@ -100,18 +115,29 @@ class FoldxConfig:
         self.work_dir.mkdir(parents=True, exist_ok=True)
 
     def result_path(self, pdb: str) -> Path:
-        return self.results_dir / f"{pdb}.json"
+        return self.results_dir / f"{check_identifier(pdb)}.json"
 
     def complex_work_dir(self, pdb: str) -> Path:
-        return self.work_dir / pdb
+        return self.work_dir / check_identifier(pdb)
 
-    def find_repaired(self, pdb: str) -> Optional[Path]:
-        """An existing ``<pdb>_Repair.pdb`` from this or any seed campaign."""
-        name = f"{pdb}_Repair.pdb"
+    def find_repaired(self, pdb: str, records: Sequence[str] = ()) -> Optional[Path]:
+        """An existing repaired structure for ``pdb``, from this or any seed campaign.
+
+        A repair belongs to the *structure*, so it is sought by PDB code first — that is how every
+        campaign directory this package has produced is laid out, and it is what a
+        ``--seed-repairs`` directory offers.
+
+        ``records`` names the record directories that could also hold one. A work directory is
+        named after the record rather than the structure, so when a code is computed one interface
+        definition at a time, its repair sits under ``<identifier>/<identifier>_Repair.pdb`` and a
+        code-only search walks past it — leaving the second definition to repeat a ``RepairPDB``
+        the first already paid for.
+        """
         for root in (self.work_dir, *self.repair_seed_dirs):
-            candidate = Path(root) / pdb / name
-            if candidate.exists():
-                return candidate
+            for stem in (pdb, *records):
+                candidate = Path(root) / check_identifier(stem) / f"{stem}_Repair.pdb"
+                if candidate.exists():
+                    return candidate
         return None
 
 

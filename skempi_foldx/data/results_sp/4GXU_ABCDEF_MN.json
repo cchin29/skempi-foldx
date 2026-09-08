@@ -1,0 +1,50 @@
+{
+ "muts": {
+  "DA189E": {
+   "Interaction Energy": 5.9847,
+   "Backbone Hbond": 0.4393,
+   "Sidechain Hbond": 0.5664,
+   "Van der Waals": -0.2158,
+   "Electrostatics": 0.8963,
+   "Solvation Polar": 0.2831,
+   "Solvation Hydrophobic": -0.2904,
+   "Van der Waals clashes": 4.0634,
+   "entropy sidechain": 0.2327,
+   "entropy mainchain": -0.0879,
+   "torsional clash": 0.0223,
+   "backbone clash": -0.0018,
+   "cleaned": "DA189E",
+   "_source": "sweep_4x_round_1"
+  },
+  "DA224G": {
+   "Interaction Energy": 2.949,
+   "Backbone Hbond": 0.0087,
+   "Sidechain Hbond": 4.5633,
+   "Van der Waals": 0.3273,
+   "Electrostatics": 0.6362,
+   "Solvation Polar": -0.6129,
+   "Solvation Hydrophobic": 0.2361,
+   "Van der Waals clashes": -0.1066,
+   "entropy sidechain": -2.1193,
+   "entropy mainchain": 0.0003,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0143,
+   "cleaned": "DA224G",
+   "_source": "sweep_4x_round_1"
+  }
+ },
+ "meta": {
+  "pdb": "4GXU",
+  "mode": "author",
+  "n_requested": 2,
+  "validation_failed": [],
+  "n_ok": 2,
+  "groups": "ABCDEF,MN",
+  "mutation_list_sha256": "2cccaf7ea08c8de7c8bf79941f0df11e4aa6a77ad18cca14521932339864f142",
+  "n_accepted": 2,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "4GXU_ABCDEF_MN",
+  "source": "round_1 union list",
+  "n_mutations": 2
+ }
+}

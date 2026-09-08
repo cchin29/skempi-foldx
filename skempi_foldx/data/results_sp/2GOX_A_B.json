@@ -1,0 +1,50 @@
+{
+ "muts": {
+  "NB38A": {
+   "Interaction Energy": 3.2773,
+   "Backbone Hbond": 1.693,
+   "Sidechain Hbond": 1.9019,
+   "Van der Waals": 0.7546,
+   "Electrostatics": 0.0,
+   "Solvation Polar": -0.6802,
+   "Solvation Hydrophobic": 0.5375,
+   "Van der Waals clashes": -0.0014,
+   "entropy sidechain": -0.4831,
+   "entropy mainchain": -0.403,
+   "torsional clash": -0.042,
+   "backbone clash": 0.1285,
+   "cleaned": "NB38A",
+   "_source": "sweep_4x_round_1"
+  },
+  "RB31A": {
+   "Interaction Energy": 3.5788,
+   "Backbone Hbond": -0.158,
+   "Sidechain Hbond": 2.9527,
+   "Van der Waals": 2.0007,
+   "Electrostatics": 2.1889,
+   "Solvation Polar": -3.4995,
+   "Solvation Hydrophobic": 1.5923,
+   "Van der Waals clashes": -0.1377,
+   "entropy sidechain": -1.846,
+   "entropy mainchain": 0.0107,
+   "torsional clash": -0.0239,
+   "backbone clash": -0.0027,
+   "cleaned": "RB31A",
+   "_source": "sweep_4x_round_1"
+  }
+ },
+ "meta": {
+  "pdb": "2GOX",
+  "mode": "author",
+  "n_requested": 2,
+  "validation_failed": [],
+  "n_ok": 2,
+  "groups": "A,B",
+  "mutation_list_sha256": "9000ba5ccf097bc702fe5288acb7b1b95bac0a553abeb1203a0e1f0ec75f1dca",
+  "n_accepted": 2,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "2GOX_A_B",
+  "source": "round_1 union list",
+  "n_mutations": 2
+ }
+}

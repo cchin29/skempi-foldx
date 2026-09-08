@@ -4,10 +4,13 @@ Repairs every complex **4 times**, saving each round, then runs BuildModel + Ana
 **each** round. That gives the ΔΔG convergence curve, not just the endpoints. The repair chain is
 paid once per complex and shared across rounds, and across the SP and MP arms.
 
-Why: on the 13 CATH T≥10 complexes, 5× repair moved the FoldX-alone per-structure Spearman from
-0.398 to 0.459 (paired Δ +0.060, 95% CI [+0.020, +0.100]) — past the published single-point FoldX row of 0.4458.
-Structure converges by round 4 (median RMSD 0.013 Å from round 4→5). This widens that measurement
-to all of SKEMPI.
+Why: on the 13 CATH-ddG test PPIs carrying at least ten rows, 5× repair moved the
+FoldX-alone per-structure Spearman from 0.398 to 0.459 (paired Δ +0.060, 95% CI
+[+0.020, +0.100]). The 5× interval, [0.3455, 0.5695], spans the published single-point FoldX row
+of 0.4458 rather than resolving against it, and repair count is not what separates them — that
+work also repairs once. [DETERMINISM.md](../../docs/DETERMINISM.md) sets out what does differ.
+Structure converges by round 4 (median RMSD 0.013 Å from round 4→5, measured in the 13-complex
+5× pilot). This widens that measurement to all of SKEMPI.
 
 ## Components
 
@@ -28,8 +31,11 @@ JOBS=36 ./launch_sweep.sh                  # SP arm
 JOBS=36 SWEEP_EXCLUDE="" ./chain_finalize.sh   # everything after it
 ```
 
-Paths default to `<repo>/scratch/...` and are overridable via `SKEMPI_FOLDX_ROOT`, `SWEEP_RUN`,
-`SWEEP_STORE`, `SKEMPI_PDBS`, `SKEMPI_CSV`. Resumable at complex granularity.
+Paths default to `<repo>/scratch/...`. The two shell drivers read `SKEMPI_FOLDX_ROOT`,
+`SWEEP_RUN`, `SWEEP_STORE`, `SKEMPI_PDBS` and `SKEMPI_CSV`; the Python steps
+(`sweep_mp.py`, `residue_check.py`, `list_hashes.py`) resolve their own root from `__file__` and
+ignore those variables, so overriding them moves only half the pipeline. Resumable at complex
+granularity.
 
 ## Cost model
 
@@ -53,6 +59,11 @@ sweep therefore invert against intuition:
 |---|---:|---:|---|
 | single-point | 4334 | 322 | faster, despite 2.5× the entries |
 | multi-point | 1765 | 152 | **~2 h** |
+
+These are **per structure**, which is why they are six and two short of the shipped store's 4340
+and 1767. The sweep repairs a PDB and compares it against itself across rounds, so it pools a
+code's interface definitions into one list; the store keeps them apart. The difference is exactly
+`3SE4`'s 6 shared single-point mutations and `3SE3`'s 2 shared multi-point variants.
 
 Measured shape of one multi-point round, 152 complexes on 36 workers:
 
@@ -114,5 +125,23 @@ python3 ../repair_ablation.py compare \
     --ablation scratch/foldx_repair_ablation/sweep_4x/round_4/results
 ```
 
-Repeat for rounds 2 and 3 to see where the energy converges — it may settle earlier than the
-structure does, which would be the useful result.
+Repeat for rounds 2 and 3 to see where the energy converges.
+
+**The statistic that decides it.** Against the structure's
+convergence ratio of 0.23 (step 3→4 over step 1→2, all-atom RMSD over all 344 complexes), the
+*typical* single-point mutation settles faster — median ratio 0.16 — while the *average* settles
+slower, mean ratio 0.57. Multi-point is slower on both (0.49 / 0.75). Mean and median disagree
+because the tail does not converge: 6.1% of single-point and 23.4% of multi-point entries still
+move by more than FoldX's ~0.5 kcal/mol noise floor between rounds 3 and 4.
+
+`RepairPDB` moves side chains only — Cα RMSD is exactly 0.0000 at every step for all 344
+complexes, with superposed and direct RMSD agreeing to four decimals.
+
+For ranking it barely matters: round 1 against round 4 gives Spearman 0.9295 single-point and
+0.9492 multi-point. Stopping early is defensible for ranking and for the typical single-point
+entry; it is not defensible for multi-point or for absolute ΔΔG. Full treatment in
+[`docs/DETERMINISM.md`](../../docs/DETERMINISM.md), *Repair count*.
+
+The structure curve comes from `chain_work/<PDB>/repair_round_<r>.pdb`, which the sweep writes
+and keeps. Those trees are gigabytes and are commonly excluded when a run is archived, so their
+absence from an archive does not mean the repaired structures were not kept.

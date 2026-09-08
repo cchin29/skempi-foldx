@@ -1,0 +1,34 @@
+{
+ "muts": {
+  "YA87S": {
+   "Interaction Energy": 3.9678,
+   "Backbone Hbond": 1.4434,
+   "Sidechain Hbond": 1.2766,
+   "Van der Waals": 1.7373,
+   "Electrostatics": 0.1725,
+   "Solvation Polar": -1.6385,
+   "Solvation Hydrophobic": 2.181,
+   "Van der Waals clashes": -0.0346,
+   "entropy sidechain": -0.7754,
+   "entropy mainchain": -0.3872,
+   "torsional clash": -0.0074,
+   "backbone clash": -0.2955,
+   "cleaned": "YA87S",
+   "_source": "sweep_4x_round_1"
+  }
+ },
+ "meta": {
+  "pdb": "1P6A",
+  "mode": "author",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "A,B",
+  "mutation_list_sha256": "f4be80b034a7c5756207738dec0f95a36c323a880ec86236af3e624c398735fa",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "1P6A_A_B",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

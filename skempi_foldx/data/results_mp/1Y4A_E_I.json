@@ -1,0 +1,35 @@
+{
+ "variants": {
+  "SI40E,RI39M": {
+   "Interaction Energy": -1.027,
+   "Backbone Hbond": -0.2236,
+   "Sidechain Hbond": 2.1271,
+   "Van der Waals": 0.2002,
+   "Electrostatics": 0.2544,
+   "Solvation Polar": -1.5834,
+   "Solvation Hydrophobic": -1.2877,
+   "Van der Waals clashes": -0.9076,
+   "entropy sidechain": 0.3242,
+   "entropy mainchain": 0.0009,
+   "torsional clash": -0.0816,
+   "backbone clash": -0.1989,
+   "cleaned": "SI40E,RI39M",
+   "_source": "sweep_4x_round_1",
+   "role": "SB40E,RB39M"
+  }
+ },
+ "meta": {
+  "pdb": "1Y4A",
+  "mode": "variant",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "E,I",
+  "mutation_list_sha256": "6a21c3e1cbbdc52a483a4ba450f84aef178c334143eacca25be4464b9edef4f6",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "1Y4A_E_I",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

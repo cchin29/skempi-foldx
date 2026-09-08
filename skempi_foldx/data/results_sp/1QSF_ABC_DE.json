@@ -1,0 +1,35 @@
+{
+ "muts": {
+  "AC8Y": {
+   "Interaction Energy": 0.0515,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": -0.6568,
+   "Electrostatics": -0.0626,
+   "Solvation Polar": 0.9731,
+   "Solvation Hydrophobic": -0.8206,
+   "Van der Waals clashes": 0.0149,
+   "entropy sidechain": 0.2227,
+   "entropy mainchain": 0.38,
+   "torsional clash": 0.0065,
+   "backbone clash": 0.2286,
+   "cleaned": "AC8Y",
+   "_source": "sweep_4x_round_1",
+   "role": "AA382Y"
+  }
+ },
+ "meta": {
+  "pdb": "1QSF",
+  "mode": "author",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "ABC,DE",
+  "mutation_list_sha256": "aa3c1579810c71f98495f6374a2a5d8fdcdd355aa288edc1d5496584f371faa5",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "1QSF_ABC_DE",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

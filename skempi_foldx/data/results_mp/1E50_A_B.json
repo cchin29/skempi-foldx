@@ -1,0 +1,34 @@
+{
+ "variants": {
+  "DA52A,EA53A": {
+   "Interaction Energy": 0.2602,
+   "Backbone Hbond": -0.0092,
+   "Sidechain Hbond": -0.0126,
+   "Van der Waals": -0.01,
+   "Electrostatics": 0.0789,
+   "Solvation Polar": 0.0039,
+   "Solvation Hydrophobic": -0.0181,
+   "Van der Waals clashes": -0.0372,
+   "entropy sidechain": -0.0027,
+   "entropy mainchain": 0.2062,
+   "torsional clash": -0.0017,
+   "backbone clash": -0.0853,
+   "cleaned": "DA52A,EA53A",
+   "_source": "sweep_4x_round_1"
+  }
+ },
+ "meta": {
+  "pdb": "1E50",
+  "mode": "variant",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "A,B",
+  "mutation_list_sha256": "753d1c24621bc45752d2e7b73175e8361de73cdd936a26947126b2d14d392fb8",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "1E50_A_B",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

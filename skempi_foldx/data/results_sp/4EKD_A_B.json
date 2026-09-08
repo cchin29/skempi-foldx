@@ -1,0 +1,34 @@
+{
+ "muts": {
+  "CA147R": {
+   "Interaction Energy": -0.3482,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": -0.1454,
+   "Electrostatics": -0.0165,
+   "Solvation Polar": 0.0463,
+   "Solvation Hydrophobic": -0.2879,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": 0.0549,
+   "entropy mainchain": -0.0115,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "cleaned": "CA147R",
+   "_source": "sweep_4x_round_1"
+  }
+ },
+ "meta": {
+  "pdb": "4EKD",
+  "mode": "author",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "A,B",
+  "mutation_list_sha256": "dc46dad063e4b2079a0595826288e6361a606869b658a7a343e55f942c10e4ef",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "4EKD_A_B",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

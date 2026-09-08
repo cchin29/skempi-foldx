@@ -1,0 +1,34 @@
+{
+ "muts": {
+  "AA167W": {
+   "Interaction Energy": 0.022,
+   "Backbone Hbond": 0.0147,
+   "Sidechain Hbond": -0.603,
+   "Van der Waals": -0.1842,
+   "Electrostatics": 0.0056,
+   "Solvation Polar": 0.1676,
+   "Solvation Hydrophobic": -0.1564,
+   "Van der Waals clashes": 0.4596,
+   "entropy sidechain": 0.3031,
+   "entropy mainchain": 0.0133,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0003,
+   "cleaned": "AA167W",
+   "_source": "sweep_4x_round_1"
+  }
+ },
+ "meta": {
+  "pdb": "2JCC",
+  "mode": "author",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "ABC,EF",
+  "mutation_list_sha256": "99bdbdbc74d31f0c960eca3e0f5e00ec13e2d1b63fd6e1dc393fe890840e0a05",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "2JCC_ABC_EF",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

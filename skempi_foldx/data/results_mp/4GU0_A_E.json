@@ -1,0 +1,35 @@
+{
+ "variants": {
+  "LE20A,TE22A,RE26A": {
+   "Interaction Energy": 5.1363,
+   "Backbone Hbond": 0.578,
+   "Sidechain Hbond": 3.9147,
+   "Van der Waals": 2.844,
+   "Electrostatics": 0.6325,
+   "Solvation Polar": -3.1466,
+   "Solvation Hydrophobic": 3.366,
+   "Van der Waals clashes": 0.3295,
+   "entropy sidechain": -2.8423,
+   "entropy mainchain": -0.5615,
+   "torsional clash": -0.0079,
+   "backbone clash": -0.3771,
+   "cleaned": "LE20A,TE22A,RE26A",
+   "_source": "sweep_4x_round_1",
+   "role": "LB20A,TB22A,RB26A"
+  }
+ },
+ "meta": {
+  "pdb": "4GU0",
+  "mode": "variant",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "A,E",
+  "mutation_list_sha256": "b990f23188799876273b46843675b96c85f9973eae226fde3d0d653137bab799",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "4GU0_A_E",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

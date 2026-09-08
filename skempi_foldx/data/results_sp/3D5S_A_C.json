@@ -1,0 +1,35 @@
+{
+ "muts": {
+  "AC31R": {
+   "Interaction Energy": -2.6201,
+   "Backbone Hbond": -0.0307,
+   "Sidechain Hbond": -1.9633,
+   "Van der Waals": -1.8835,
+   "Electrostatics": -2.0922,
+   "Solvation Polar": 3.642,
+   "Solvation Hydrophobic": -1.5581,
+   "Van der Waals clashes": 0.0078,
+   "entropy sidechain": 1.7472,
+   "entropy mainchain": 0.0101,
+   "torsional clash": 0.0405,
+   "backbone clash": 0.1996,
+   "cleaned": "AC31R",
+   "_source": "sweep_4x_round_1",
+   "role": "AB31R"
+  }
+ },
+ "meta": {
+  "pdb": "3D5S",
+  "mode": "author",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "A,C",
+  "mutation_list_sha256": "8ecb7688bdf020ba0e01d1bdff72819dc334bd2e65a27ca1161c7468b199689c",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "3D5S_A_C",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

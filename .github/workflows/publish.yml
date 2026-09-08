@@ -1,0 +1,162 @@
+name: Publish to PyPI
+
+# Publishes on a version tag, e.g. `git tag v0.2.0 && git push origin v0.2.0`.
+# Uses PyPI Trusted Publishing (OIDC) — no API token is stored. One-time PyPI setup:
+#   PyPI → your account → Publishing → add a "pending publisher":
+#     PyPI project name: skempi-foldx
+#     Owner: cchin29   Repository: skempi-foldx
+#     Workflow name: publish.yml   Environment: pypi
+#
+# The version is NOT taken from the tag -- setuptools reads it from pyproject.toml -- so a tag
+# that disagrees with the tree would publish the tree's version under the tag's name. A PyPI
+# upload cannot be undone (yank hides a release; it does not free the version), so the job
+# asserts the two agree before it builds anything. That check matters more here than for most
+# packages: a version names a *measurement*, since a record's energy is a property of the
+# mutation list it was computed in, so a mislabelled upload misattributes data rather than code.
+
+on:
+  push:
+    tags: ["v*"]
+  # A tag push is the release, but it is not the only way this has to be runnable. A first upload
+  # to a project PyPI has never seen needs the trusted publisher registered before it can succeed,
+  # and that is a browser action outside this repository -- so the tag can land, every gate here
+  # can pass, and the upload can still fail on configuration alone. Without a manual trigger the
+  # only remedies are re-running a failed run or moving a published tag. This makes publishing a
+  # deliberate action instead. Dispatch it against the TAG, not a branch: the job is gated on
+  # `github.ref_type == 'tag'`, so any branch ref is refused outright -- including one named
+  # after the version, which the version assert alone would have accepted.
+  workflow_dispatch:
+
+# A moved tag would otherwise race two uploads of the same version against each other, and the
+# loser's failure is indistinguishable from a real one.
+concurrency:
+  group: publish-${{ github.ref }}
+  cancel-in-progress: false
+
+# Two jobs rather than one, and the split is the point. Everything that executes code from the
+# tagged tree -- pytest, the leak scan, `python -m build` -- runs in `build`, which has no
+# `id-token` scope and so cannot mint a PyPI token. `publish` holds the credential and runs one
+# step: the upload action, on an artifact it did not produce. A single job would put the OIDC
+# request token in the environment of every command the tagged tree can influence.
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      # Naming any scope sets every unnamed one to no access, so `contents: read` is not
+      # redundant -- without it actions/checkout has no permission to read this repository.
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1   # v7.0.1
+        with:
+          # Nothing here pushes. Without this the job token is written into .git/config,
+          # inside the one job that runs pytest, the leak scan and `python -m build` from
+          # the tagged tree.
+          persist-credentials: false
+
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97   # v7.0.0
+        with:
+          # Not the package's floor (3.9) -- this only runs the build/upload tooling. Kept ahead
+          # of `build` and `twine`'s own requires-python (both >=3.10): an interpreter below their
+          # floor silently resolves an older twine, and twine <6.1 rejects the Metadata-Version
+          # 2.4 that the PEP 639 license expression makes unconditional.
+          python-version: "3.12"
+
+      - name: Tag must match the packaged version
+        # The one failure here that cannot be walked back. GITHUB_REF_NAME is the tag ("v0.2.0");
+        # strip the leading v and compare against what the build will actually stamp.
+        env:
+          REF_TYPE: ${{ github.ref_type }}
+        run: |
+          # Not folded into an `if:` on this step: a skipped step is a pass, and the build would
+          # go on to publish. GITHUB_REF_NAME is the short name of whatever was dispatched, so a
+          # *branch* named "0.2.0" or "v0.2.0" -- a release-prep branch named after its version is
+          # an ordinary thing to make -- clears the string compare below on its own.
+          if [ "$REF_TYPE" != "tag" ]; then
+            echo "::error::$GITHUB_REF_NAME is a $REF_TYPE, not a tag -- refusing to publish"
+            exit 1
+          fi
+          tag="${GITHUB_REF_NAME#v}"
+          read -r pkg <<<"$(python - <<'PY'
+          import tomllib
+          print(tomllib.load(open("pyproject.toml", "rb"))["project"]["version"])
+          PY
+          )"
+          echo "tag=$tag  pyproject=$pkg"
+          if [ "$tag" != "$pkg" ]; then
+            echo "::error::tag v$tag != pyproject.toml $pkg -- refusing to publish"
+            exit 1
+          fi
+
+      - name: Gate on the test suite
+        # publish.yml is triggered by a tag, which can point at a commit that main's CI never ran.
+        # The suite is offline and dependency-free -- seconds -- so there is no reason to publish
+        # without it. It also pins the shipped store's shape, which is the artifact being uploaded.
+        run: |
+          python -m pip install -e ".[dev]"
+          python -m pytest -q
+
+      - name: No local paths in the tree
+        # CONTRIBUTING calls this a release gate. tests.yml also runs it, but tests.yml does not
+        # gate this workflow -- both are triggered by the tag and run concurrently, with no
+        # `needs:` between them -- so a gate that only lives there does not protect the upload.
+        run: .github/leakscan.sh
+
+      - name: Build sdist + wheel
+        run: |
+          python -m pip install --upgrade build
+          # The editable install above writes skempi_foldx.egg-info, and a stale SOURCES.txt is
+          # what CONTRIBUTING warns defeats MANIFEST.in. Cheap to remove; the one build that
+          # cannot be redone should not be the one that trusts a leftover.
+          rm -rf build skempi_foldx.egg-info
+          python -m build
+
+      - name: The energies are in the wheel
+        # The store is the deliverable and it only reaches a consumer if it is inside the package
+        # directory. tests.yml makes this check on every push; repeated here because this is the
+        # job whose output is irrevocable, and an empty-data wheel on PyPI cannot be replaced.
+        run: |
+          python -m venv /tmp/wheelcheck
+          /tmp/wheelcheck/bin/pip install --quiet dist/*.whl
+          cd /tmp
+          /tmp/wheelcheck/bin/python -c "
+          from skempi_foldx import load_bundled_store, MULTI_POINT, FoldxLookup
+          sp, mp = load_bundled_store(), load_bundled_store(MULTI_POINT)
+          assert (len(sp), sum(map(len, sp.values()))) == (323, 4340)
+          assert (len(mp), sum(map(len, mp.values()))) == (154, 1767)
+          fx = FoldxLookup()
+          assert fx.get('1PPF', 'GI32Y') is fx.get('1PPF', 'GB32Y') is not None
+          # A record whose chain is numbered above 999, so the fixed-width mapping column fused
+          # the chain letter to the number and chain C vanished from the parse. Its role name was
+          # absent until 0.2.0 and a role-keyed join lost it silently -- worth the seconds here.
+          assert fx.get('1S0W', 'AC142F') is fx.get('1S0W', 'AB142F') is not None
+          assert fx.is_exact
+          "
+
+      - name: Check distribution metadata
+        run: |
+          python -m pip install --upgrade twine
+          twine check dist/*
+
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a   # v7.0.1
+        with:
+          name: dist
+          path: dist/
+          if-no-files-found: error
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      # No `contents:` scope: this job never checks the repository out. It uploads an artifact
+      # the previous job built, so the only credential it holds is the one it needs.
+      id-token: write        # required for Trusted Publishing (OIDC)
+    steps:
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c   # v8.0.1
+        with:
+          name: dist
+          path: dist/
+
+      # Pinned by commit SHA, not by `release/v1`. That ref is a mutable branch, and whoever can
+      # move it would get this repository's `id-token: write` scope.
+      - uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33   # v1.14.2

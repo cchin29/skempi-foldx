@@ -1,0 +1,52 @@
+{
+ "variants": {
+  "YB43A,NB44A,SB47A": {
+   "Interaction Energy": 0.0,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0,
+   "Electrostatics": 0.0,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": 0.0,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": 0.0,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "cleaned": "YB43A,NB44A,SB47A",
+   "_source": "3SE3_B_C_mp",
+   "role": "YA43A,NA44A,SA47A"
+  },
+  "YB43H,NB44E,SB47Q": {
+   "Interaction Energy": 0.0,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0,
+   "Electrostatics": 0.0,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": 0.0,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": 0.0,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "cleaned": "YB43H,NB44E,SB47Q",
+   "_source": "3SE3_B_C_mp",
+   "role": "YA43H,NA44E,SA47Q"
+  }
+ },
+ "meta": {
+  "pdb": "3SE3",
+  "mode": "variant",
+  "n_requested": 2,
+  "repair_seeded_from": "foldx_stage2/3SE3/3SE3_Repair.pdb",
+  "validation_failed": [],
+  "mutation_list_sha256": "2b23454cee6ec5a7de316a5a3483aa56c71a1ecd65c4434abae5ee0a64d2a4c1",
+  "n_accepted": 2,
+  "n_ok": 2,
+  "groups": "B,C",
+  "skempi_id": "3SE3_B_C",
+  "source": "per-definition campaign",
+  "n_mutations": 2
+ }
+}

@@ -1,0 +1,123 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+    # A version tag is what publish.yml would upload, and it can point at a commit main's CI
+    # never ran -- so it is verified as itself rather than by resemblance to some commit on main.
+    # A tag is also the only install path for this package, which is not distributed on PyPI.
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+# Read-only by default. New repositories already default to this, so it changes nothing today;
+# it is here because the default is an organisation setting, and a workflow that relies on one
+# is a workflow whose permissions can be widened without touching this file.
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: tests (python ${{ matrix.python-version }} on ${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        # Every version the classifiers advertise, and nothing they do not --
+        # tests/test_version_consistency.py reads this matrix and asserts exactly that, so the
+        # two lists cannot drift. The package has no dependencies outside the standard library,
+        # so there is nothing here that resolution could narrow: the range is whatever is run.
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
+        os: ["ubuntu-latest"]
+        include:
+          # 3.9 needs a pinned image, pre-emptively: `actions/python-versions` publishes no
+          # linux-26.04 build for 3.9 at any patch level, because 3.9 reached end of life in
+          # October 2025 and EOL minors stop gaining new platforms. `ubuntu-latest` still
+          # resolves to 24.04 today, so this leg is currently a no-op -- it is here so that the
+          # day it flips, the one version that would break is already pinned.
+          #
+          # 3.10 goes EOL in October 2026 and its linux-26.04 coverage begins only at 3.10.20,
+          # so expect a second entry here on the same grounds.
+          - python-version: "3.9"
+            os: "ubuntu-24.04"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1   # v7.0.1
+
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97   # v7.0.0
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+
+      - name: A tag names the version it points at
+        # Only fires on a tag push, and duplicates the same check in publish.yml on purpose --
+        # but NOT as a gate on it: both workflows are triggered by the tag and run concurrently,
+        # with no `needs:` or `workflow_run:` between them, so this leg can still be running when
+        # the upload happens. Everything the upload must not proceed without is repeated inside
+        # publish.yml itself; what this adds is the full interpreter matrix, which publish.yml
+        # does not run. A PyPI upload cannot be undone -- yanking hides a release, it does not
+        # free the version -- so a tag resolving a tree that calls itself something else has to
+        # be caught in the publishing job. The suite already ties `__version__` to pyproject.toml,
+        # CITATION.cff, the changelog and the README; the tag is the declaration outside the tree.
+        #
+        # Reads the installed package rather than parsing pyproject.toml, because `tomllib` is
+        # stdlib only from 3.11 and this runs on the 3.9 leg too.
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          pkg="$(python -c 'import skempi_foldx; print(skempi_foldx.__version__)')"
+          echo "tag=$tag  package=$pkg"
+          if [ "$tag" != "$pkg" ]; then
+            echo "::error::tag v$tag points at a tree whose version is $pkg"
+            exit 1
+          fi
+
+      - name: Tests
+        run: pytest -q
+
+      - name: The results are in the wheel, not just in the clone
+        # The energies are the deliverable, and they only reach a consumer if they are inside the
+        # package directory and named by a packaging directive. A top-level data/ is unreachable
+        # by any of them, which once shipped the pipeline and none of the results.
+        #
+        # This builds a wheel and installs it into a clean venv. The editable install above
+        # cannot stand in for that: `bundled_path()` resolves into the source checkout, so its
+        # assertions pass whatever the wheel actually contains.
+        #
+        # Current setuptools auto-includes files that sit inside the package directory, so the
+        # declarations in pyproject.toml and MANIFEST.in are belt-and-braces on this version --
+        # removing both still produced a complete wheel when tried. What this catches is the
+        # failure that is not a declaration problem: data that moves back outside the package
+        # directory, where no directive and no auto-discovery can reach it.
+        run: |
+          python -m build --wheel --outdir dist_ci .
+          python -m venv /tmp/wheelcheck
+          /tmp/wheelcheck/bin/pip install --quiet dist_ci/*.whl
+          cd /tmp
+          /tmp/wheelcheck/bin/python -c "
+          from skempi_foldx import bundled_path, load_bundled_store, MULTI_POINT, FoldxLookup
+          sp, mp = load_bundled_store(), load_bundled_store(MULTI_POINT)
+          n_sp, n_mp = sum(map(len, sp.values())), sum(map(len, mp.values()))
+          print(bundled_path(), len(sp), n_sp, len(mp), n_mp)
+          assert (len(sp), n_sp) == (323, 4340), (len(sp), n_sp)
+          assert (len(mp), n_mp) == (154, 1767), (len(mp), n_mp)
+          fx = FoldxLookup()
+          assert fx.get('1PPF', 'GI32Y') is fx.get('1PPF', 'GB32Y') is not None, 'role alias lost'
+          # Chain C here is numbered 1001-1165, so the fixed-width mapping column fused the chain
+          # letter to the number and the chain vanished from the parse: no role name until 0.2.0,
+          # and a role-keyed join lost the record with no error. See load_chain_mapping.
+          assert fx.get('1S0W', 'AC142F') is fx.get('1S0W', 'AB142F') is not None, \
+              'first-chain role name lost'
+          assert fx.is_exact, 'the shipped role names did not survive packaging'
+          "
+
+      - name: No local paths, hosts or machine names
+        # The scan itself lives in a script so that this workflow and the check CONTRIBUTING.md
+        # tells a contributor to run before a release are the same thing rather than two copies.
+        # A documented second copy was tried first and came out with a narrower pattern and a
+        # shorter include list -- it passed locally on trees this would have rejected.
+        run: .github/leakscan.sh

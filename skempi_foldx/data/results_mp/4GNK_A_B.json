@@ -1,0 +1,66 @@
+{
+ "variants": {
+  "DA279A,PA281D": {
+   "Interaction Energy": 0.0,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0,
+   "Electrostatics": 0.0,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": 0.0,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": 0.0,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "cleaned": "DA279A,PA281D",
+   "_source": "sweep_4x_round_1"
+  },
+  "KA294A,LB764A": {
+   "Interaction Energy": -0.0054,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0,
+   "Electrostatics": -0.0038,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": 0.0,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": 0.0,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "cleaned": "KA294A,LB764A",
+   "_source": "sweep_4x_round_1"
+  },
+  "LB764A,DA279A,PA281D": {
+   "Interaction Energy": 0.0001,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0,
+   "Electrostatics": 0.0,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": 0.0,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": 0.0001,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "cleaned": "LB764A,DA279A,PA281D",
+   "_source": "sweep_4x_round_1"
+  }
+ },
+ "meta": {
+  "pdb": "4GNK",
+  "mode": "variant",
+  "n_requested": 3,
+  "validation_failed": [],
+  "n_ok": 3,
+  "groups": "A,B",
+  "mutation_list_sha256": "b3992719a460b6ec28b50265c4e8f86e8c5f61c6d66f31727ada45063c86f8c7",
+  "n_accepted": 3,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "4GNK_A_B",
+  "source": "round_1 union list",
+  "n_mutations": 3
+ }
+}

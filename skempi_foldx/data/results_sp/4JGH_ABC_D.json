@@ -1,0 +1,35 @@
+{
+ "muts": {
+  "WD44A": {
+   "Interaction Energy": 1.8548,
+   "Backbone Hbond": 0.0828,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 1.0449,
+   "Electrostatics": 0.0,
+   "Solvation Polar": -0.2763,
+   "Solvation Hydrophobic": 1.889,
+   "Van der Waals clashes": -0.0253,
+   "entropy sidechain": -0.8154,
+   "entropy mainchain": -0.0281,
+   "torsional clash": -0.0025,
+   "backbone clash": -0.0798,
+   "cleaned": "WD44A",
+   "_source": "sweep_4x_round_1",
+   "role": "WB44A"
+  }
+ },
+ "meta": {
+  "pdb": "4JGH",
+  "mode": "author",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "ABC,D",
+  "mutation_list_sha256": "4c0dcf9792dee168c26cd1b4747c5771e64f352e0a84df5bc006e34b28fc1726",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "4JGH_ABC_D",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

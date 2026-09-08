@@ -1,0 +1,35 @@
+{
+ "muts": {
+  "RC7V": {
+   "Interaction Energy": 1.9285,
+   "Backbone Hbond": 1.6971,
+   "Sidechain Hbond": 1.7007,
+   "Van der Waals": 1.7738,
+   "Electrostatics": 0.0958,
+   "Solvation Polar": -3.3106,
+   "Solvation Hydrophobic": 1.0516,
+   "Van der Waals clashes": -0.4166,
+   "entropy sidechain": -0.2831,
+   "entropy mainchain": -0.3435,
+   "torsional clash": -0.1003,
+   "backbone clash": -0.5072,
+   "cleaned": "RC7V",
+   "_source": "sweep_4x_round_1",
+   "role": "RA381V"
+  }
+ },
+ "meta": {
+  "pdb": "1QSE",
+  "mode": "author",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "ABC,DE",
+  "mutation_list_sha256": "3e3a53c2f85bd30c8f6e5995a770b26293af2dc6088141bf7e3d739664434102",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "1QSE_ABC_DE",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

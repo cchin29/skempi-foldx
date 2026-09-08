@@ -1,0 +1,34 @@
+{
+ "muts": {
+  "SB87F": {
+   "Interaction Energy": 0.2626,
+   "Backbone Hbond": 0.6175,
+   "Sidechain Hbond": 0.7623,
+   "Van der Waals": -0.1554,
+   "Electrostatics": -0.0155,
+   "Solvation Polar": 0.0852,
+   "Solvation Hydrophobic": -0.2978,
+   "Van der Waals clashes": -0.6538,
+   "entropy sidechain": -0.1178,
+   "entropy mainchain": 0.0197,
+   "torsional clash": 0.0125,
+   "backbone clash": -0.1431,
+   "cleaned": "SB87F",
+   "_source": "sweep_4x_round_1"
+  }
+ },
+ "meta": {
+  "pdb": "2B10",
+  "mode": "author",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "A,B",
+  "mutation_list_sha256": "3f1037aa83e83340901ac9eaed31924cd30db6103bf816a7e438342012573bb1",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "2B10_A_B",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

@@ -37,42 +37,52 @@ methods text ("twice"), CATH-ddG in its supplement ("only once for each protein 
 structure"). CATH-ddG is the only one to print the command lines; the other three describe the
 sequence in prose, and RDE-Network and ProtBFF name two commands rather than three.
 `numberOfRuns`, `--vdwDesign`, `--pH`, `--temperature`, `--water` and `--ionStrength` appear in
-none of them, and none discusses FoldX run-to-run behaviour. Several report a FoldX baseline
-without an accompanying protocol.
+none of them, and none discusses FoldX run-to-run behaviour. Four of the eight papers reporting a
+FoldX baseline state no settings for it. GearBind is the only one to name a FoldX major version
+other than 5: "we use FoldX 4 for mutant structure generation".
 
 | Paper | FoldX role | RepairPDB | `numberOfRuns` | FoldX baseline |
 |---|---|---|---|---|
 | **CATH-ddG** | mutant structures + AnalyseComplex terms → MLP; baseline | **×1** | not stated (output `_1` implies default) | own run |
-| **USP-ddG** | `ΔG_FoldX` term + its own loss branch; baseline | not stated | not stated | its FoldX row matches CATH-ddG's to the reported digits |
+| **USP-ddG** | `ΔG_FoldX` term + its own loss branch; baseline | not stated | not stated | not stated; the reported row equals CATH-ddG's to the digits given (shared authorship — see [REFERENCES.md](REFERENCES.md)) |
 | **ProtBFF** | mutant structures → dihedral/lDDT features | **×2** | not stated | own run |
-| **RDE-Network** | baseline only | sequence stated; count not given | not stated | own run — the origin of the widely-quoted 0.3789 |
-| **GearBind** | mutant structures for training; baseline | sequence stated; count not given | not stated | own run |
+| **RDE-Network** | baseline only | sequence stated; count not given | not stated | own run — the origin of the widely-quoted 0.3789 per-structure Pearson |
+| **GearBind** | mutant structures for training; baseline | sequence stated; count not given | not stated | own run, **FoldX 4** — the only work here to state a major version other than 5 |
 | Prompt-DDG | baseline only | — | — | quoted from RDE-Network, stated |
-| BA-DDG | baseline only | — | — | matches RDE-Network's row; provenance not stated |
+| BA-DDG | baseline only | — | — | not stated; the reported row equals RDE-Network's to the digits given |
 | GraphPPI | mutant structures | not stated | not stated | quoted |
-| PPIformer | not used as a ΔΔG baseline | — | — | — |
+| PPIformer | not used as a ΔΔG baseline | — | — | no ΔΔG row; its antibody-retrieval table carries a FoldX row reproduced from RDE-Network, stated |
 | MINT | FoldX-derived ΔΔG as task labels, via a cited dataset; not a baseline | — | — | — |
 
 Two things follow that are worth knowing before quoting any FoldX number.
 
-**Fewer of these FoldX baselines are original runs than the count of them suggests.** Eight of the
-ten works report a FoldX baseline. Five state an original run — CATH-ddG, ProtBFF, RDE-Network,
-GearBind, and GraphPPI in its published form, though the survey row here is read from its preprint,
-which does not. Three carry a value from elsewhere: Prompt-DDG, which names the row it took from
-RDE-Network, and USP-ddG and BA-DDG, which do not say where theirs came from.
-In the CATH-superfamily table, where a new
-method's result would sit beside it, the FoldX row carries the same value in CATH-ddG and in
-USP-ddG, and only CATH-ddG says how that value was produced. Agreeing with that row is therefore
-agreeing with one measurement rather than with a consensus of several.
+**A reported FoldX baseline is not always a fresh run.** Eight of the ten works report a FoldX
+baseline. Five state an original run — CATH-ddG, ProtBFF, RDE-Network, GearBind, and GraphPPI in
+its published form, though the survey row here is read from its preprint, which does not. Three
+report a value that also appears elsewhere: Prompt-DDG, which names RDE-Network as its source;
+USP-ddG, which shares three authors with CATH-ddG, so its matching row is consistent with the same
+group's earlier run; and BA-DDG, whose provenance was not found in the text read here — which, as
+above, is not the same as its being absent, since a value may be attributed in a section not
+checked. A fourth work propagates the same numbers outside the ΔΔG tables: PPIformer reports no
+FoldX ΔΔG baseline, but its antibody-retrieval table carries a FoldX row and says so — "the values
+for baseline methods except for MSA Transformer and ESM-IF are reproduced from" RDE-Network.
 
-**This protocol matches the most fully specified one, step for step.** CATH-ddG's supplementary
-section 1.4 gives `RepairPDB` (once) → `BuildModel` → `AnalyseComplex` on both structures, FoldX
-5.0, defaults otherwise, with the command lines printed — the detail is in the supplement rather
-than the article PDF. RDE-Network and GearBind give the same sequence in prose; printing the
-commands and the version is what makes CATH-ddG reproducible from the paper alone.
+In the CATH-superfamily table, where a new method's result would sit beside it, the FoldX row
+carries the same value in CATH-ddG and in USP-ddG, and CATH-ddG is where that value's protocol is
+given. Agreeing with that row is therefore agreeing with one measurement rather than with a
+consensus of several.
 
-That sequence is this pipeline, with two differences. CATH-ddG ran FoldX 5.0 and these values were
-produced with 5.1, so the commands match step for step while the force field does not. And
-CATH-ddG runs `Optimize` on the mutant structure, which this pipeline does not — that step feeds
-their *structural* input, while only the `AnalyseComplex` energies are taken here, so it does not
-enter the numbers being compared.
+**The command sequence matches CATH-ddG's.** CATH-ddG's supplementary section 1.4 gives
+`RepairPDB` → `BuildModel` → `AnalyseComplex` on both structures, FoldX 5.0, defaults otherwise,
+with the command lines printed — the detail is in the supplement rather than the article PDF. The
+count is stated in section 1.11, on computational efficiency, rather than beside the commands:
+`RepairPDB` "needs to be performed only once for each protein complex structure". GearBind gives
+the same sequence in prose, and names its version. RDE-Network describes it in prose too but names
+two of the three commands, as above — which is the point: printing the commands and the version is
+what makes CATH-ddG reproducible from the paper alone.
+
+That sequence is the one this pipeline runs, with two differences. CATH-ddG ran FoldX 5.0 and
+these values were produced with 5.1, so the commands match step for step while the force field
+does not. And CATH-ddG runs `Optimize` on the mutant structure, which this pipeline does not —
+that step feeds their *structural* input, while only the `AnalyseComplex` energies are taken here,
+so it does not enter the numbers being compared.

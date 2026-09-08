@@ -1,0 +1,35 @@
+{
+ "variants": {
+  "QG61P,DG62V": {
+   "Interaction Energy": -0.3316,
+   "Backbone Hbond": 0.0497,
+   "Sidechain Hbond": 0.7522,
+   "Van der Waals": 0.411,
+   "Electrostatics": 0.9332,
+   "Solvation Polar": -1.8417,
+   "Solvation Hydrophobic": -0.4655,
+   "Van der Waals clashes": 0.0225,
+   "entropy sidechain": 0.0337,
+   "entropy mainchain": -0.4291,
+   "torsional clash": 0.0217,
+   "backbone clash": 0.0479,
+   "cleaned": "QG61P,DG62V",
+   "_source": "sweep_4x_round_1",
+   "role": "QA61P,DA62V"
+  }
+ },
+ "meta": {
+  "pdb": "4N8V",
+  "mode": "variant",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "G,ABC",
+  "mutation_list_sha256": "8116f004de944c7a4fe653f0e3a06472f54aea1a03a75dfac55587137d59ac2b",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "4N8V_G_ABC",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

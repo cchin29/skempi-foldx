@@ -1,0 +1,69 @@
+{
+ "variants": {
+  "SC26D,TC31E,NC93A": {
+   "Interaction Energy": 1.4962,
+   "Backbone Hbond": 0.6063,
+   "Sidechain Hbond": 0.5319,
+   "Van der Waals": 0.214,
+   "Electrostatics": -0.08,
+   "Solvation Polar": -0.5001,
+   "Solvation Hydrophobic": 0.1494,
+   "Van der Waals clashes": -0.0046,
+   "entropy sidechain": 0.0149,
+   "entropy mainchain": 0.6992,
+   "torsional clash": -0.0072,
+   "backbone clash": 0.0841,
+   "cleaned": "SC26D,TC31E,NC93A",
+   "_source": "sweep_4x_round_1",
+   "role": "SA26D,TA31E,NA93A"
+  },
+  "SC26D,TC31E,NC93A,ND56A,TD61E": {
+   "Interaction Energy": 1.4981,
+   "Backbone Hbond": 0.6059,
+   "Sidechain Hbond": 0.5315,
+   "Van der Waals": 0.3584,
+   "Electrostatics": -0.2482,
+   "Solvation Polar": -0.4758,
+   "Solvation Hydrophobic": 0.3881,
+   "Van der Waals clashes": -0.0039,
+   "entropy sidechain": -0.0126,
+   "entropy mainchain": 0.6597,
+   "torsional clash": -0.0103,
+   "backbone clash": 0.0962,
+   "cleaned": "SC26D,TC31E,NC93A,ND56A,TD61E",
+   "_source": "sweep_4x_round_1",
+   "role": "SA26D,TA31E,NA93A,NA267A,TA272E"
+  },
+  "TC31E,NC93A": {
+   "Interaction Energy": 1.6714,
+   "Backbone Hbond": 0.6006,
+   "Sidechain Hbond": 0.526,
+   "Van der Waals": 0.341,
+   "Electrostatics": -0.0265,
+   "Solvation Polar": -0.6383,
+   "Solvation Hydrophobic": 0.2823,
+   "Van der Waals clashes": -0.0047,
+   "entropy sidechain": -0.025,
+   "entropy mainchain": 0.6933,
+   "torsional clash": -0.0068,
+   "backbone clash": -0.0125,
+   "cleaned": "TC31E,NC93A",
+   "_source": "sweep_4x_round_1",
+   "role": "TA31E,NA93A"
+  }
+ },
+ "meta": {
+  "pdb": "1YY9",
+  "mode": "variant",
+  "n_requested": 3,
+  "validation_failed": [],
+  "n_ok": 3,
+  "groups": "CD,A",
+  "mutation_list_sha256": "04bb16865d5e2e923e3430c19fd679706e7a3b3d70072857c07af6c3af55282d",
+  "n_accepted": 3,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "1YY9_CD_A",
+  "source": "round_1 union list",
+  "n_mutations": 3
+ }
+}

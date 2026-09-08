@@ -1,0 +1,35 @@
+{
+ "muts": {
+  "AC8K": {
+   "Interaction Energy": 0.8489,
+   "Backbone Hbond": -0.0927,
+   "Sidechain Hbond": 2.1388,
+   "Van der Waals": -0.5914,
+   "Electrostatics": 0.3063,
+   "Solvation Polar": 0.1778,
+   "Solvation Hydrophobic": -1.3499,
+   "Van der Waals clashes": 0.2587,
+   "entropy sidechain": 0.2674,
+   "entropy mainchain": -0.3975,
+   "torsional clash": 0.0189,
+   "backbone clash": 0.3438,
+   "cleaned": "AC8K",
+   "_source": "sweep_4x_round_1",
+   "role": "AB8K"
+  }
+ },
+ "meta": {
+  "pdb": "3RF3",
+  "mode": "author",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "A,C",
+  "mutation_list_sha256": "ef37d4a8d63fd636e0b6dd9c756822d4731ac87b41ee554945120e7bb1f6658b",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "3RF3_A_C",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

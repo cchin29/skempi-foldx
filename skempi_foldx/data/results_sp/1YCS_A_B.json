@@ -1,0 +1,66 @@
+{
+ "muts": {
+  "GA149S": {
+   "Interaction Energy": 0.0369,
+   "Backbone Hbond": 0.0056,
+   "Sidechain Hbond": 0.0008,
+   "Van der Waals": 0.024,
+   "Electrostatics": -0.0041,
+   "Solvation Polar": -0.0135,
+   "Solvation Hydrophobic": 0.0406,
+   "Van der Waals clashes": 0.0014,
+   "entropy sidechain": 0.0,
+   "entropy mainchain": -0.0222,
+   "torsional clash": 0.0041,
+   "backbone clash": -0.0206,
+   "cleaned": "GA149S",
+   "_source": "sweep_4x_round_1"
+  },
+  "RA177H": {
+   "Interaction Energy": 0.6821,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0985,
+   "Electrostatics": 0.4169,
+   "Solvation Polar": -0.2341,
+   "Solvation Hydrophobic": 0.0106,
+   "Van der Waals clashes": -0.0012,
+   "entropy sidechain": 0.0617,
+   "entropy mainchain": -0.005,
+   "torsional clash": -0.0019,
+   "backbone clash": -0.0006,
+   "cleaned": "RA177H",
+   "_source": "sweep_4x_round_1"
+  },
+  "RA85E": {
+   "Interaction Energy": 1.8128,
+   "Backbone Hbond": 1.4509,
+   "Sidechain Hbond": 1.3882,
+   "Van der Waals": 0.8356,
+   "Electrostatics": 0.7385,
+   "Solvation Polar": -1.15,
+   "Solvation Hydrophobic": 0.6548,
+   "Van der Waals clashes": -0.3659,
+   "entropy sidechain": -2.2469,
+   "entropy mainchain": -0.0257,
+   "torsional clash": -0.0077,
+   "backbone clash": -0.1621,
+   "cleaned": "RA85E",
+   "_source": "sweep_4x_round_1"
+  }
+ },
+ "meta": {
+  "pdb": "1YCS",
+  "mode": "author",
+  "n_requested": 3,
+  "validation_failed": [],
+  "n_ok": 3,
+  "groups": "A,B",
+  "mutation_list_sha256": "0376aed9e1b2c00bcbaeaa7367401c01d76e1c0d849c15d11d9e39a202bbc604",
+  "n_accepted": 3,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "1YCS_A_B",
+  "source": "round_1 union list",
+  "n_mutations": 3
+ }
+}

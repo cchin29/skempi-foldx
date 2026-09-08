@@ -1,0 +1,35 @@
+{
+ "variants": {
+  "GI34P,PI35G": {
+   "Interaction Energy": 1.3319,
+   "Backbone Hbond": 0.0627,
+   "Sidechain Hbond": 0.0091,
+   "Van der Waals": 0.5329,
+   "Electrostatics": 0.0382,
+   "Solvation Polar": -0.2825,
+   "Solvation Hydrophobic": 0.7085,
+   "Van der Waals clashes": 0.2984,
+   "entropy sidechain": 0.0952,
+   "entropy mainchain": 0.0905,
+   "torsional clash": -0.1185,
+   "backbone clash": -0.0026,
+   "cleaned": "GI34P,PI35G",
+   "_source": "sweep_4x_round_1",
+   "role": "GB34P,PB35G"
+  }
+ },
+ "meta": {
+  "pdb": "4CPA",
+  "mode": "variant",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "A,I",
+  "mutation_list_sha256": "bba92412f8dbbfca9152d60af0a8021241aa0a0e2cdcab4cb38bbf3161eaa40c",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "4CPA_A_I",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

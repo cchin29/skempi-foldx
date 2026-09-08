@@ -1,0 +1,35 @@
+{
+ "muts": {
+  "NE170D": {
+   "Interaction Energy": -0.4425,
+   "Backbone Hbond": 0.0053,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": -0.0178,
+   "Electrostatics": -0.2525,
+   "Solvation Polar": 0.0373,
+   "Solvation Hydrophobic": -0.0263,
+   "Van der Waals clashes": -0.0264,
+   "entropy sidechain": 0.0,
+   "entropy mainchain": -0.0288,
+   "torsional clash": 0.0011,
+   "backbone clash": -0.0014,
+   "cleaned": "NE170D",
+   "_source": "sweep_4x_round_1",
+   "role": "NA170D"
+  }
+ },
+ "meta": {
+  "pdb": "3TGK",
+  "mode": "author",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "E,I",
+  "mutation_list_sha256": "6662e37b7ea1226f18a8142091bca633bafb4c57a0c73118878ef945814832a1",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "3TGK_E_I",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

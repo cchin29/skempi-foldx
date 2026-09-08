@@ -1,0 +1,52 @@
+{
+ "variants": {
+  "QC40A,DC63A": {
+   "Interaction Energy": 0.7585,
+   "Backbone Hbond": 0.5375,
+   "Sidechain Hbond": 1.3982,
+   "Van der Waals": 1.154,
+   "Electrostatics": 0.0554,
+   "Solvation Polar": -2.1831,
+   "Solvation Hydrophobic": 1.0382,
+   "Van der Waals clashes": -0.0331,
+   "entropy sidechain": -1.4529,
+   "entropy mainchain": 0.2531,
+   "torsional clash": -0.0193,
+   "backbone clash": -0.2757,
+   "cleaned": "QC40A,DC63A",
+   "_source": "sweep_4x_round_1",
+   "role": "QB40A,DB63A"
+  },
+  "QC40A,DC63A,QC89L": {
+   "Interaction Energy": 0.8027,
+   "Backbone Hbond": 0.6119,
+   "Sidechain Hbond": 0.9779,
+   "Van der Waals": 0.9533,
+   "Electrostatics": 0.031,
+   "Solvation Polar": -1.6994,
+   "Solvation Hydrophobic": 0.8915,
+   "Van der Waals clashes": -0.012,
+   "entropy sidechain": -1.247,
+   "entropy mainchain": 0.2965,
+   "torsional clash": -0.0154,
+   "backbone clash": -0.1979,
+   "cleaned": "QC40A,DC63A,QC89L",
+   "_source": "sweep_4x_round_1",
+   "role": "QB40A,DB63A,QB89L"
+  }
+ },
+ "meta": {
+  "pdb": "1GC1",
+  "mode": "variant",
+  "n_requested": 2,
+  "validation_failed": [],
+  "n_ok": 2,
+  "groups": "G,C",
+  "mutation_list_sha256": "72a754d983a4c0bde2a016968803ce07d7ebc2c11350c2cfb9d2d74a5cc071b5",
+  "n_accepted": 2,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "1GC1_G_C",
+  "source": "round_1 union list",
+  "n_mutations": 2
+ }
+}

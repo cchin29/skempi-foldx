@@ -1,0 +1,35 @@
+{
+ "muts": {
+  "AI41E": {
+   "Interaction Energy": -0.7225,
+   "Backbone Hbond": -0.14,
+   "Sidechain Hbond": -0.0783,
+   "Van der Waals": -0.1319,
+   "Electrostatics": -1.3587,
+   "Solvation Polar": 0.4725,
+   "Solvation Hydrophobic": -0.1722,
+   "Van der Waals clashes": 0.2503,
+   "entropy sidechain": -0.1416,
+   "entropy mainchain": -0.1977,
+   "torsional clash": 0.8101,
+   "backbone clash": -0.0015,
+   "cleaned": "AI41E",
+   "_source": "sweep_4x_round_1",
+   "role": "AB41E"
+  }
+ },
+ "meta": {
+  "pdb": "1Y34",
+  "mode": "author",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "E,I",
+  "mutation_list_sha256": "6eab0ba82f88e20395f390d290062b0616527b13df1da67f3092a4427750924b",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "1Y34_E_I",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

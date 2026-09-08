@@ -1,0 +1,34 @@
+{
+ "muts": {
+  "AA17H": {
+   "Interaction Energy": 5.0098,
+   "Backbone Hbond": 0.2448,
+   "Sidechain Hbond": -0.0896,
+   "Van der Waals": -0.2089,
+   "Electrostatics": 0.0644,
+   "Solvation Polar": 0.0723,
+   "Solvation Hydrophobic": -0.2872,
+   "Van der Waals clashes": 5.2355,
+   "entropy sidechain": -0.2502,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.1614,
+   "backbone clash": -0.4032,
+   "cleaned": "AA17H",
+   "_source": "sweep_4x_round_1"
+  }
+ },
+ "meta": {
+  "pdb": "3N0P",
+  "mode": "author",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "A,B",
+  "mutation_list_sha256": "9d9f8ff760e68a5e6fa20964edc0332f22641425502b6d3fba97537d0bdca926",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "3N0P_A_B",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

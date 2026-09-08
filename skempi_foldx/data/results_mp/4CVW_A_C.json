@@ -1,0 +1,35 @@
+{
+ "variants": {
+  "LC34G,VC35D": {
+   "Interaction Energy": 5.5467,
+   "Backbone Hbond": 0.0011,
+   "Sidechain Hbond": 0.0216,
+   "Van der Waals": 1.8362,
+   "Electrostatics": -0.2957,
+   "Solvation Polar": 0.624,
+   "Solvation Hydrophobic": 3.9156,
+   "Van der Waals clashes": -0.029,
+   "entropy sidechain": -0.3042,
+   "entropy mainchain": -0.3152,
+   "torsional clash": -0.0194,
+   "backbone clash": -0.0948,
+   "cleaned": "LC34G,VC35D",
+   "_source": "sweep_4x_round_1",
+   "role": "LB34G,VB35D"
+  }
+ },
+ "meta": {
+  "pdb": "4CVW",
+  "mode": "variant",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "A,C",
+  "mutation_list_sha256": "17b9c9ca1b9f57bb201a2fd4f232a7f43eb475bc4aa933de403e74b2a7011ea6",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "4CVW_A_C",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

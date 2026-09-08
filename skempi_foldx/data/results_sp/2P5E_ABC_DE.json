@@ -1,0 +1,35 @@
+{
+ "muts": {
+  "YD32D": {
+   "Interaction Energy": 3.8883,
+   "Backbone Hbond": 0.0438,
+   "Sidechain Hbond": 1.1418,
+   "Van der Waals": 0.9622,
+   "Electrostatics": 0.4046,
+   "Solvation Polar": 0.8121,
+   "Solvation Hydrophobic": 1.5028,
+   "Van der Waals clashes": -0.608,
+   "entropy sidechain": -0.2358,
+   "entropy mainchain": -0.0956,
+   "torsional clash": -0.0078,
+   "backbone clash": -0.1882,
+   "cleaned": "YD32D",
+   "_source": "sweep_4x_round_1",
+   "role": "YB32D"
+  }
+ },
+ "meta": {
+  "pdb": "2P5E",
+  "mode": "author",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "ABC,DE",
+  "mutation_list_sha256": "281f085d5bf69c2e6a3d4cf60b15dac3b43cdfe69020595e3b90a7237be3ef1d",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "2P5E_ABC_DE",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "muts": {
+  "AI42Y": {
+   "Interaction Energy": -1.5979,
+   "Backbone Hbond": -0.0585,
+   "Sidechain Hbond": -1.0468,
+   "Van der Waals": -0.9804,
+   "Electrostatics": -0.1641,
+   "Solvation Polar": 0.7455,
+   "Solvation Hydrophobic": -1.3667,
+   "Van der Waals clashes": -0.775,
+   "entropy sidechain": 2.1507,
+   "entropy mainchain": -0.1046,
+   "torsional clash": 0.0565,
+   "backbone clash": 0.1946,
+   "cleaned": "AI42Y",
+   "_source": "sweep_4x_round_1",
+   "role": "AB42Y"
+  }
+ },
+ "meta": {
+  "pdb": "1TO1",
+  "mode": "author",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "E,I",
+  "mutation_list_sha256": "e78e16ef135d1bf7784e848d197a56be9c57c13ed26aec3c12c2e1c238bf00b8",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "1TO1_E_I",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

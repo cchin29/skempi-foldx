@@ -1,0 +1,35 @@
+{
+ "muts": {
+  "PI13L": {
+   "Interaction Energy": 0.1384,
+   "Backbone Hbond": -0.0376,
+   "Sidechain Hbond": -0.104,
+   "Van der Waals": -0.9098,
+   "Electrostatics": -0.4801,
+   "Solvation Polar": 1.5428,
+   "Solvation Hydrophobic": -1.5751,
+   "Van der Waals clashes": 0.8498,
+   "entropy sidechain": 0.6705,
+   "entropy mainchain": -0.2165,
+   "torsional clash": 0.0904,
+   "backbone clash": 0.6896,
+   "cleaned": "PI13L",
+   "_source": "sweep_4x_round_1",
+   "role": "PB13L"
+  }
+ },
+ "meta": {
+  "pdb": "2SGP",
+  "mode": "author",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "E,I",
+  "mutation_list_sha256": "b46b9b2fa20fa1cc685cc6cf6411fbcf904e03a4b0c19789b4ff881fa3d859c9",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "2SGP_E_I",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

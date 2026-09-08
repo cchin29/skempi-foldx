@@ -1,0 +1,50 @@
+{
+ "muts": {
+  "DB92A": {
+   "Interaction Energy": -0.3849,
+   "Backbone Hbond": -0.0664,
+   "Sidechain Hbond": 0.8912,
+   "Van der Waals": 0.8449,
+   "Electrostatics": 1.1885,
+   "Solvation Polar": -3.0347,
+   "Solvation Hydrophobic": 0.5005,
+   "Van der Waals clashes": -0.1529,
+   "entropy sidechain": -0.2632,
+   "entropy mainchain": -0.3735,
+   "torsional clash": -0.0271,
+   "backbone clash": -0.2615,
+   "cleaned": "DB92A",
+   "_source": "sweep_4x_round_1"
+  },
+  "RB15A": {
+   "Interaction Energy": 1.8267,
+   "Backbone Hbond": 0.885,
+   "Sidechain Hbond": 0.895,
+   "Van der Waals": 1.0144,
+   "Electrostatics": 1.2955,
+   "Solvation Polar": -2.3903,
+   "Solvation Hydrophobic": 0.6638,
+   "Van der Waals clashes": -0.1207,
+   "entropy sidechain": -0.6414,
+   "entropy mainchain": 0.1066,
+   "torsional clash": -0.0069,
+   "backbone clash": -0.0425,
+   "cleaned": "RB15A",
+   "_source": "sweep_4x_round_1"
+  }
+ },
+ "meta": {
+  "pdb": "4KRO",
+  "mode": "author",
+  "n_requested": 2,
+  "validation_failed": [],
+  "n_ok": 2,
+  "groups": "A,B",
+  "mutation_list_sha256": "65c3bdc0afc417dfabe80269d811882b1a9fa4ee627b001c13c5bf50455aaafc",
+  "n_accepted": 2,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "4KRO_A_B",
+  "source": "round_1 union list",
+  "n_mutations": 2
+ }
+}

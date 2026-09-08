@@ -31,6 +31,7 @@ sys.path.insert(0, str(ROOT))
 
 from skempi_foldx import load_skempi, worklist_single_point  # noqa: E402
 from skempi_foldx.run import (  # noqa: E402
+    pool_by_code,
     repaired_wt_residues,
     validate_against_structure,
     worklist_multi_point,
@@ -63,7 +64,12 @@ def main():
 
     chain = BASE / "chain_work"
     skempi = load_skempi(Path(args.skempi_csv))
-    sp, mp = worklist_single_point(skempi), worklist_multi_point(skempi)
+    # Pooled to PDB codes: the chain directories this checks are named by structure, one repair
+    # per code shared across that code's interface definitions. Keyed by identifier the universe
+    # would name 347 directories that do not exist, and the check would report itself clean over
+    # nothing -- which is precisely the failure this script's own README warns about.
+    sp = pool_by_code(worklist_single_point(skempi))
+    mp = pool_by_code(worklist_multi_point(skempi))
     # Both mechanisms subtract from the universe. If either is missed here, an excluded
     # complex is counted as a MISSING CHAIN and full_coverage is pinned false forever.
     drop = set(args.exclude or []) | {c for c in set(sp) | set(mp) if is_excluded(c)}

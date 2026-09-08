@@ -1,0 +1,82 @@
+{
+ "variants": {
+  "AA6S,KA7E": {
+   "Interaction Energy": 0.3029,
+   "Backbone Hbond": 0.0056,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.1141,
+   "Electrostatics": 0.0425,
+   "Solvation Polar": -0.2573,
+   "Solvation Hydrophobic": 0.225,
+   "Van der Waals clashes": -0.001,
+   "entropy sidechain": 0.2309,
+   "entropy mainchain": 0.0,
+   "torsional clash": -0.0005,
+   "backbone clash": -0.1357,
+   "cleaned": "AA6S,KA7E",
+   "_source": "sweep_4x_round_1"
+  },
+  "AA6S,KA7E,AA9E,GA13S": {
+   "Interaction Energy": 1.0691,
+   "Backbone Hbond": -0.2521,
+   "Sidechain Hbond": -0.0004,
+   "Van der Waals": -1.7688,
+   "Electrostatics": -0.2822,
+   "Solvation Polar": 4.0061,
+   "Solvation Hydrophobic": -2.0201,
+   "Van der Waals clashes": 0.2737,
+   "entropy sidechain": 1.4053,
+   "entropy mainchain": -0.291,
+   "torsional clash": 0.1378,
+   "backbone clash": -0.1166,
+   "cleaned": "AA6S,KA7E,AA9E,GA13S",
+   "_source": "sweep_4x_round_1"
+  },
+  "AA9E,GA13S": {
+   "Interaction Energy": 1.008,
+   "Backbone Hbond": -0.1912,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": -1.6882,
+   "Electrostatics": -0.3851,
+   "Solvation Polar": 3.1402,
+   "Solvation Hydrophobic": -2.2588,
+   "Van der Waals clashes": 0.8672,
+   "entropy sidechain": 1.8231,
+   "entropy mainchain": -0.303,
+   "torsional clash": 0.1065,
+   "backbone clash": -0.3033,
+   "cleaned": "AA9E,GA13S",
+   "_source": "sweep_4x_round_1"
+  },
+  "IA27E,IA38E": {
+   "Interaction Energy": 0.0488,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0058,
+   "Electrostatics": 0.0037,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": 0.0068,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": 0.0335,
+   "entropy mainchain": 0.0,
+   "torsional clash": -0.0013,
+   "backbone clash": 0.0,
+   "cleaned": "IA27E,IA38E",
+   "_source": "sweep_4x_round_1"
+  }
+ },
+ "meta": {
+  "pdb": "2OOB",
+  "mode": "variant",
+  "n_requested": 4,
+  "validation_failed": [],
+  "n_ok": 4,
+  "groups": "A,B",
+  "mutation_list_sha256": "8fc94c61e48156119c2dc9c2d3f7b2b53a705bfa8df4b0a18b419c1a7a7e429d",
+  "n_accepted": 4,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "2OOB_A_B",
+  "source": "round_1 union list",
+  "n_mutations": 4
+ }
+}

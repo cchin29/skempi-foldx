@@ -1,0 +1,50 @@
+{
+ "muts": {
+  "DA38E": {
+   "Interaction Energy": -0.0108,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0,
+   "Electrostatics": -0.0055,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": 0.0,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": -0.0013,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "cleaned": "DA38E",
+   "_source": "sweep_4x_round_1"
+  },
+  "YA32K": {
+   "Interaction Energy": 1.9287,
+   "Backbone Hbond": 0.013,
+   "Sidechain Hbond": 2.6375,
+   "Van der Waals": 1.4857,
+   "Electrostatics": -0.0225,
+   "Solvation Polar": -1.4919,
+   "Solvation Hydrophobic": 1.5483,
+   "Van der Waals clashes": -0.1654,
+   "entropy sidechain": -2.0387,
+   "entropy mainchain": -0.0465,
+   "torsional clash": -0.0178,
+   "backbone clash": -0.047,
+   "cleaned": "YA32K",
+   "_source": "sweep_4x_round_1"
+  }
+ },
+ "meta": {
+  "pdb": "1GRN",
+  "mode": "author",
+  "n_requested": 2,
+  "validation_failed": [],
+  "n_ok": 2,
+  "groups": "A,B",
+  "mutation_list_sha256": "889e0ae7f1ae935ebd4ffef4f7d262c03bb0ed6ffe850fb77b1199649adca9f7",
+  "n_accepted": 2,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "1GRN_A_B",
+  "source": "round_1 union list",
+  "n_mutations": 2
+ }
+}

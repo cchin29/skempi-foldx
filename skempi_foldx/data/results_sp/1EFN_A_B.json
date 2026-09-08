@@ -1,0 +1,50 @@
+{
+ "muts": {
+  "IA12A": {
+   "Interaction Energy": 3.3817,
+   "Backbone Hbond": 0.0565,
+   "Sidechain Hbond": 0.0656,
+   "Van der Waals": 1.6367,
+   "Electrostatics": 0.1472,
+   "Solvation Polar": -0.86,
+   "Solvation Hydrophobic": 2.959,
+   "Van der Waals clashes": -0.0128,
+   "entropy sidechain": -0.9259,
+   "entropy mainchain": 0.3312,
+   "torsional clash": -0.0158,
+   "backbone clash": -0.1066,
+   "cleaned": "IA12A",
+   "_source": "sweep_4x_round_1"
+  },
+  "TA13H": {
+   "Interaction Energy": 1.6515,
+   "Backbone Hbond": -0.0007,
+   "Sidechain Hbond": 0.8169,
+   "Van der Waals": -0.2324,
+   "Electrostatics": -0.9102,
+   "Solvation Polar": 0.8884,
+   "Solvation Hydrophobic": -0.2605,
+   "Van der Waals clashes": 0.0566,
+   "entropy sidechain": 1.3464,
+   "entropy mainchain": 0.026,
+   "torsional clash": -0.0209,
+   "backbone clash": -0.0626,
+   "cleaned": "TA13H",
+   "_source": "sweep_4x_round_1"
+  }
+ },
+ "meta": {
+  "pdb": "1EFN",
+  "mode": "author",
+  "n_requested": 2,
+  "validation_failed": [],
+  "n_ok": 2,
+  "groups": "A,B",
+  "mutation_list_sha256": "57001ae7a3208985ae75e8777d5fc31e768f753d82a314ee1a05d7e8e918eb46",
+  "n_accepted": 2,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "1EFN_A_B",
+  "source": "round_1 union list",
+  "n_mutations": 2
+ }
+}

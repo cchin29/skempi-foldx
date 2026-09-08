@@ -1,0 +1,52 @@
+{
+ "variants": {
+  "KA67A,EB64A": {
+   "Interaction Energy": 0.5776,
+   "Backbone Hbond": -0.013,
+   "Sidechain Hbond": 0.1071,
+   "Van der Waals": 0.3716,
+   "Electrostatics": 0.3534,
+   "Solvation Polar": -0.6148,
+   "Solvation Hydrophobic": 0.5149,
+   "Van der Waals clashes": -0.1091,
+   "entropy sidechain": -0.3241,
+   "entropy mainchain": 0.134,
+   "torsional clash": -0.045,
+   "backbone clash": -0.0649,
+   "cleaned": "KA67A,EB64A",
+   "_source": "sweep_4x_round_1",
+   "role": "KA67A,EA244A"
+  },
+  "YP6F,TP11S": {
+   "Interaction Energy": 1.3828,
+   "Backbone Hbond": 0.5712,
+   "Sidechain Hbond": 0.6565,
+   "Van der Waals": 0.7646,
+   "Electrostatics": -0.0068,
+   "Solvation Polar": -1.0405,
+   "Solvation Hydrophobic": 0.999,
+   "Van der Waals clashes": 0.0096,
+   "entropy sidechain": -0.535,
+   "entropy mainchain": -0.0579,
+   "torsional clash": 0.022,
+   "backbone clash": -0.1938,
+   "cleaned": "YP6F,TP11S",
+   "_source": "sweep_4x_round_1",
+   "role": "YA351F,TA356S"
+  }
+ },
+ "meta": {
+  "pdb": "3QIB",
+  "mode": "variant",
+  "n_requested": 2,
+  "validation_failed": [],
+  "n_ok": 2,
+  "groups": "ABP,CD",
+  "mutation_list_sha256": "72afc6da046065300d0ed235d95d88bb66a83c3e8a17c0ef62ce9c4b32dd4251",
+  "n_accepted": 2,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "3QIB_ABP_CD",
+  "source": "round_1 union list",
+  "n_mutations": 2
+ }
+}

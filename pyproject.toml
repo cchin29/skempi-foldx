@@ -4,20 +4,34 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "skempi-foldx"
-version = "0.1.0"
+version = "0.2.0"
 description = "FoldX binding ddG for SKEMPI 2.0: the pipeline, and the computed results"
 readme = "README.md"
 requires-python = ">=3.9"
 license = "MIT AND CC-BY-4.0"
-# NOTICE carries the CC BY 4.0 identification and the statement of modification that must
-# travel with the data, and LICENSE points at it -- so it has to be in the artifact too.
+# NOTICE carries the CC BY 4.0 identification and the statement of modification that must travel
+# with the data. LICENSE is verbatim MIT and covers only the code, so it cannot carry that itself
+# and does not refer to it -- which is exactly why NOTICE has to be named here as well.
 license-files = ["LICENSE", "NOTICE"]
 authors = [{ name = "Connor Chin", email = "cchin29@stanford.edu" }]
 keywords = ["FoldX", "SKEMPI", "ddG", "protein-protein interaction", "binding affinity"]
+# The per-minor entries are the statement of the range actually built. `requires-python` below
+# is only a floor -- a resolver gate, not documentation -- so without these the metadata says
+# nothing about what has been run. Nothing here is a dependency, so the range is bounded by what
+# CI executes rather than by anything resolving; tests/test_version_consistency.py asserts these
+# against both the floor and the CI matrix, so the three cannot drift apart silently.
 classifiers = [
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",
-    "Programming Language :: Python :: 3",
     "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Operating System :: OS Independent",
 ]
 
 # Deliberately empty. Reading the shipped results needs nothing beyond the standard library,
@@ -26,22 +40,39 @@ classifiers = [
 # dependency and is not redistributable.
 dependencies = []
 
+# `tomli` and `pyyaml` are here for the release-metadata tests, which read pyproject.toml and the
+# CI workflow. Both are import-guarded, so a missing one skips rather than fails -- which is
+# precisely why they are named: a silent skip on the floor interpreter is a test that never ran
+# and never said so. `tomllib` is stdlib only from 3.11.
 [project.optional-dependencies]
-dev = ["pytest>=7"]
+# `build` is here because CONTRIBUTING's pre-release checklist runs `python -m build --sdist`;
+# without it that step fails in the very environment the setup section tells a contributor to make.
+dev = ["pytest>=7", "tomli; python_version < '3.11'", "pyyaml", "build"]
+# The `experiments/` scripts that regenerate docs/assets/. Kept out of `dev` so the test suite
+# stays dependency-free -- CI installs `dev` on six interpreters and none of it needs a plotting
+# stack -- but named here, because the documentation tells a reader those figures are
+# reproducible and `--plots`/`--html` skip silently when the libraries are absent.
+figures = ["matplotlib", "plotly"]
 
 [project.urls]
 Homepage = "https://github.com/cchin29/skempi-foldx"
 Repository = "https://github.com/cchin29/skempi-foldx"
+Changelog = "https://github.com/cchin29/skempi-foldx/blob/main/CHANGELOG.md"
+Issues = "https://github.com/cchin29/skempi-foldx/issues"
 
 [tool.setuptools]
 packages = ["skempi_foldx"]
 
-# The results ARE the deliverable, so they must be in the wheel. They must live inside the
-# package directory: a top-level data/ is unreachable by any packaging directive, so
-# `pip install skempi-foldx` shipped the pipeline and none of the results, and the README's
-# own quickstart returned an empty store.
+# The results ARE the deliverable, so they must be in the wheel. What makes that work is their
+# location, not this declaration: they live inside the package directory. A top-level data/ is
+# unreachable by any packaging directive: put them there and the wheel would carry the pipeline
+# and none of the results, while the README's own quickstart returned an empty store.
+#
+# Current setuptools would include them from that location without being told. This stays because
+# it says so explicitly rather than relying on auto-discovery, and MANIFEST.in names them for the
+# sdist. CI installs a built wheel and counts the files, so neither claim is taken on trust.
 [tool.setuptools.package-data]
-skempi_foldx = ["data/results_sp/*.json", "data/results_mp/*.json", "data/*.txt"]
+skempi_foldx = ["data/results_sp/*.json", "data/results_mp/*.json", "data/*.txt", "data/*.csv"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

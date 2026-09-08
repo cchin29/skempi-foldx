@@ -1,25 +1,31 @@
-"""The FoldX result store: many campaign directories -> one canonical set.
+"""Reading and writing a FoldX result store, and folding several into one.
 
-FoldX results accumulate across separate campaigns — the S1102 set, three benchmark sets
-(S1131 / S2003 / S4169) and the full-SKEMPI remainder — each writing its own ``results*/``
-directory. A consumer told to read only one of them sees only part of what has been computed, and
-the shortfall can be large: single-point coverage of 28% against results for another 30% of rows
-already sitting on disk unread, a gap closed with no new compute at all. This module folds the
-directories into one store.
+A store is a directory of ``<skempi_id>.json``, one per SKEMPI interface definition. The shipped
+one has a single source per record and needs no folding — but the tools here are what built it,
+and what a consumer needs for a store of their own.
 
-Two properties of that store are deliberate, because both are the kind of thing that looks fine
-in review:
+:func:`consolidate` exists because FoldX results accumulate across campaigns, each writing its own
+``results*/`` directory, and a consumer told to read only one of them sees part of what has been
+computed. The shortfall can be large: single-point coverage of 28% against results for another 30%
+of rows already sitting on disk unread, a gap closed with no new compute at all.
+
+Two properties of that store are deliberate, and both are the kind of defect that produces a
+store which loads without complaint and is wrong:
 
 **Real files, not symlinks.** A store that symlinks into its source directories is not
 self-contained: pruning a source silently breaks it, which defeats the point of consolidating.
 
 **Value audits, not key-set audits.** Comparing *mutation keys* between directories and reporting
 agreement says nothing about the numbers behind those keys, and that blind spot is wide enough to
-hide a join bug: coverage identical before and after, while ~13 mutations had been handed another
-mutation's energies. :func:`audit` compares values.
+hide a join bug: coverage stays identical while a dozen or so mutations carry another mutation's
+energies. :func:`audit` compares values.
 """
 
 from __future__ import annotations
+
+import math
+import re
+import warnings
 
 import json
 from collections import defaultdict
@@ -27,13 +33,67 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Sequence, Tuple
 
-from .exclusions import filter_complexes
+from .exclusions import code_of, filter_complexes
 from .terms import TERMS
 
 #: Per-mutation records live under this key for single-point results and under ``variants``
 #: for multi-point ones, because a PDB may appear in both and must not collide.
 SINGLE_KEY = "muts"
 MULTI_KEY = "variants"
+
+
+#: ``meta`` fields whose value is a filesystem path on the machine that ran the campaign.
+PATH_FIELDS = ("repair_seeded_from",)
+
+#: Directory names after which the *next* component is a username.
+_USER_PARENTS = {"Users", "home"}
+
+#: Directory names that are themselves a home, with no username after them.
+_BARE_HOMES = {"root"}
+
+
+def shorten_path(value: str) -> str:
+    """A path with the machine-specific prefix removed, keeping enough to explain a record.
+
+    A campaign records where it seeded its repaired structure from, as an absolute path on the
+    machine that ran it. That travels into ``meta``, and ``meta`` travels into shipped package
+    data — where it names somebody's home directory, permanently.
+
+    Keeps the last three components: campaign, complex, file. A short path can put a username in
+    that window -- a home directory two levels above the file -- so a leading home marker and the
+    name after it are dropped first. Truncating without that check leaves the username at the
+    front of the result, where no absolute-path grep will catch it, because the leading slash is
+    gone.
+    """
+    raw = str(value).replace("\\", "/")
+    parts = [p for p in raw.split("/") if p not in ("", ".", "..")]
+    # Scan the whole path, not just its front. A home directory can sit at any depth --
+    # `/data/home/<user>/...`, `//fileserver/home/<user>/...` -- and anchoring at position 0 leaves
+    # the username at the head of the result, where an absolute-path grep cannot see it because
+    # the leading slash is gone. The last match wins, so a nested home is cut at the deepest one.
+    cut, names = 0, set()
+    for i, part in enumerate(parts):
+        if part in _USER_PARENTS and i + 1 < len(parts):
+            cut = i + 2                      # the marker and the username after it
+            names.add(parts[i + 1])
+        elif part in _BARE_HOMES:
+            cut = i + 1                      # `/root` is the home; nothing follows to drop
+    # A username often reappears deeper as an ordinary directory -- a scratch tree named after its
+    # owner. Nothing marks those, but the name is known by now, so drop every later repeat of it.
+    parts = [p for p in parts[cut:] if p not in names]
+    # Never fall back to the raw basename: where stripping consumed everything, the basename is
+    # the username itself.
+    return "/".join(parts[-3:])
+
+
+def sanitise_meta(meta: dict) -> dict:
+    """``meta`` with every :data:`PATH_FIELDS` entry shortened by :func:`shorten_path`."""
+    out = dict(meta)
+    for field in PATH_FIELDS:
+        value = out.get(field)
+        if isinstance(value, str) and value:
+            out[field] = shorten_path(value)
+    return out
 
 
 def source_label(path: Path) -> str:
@@ -44,8 +104,8 @@ def source_label(path: Path) -> str:
     basename alone collides them: contribution counts merge into one row, the "safe to retire"
     list names a directory that could be either, and -- worst -- every record gets a ``_source``
     that no longer identifies where the number came from, which is the one job that field has.
-    Qualify with the parent, matching the ``foldx_s1102_results_S4169`` form the shipped store
-    already uses.
+    Qualify with the parent, matching the campaign-qualified form the shipped store uses --
+    ``sweep_4x_round_1`` for the sweep, ``<identifier>_<arm>`` for the per-definition runs.
     """
     path = Path(path)
     parent = path.parent.name
@@ -80,30 +140,48 @@ def bundled_path(which: str = SINGLE_POINT) -> Path:
 def reindex_by_skempi_id(records: Dict[str, dict]) -> Dict[str, dict]:
     """Re-key one complex's records by SKEMPI's own mutation string.
 
-    The single-point store carries two key conventions -- 3012 records under SKEMPI's
-    author-chain form (``LI38D``) and 1226 under the role-chain form (``LB38D``), where the two
-    binding partners are named ``A``/``B``. Both name the same mutation, and every record carries
-    the author-chain form in ``cleaned``.
-
-    So a lookup by SKEMPI identifier misses about 29% of the single-point store unless the
-    records are re-indexed. This does that, in memory.
+    Every shipped record is already keyed by SKEMPI's author-chain form, so this is an identity
+    map on the bundled store. It stays because it is not one on a *foreign* store: a campaign run
+    in role mode keys its output ``LB38D`` where SKEMPI says ``LI38D``, and this re-indexes it in
+    memory. 0.1.0's own store was such a mixture, 3012 records under one convention and 1226 under
+    the other.
 
     The stored keys are deliberately NOT rewritten on disk. A consumer that joins these energies
     onto its own labels may map role chains onto author chains itself, in which case it needs the
     role-chain key to be present; rewriting the store to one convention drops such a consumer's
     coverage without any error, because the join simply stops matching. Choose the convention at
     read time instead.
+
+    Two records re-keying onto one name is a collision, not a merge: the loser is dropped, chosen
+    by dict order. That is likeliest on exactly the mixed-convention store this exists for, so it
+    warns rather than losing a record quietly. ``FoldxLookup`` records the same class of clash as
+    a conflict; this is the standalone path.
     """
-    return {r.get("cleaned", k): r for k, r in records.items()}
+    out: Dict[str, dict] = {}
+    collided = []
+    for key, rec in records.items():
+        name = rec.get("cleaned", key)
+        if name in out:
+            collided.append(name)
+            continue                      # first wins, as consolidate() does
+        out[name] = rec
+    if collided:
+        warnings.warn(
+            f"{len(collided)} records re-key onto a name another record already holds, e.g. "
+            f"{collided[:3]}. The first is kept and the rest dropped, by dict order. A store "
+            f"mixing naming conventions can do this; re-index it per convention instead.",
+            RuntimeWarning, stacklevel=2)
+    return out
 
 
 def load_bundled_store(which: str = SINGLE_POINT,
                        key: str = "stored") -> Dict[str, Dict[str, dict]]:
     """The shipped results, loaded by name: ``results_sp`` or ``results_mp``.
 
-    ``key="skempi"`` re-indexes every complex by SKEMPI's mutation string, which is what a lookup
-    like ``store["1ACB"]["LI38D"]`` expects. The default ``"stored"`` preserves the keys as
-    written -- see :func:`reindex_by_skempi_id` for why both exist.
+    ``key="skempi"`` re-indexes each record set by SKEMPI's mutation string. The outer key is the
+    SKEMPI identifier either way, so the lookup is ``store["1ACB_E_I"]["LI38D"]``; only the inner
+    key changes. On the shipped store that is an identity map -- see :func:`reindex_by_skempi_id`
+    for the foreign store it is not one on.
     """
     if key not in ("stored", "skempi"):
         raise ValueError(f'key must be "stored" or "skempi", not {key!r}')
@@ -114,7 +192,7 @@ def load_bundled_store(which: str = SINGLE_POINT,
 
 
 def load_complex(path: Path) -> Tuple[Dict[str, dict], dict]:
-    """Read one ``<pdb>.json``, returning ``(records, meta)`` whichever key it uses."""
+    """Read one ``<skempi_id>.json``, returning ``(records, meta)`` whichever payload key it uses."""
     records, _, meta = load_complex_kind(path)
     return records, meta
 
@@ -139,7 +217,11 @@ def load_complex_kind(path: Path) -> Tuple[Dict[str, dict], str, dict]:
 
 
 def load_store(directory: Path) -> Dict[str, Dict[str, dict]]:
-    """Read a results directory into ``{pdb: {mutation: record}}``.
+    """Read a results directory into ``{skempi_id: {mutation: record}}``.
+
+    The outer key is each file's stem, so a directory written by this package is keyed by SKEMPI
+    identifier and one written before 0.2.0 is keyed by PDB code. Both load; :class:`FoldxLookup`
+    resolves either.
 
     Raises if the directory does not exist, rather than globbing a missing path and returning an
     empty store -- otherwise a wrong path surfaces as a ``KeyError`` on the first lookup, several
@@ -207,9 +289,16 @@ class ConsolidationReport:
             lines += ["", "sources contributing nothing unique (safe to retire):"]
             lines += [f"  {name}" for name in self.redundant_sources]
         if self.conflicts:
-            lines += ["", f"{len(self.conflicts)} mutations present in more than one source "
-                          f"with differing values. FoldX is deterministic -- this means the "
-                          f"sources passed different mutation lists to BuildModel. "
+            # One row per (mutation, additional source holding it), NOT one per mutation: a
+            # mutation in three sources yields two rows. Reporting the row count as a mutation
+            # count overstated the disagreement by ~1.9x in the shipped store (1970 rows over
+            # 1027 mutations), so state both and say which is which.
+            distinct = len({(c["pdb"], c["mutation"]) for c in self.conflicts})
+            lines += ["", f"{distinct} mutations are held by more than one source with differing "
+                          f"values, giving {len(self.conflicts)} source-pair disagreements "
+                          f"(one row per additional source holding the mutation, so a mutation "
+                          f"in three sources contributes two). FoldX is deterministic -- this "
+                          f"means the sources passed different mutation lists to BuildModel. "
                           f"See docs/DETERMINISM.md:"]
             worst = sorted(self.conflicts, key=lambda c: -c["max_abs_delta"])[:10]
             for c in worst:
@@ -311,9 +400,26 @@ def consolidate(
 
 
 def _max_abs_delta(a: dict, b: dict) -> float:
-    """Largest absolute disagreement across the shared numeric terms."""
-    deltas = [abs(float(a[t]) - float(b[t])) for t in TERMS if t in a and t in b]
-    return max(deltas) if deltas else 0.0
+    """Largest absolute disagreement across the shared numeric terms.
+
+    A non-finite term returns ``inf`` rather than ``nan``. Every comparison against ``nan`` is
+    False, so returning it would make ``delta > conflict_tolerance`` false and report two sources
+    that disagree as agreeing -- the audit failing open on exactly the values it exists to catch.
+    ``json.loads`` accepts bare ``NaN`` and ``Infinity``, so a foreign results directory can
+    supply one.
+    """
+    deltas = []
+    for term in TERMS:
+        if term not in a or term not in b:
+            continue
+        x, y = float(a[term]), float(b[term])
+        if not (math.isfinite(x) and math.isfinite(y)):
+            return math.inf
+        deltas.append(abs(x - y))
+    # No shared term is not agreement. Returning 0.0 would report two records with nothing in
+    # common as identical, which is the same failure as the nan case above reached by a
+    # different route: a comparison that cannot be made must not read as one that succeeded.
+    return max(deltas) if deltas else math.inf
 
 
 def infer_kind(store: Dict[str, Dict[str, dict]]) -> str:
@@ -332,6 +438,44 @@ def infer_kind(store: Dict[str, Dict[str, dict]]) -> str:
         if any("," in name for name in records):
             return MULTI_KEY
     return SINGLE_KEY
+
+
+#: A SKEMPI identifier as this package writes one: a PDB code, optionally followed by the two
+#: chain groups. Anchored, so nothing here can contain a separator or a parent reference.
+_IDENTIFIER_RE = re.compile(r"[A-Za-z0-9]{4}(_[A-Za-z0-9]+){0,2}\Z")
+
+
+#: A PDB code as SKEMPI writes one. Separate from the identifier pattern because a code names a
+#: *structure* -- a file under ``pdb_dir`` and a repair directory -- while an identifier names a
+#: record.
+_CODE_RE = re.compile(r"[A-Za-z0-9]{4}\Z")
+
+
+def check_code(code: str) -> str:
+    """``code`` unchanged, or ``ValueError``.
+
+    ``SkempiComplex.pdb`` reaches the filesystem twice -- the input structure under ``pdb_dir``
+    and the repair directory searched by :meth:`FoldxConfig.find_repaired` -- and it is parsed
+    from the same unconstrained column as the identifier. Validated for the same reason and in
+    the same place: where the name becomes a path.
+    """
+    if not isinstance(code, str) or not _CODE_RE.match(code):
+        raise ValueError(f"{code!r} is not a PDB code")
+    return code
+
+
+def check_identifier(ident: str) -> str:
+    """``ident`` unchanged, or ``ValueError``.
+
+    Every identifier this package turns into a filename passes through here. A store's keys come
+    from column 0 of a caller-supplied ``skempi_v2.csv``, and nothing upstream constrains them, so
+    ``../../x`` or an absolute path would otherwise be written wherever it pointed -- validated
+    where the name becomes a path rather than where it is parsed, because that is the only place
+    every route passes through.
+    """
+    if not isinstance(ident, str) or not _IDENTIFIER_RE.match(ident):
+        raise ValueError(f"{ident!r} is not a SKEMPI identifier")
+    return ident
 
 
 def write_store(store: Dict[str, Dict[str, dict]], destination: Path,
@@ -353,17 +497,28 @@ def write_store(store: Dict[str, Dict[str, dict]], destination: Path,
     destination.mkdir(parents=True, exist_ok=True)
     kind = kind or infer_kind(store)
     metas = metas or {}
-    for pdb, records in store.items():
+    for ident, records in store.items():
+        check_identifier(ident)
         # Start from the upstream meta so provenance survives — notably
         # `mutation_list_sha256`, which the repair-count comparison relies on to detect a
         # mutation list drifting between rounds. Regenerating meta from scratch would drop it.
-        meta = dict(metas.get(pdb, {}))
+        # Sanitised here rather than only in the build script: this is the public, exported way
+        # to materialise a store, so a consumer running it over campaign output that still holds
+        # absolute paths would otherwise write them into shipped package data.
+        meta = sanitise_meta(dict(metas.get(ident, {})))
         meta.update({
-            "pdb": pdb,
+            # Both, because they answer different questions and are equal for most entries. The
+            # identifier names the record — a pairing's worth of energies. The code names the
+            # structure those energies were computed on, which two identifiers can share.
+            "skempi_id": ident,
+            # code_of on both sides: a campaign written before the record/structure split put
+            # the identifier in `pdb`, and keeping it would leave this field naming a record in
+            # the one place whose whole job is to name the structure.
+            "pdb": code_of(meta.get("pdb") or ident),
             "n_mutations": len(records),
             "sources": sorted({r.get("_source", "?") for r in records.values()}),
         })
-        (destination / f"{pdb}.json").write_text(
+        (destination / f"{ident}.json").write_text(
             json.dumps({kind: records, "meta": meta}, indent=1))
 
 
@@ -380,8 +535,15 @@ def coverage(
 ) -> Tuple[int, int, List[Tuple[str, str]]]:
     """How many ``(pdb, mutation)`` pairs the store covers.
 
-    Returns ``(covered, total, missing)``. Coverage is the honest headline number for this
-    channel, and it is worth computing against an explicit wanted-set rather than inferring it.
+    Returns ``(covered, total, missing)``. Computed against an explicit wanted-set rather than
+    inferred from the store, since a store cannot report rows nobody asked it for.
+
+    **This is a plain dict join and resolves no naming.** A row labelled in the role-chain
+    convention misses a record stored under its author-chain name, and is reported as uncovered
+    rather than as unresolvable — on the bundled store that is the difference between 19.6% and
+    100% over the same rows, silently. Use :meth:`FoldxLookup.coverage`, which resolves the
+    conventions and warns when a shortfall looks like a naming problem; this function is for a
+    caller that has already settled naming and wants the arithmetic.
     """
     wanted = list(wanted)
     missing = [(pdb, mut) for pdb, mut in wanted if mut not in store.get(pdb, {})]

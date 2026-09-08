@@ -1,21 +1,45 @@
 cff-version: 1.2.0
-message: "If these energies are used in published work, cite this package and the sources below."
+message: >-
+  If these energies are used in published work, please cite this package and the sources
+  listed under `references` — in particular SKEMPI 2.0, which defines every mutation here,
+  and FoldX, which computed every value.
 title: "skempi-foldx: FoldX binding ddG for SKEMPI 2.0"
 abstract: >-
   Precomputed FoldX interaction-energy changes for protein-protein binding mutations defined by
   SKEMPI 2.0, with the campaign pipeline that produced them. Twelve decomposed AnalyseComplex
   terms per mutation -- the total and eleven of its components -- as mutant minus wild-type,
-  over 6003 records. Energy values are tied to a
+  over 6107 records. Energy values are tied to a
   release: a mutation's ddG depends on the whole mutation list it was computed in.
 type: software
 authors:
   - family-names: Chin
     given-names: Connor
     email: cchin29@stanford.edu
-version: 0.1.0
-date-released: "2026-08-01"
-license: MIT AND CC-BY-4.0
+    affiliation: Stanford University
+version: "0.2.0"
+date-released: "2026-09-08"
+url: "https://github.com/cchin29/skempi-foldx"
 repository-code: "https://github.com/cchin29/skempi-foldx"
+# NO `license` OR `license-url` FIELD, deliberately, and this is the one place where saying
+# nothing is more accurate than saying something. The repository holds two things: MIT covers the
+# code, and the computed results under skempi_foldx/data/ derive from SKEMPI 2.0 and carry its
+# CC BY 4.0. pyproject.toml states that correctly as `MIT AND CC-BY-4.0`, and NOTICE draws the
+# line file by file.
+#
+# CFF 1.2 cannot express it. Its schema note on the array form of `license` reads "when there are
+# multiple licenses, it is assumed their relationship is OR, not AND" -- so `[MIT, CC-BY-4.0]`
+# would publish the claim that a consumer may take the whole work under MIT alone, dropping the
+# CC BY attribution that NOTICE says is a licence term rather than a courtesy. Naming one licence
+# is equally wrong, in one direction or the other. Omitting the optional field asserts nothing
+# untrue and leaves LICENSE, NOTICE and pyproject.toml as the record. (Array values also break
+# Zenodo's metadata parser, which matters for the DOI note below.)
+#
+# No `identifiers:` block yet -- there is no DOI for the software itself. If one is minted from
+# a tag, add it here in the same pass.
+#
+# `version` and `date-released` track the git tag and pyproject.toml together; bump all three in
+# the release commit. `issue`, not `number`, for a periodical issue: CFF 1.2 defines `number` as
+# the accession number of a work.
 keywords:
   - FoldX
   - SKEMPI
@@ -23,25 +47,34 @@ keywords:
   - binding affinity
   - ddG
 references:
+  # Defines every mutation, chain grouping and cleaned mutation string here, and supplies the
+  # structures FoldX was run on. CC BY 4.0, so attribution is a licence term.
   - type: article
-    title: "SKEMPI 2.0: an updated benchmark of changes in protein-protein binding energy, kinetics and thermodynamics upon mutation"
-    doi: 10.1093/bioinformatics/bty635
-    year: 2019
+    title: >-
+      SKEMPI 2.0: an updated benchmark of changes in protein–protein binding energy,
+      kinetics and thermodynamics upon mutation
     authors:
-      - family-names: Jankauskaite
+      - family-names: Jankauskaitė
         given-names: Justina
-      - family-names: Jimenez-Garcia
+      - family-names: Jiménez-García
         given-names: Brian
-      - family-names: Dapkunas
+      - family-names: Dapkūnas
         given-names: Justas
-      - family-names: Fernandez-Recio
+      - family-names: Fernández-Recio
         given-names: Juan
       - family-names: Moal
         given-names: Iain H.
+    year: 2019
+    doi: 10.1093/bioinformatics/bty635
+    journal: Bioinformatics
+    volume: 35
+    issue: 3
+    start: 462
+    end: 469
+
+  # Produced every number in skempi_foldx/data/.
   - type: article
     title: "FoldX 5.0: working with RNA, small molecules and a new graphical interface"
-    doi: 10.1093/bioinformatics/btz184
-    year: 2019
     authors:
       - family-names: Delgado
         given-names: Javier
@@ -51,3 +84,72 @@ references:
         given-names: Damiano
       - family-names: Serrano
         given-names: Luis
+    year: 2019
+    doi: 10.1093/bioinformatics/btz184
+    journal: Bioinformatics
+    volume: 35
+    issue: 20
+    start: 4168
+    end: 4169
+    notes: >-
+      The citable reference for the FoldX suite. The campaign itself ran FoldX 5.1, as NOTICE
+      records; the version difference is deliberate rather than a mismatch.
+
+  # The structures the energies were computed on, reached via SKEMPI's cleaned PDB set.
+  - type: article
+    title: "The Protein Data Bank"
+    authors:
+      - family-names: Berman
+        given-names: Helen M.
+      - family-names: Westbrook
+        given-names: John
+      - family-names: Feng
+        given-names: Zukang
+      - family-names: Bourne
+        given-names: Philip E.
+    year: 2000
+    doi: 10.1093/nar/28.1.235
+    journal: Nucleic Acids Research
+    volume: 28
+    issue: 1
+    start: 235
+    end: 242
+    notes: >-
+      Structures are not redistributed here; the computed outputs are. First three authors plus
+      the senior author; see the paper for the full list.
+
+  # Not a dependency, and not the origin of the exclusion either -- cited because it is the
+  # published record of a convention this campaign follows. 1KBH is dropped as a whole complex
+  # before the worklist is built: RepairPDB does not terminate on it (independently observed at
+  # >22.5 h and >10 h on two machines), and RDE-Network's block_list corroborates the choice.
+  # exclusions.py records that every block list in every surveyed tree is {'1KBH'} and nothing
+  # more, so this is a field-wide convention rather than one group's. The drop removes 86 records
+  # outright; it changes no other complex's mutation list, and so moves no shipped value.
+  - type: article
+    title: >-
+      Rotamer Density Estimator is an Unsupervised Learner of the Effect of Mutations on
+      Protein-Protein Interaction
+    authors:
+      - family-names: Luo
+        given-names: Shitong
+      - family-names: Su
+        given-names: Yufeng
+      - family-names: Wu
+        given-names: Zuofan
+      - family-names: Su
+        given-names: Chenpeng
+      - family-names: Peng
+        given-names: Jian
+      - family-names: Ma
+        given-names: Jianzhu
+    year: 2023
+    doi: 10.1101/2023.02.28.530137
+    journal: bioRxiv
+    notes: >-
+      Also ICLR 2023. See skempi_foldx/exclusions.py for the timing evidence and for why the
+      exclusion is independently motivated rather than inherited.
+
+# MuLAN is not listed. This package was extracted from a research fork of it, but none of that
+# fork's code is present -- which is what leaves this repository free to carry a permissive
+# licence. NOTICE records the relationship under "Related work", the right place for provenance
+# that is not a dependency.

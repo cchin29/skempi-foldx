@@ -1,0 +1,35 @@
+{
+ "muts": {
+  "FC5Y": {
+   "Interaction Energy": 1.4127,
+   "Backbone Hbond": -0.0179,
+   "Sidechain Hbond": -0.8735,
+   "Van der Waals": -0.2896,
+   "Electrostatics": 0.0194,
+   "Solvation Polar": 0.6979,
+   "Solvation Hydrophobic": 0.0611,
+   "Van der Waals clashes": 1.4808,
+   "entropy sidechain": 0.2526,
+   "entropy mainchain": 0.0747,
+   "torsional clash": 0.0071,
+   "backbone clash": 0.0486,
+   "cleaned": "FC5Y",
+   "_source": "sweep_4x_round_1",
+   "role": "FA380Y"
+  }
+ },
+ "meta": {
+  "pdb": "3QFJ",
+  "mode": "author",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "ABC,DE",
+  "mutation_list_sha256": "9f03d13902235ad7bafbc9ea0871c916125f18d395fffeb6225ba1283376e1fa",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "3QFJ_ABC_DE",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

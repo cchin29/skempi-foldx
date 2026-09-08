@@ -1,0 +1,34 @@
+{
+ "muts": {
+  "KA58A": {
+   "Interaction Energy": 1.0427,
+   "Backbone Hbond": 0.1477,
+   "Sidechain Hbond": 1.5208,
+   "Van der Waals": 0.2585,
+   "Electrostatics": 0.4959,
+   "Solvation Polar": -1.5097,
+   "Solvation Hydrophobic": 0.1019,
+   "Van der Waals clashes": -0.1175,
+   "entropy sidechain": 0.2084,
+   "entropy mainchain": -0.1249,
+   "torsional clash": -0.0028,
+   "backbone clash": -0.0033,
+   "cleaned": "KA58A",
+   "_source": "sweep_4x_round_1"
+  }
+ },
+ "meta": {
+  "pdb": "3UII",
+  "mode": "author",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "A,P",
+  "mutation_list_sha256": "ecef49c4af83226eb33cabb2d4df22fa34577a5a110ddb50a59b19ca7c3da360",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "3UII_A_P",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

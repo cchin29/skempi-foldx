@@ -1,42 +1,35 @@
 Source labels name the campaign that computed a value. They record PROVENANCE, not
-membership: a value labelled S4169 was computed by the campaign covering that benchmark,
-which says nothing about which benchmarks contain the mutation.
+membership: a value's label says which mutation list produced it, which is what makes
+the number explainable, and says nothing about which benchmarks contain the mutation.
+
+Each record has exactly one source. A definition's mutations are computed together, in
+one list, against one interface -- so unlike 0.1.0 there is no precedence order here and
+no conflicts to arbitrate. The unit is the SKEMPI identifier <pdb>_<group1>_<group2>.
 
 Single-point store
 ========================================
-322 complexes / 4238 mutations
+323 interface definitions over 322 PDB codes / 4340 mutations
 
-contribution by source (in precedence order):
-  full_skempi                    1744 mutations    112 complexes not present in any higher-precedence source
-  S4169                          2494 mutations    210 complexes not present in any higher-precedence source
-  S2003                             0 mutations      0 complexes not present in any higher-precedence source
-  S1131                             0 mutations      0 complexes not present in any higher-precedence source
-  S1102                             0 mutations      0 complexes not present in any higher-precedence source
-
-sources contributing nothing unique (safe to retire):
-  S2003
-  S1131
-  S1102
-
-1970 mutations present in more than one source with differing values. FoldX is deterministic -- this means the sources passed different mutation lists to BuildModel. See docs/DETERMINISM.md:
-  1PPF     GB32Y        max|Δ| 12.831  (S4169 kept over S1102)
-  1PPF     LB18W        max|Δ| 7.286  (S4169 kept over S2003)
-  1PPF     LB18F        max|Δ| 6.453  (S4169 kept over S1131)
-  1EAW     YA52A        max|Δ| 6.095  (S4169 kept over S1131)
-  4CPA     VB37I        max|Δ| 6.008  (S4169 kept over S2003)
-  1EAW     YA52A        max|Δ| 5.702  (S4169 kept over S1102)
-  3SGB     TB11Y        max|Δ| 5.597  (S4169 kept over S2003)
-  4CPA     VB37F        max|Δ| 5.520  (S4169 kept over S2003)
-  1PPF     GB32K        max|Δ| 5.340  (S4169 kept over S1102)
-  1R0R     EB14W        max|Δ| 3.954  (S4169 kept over S2003)
-
-Excluded by skempi_foldx/exclusions.py (never computed, never shipped):
-  1KBH -- RepairPDB does not terminate; see docs/STORE.md
+contribution by source:
+  sweep_4x_round_1            4286 mutations
+  3SE4_B_A_sp                   18 mutations
+  3SE3_B_A_sp                   17 mutations
+  3SE4_B_C_sp                   15 mutations
+  2C5D_A_C_sp                    4 mutations
 
 Multi-point store
 ========================================
-152 complexes / 1765 mutations
+154 interface definitions over 152 PDB codes / 1767 mutations
 
-contribution by source (in precedence order):
-  full_skempi_multipoint         1765 mutations    152 complexes not present in any higher-precedence source
+contribution by source:
+  sweep_4x_round_1            1702 mutations
+  3SE3_B_A_mp                   30 mutations
+  2C5D_AB_CD_mp                 19 mutations
+  2C5D_A_C_mp                   12 mutations
+  3SE3_B_C_mp                    2 mutations
+  3SE4_B_C_mp                    2 mutations
 
+Absent from the store
+========================================
+  1KBH_A_B       [sp]    3 of    3 absent -- excluded: RepairPDB does not terminate; the complex has no usable FoldX result
+  1KBH_A_B       [mp]   83 of   83 absent -- excluded: RepairPDB does not terminate; the complex has no usable FoldX result

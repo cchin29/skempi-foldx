@@ -1,0 +1,35 @@
+{
+ "muts": {
+  "AD81E": {
+   "Interaction Energy": -0.6681,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": -0.0174,
+   "Electrostatics": -0.0759,
+   "Solvation Polar": 0.0709,
+   "Solvation Hydrophobic": -0.002,
+   "Van der Waals clashes": 0.0001,
+   "entropy sidechain": -0.572,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "cleaned": "AD81E",
+   "_source": "sweep_4x_round_1",
+   "role": "AB81E"
+  }
+ },
+ "meta": {
+  "pdb": "1X1W",
+  "mode": "author",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "A,D",
+  "mutation_list_sha256": "db1b2688ec99e351a61fb208bb6bf24b158e040d1f7d9e0c7f8ca72f542ef60b",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "1X1W_A_D",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

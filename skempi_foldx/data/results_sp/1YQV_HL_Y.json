@@ -1,0 +1,35 @@
+{
+ "muts": {
+  "RY45K": {
+   "Interaction Energy": 3.1536,
+   "Backbone Hbond": 1.4053,
+   "Sidechain Hbond": 1.9217,
+   "Van der Waals": 1.3487,
+   "Electrostatics": 0.04,
+   "Solvation Polar": -0.8525,
+   "Solvation Hydrophobic": 0.7114,
+   "Van der Waals clashes": -0.5407,
+   "entropy sidechain": -0.2841,
+   "entropy mainchain": -0.663,
+   "torsional clash": -0.0635,
+   "backbone clash": -0.328,
+   "cleaned": "RY45K",
+   "_source": "sweep_4x_round_1",
+   "role": "RB45K"
+  }
+ },
+ "meta": {
+  "pdb": "1YQV",
+  "mode": "author",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "HL,Y",
+  "mutation_list_sha256": "c96794992b16f3212773578cd0dcdc76c9c3316fccd6b8749c2ecbce155d176a",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "1YQV_HL_Y",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

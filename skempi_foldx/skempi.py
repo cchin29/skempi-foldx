@@ -13,7 +13,6 @@ structure, so a numbering mismatch fails loudly instead of scoring the wrong res
 from __future__ import annotations
 
 import csv
-import warnings
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Dict, List, Sequence, Set, Tuple
@@ -55,7 +54,14 @@ class Mutation:
 
 @dataclass
 class SkempiComplex:
-    """One PDB's SKEMPI record: its two interacting chain groups and its mutations."""
+    """One SKEMPI interface definition: two interacting chain groups and their mutations.
+
+    The unit is the definition, not the structure. SKEMPI names a row
+    ``<pdb>_<group1>_<group2>``, and three codes appear under two such names, so a PDB code can
+    carry more than one of these. What ``--analyseComplexChains`` is given is half of what a
+    value means: the same substitution scored against two different pairings is two measurements,
+    not one measured twice.
+    """
 
     pdb: str
     group1: str
@@ -64,39 +70,29 @@ class SkempiComplex:
     """Single-point cleaned mutation strings."""
     multi: Set[str] = field(default_factory=set)
     """Multi-point variants, as the raw comma-joined cleaned string."""
-    alternate_groups: Set[Tuple[str, str]] = field(default_factory=set)
-    """Other ``(group1, group2)`` pairs SKEMPI defines for this same PDB code.
-
-    Non-empty for the few complexes SKEMPI records under more than one interface. Only
-    :attr:`group1`/:attr:`group2` reach ``--analyseComplexChains``, so a mutation belonging to an
-    alternate definition is scored against an interface it is not part of. :func:`load_skempi`
-    warns when this happens; see :meth:`mutations_outside_interface`.
-    """
 
     @property
     def groups(self) -> str:
         """The ``--analyseComplexChains`` argument."""
         return f"{self.group1},{self.group2}"
 
-    def mutations_outside_interface(self) -> List[str]:
-        """Cleaned mutations touching a chain absent from :attr:`groups`, sorted.
-
-        Empty for all but the complexes carrying an :attr:`alternate_groups` definition. FoldX
-        computes the interaction energy of the named groups, so a mutation listed here is not
-        scored meaningfully against this interface -- but it fails in one of two ways. A mutation
-        lying wholly outside the pair moves neither side of ``IE(mutant) - IE(wild-type)`` and
-        returns essentially zero, an artifact of the pairing rather than a measurement of no
-        effect. A multi-point variant with one component inside and one outside returns a real
-        energy carrying only the inside component's contribution, which does not look wrong at
-        all. This reports both.
-        """
-        known = set(self.group1 + self.group2)
-        return sorted(m for m in (self.single | self.multi)
-                      if not {p[1] for p in m.split(",") if len(p) > 1} <= known)
+    @property
+    def id(self) -> str:
+        """The SKEMPI identifier, ``<pdb>_<group1>_<group2>`` — this record's name everywhere."""
+        return f"{self.pdb}_{self.group1}_{self.group2}"
 
 
 def load_skempi(path: Path) -> Dict[str, SkempiComplex]:
-    """Parse SKEMPI 2.0 into ``{pdb: SkempiComplex}``.
+    """Parse SKEMPI 2.0 into ``{identifier: SkempiComplex}``.
+
+    Keyed by ``<pdb>_<group1>_<group2>``, which is what SKEMPI itself names a row by. Keying by
+    the PDB code instead pools every definition of a code under whichever appeared first, and the
+    mutations belonging to the others are then scored against an interface they are not part of —
+    a defect that leaves no trace in the output, because a mutation lying outside the analysed
+    pair returns a clean zero and a partly-outside variant returns a plausible partial energy.
+
+    Use :func:`by_pdb` for the steps that are genuinely per structure. Repair is one: a repaired
+    structure belongs to the code, and every definition of that code shares it.
 
     Single- and multi-point rows are kept separately rather than one being dropped: the
     single-point pipeline and the multi-point one both read this, so filtering either out here
@@ -114,30 +110,26 @@ def load_skempi(path: Path) -> Dict[str, SkempiComplex]:
             if len(parts) < 3:
                 continue
             pdb, group1, group2 = parts[0], parts[1], parts[2]
-            entry = complexes.setdefault(pdb, SkempiComplex(pdb, group1, group2))
-            if (group1, group2) != (entry.group1, entry.group2):
-                entry.alternate_groups.add((group1, group2))
+            entry = complexes.setdefault(f"{pdb}_{group1}_{group2}",
+                                         SkempiComplex(pdb, group1, group2))
             (entry.multi if "," in cleaned else entry.single).add(cleaned)
-
-    # SKEMPI records a handful of PDB codes under two different interface definitions. Keying by
-    # code alone keeps whichever appeared first and pools every mutation under it, which silently
-    # scores the other definition's mutations against an interface they are not part of. The
-    # collapse is kept for continuity with the shipped store, but it is never silent.
-    for entry in complexes.values():
-        # A second definition is only a problem when it contributes mutations the kept one does
-        # not: where the two pairings share every mutation, each was already computed against a
-        # pairing SKEMPI associates with it, and warning there would cry wolf on the one complex
-        # that is fine. `alternate_groups` still records it for inspection either way.
-        stray = entry.mutations_outside_interface() if entry.alternate_groups else []
-        if stray:
-            warnings.warn(
-                f"{entry.pdb}: SKEMPI defines more than one interface "
-                f"({entry.groups} and "
-                f"{'; '.join(f'{a},{b}' for a, b in sorted(entry.alternate_groups))}). "
-                f"All mutations are pooled under {entry.groups}, leaving {len(stray)} that "
-                f"mutate a chain outside it. See SkempiComplex.mutations_outside_interface().",
-                RuntimeWarning, stacklevel=2)
     return complexes
+
+
+def by_pdb(complexes: Dict[str, SkempiComplex]) -> Dict[str, List[SkempiComplex]]:
+    """Group :func:`load_skempi`'s output by PDB code, for the steps that are per structure.
+
+    Most codes map to a single definition. The few that map to two are the reason the store is
+    not keyed this way: a caller that wants "the entry for 1PPF" is asking a question that has one
+    answer for 342 of SKEMPI's 345 codes and two for the other three, and the list makes that
+    visible instead of silently picking one.
+    """
+    out: Dict[str, List[SkempiComplex]] = {}
+    for entry in complexes.values():
+        out.setdefault(entry.pdb, []).append(entry)
+    for entries in out.values():
+        entries.sort(key=lambda e: (e.group1, e.group2))
+    return out
 
 
 def map_role_to_author(

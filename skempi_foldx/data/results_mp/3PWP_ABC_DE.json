@@ -1,0 +1,35 @@
+{
+ "variants": {
+  "GC2L,IC9V": {
+   "Interaction Energy": 0.0732,
+   "Backbone Hbond": -0.0291,
+   "Sidechain Hbond": -0.0133,
+   "Van der Waals": 0.1824,
+   "Electrostatics": -0.0076,
+   "Solvation Polar": -0.2188,
+   "Solvation Hydrophobic": 0.1864,
+   "Van der Waals clashes": -0.0081,
+   "entropy sidechain": -0.0147,
+   "entropy mainchain": -0.0025,
+   "torsional clash": -0.0014,
+   "backbone clash": -0.0082,
+   "cleaned": "GC2L,IC9V",
+   "_source": "sweep_4x_round_1",
+   "role": "GA377L,IA384V"
+  }
+ },
+ "meta": {
+  "pdb": "3PWP",
+  "mode": "variant",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "ABC,DE",
+  "mutation_list_sha256": "231673e5b8f394f6ec29cd3454123c9b280d196cc0f4387cc22759b253b3ecf4",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "3PWP_ABC_DE",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

@@ -1,0 +1,34 @@
+{
+ "variants": {
+  "TB31A,QB32A,EB93A,NB101A": {
+   "Interaction Energy": 4.5078,
+   "Backbone Hbond": 0.5114,
+   "Sidechain Hbond": 3.7333,
+   "Van der Waals": 1.6815,
+   "Electrostatics": 0.9316,
+   "Solvation Polar": -3.1022,
+   "Solvation Hydrophobic": 1.3972,
+   "Van der Waals clashes": -0.0378,
+   "entropy sidechain": -0.4792,
+   "entropy mainchain": -0.2974,
+   "torsional clash": -0.0051,
+   "backbone clash": 0.0199,
+   "cleaned": "TB31A,QB32A,EB93A,NB101A",
+   "_source": "sweep_4x_round_1"
+  }
+ },
+ "meta": {
+  "pdb": "4MYW",
+  "mode": "variant",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "A,B",
+  "mutation_list_sha256": "6020244a5a6c0c2c33fb10650051915de89e54afd2e82f0c6f023ae5186c5378",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "4MYW_A_B",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

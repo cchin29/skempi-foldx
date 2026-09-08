@@ -1,0 +1,35 @@
+{
+ "muts": {
+  "LI29V": {
+   "Interaction Energy": 1.7505,
+   "Backbone Hbond": 0.6041,
+   "Sidechain Hbond": 0.4749,
+   "Van der Waals": 0.7716,
+   "Electrostatics": 0.0024,
+   "Solvation Polar": -0.5547,
+   "Solvation Hydrophobic": 1.0151,
+   "Van der Waals clashes": 0.2476,
+   "entropy sidechain": -0.971,
+   "entropy mainchain": -0.0587,
+   "torsional clash": 0.2214,
+   "backbone clash": 0.0381,
+   "cleaned": "LI29V",
+   "_source": "sweep_4x_round_1",
+   "role": "LB29V"
+  }
+ },
+ "meta": {
+  "pdb": "1GL1",
+  "mode": "author",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "A,I",
+  "mutation_list_sha256": "1941216aa25f14dd5d809beebd67b36da4669986cc29192bb60c82c763818704",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "1GL1_A_I",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

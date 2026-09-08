@@ -1,0 +1,35 @@
+{
+ "muts": {
+  "GI13K": {
+   "Interaction Energy": -1.2123,
+   "Backbone Hbond": -1.7195,
+   "Sidechain Hbond": -1.4352,
+   "Van der Waals": -2.3334,
+   "Electrostatics": -0.8054,
+   "Solvation Polar": 4.6895,
+   "Solvation Hydrophobic": -2.8995,
+   "Van der Waals clashes": 0.1917,
+   "entropy sidechain": 2.0674,
+   "entropy mainchain": 0.5229,
+   "torsional clash": 0.7376,
+   "backbone clash": 0.2111,
+   "cleaned": "GI13K",
+   "_source": "sweep_4x_round_1",
+   "role": "GB13K"
+  }
+ },
+ "meta": {
+  "pdb": "3BTG",
+  "mode": "author",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "E,I",
+  "mutation_list_sha256": "685c65fd3917f34ab74c8ae11a6e2f65e31df5dfc30aa9e58f91ab578b6160c2",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "3BTG_E_I",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

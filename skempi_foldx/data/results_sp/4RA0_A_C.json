@@ -1,0 +1,52 @@
+{
+ "muts": {
+  "AC66V": {
+   "Interaction Energy": -0.8229,
+   "Backbone Hbond": -0.0726,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": -0.4062,
+   "Electrostatics": -0.181,
+   "Solvation Polar": 0.4281,
+   "Solvation Hydrophobic": -0.6991,
+   "Van der Waals clashes": 0.207,
+   "entropy sidechain": -0.1411,
+   "entropy mainchain": -0.0028,
+   "torsional clash": 0.0448,
+   "backbone clash": 0.0803,
+   "cleaned": "AC66V",
+   "_source": "sweep_4x_round_1",
+   "role": "AB66V"
+  },
+  "RC101G": {
+   "Interaction Energy": 0.0,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0,
+   "Electrostatics": 0.0,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": 0.0,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": 0.0,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "cleaned": "RC101G",
+   "_source": "sweep_4x_round_1",
+   "role": "RB101G"
+  }
+ },
+ "meta": {
+  "pdb": "4RA0",
+  "mode": "author",
+  "n_requested": 2,
+  "validation_failed": [],
+  "n_ok": 2,
+  "groups": "A,C",
+  "mutation_list_sha256": "ded962de72e15b76c4330b6de1dbae6be6f269d82d8ddb86fabb1336eea40af5",
+  "n_accepted": 2,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "4RA0_A_C",
+  "source": "round_1 union list",
+  "n_mutations": 2
+ }
+}

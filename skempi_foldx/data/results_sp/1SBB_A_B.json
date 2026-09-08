@@ -1,0 +1,66 @@
+{
+ "muts": {
+  "LB20T": {
+   "Interaction Energy": 2.3542,
+   "Backbone Hbond": 0.0052,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.6211,
+   "Electrostatics": 0.0029,
+   "Solvation Polar": 0.1739,
+   "Solvation Hydrophobic": 1.5755,
+   "Van der Waals clashes": 0.1684,
+   "entropy sidechain": -0.3304,
+   "entropy mainchain": 0.0621,
+   "torsional clash": 0.0754,
+   "backbone clash": -0.0197,
+   "cleaned": "LB20T",
+   "_source": "sweep_4x_round_1"
+  },
+  "VB26Y": {
+   "Interaction Energy": 0.0985,
+   "Backbone Hbond": -0.1366,
+   "Sidechain Hbond": -0.1659,
+   "Van der Waals": -0.7075,
+   "Electrostatics": -0.0061,
+   "Solvation Polar": 0.8874,
+   "Solvation Hydrophobic": -0.7277,
+   "Van der Waals clashes": -0.0042,
+   "entropy sidechain": 0.9111,
+   "entropy mainchain": 0.0268,
+   "torsional clash": 0.0213,
+   "backbone clash": 0.2351,
+   "cleaned": "VB26Y",
+   "_source": "sweep_4x_round_1"
+  },
+  "YB91V": {
+   "Interaction Energy": 0.3366,
+   "Backbone Hbond": -0.0213,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.1902,
+   "Electrostatics": -0.1006,
+   "Solvation Polar": 0.1526,
+   "Solvation Hydrophobic": 0.2565,
+   "Van der Waals clashes": -0.0094,
+   "entropy sidechain": -0.226,
+   "entropy mainchain": 0.0927,
+   "torsional clash": 0.002,
+   "backbone clash": 0.2069,
+   "cleaned": "YB91V",
+   "_source": "sweep_4x_round_1"
+  }
+ },
+ "meta": {
+  "pdb": "1SBB",
+  "mode": "author",
+  "n_requested": 3,
+  "validation_failed": [],
+  "n_ok": 3,
+  "groups": "A,B",
+  "mutation_list_sha256": "7f8d7a4a7b8cdb56c589f57a9d3ca044a6a0eec557c366f9c0b302ca66215119",
+  "n_accepted": 3,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "1SBB_A_B",
+  "source": "round_1 union list",
+  "n_mutations": 3
+ }
+}

@@ -1,0 +1,73 @@
+Composition of the shipped store, by interface definition.
+
+Each definition is one interface pairing of one PDB code, which is the unit FoldX was
+asked about and therefore the unit a record's behaviour is a property of.
+
+Concentration
+----------------------------------------------------------------------------
+                           defs  records   top 10   share  median
+single-point                323     4340     1481     34%       4
+multi-point                 154     1767      741     42%       4
+single- and multi-point     477     6107     1556     25%       4
+
+The share column is what the treemap shows: the ten largest definitions hold that much of
+the arm. A metric averaged over definitions and a metric averaged over records are
+therefore answering different questions on this store, and the gap is not small.
+
+Size classes
+----------------------------------------------------------------------------
+                           >=100   10-99     2-9       1   recs in singletons
+single-point                   6      94     118     105                  105
+multi-point                    1      46      61      46                   46
+single- and multi-point        7     140     179     151                  151
+
+A definition holding one record supports no within-definition statistic at all -- no
+correlation, no rank, no spread. Under the per-structure metrics common in this
+literature those definitions are dropped, and they are a third of the store by count.
+
+The largest definitions
+----------------------------------------------------------------------------
+single-point:
+    3BT1_A_U           240 records    5.5%   0/240 changed
+    1CHO_EFG_I         191 records    4.4%   0/191 changed
+    1R0R_E_I           191 records    4.4%   0/191 changed
+    3SGB_E_I           191 records    4.4%   0/191 changed
+    1PPF_E_I           190 records    4.4%   0/190 changed
+    1A22_A_B           142 records    3.3%   0/142 changed
+    1AO7_ABC_DE         95 records    2.2%   0/95 changed
+    1DAN_HL_UT          89 records    2.1%   55/85 changed
+    3S9D_A_B            81 records    1.9%   0/81 changed
+    3HFM_HL_Y           71 records    1.6%   12/65 changed
+
+multi-point:
+    1JTG_A_B           136 records    7.7%   136/136 changed
+    2B2X_HL_A           91 records    5.1%   91/91 changed
+    3SGB_E_I            88 records    5.0%   88/88 changed
+    1CHO_EFG_I          84 records    4.8%   84/84 changed
+    1R0R_E_I            76 records    4.3%   75/76 changed
+    3S9D_A_B            61 records    3.5%   59/61 changed
+    1AO7_ABC_DE         56 records    3.2%   56/56 changed
+    1PPF_E_I            56 records    3.2%   56/56 changed
+    3HG1_ABC_DE         48 records    2.7%   48/48 changed
+    1BRS_A_D            45 records    2.5%   45/45 changed
+
+Codes carrying more than one definition
+----------------------------------------------------------------------------
+    2C5D: 2C5D_AB_CD, 2C5D_A_C
+    3SE3: 3SE3_B_A, 3SE3_B_C
+    3SE4: 3SE4_B_A, 3SE4_B_C
+
+Keyed by PDB code these would draw as one tile, or as several tiles sharing a label.
+They are the records the 0.2.0 interface fix is about; see docs/VERSIONS.md.
+
+What moved between releases
+----------------------------------------------------------------------------
+                          defs paired  wholly still  partly moved  wholly moved
+single-point                      323           294            26             3
+multi-point                       153            66            33            54
+single- and multi-point           476           360            59            57
+
+Definitions land at the ends rather than in the middle: a definition's records mostly
+moved together or not at all, which is what it means to say that changing is a
+property of the definition. docs/VERSIONS.md measures this.
+

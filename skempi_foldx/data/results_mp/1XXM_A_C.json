@@ -1,0 +1,35 @@
+{
+ "variants": {
+  "AC74K,AC142F,AC143Y,AA79E,AA80Y": {
+   "Interaction Energy": -5.2383,
+   "Backbone Hbond": -1.1626,
+   "Sidechain Hbond": -2.4912,
+   "Van der Waals": -5.5373,
+   "Electrostatics": -3.5194,
+   "Solvation Polar": 7.9942,
+   "Solvation Hydrophobic": -6.6883,
+   "Van der Waals clashes": 3.0193,
+   "entropy sidechain": 3.2599,
+   "entropy mainchain": 0.0737,
+   "torsional clash": 0.0481,
+   "backbone clash": 0.5127,
+   "cleaned": "AC74K,AC142F,AC143Y,AA79E,AA80Y",
+   "_source": "sweep_4x_round_1",
+   "role": "AB74K,AB142F,AB143Y,AA79E,AA80Y"
+  }
+ },
+ "meta": {
+  "pdb": "1XXM",
+  "mode": "variant",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "A,C",
+  "mutation_list_sha256": "c50dca34609ba3e73e402635d7922596747ee1a84758d3e079e7a40e72d9a623",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "1XXM_A_C",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

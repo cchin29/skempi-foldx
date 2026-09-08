@@ -1,0 +1,34 @@
+{
+ "variants": {
+  "LA317A,NA318A,DA320N": {
+   "Interaction Energy": 2.6707,
+   "Backbone Hbond": 0.6052,
+   "Sidechain Hbond": 0.5955,
+   "Van der Waals": 1.7022,
+   "Electrostatics": 0.2694,
+   "Solvation Polar": -1.6694,
+   "Solvation Hydrophobic": 2.2088,
+   "Van der Waals clashes": -0.1108,
+   "entropy sidechain": -0.7989,
+   "entropy mainchain": -0.0301,
+   "torsional clash": -0.0469,
+   "backbone clash": -0.305,
+   "cleaned": "LA317A,NA318A,DA320N",
+   "_source": "sweep_4x_round_1"
+  }
+ },
+ "meta": {
+  "pdb": "3BIW",
+  "mode": "variant",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "A,E",
+  "mutation_list_sha256": "d9d003cc7ab1a600e14c5ae191d9ae90caa75f2f4871a319bdd38e0a085d81cb",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "3BIW_A_E",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

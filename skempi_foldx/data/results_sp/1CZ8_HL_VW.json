@@ -1,0 +1,35 @@
+{
+ "muts": {
+  "LL4M": {
+   "Interaction Energy": 0.0,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0,
+   "Electrostatics": 0.0,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": 0.0,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": 0.0,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "cleaned": "LL4M",
+   "_source": "sweep_4x_round_1",
+   "role": "LA222M"
+  }
+ },
+ "meta": {
+  "pdb": "1CZ8",
+  "mode": "author",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "HL,VW",
+  "mutation_list_sha256": "0d86846afee4b8b654148109a95009a61c33dca47d3a50945680d46e4ccd1659",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "1CZ8_HL_VW",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

@@ -1,0 +1,50 @@
+{
+ "muts": {
+  "EB65A": {
+   "Interaction Energy": -0.2823,
+   "Backbone Hbond": -0.034,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.2439,
+   "Electrostatics": 0.1876,
+   "Solvation Polar": -0.6029,
+   "Solvation Hydrophobic": 0.3628,
+   "Van der Waals clashes": -0.0048,
+   "entropy sidechain": -0.2891,
+   "entropy mainchain": 0.0,
+   "torsional clash": -0.0027,
+   "backbone clash": 0.0696,
+   "cleaned": "EB65A",
+   "_source": "sweep_4x_round_1"
+  },
+  "GB55D": {
+   "Interaction Energy": -0.0534,
+   "Backbone Hbond": -0.1141,
+   "Sidechain Hbond": 0.0664,
+   "Van der Waals": -0.8277,
+   "Electrostatics": -0.2399,
+   "Solvation Polar": 2.0514,
+   "Solvation Hydrophobic": -1.001,
+   "Van der Waals clashes": 0.6719,
+   "entropy sidechain": -0.0373,
+   "entropy mainchain": -0.823,
+   "torsional clash": 0.0659,
+   "backbone clash": 0.2362,
+   "cleaned": "GB55D",
+   "_source": "sweep_4x_round_1"
+  }
+ },
+ "meta": {
+  "pdb": "2A9K",
+  "mode": "author",
+  "n_requested": 2,
+  "validation_failed": [],
+  "n_ok": 2,
+  "groups": "A,B",
+  "mutation_list_sha256": "120b7e84bdbfd452d5466d5669e145937aa1736f70897393bfdddc4a78c617b5",
+  "n_accepted": 2,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "2A9K_A_B",
+  "source": "round_1 union list",
+  "n_mutations": 2
+ }
+}

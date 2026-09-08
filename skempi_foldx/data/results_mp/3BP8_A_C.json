@@ -1,0 +1,35 @@
+{
+ "variants": {
+  "FA115A,AC51F": {
+   "Interaction Energy": 0.1411,
+   "Backbone Hbond": -0.0628,
+   "Sidechain Hbond": 0.0211,
+   "Van der Waals": -1.5649,
+   "Electrostatics": 0.0228,
+   "Solvation Polar": 0.0633,
+   "Solvation Hydrophobic": -3.1233,
+   "Van der Waals clashes": 4.0066,
+   "entropy sidechain": 0.992,
+   "entropy mainchain": -0.2125,
+   "torsional clash": -0.0014,
+   "backbone clash": 0.1433,
+   "cleaned": "FA115A,AC51F",
+   "_source": "sweep_4x_round_1",
+   "role": "FA115A,AB51F"
+  }
+ },
+ "meta": {
+  "pdb": "3BP8",
+  "mode": "variant",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "A,C",
+  "mutation_list_sha256": "2d04e993d03883a644056bd0537fcc740ce7947e1ff1c0e766f5d3c4675bfec9",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "3BP8_A_C",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

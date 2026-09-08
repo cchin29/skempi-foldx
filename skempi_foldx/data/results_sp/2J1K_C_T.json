@@ -1,0 +1,69 @@
+{
+ "muts": {
+  "GC10D": {
+   "Interaction Energy": -0.0388,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": -0.0929,
+   "Electrostatics": -0.1024,
+   "Solvation Polar": 0.3212,
+   "Solvation Hydrophobic": -0.1046,
+   "Van der Waals clashes": -0.0006,
+   "entropy sidechain": 0.1987,
+   "entropy mainchain": -0.1771,
+   "torsional clash": -0.0,
+   "backbone clash": 0.0,
+   "cleaned": "GC10D",
+   "_source": "sweep_4x_round_1",
+   "role": "GA10D"
+  },
+  "RC155A": {
+   "Interaction Energy": 0.0,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0,
+   "Electrostatics": 0.0,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": 0.0,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": 0.0,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "cleaned": "RC155A",
+   "_source": "sweep_4x_round_1",
+   "role": "RA155A"
+  },
+  "RC24A": {
+   "Interaction Energy": 5.5038,
+   "Backbone Hbond": 0.0018,
+   "Sidechain Hbond": 4.2453,
+   "Van der Waals": 0.9024,
+   "Electrostatics": 2.5165,
+   "Solvation Polar": -2.4334,
+   "Solvation Hydrophobic": 0.4363,
+   "Van der Waals clashes": -0.0531,
+   "entropy sidechain": 0.1918,
+   "entropy mainchain": -0.5648,
+   "torsional clash": -0.0423,
+   "backbone clash": -0.0303,
+   "cleaned": "RC24A",
+   "_source": "sweep_4x_round_1",
+   "role": "RA24A"
+  }
+ },
+ "meta": {
+  "pdb": "2J1K",
+  "mode": "author",
+  "n_requested": 3,
+  "validation_failed": [],
+  "n_ok": 3,
+  "groups": "C,T",
+  "mutation_list_sha256": "1277ca945ed3332f4013afe60a656f8cc4d387f10e36a8ced302432fda55a7a5",
+  "n_accepted": 3,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "2J1K_C_T",
+  "source": "round_1 union list",
+  "n_mutations": 3
+ }
+}

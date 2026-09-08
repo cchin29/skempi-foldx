@@ -31,3 +31,12 @@ individual_list.txt
 scratch/
 work/
 work_*/
+
+# Generated on demand by the --html flag of compare_versions.py and store_composition.py.
+# The version comparison's page is ~5 MB; both are self-contained and reproduce from the repo.
+docs/assets/*.html
+
+# Generated on demand by --csv. version_compare.csv is deliberately not shipped: its
+# ddg_experimental column is per-row SKEMPI affinity data, and this repo does not redistribute
+# skempi_v2.csv. store_composition.csv carries no SKEMPI data and is merely regenerable.
+docs/assets/*.csv

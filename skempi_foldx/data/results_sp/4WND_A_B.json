@@ -1,0 +1,50 @@
+{
+ "muts": {
+  "NA263R": {
+   "Interaction Energy": 1.2768,
+   "Backbone Hbond": 0.204,
+   "Sidechain Hbond": 0.3998,
+   "Van der Waals": -0.8581,
+   "Electrostatics": 0.2004,
+   "Solvation Polar": 1.3912,
+   "Solvation Hydrophobic": -0.8756,
+   "Van der Waals clashes": 0.0765,
+   "entropy sidechain": 0.3052,
+   "entropy mainchain": 0.328,
+   "torsional clash": 0.0726,
+   "backbone clash": -0.0629,
+   "cleaned": "NA263R",
+   "_source": "sweep_4x_round_1"
+  },
+  "RA201E": {
+   "Interaction Energy": 5.2694,
+   "Backbone Hbond": -0.0295,
+   "Sidechain Hbond": 1.5962,
+   "Van der Waals": 0.2104,
+   "Electrostatics": 3.6229,
+   "Solvation Polar": -0.2875,
+   "Solvation Hydrophobic": 0.1009,
+   "Van der Waals clashes": 0.0109,
+   "entropy sidechain": -0.6686,
+   "entropy mainchain": -0.0101,
+   "torsional clash": -0.0014,
+   "backbone clash": 0.2287,
+   "cleaned": "RA201E",
+   "_source": "sweep_4x_round_1"
+  }
+ },
+ "meta": {
+  "pdb": "4WND",
+  "mode": "author",
+  "n_requested": 2,
+  "validation_failed": [],
+  "n_ok": 2,
+  "groups": "A,B",
+  "mutation_list_sha256": "fe9e85eafdd988c822a254a5eb88776cab737b0121b7fddae900a57d97139086",
+  "n_accepted": 2,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "4WND_A_B",
+  "source": "round_1 union list",
+  "n_mutations": 2
+ }
+}

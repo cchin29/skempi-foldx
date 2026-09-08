@@ -1,0 +1,34 @@
+{
+ "variants": {
+  "KA58Y,HA76W": {
+   "Interaction Energy": -1.1915,
+   "Backbone Hbond": -0.262,
+   "Sidechain Hbond": 2.4144,
+   "Van der Waals": -0.0512,
+   "Electrostatics": 0.1175,
+   "Solvation Polar": -1.5764,
+   "Solvation Hydrophobic": -0.8241,
+   "Van der Waals clashes": -0.0342,
+   "entropy sidechain": -0.9565,
+   "entropy mainchain": -0.2679,
+   "torsional clash": 0.002,
+   "backbone clash": -0.0073,
+   "cleaned": "KA58Y,HA76W",
+   "_source": "sweep_4x_round_1"
+  }
+ },
+ "meta": {
+  "pdb": "3UIG",
+  "mode": "variant",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "A,P",
+  "mutation_list_sha256": "69c1dda3af43294848a5d823f97f50ea00355a59d52eb6ea1c97cf83c7af3368",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "3UIG_A_P",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

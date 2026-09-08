@@ -1,0 +1,35 @@
+{
+ "variants": {
+  "AE14C,AE38C": {
+   "Interaction Energy": -0.2343,
+   "Backbone Hbond": 0.0125,
+   "Sidechain Hbond": 0.0135,
+   "Van der Waals": 0.0202,
+   "Electrostatics": 0.0,
+   "Solvation Polar": -0.0278,
+   "Solvation Hydrophobic": 0.0221,
+   "Van der Waals clashes": -0.0002,
+   "entropy sidechain": -0.2682,
+   "entropy mainchain": -0.0064,
+   "torsional clash": 0.0,
+   "backbone clash": -0.0009,
+   "cleaned": "AE14C,AE38C",
+   "_source": "sweep_4x_round_1",
+   "role": "AB14C,AB38C"
+  }
+ },
+ "meta": {
+  "pdb": "2ABZ",
+  "mode": "variant",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "B,E",
+  "mutation_list_sha256": "bd68e17a7e10711e6fc24faf900a3344276e75735af1f6bdf40178c2f4c00b60",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "2ABZ_B_E",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

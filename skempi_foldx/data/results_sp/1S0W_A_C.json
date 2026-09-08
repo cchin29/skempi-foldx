@@ -1,0 +1,35 @@
+{
+ "muts": {
+  "AC142F": {
+   "Interaction Energy": -1.1574,
+   "Backbone Hbond": -0.0109,
+   "Sidechain Hbond": -0.0373,
+   "Van der Waals": -1.2973,
+   "Electrostatics": -0.3571,
+   "Solvation Polar": 1.371,
+   "Solvation Hydrophobic": -1.7276,
+   "Van der Waals clashes": 0.0161,
+   "entropy sidechain": 0.7568,
+   "entropy mainchain": 0.1106,
+   "torsional clash": 0.0185,
+   "backbone clash": 0.0176,
+   "cleaned": "AC142F",
+   "_source": "sweep_4x_round_1",
+   "role": "AB142F"
+  }
+ },
+ "meta": {
+  "pdb": "1S0W",
+  "mode": "author",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "A,C",
+  "mutation_list_sha256": "88eb998afaf85cf52a37116fbbb9efb0b680344b6d5179b777ff143b56cedf0e",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "1S0W_A_C",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

@@ -1,20 +1,28 @@
 """FoldX binding ΔΔG for SKEMPI 2.0 — compute it, or just use the results.
 
     from skempi_foldx import load_bundled_store
-    store = load_bundled_store()               # {pdb: {mutation: {12 energy terms}}}
+    store = load_bundled_store()      # {'1BRS_A_D': {'DA52A': {12 energy terms}}, ...}
 
 Two things ship here, and the second is the one most people want:
 
 1. **The pipeline.** ``RepairPDB -> BuildModel -> AnalyseComplex`` over SKEMPI's chain groups,
    yielding ΔΔG_int = IE(mutant) - IE(wild-type), reported as the total and eleven of its
    component terms.
-   Resumable per complex, parallel across complexes, and honest about what it could not compute.
+   Resumable per complex, parallel across complexes, and recording every complex it could not
+   compute rather than omitting it.
 
-2. **The results.** 322 complexes / 4238 single-point mutations and 152 / 1765 multi-point
-   variants -- 97.7% and 95.5% of what SKEMPI defines, and 97.8%/100% of what is reachable
-   once the one unrepairable structure is set aside. Reproducing these needs a
-   FoldX licence and CPU-weeks; reading them needs neither, and this package has no dependencies
-   beyond the standard library.
+2. **The results.** 4340 single-point mutations over 323 interface definitions, and 1767
+   multi-point variants over 154 — 4340 of the 4343 and 1767 of the 1850 SKEMPI defines, which is
+   all of both once the one unrepairable structure is set aside. Reproducing these needs a FoldX
+   licence and CPU-weeks; reading them needs neither, and this package has no dependencies beyond
+   the standard library.
+
+   Two units share the word "record" in this literature, so this package fixes both. The **store
+   unit** — what a results file holds, and what the store is keyed by — is one SKEMPI
+   **interface definition**, ``<pdb>_<group1>_<group2>``, because three codes are defined under two
+   chain pairings each and the pairing is half of what a value means. A **record** is one mutation
+   within such a definition: one set of twelve terms. Counts in the documentation are records in
+   that second sense — 6107 of them, over 477 definition-arms and 347 distinct definitions.
 
 Read ``docs/DETERMINISM.md`` before running a campaign. The short version: FoldX 5.1 is
 deterministic, but a mutation's ΔΔG depends on *every entry preceding it* in
@@ -26,15 +34,16 @@ fact about this pipeline.
 from .config import FoldxConfig, default_config
 from .lookup import FoldxLookup, load_chain_mapping, to_role_form
 from .exclusions import (
-    COLLAPSED_INTERFACES,
     INTRACTABLE,
-    N_INTERFACE_SUSPECT,
-    CollapsedInterface,
+    code_of,
     Exclusion,
     filter_complexes,
+    announce_malformed,
     filter_worklist,
-    interface_suspect,
     is_excluded,
+    is_malformed,
+    MALFORMED_ROWS,
+    MalformedRow,
 )
 from .run import (
     MODE_AUTHOR,
@@ -46,11 +55,15 @@ from .run import (
     process_complex,
     run_campaign,
     worklist_from_table,
+    pool_by_code,
     worklist_multi_point,
     worklist_single_point,
 )
-from .skempi import Mutation, SkempiComplex, load_skempi, map_role_to_author
+from .skempi import (Mutation, SkempiComplex, by_pdb, load_skempi,
+                     map_role_to_author)
 from .store import (
+    check_code,
+    check_identifier,
     DATA_DIR,
     MULTI_POINT,
     SINGLE_POINT,
@@ -71,22 +84,24 @@ from .store import (
 )
 from .terms import N_TERMS, SCALAR_TERM, TERMS, term_vector
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 __all__ = [
     "N_TERMS", "SCALAR_TERM", "TERMS", "term_vector",
     "FoldxConfig", "default_config",
     "FoldxLookup", "load_chain_mapping", "to_role_form",
     "INTRACTABLE", "Exclusion", "is_excluded", "filter_complexes", "filter_worklist",
-    "COLLAPSED_INTERFACES", "CollapsedInterface", "N_INTERFACE_SUSPECT", "interface_suspect",
+    "code_of",
+    "MALFORMED_ROWS", "MalformedRow", "is_malformed", "announce_malformed",
     "MODE_AUTHOR", "MODE_ROLE", "MODE_VARIANT",
     "ComplexResult", "process_complex", "run_campaign", "format_individual_list",
     "worklist_from_table", "worklist_single_point", "worklist_multi_point",
+    "pool_by_code",
     "exclude_already_computed",
-    "Mutation", "SkempiComplex", "load_skempi", "map_role_to_author",
+    "Mutation", "SkempiComplex", "by_pdb", "load_skempi", "map_role_to_author",
     "ConsolidationReport", "audit", "consolidate", "coverage", "source_label",
     "DATA_DIR", "SINGLE_POINT", "MULTI_POINT", "bundled_path", "load_bundled_store",
     "load_complex", "load_complex_kind", "load_store", "store_kind",
     "reindex_by_skempi_id",
-    "infer_kind", "write_store",
+    "infer_kind", "write_store", "check_code", "check_identifier",
 ]

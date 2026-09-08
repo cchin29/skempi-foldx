@@ -1,0 +1,35 @@
+{
+ "muts": {
+  "PI39T": {
+   "Interaction Energy": 4.008,
+   "Backbone Hbond": -0.0059,
+   "Sidechain Hbond": -0.012,
+   "Van der Waals": -0.2059,
+   "Electrostatics": 0.0105,
+   "Solvation Polar": 1.3184,
+   "Solvation Hydrophobic": 0.1685,
+   "Van der Waals clashes": 2.5505,
+   "entropy sidechain": -0.1983,
+   "entropy mainchain": 0.3806,
+   "torsional clash": 0.0014,
+   "backbone clash": -0.1367,
+   "cleaned": "PI39T",
+   "_source": "sweep_4x_round_1",
+   "role": "PB39T"
+  }
+ },
+ "meta": {
+  "pdb": "1Y33",
+  "mode": "author",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "E,I",
+  "mutation_list_sha256": "ff2fe38b9f03250a8d5e96dd0fa5237a11b7ca74c89de11e5c8edc228d719557",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "1Y33_E_I",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "muts": {
+  "FB101Y": {
+   "Interaction Energy": 1.175,
+   "Backbone Hbond": -0.5331,
+   "Sidechain Hbond": -1.8904,
+   "Van der Waals": -0.2959,
+   "Electrostatics": -0.1498,
+   "Solvation Polar": 0.7363,
+   "Solvation Hydrophobic": 0.0283,
+   "Van der Waals clashes": 3.037,
+   "entropy sidechain": 0.2175,
+   "entropy mainchain": 0.0192,
+   "torsional clash": 0.0032,
+   "backbone clash": 0.0595,
+   "cleaned": "FB101Y",
+   "_source": "sweep_4x_round_1",
+   "role": "FA208Y"
+  }
+ },
+ "meta": {
+  "pdb": "1KIQ",
+  "mode": "author",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "AB,C",
+  "mutation_list_sha256": "988ebfd2c6d2a1396355003fb0a24d34b8aacdf760d1d4f5f384a0693b6f3c7a",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "1KIQ_AB_C",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

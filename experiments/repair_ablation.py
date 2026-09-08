@@ -1,21 +1,24 @@
 #!/usr/bin/env python3
 """Repair-count effect on the FoldX ΔΔG channel.
 
-The pipeline runs `RepairPDB` **once**. That is FoldX's own documented recommendation, and it
-matches CATH-ddG — the only comparator paper with a fully specified protocol, and the source of
-the FoldX baseline row these results are placed beside. But some groups iterate 5–10 times "to
-convergence", and a reviewer may ask why this does not.
+The pipeline runs `RepairPDB` **once**, matching CATH-ddG — the only comparator paper with a
+fully specified protocol, and the source of the FoldX baseline row these results are placed
+beside. FoldX's own documentation says to repair before modelling without naming a count; reading
+that as a recommendation of one is Usmanova et al.'s, and is attributed to them in
+docs/DETERMINISM.md. Some groups iterate 5–10 times "to convergence", and a reviewer may ask why
+this does not.
 
-The evidence for iterating is thinner than its popularity suggests: the only controlled test
+The literature is thinner on this than the practice is common. The only controlled test
 (Usmanova et al., *Bioinformatics* 34(21):3653, 2018) ran ten rounds instead of one and found
-stability change and bias unchanged (r = 0.99). That paper is also the origin of the widely-cited
-"plateau after 7–10 rounds" line, which is routinely quoted *without* the null result in the
-following sentence. Two papers do report gains on binding data, but both confound repair count
-with other pipeline changes.
+stability change and bias unchanged (r = 0.99); that paper is also where the "plateau after 7–10
+rounds" figure comes from. Reports of gains on binding data vary repair count alongside other
+pipeline changes, so none of them isolates it.
 
 So this is a question worth answering with a measurement rather than a citation — especially since
-it is cheap. The per-structure metric only scores complexes with at least ten mutations, and on
-the frontier-comparable CATH tier that is **13 complexes**.
+it is cheap. The per-structure metric only scores complexes carrying at least ten SKEMPI *rows*,
+and on the CATH-ddG test PPIs meeting that, which is **13 complexes**. Rows, not distinct
+mutations: SKEMPI records several measurements of the same substitution, so two of the 13 hold
+fewer than ten distinct mutations in this store (`2KSO` holds 5, `2PCC` 6).
 
 Subcommands
 -----------
@@ -30,8 +33,9 @@ Subcommands
            lists, because that alone changes energies and would confound the measurement.
 
 A clean repair-count measurement needs a CONTROL at --iterations 1 on the same union lists.
-Diffing the 5x run against the canonical store is NOT clean: the canonical store was built from
-per-campaign mutation subsets, so such a diff mixes repair count with list composition.
+Run one anyway rather than diffing against the canonical store: since 0.2.0 that store is itself
+built from union lists, so the confound that made such a diff meaningless in 0.1.0 is gone, but a
+control built by this script is the only way to hold every other pipeline detail constant too.
 
 Nothing here writes to the canonical store or to any split directory.
 
@@ -45,11 +49,12 @@ Usage
         --store    scratch/foldx_repair_ablation/repair_1x/results \\
         --ablation scratch/foldx_repair_ablation/repair_5x/results
 
-`--complexes` defaults to the CATH tier's T>=10 set. Use `--scope t10` for every complex the
-per-structure metric can score (98 complexes, ~1 h on 40 cores), or `--scope all` for the whole
-single-point store (~2.5 h on 40 cores).
+`--complexes` defaults to the CATH-ddG test PPIs carrying at least ten rows. Use
+`--scope t10` for every complex the
+per-structure metric can score (99 complexes against the 0.2.0 store, ~1 h on 40 cores), or
+`--scope all` for the whole single-point store (~2.5 h on 40 cores).
 
-⚠ FoldX is CPU-bound. Do not run this on a machine that is training.
+⚠ FoldX is CPU-bound and will saturate every core it is given.
 """
 
 from __future__ import annotations
@@ -72,16 +77,32 @@ sys.path.insert(0, str(ROOT))
 from skempi_foldx import (  # noqa: E402
     FoldxConfig,
     MODE_AUTHOR,
+    by_pdb,
     filter_complexes,
     load_skempi,
     load_store,
-    process_complex,
+    pool_by_code,
     run_campaign,
     worklist_single_point,
 )
+from skempi_foldx.exclusions import code_of  # noqa: E402
+
+
+def per_structure(skempi):
+    """``({pdb: SkempiComplex}, {pdb: [mutations]})`` — the per-structure view of a SKEMPI table.
+
+    This driver's unit is a repaired PDB, not a SKEMPI interface definition: it repairs a
+    structure N times and compares a complex against *itself* across rounds. So it pools each
+    code's definitions, which `pool_by_code` documents as reintroducing exactly the pooling the
+    shipped store avoids -- sound here, because nothing computed by this script is joined back
+    onto a SKEMPI row, and unsound for the store, which is why the three multiply-defined codes
+    are computed separately by `recompute_alternate_interfaces.py --all-definitions`.
+    """
+    entries = {pdb: defs[0] for pdb, defs in by_pdb(skempi).items()}
+    return entries, pool_by_code(worklist_single_point(skempi))
 from skempi_foldx.terms import TERMS  # noqa: E402
 
-#: The CATH tier's T>=10 complexes — the set that actually drives the frontier-comparable
+#: The CATH-ddG test PPIs carrying at least ten SKEMPI rows — the set that drives the comparable
 #: per-structure Spearman. Thirteen complexes; about ten minutes on sixteen cores.
 CATH_T10 = ["1AK4", "1BRS", "1EMV", "1FFW", "1JTD", "1JTG", "2G2U",
             "2J0T", "2KSO", "2PCC", "2WPT", "3QHY", "3SZK"]
@@ -139,15 +160,18 @@ def resolve_complexes(args, store_dir: Path, skempi=None, pdb_dir=None):
         if not store:
             sys.exit(f"--scope t10 needs a results store to count mutations, but {store_dir} "
                      f"is empty or missing. Pass --store, or use --scope all.")
-        targets = sorted(p for p, m in store.items() if len(m) >= 10)
+        pooled = {}
+        for ident, muts in store.items():
+            pooled.setdefault(code_of(ident), set()).update(muts)
+        targets = sorted(p for p, m in pooled.items() if len(m) >= 10)
     elif skempi is not None:
-        targets = sorted(p for p, e in skempi.items() if e.single or e.multi)
+        targets = sorted({e.pdb for e in skempi.values() if e.single or e.multi})
     else:
         store = load_store(store_dir)
         if not store:
             sys.exit(f"--scope all could not enumerate complexes: {store_dir} is empty or "
                      f"missing and no SKEMPI table was supplied.")
-        targets = sorted(store)
+        targets = sorted({code_of(p) for p in store})
 
     # Before the PDB check, so the note reads as an exclusion rather than a missing file.
     targets = filter_complexes(targets, context=f"--scope {args.scope}")
@@ -202,7 +226,8 @@ def cmd_probe(args):
     print(f"[probe] {len(targets)} complexes x {args.iterations} repair rounds")
     print(f"[probe] FoldX: {binary}")
 
-    run_campaign({p: [] for p in targets if p in skempi}, skempi, config,
+    entries, _ = per_structure(skempi)
+    run_campaign({p: [] for p in targets if p in entries}, entries, config,
                  mode=MODE_AUTHOR, jobs=args.jobs, repair_only=True)
 
     print(f"\n{'complex':<10}" + "".join(f"  r{i}->r{i+1}" for i in range(1, args.iterations)))
@@ -240,12 +265,13 @@ def cmd_run(args):
 
     # Union mutation lists, deliberately: a mutation's energy depends on the whole list, so a
     # per-dataset subset would confound the repair-count effect with a list-composition effect.
-    worklist = worklist_single_point(skempi, only=targets)
+    entries, pooled = per_structure(skempi)
+    worklist = {p: m for p, m in pooled.items() if p in set(targets)}
     n_mut = sum(len(v) for v in worklist.values())
     print(f"[run] {len(worklist)} complexes, {n_mut} mutations, "
           f"repair x{args.iterations}, jobs={args.jobs}")
     print(f"[run] writing to {config.results_dir}  (canonical store untouched)")
-    run_campaign(worklist, skempi, config, mode=MODE_AUTHOR, jobs=args.jobs)
+    run_campaign(worklist, entries, config, mode=MODE_AUTHOR, jobs=args.jobs)
     print(f"\nNow: python {Path(__file__).name} compare "
           f"--ablation {config.results_dir} --store {args.store}")
 
@@ -344,7 +370,7 @@ def cmd_compare(args):
     print("  - small     -> keep one repair, quote these numbers as the sensitivity.")
     print("  - large     -> the choice is load-bearing; rescore the FoldX-alone baseline")
     print("                 against the published FoldX row (0.398 here vs 0.4458 published)")
-    print("                 before deciding which protocol to publish.")
+    print("                 before settling on a repair count.")
 
 
 
@@ -371,14 +397,15 @@ def cmd_sweep(args):
     chain.resolve_binary()
     skempi = load_skempi(chain.skempi_csv)
     targets = resolve_complexes(args, Path(args.store), skempi, chain.pdb_dir)
-    worklist = worklist_single_point(skempi, only=targets)
+    entries, pooled = per_structure(skempi)
+    worklist = {p: m for p, m in pooled.items() if p in set(targets)}
     n_mut = sum(len(v) for v in worklist.values())
 
     print(f"[sweep] {len(targets)} complexes, {n_mut} single-point mutations")
     print(f"[sweep] ⚠ SINGLE-POINT ONLY — multi-point variants are not covered by this "
-          f"version. The CATH test set is ~39% multi-point, so a CATH-*all* number needs both.")
+          f"version. 33% of the CATH test set is multi-point, so a CATH-*all* number needs both.")
     print(f"[sweep] phase 1/2: {args.iterations} repair rounds (shared)")
-    run_campaign({p: [] for p in targets}, skempi, chain, mode=MODE_AUTHOR,
+    run_campaign({p: [] for p in targets}, entries, chain, mode=MODE_AUTHOR,
                  jobs=args.jobs, repair_only=True)
 
     for r in rounds:
@@ -417,7 +444,7 @@ def cmd_sweep(args):
                 f"Building the rest anyway would write 1x-repaired values into round {r}."
             )
         print(f"[sweep]   seeded {len(seeded)}/{len(targets)} repaired structures")
-        run_campaign({p: v for p, v in worklist.items() if p in set(seeded)}, skempi, cfg,
+        run_campaign({p: v for p, v in worklist.items() if p in set(seeded)}, entries, cfg,
                      mode=MODE_AUTHOR, jobs=args.jobs)
 
     print(f"\n[sweep] done. Stores under {base}/round_<r>/results")
@@ -433,11 +460,14 @@ def main():
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("command", choices=["probe", "run", "sweep", "compare"])
     ap.add_argument("--iterations", type=int, default=5,
-                    help="RepairPDB rounds (default 5; the literature's claimed plateau is 7-10)")
+                    help="RepairPDB rounds (default 5; the plateau reported in the "
+                         "literature is 7-10)")
     ap.add_argument("--jobs", type=int, default=4, help="parallel complexes")
     ap.add_argument("--scope", choices=["cath", "t10", "all"], default="cath",
-                    help="cath = the 13 CATH T>=10 complexes (default, ~10 min on 16 cores); "
-                         "t10 = all 98 metric-scoring complexes; all = the full store")
+                    help="cath = the 13 CATH test PPIs with >=10 rows "
+                         "(default, ~10 min on 16 cores); "
+                         "t10 = all metric-scoring complexes (99 against the 0.2.0 store); "
+                         "all = the full store")
     ap.add_argument("--complexes", nargs="*", help="explicit PDB ids, overriding --scope")
     ap.add_argument("--exclude", nargs="*", default=[],
                     help="PDB ids to drop, on top of skempi_foldx.exclusions.INTRACTABLE. For a "

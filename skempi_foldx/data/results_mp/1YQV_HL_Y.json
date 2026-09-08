@@ -1,0 +1,52 @@
+{
+ "variants": {
+  "RY68K,TY40S,IY55V,SY91T": {
+   "Interaction Energy": 4.5368,
+   "Backbone Hbond": 0.1463,
+   "Sidechain Hbond": 3.2033,
+   "Van der Waals": 1.0772,
+   "Electrostatics": 2.5679,
+   "Solvation Polar": -2.0215,
+   "Solvation Hydrophobic": 0.4411,
+   "Van der Waals clashes": -1.0477,
+   "entropy sidechain": -0.6773,
+   "entropy mainchain": 0.5608,
+   "torsional clash": 0.0189,
+   "backbone clash": -0.0137,
+   "cleaned": "RY68K,TY40S,IY55V,SY91T",
+   "_source": "sweep_4x_round_1",
+   "role": "RB68K,TB40S,IB55V,SB91T"
+  },
+  "RY68K,TY40S,IY55V,SY91T,QY121H": {
+   "Interaction Energy": 4.8629,
+   "Backbone Hbond": -0.0081,
+   "Sidechain Hbond": 3.3873,
+   "Van der Waals": 0.8684,
+   "Electrostatics": 2.782,
+   "Solvation Polar": -1.6861,
+   "Solvation Hydrophobic": 0.1271,
+   "Van der Waals clashes": -0.0078,
+   "entropy sidechain": -0.5438,
+   "entropy mainchain": -0.3421,
+   "torsional clash": -0.0411,
+   "backbone clash": 0.0887,
+   "cleaned": "RY68K,TY40S,IY55V,SY91T,QY121H",
+   "_source": "sweep_4x_round_1",
+   "role": "RB68K,TB40S,IB55V,SB91T,QB121H"
+  }
+ },
+ "meta": {
+  "pdb": "1YQV",
+  "mode": "variant",
+  "n_requested": 2,
+  "validation_failed": [],
+  "n_ok": 2,
+  "groups": "HL,Y",
+  "mutation_list_sha256": "ee822b7d0c9405621cfcfdfe44217aa11180c4b5c7d27232ba56a3c5042b8fcd",
+  "n_accepted": 2,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "1YQV_HL_Y",
+  "source": "round_1 union list",
+  "n_mutations": 2
+ }
+}

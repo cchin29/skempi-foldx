@@ -1,10 +1,9 @@
 # References
 
-Every DOI below was checked: resolved against the CrossRef API, or — for preprints, which
-CrossRef indexes differently — confirmed to resolve at `doi.org`. None was inferred from a
-citation pattern. (One near-miss worth recording: a plausible-looking DOI for the Usmanova paper,
-differing by one digit, belongs to a different paper on the same topic in the same journal and
-year.)
+Every DOI below resolves against the CrossRef API, or — for preprints, which CrossRef indexes
+differently — at `doi.org`. None is inferred from a citation pattern, which matters more than it
+sounds: a DOI differing by one digit from the right one can belong to a real paper on the same
+topic in the same journal and year.
 
 This covers every work named under `docs/`: the data sources, the tools, the comparator methods
 this protocol is measured against, and the method background.
@@ -20,6 +19,14 @@ Released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/); see
 > thermodynamics upon mutation. *Bioinformatics* **35**(3):462–469 (2019).
 > [10.1093/bioinformatics/bty635](https://doi.org/10.1093/bioinformatics/bty635) ·
 > <https://life.bsc.es/pid/skempi2>
+
+**Protein Data Bank** — the structures SKEMPI names and FoldX repaired. Not redistributed here;
+the computed outputs are.
+
+> Berman, H. M., Westbrook, J., Feng, Z., Gilliland, G., Bhat, T. N., Weissig, H.,
+> Shindyalov, I. N. & Bourne, P. E. The Protein Data Bank. *Nucleic Acids Research*
+> **28**(1):235–242 (2000).
+> [10.1093/nar/28.1.235](https://doi.org/10.1093/nar/28.1.235) · <https://www.rcsb.org/>
 
 **FoldX** — produced every energy in this repository. Not redistributed; free for academic and
 non-profit institutions, paid for commercial use.
@@ -49,8 +56,8 @@ answer when bindings are what is needed.
 
 Characterised in [PROTOCOL.md](PROTOCOL.md).
 
-**CATH-ddG** — the comparator whose FoldX protocol is specified in most detail, and the source of the
-CATH-superfamily partition used as an evaluation split.
+**CATH-ddG** — the comparator whose FoldX protocol is specified in most detail, and the source of
+the CATH-superfamily partition used as an evaluation split.
 
 > Yu, G., Bi, X., Ma, T., Li, Y. & Wang, J. CATH-ddG: towards robust mutation effect prediction
 > on protein–protein interactions out of CATH homologous superfamily. *Bioinformatics*
@@ -69,7 +76,7 @@ FoldX baseline row as CATH-ddG above.
 **RDE-Network** — the source of the `block_list` that this package's `1KBH` exclusion follows.
 
 > Luo, S., Su, Y., Wu, Z., Su, C., Peng, J. & Ma, J. Rotamer Density Estimator is an Unsupervised
-> Learner of the Effect of Mutations on Protein–Protein Interaction. *ICLR* (2023);
+> Learner of the Effect of Mutations on Protein-Protein Interaction. *ICLR* (2023);
 > *bioRxiv* 2023.02.28.530137.
 > [10.1101/2023.02.28.530137](https://doi.org/10.1101/2023.02.28.530137) ·
 > <https://github.com/luost26/RDE-PPI>
@@ -83,8 +90,8 @@ command sequence is given in prose, the repair count is not.
 > [10.1038/s41467-024-51563-8](https://doi.org/10.1038/s41467-024-51563-8)
 
 **Also characterised in [PROTOCOL.md](PROTOCOL.md).** Six further methods appear in that file's
-survey table. Most are conference papers whose venues do not register DOIs, so an arXiv identifier
-is given where that is the citable form.
+survey table. Three of the six are conference papers whose venues do not register DOIs, so an
+arXiv identifier is given where that is the citable form.
 
 > Feldman, J., Maechler, A., Wang, D. & Shakhnovich, E. I. A General Framework for Injecting
 > Biophysical Priors into Protein Embeddings. *bioRxiv* 2025.12.23.696257 (2025). — **ProtBFF**
@@ -96,7 +103,7 @@ is given where that is the citable form.
 > [arXiv:2405.10348](https://arxiv.org/abs/2405.10348)
 
 > Jiao, X., Mao, W., Jin, W., Yang, P., Chen, H. & Shen, C. Boltzmann-Aligned Inverse Folding
-> Model as a Predictor of Mutational Effects on Protein–Protein Interactions. *ICLR* (2025). —
+> Model as a Predictor of Mutational Effects on Protein-Protein Interactions. *ICLR* (2025). —
 > **BA-DDG** [arXiv:2410.09543](https://arxiv.org/abs/2410.09543)
 
 > Liu, X., Luo, Y., Song, S. & Peng, J. Pre-training of Graph Neural Network for Modeling Effects
@@ -129,9 +136,11 @@ should take it from the benchmark definition it means to follow, not from this p
 
 ## Method background
 
-**Repair-count practice.** The only controlled study of iterating `RepairPDB` — its finding that
-iteration does not improve ΔΔG or reduce bias is the reason a single repair is defensible, and
-the reason the repair-count question here is measured rather than assumed. See
+**Repair-count practice.** The only controlled study of iterating `RepairPDB`. Its finding that
+iteration does not improve ΔΔG or reduce bias is about **folding** ΔΔG, and is the reason a single
+repair is defensible. It does not settle the question for the **binding** ΔΔG measured here, where
+this repository's own four-round sweep finds the repair count does move the numbers and that no
+round is a plateau — which is why the question is measured rather than assumed. See
 [DETERMINISM.md](DETERMINISM.md).
 
 > Usmanova, D. R., Bogatyreva, N. S., Ariño Bernad, J. *et al.* Self-consistency test reveals
@@ -147,20 +156,30 @@ that rule out a stochastic explanation for the 11 kcal/mol observed here.
 > predictors: structural sensitivity. *BMC Bioinformatics* **22**:88 (2021).
 > [10.1186/s12859-021-04030-w](https://doi.org/10.1186/s12859-021-04030-w)
 
-**Protocol reporting.** Quoted in [DETERMINISM.md](DETERMINISM.md) as the best protocol-reporting
-template found in this literature: it states the repair count, the run count and the environment
-parameters in two sentences, which no comparator paper does.
+**Protocol reporting.** Quoted in [DETERMINISM.md](DETERMINISM.md) as the protocol-reporting
+template followed here: it states the repair count, the run count and the environment parameters
+in two sentences.
 
 > Vincenzi, M., Mercurio, F. A., La Manna, S., Palumbo, R., Pirone, L., Marasco, D., Pedone, E. M.
 > & Leone, M. Exploring a Potential Optimization Route for Peptide Ligands of the Sam Domain from
 > the Lipid Phosphatase Ship2. *International Journal of Molecular Sciences* **25**(19):10616
 > (2024). [10.3390/ijms251910616](https://doi.org/10.3390/ijms251910616)
 
-**CD-HIT** — used to build the ≤60% sequence-identity clustered evaluation splits.
+**FoldX prediction uncertainty** — two of the published magnitudes that
+[DETERMINISM.md](DETERMINISM.md) weighs in arguing that the observed spread is not FoldX noise.
+The third, Caldararu et al., is filed under *Structural sensitivity of FoldX* above.
 
-> Fu, L., Niu, B., Zhu, Z., Wu, S. & Li, W. CD-HIT: accelerated for clustering the
-> next-generation sequencing data. *Bioinformatics* **28**(23):3150–3152 (2012).
-> [10.1093/bioinformatics/bts565](https://doi.org/10.1093/bioinformatics/bts565)
+> Sapozhnikov, Y., Patel, J. S., Ytreberg, F. M. & Miller, C. R. Statistical modeling to quantify
+> the uncertainty of FoldX-predicted protein folding and binding stability. *BMC Bioinformatics*
+> **24**:426 (2023). — the ±3.5 kcal/mol binding prediction interval quoted in
+> [DETERMINISM.md](DETERMINISM.md).
+> [10.1186/s12859-023-05537-0](https://doi.org/10.1186/s12859-023-05537-0)
+
+> Guerois, R., Nielsen, J. E. & Serrano, L. Predicting changes in the stability of proteins and
+> protein complexes: a study of more than 1000 mutations. *Journal of Molecular Biology*
+> **320**(2):369–387 (2002). — the calibration the FoldX force field was fitted on, and the source
+> of the 0.46 kcal/mol standard deviation quoted in [DETERMINISM.md](DETERMINISM.md).
+> [10.1016/S0022-2836(02)00442-4](https://doi.org/10.1016/S0022-2836(02)00442-4)
 
 **CATH** — the structural classification underlying the superfamily-level evaluation split.
 

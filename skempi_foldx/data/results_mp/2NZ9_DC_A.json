@@ -1,0 +1,35 @@
+{
+ "variants": {
+  "SD29K,DD30Y,HD31D": {
+   "Interaction Energy": -1.3906,
+   "Backbone Hbond": -0.0001,
+   "Sidechain Hbond": -0.018,
+   "Van der Waals": -0.6394,
+   "Electrostatics": -0.0994,
+   "Solvation Polar": -0.1507,
+   "Solvation Hydrophobic": -1.1133,
+   "Van der Waals clashes": 0.0063,
+   "entropy sidechain": 0.5552,
+   "entropy mainchain": -0.017,
+   "torsional clash": 0.0118,
+   "backbone clash": 0.0512,
+   "cleaned": "SD29K,DD30Y,HD31D",
+   "_source": "sweep_4x_round_1",
+   "role": "SA29K,DA30Y,HA31D"
+  }
+ },
+ "meta": {
+  "pdb": "2NZ9",
+  "mode": "variant",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "DC,A",
+  "mutation_list_sha256": "0cd5cf71f296d9ecb8adda6a5ac48c1019641c457bf9630b7ba671355b806300",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "2NZ9_DC_A",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

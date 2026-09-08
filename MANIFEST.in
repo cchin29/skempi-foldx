@@ -1,11 +1,32 @@
 # The sdist must be able to build AND to verify itself. setuptools' default heuristic picks up
 # tests/test_*.py but not conftest.py, and conftest is what puts experiments/ on sys.path -- an
-# sdist without both fails nine tests that pass in a checkout, which reads as a broken release
+# sdist without both fails eleven tests that pass in a checkout, which reads as a broken release
 # rather than as an incomplete archive.
-include LICENSE NOTICE README.md CHANGELOG.md CITATION.cff
-graft tests
-graft experiments
-graft docs
-recursive-include skempi_foldx/data *.json *.txt
-global-exclude __pycache__ *.py[cod] .DS_Store
+include LICENSE NOTICE README.md CHANGELOG.md CONTRIBUTING.md CITATION.cff
+# Nothing here is grafted, and the reason is the same in all three directories: a graft walks the
+# filesystem rather than git, so it ships whatever the maintainer happens to have generated
+# locally. Every one of these directories is a place where running the pipeline leaves gitignored
+# files behind, and two of them would be actively wrong to publish:
+#
+#   * `experiments/` is where a FoldX run happens. `.gitignore` excludes `rotabase.txt` -- FoldX's
+#     own licensed support data, which this project has no right to redistribute -- along with
+#     `individual_list.txt` and `*.fxout` working files. A graft shipped all three.
+#   * `docs/assets/` also holds generated files that are not tracked: `.gitignore` excludes
+#     `*.html` and `*.csv` there. The HTML pages are large, and `version_compare.csv` carries
+#     per-row SKEMPI affinity data this repository does not redistribute.
+#
+# Naming extensions instead means a new file type has to be added here deliberately, which is the
+# right default for an archive that is published. The check that this still holds is in
+# CONTRIBUTING.md: build an sdist from a clean tree and diff it against `git archive`.
+include tests/*.py tests/*.md
+include experiments/*.py
+include experiments/repair_sweep/*.py experiments/repair_sweep/*.sh experiments/repair_sweep/*.md
+include docs/*.md
+recursive-include docs/assets *.txt *.png
+
+recursive-include skempi_foldx/data *.json *.txt *.csv
+
+# `*.py[cod]` is what does the work here: global-exclude matches files, so a bare `__pycache__`
+# would match nothing, and a cache directory holds only the files that pattern already names.
+global-exclude *.py[cod] .DS_Store
 prune **/.pytest_cache

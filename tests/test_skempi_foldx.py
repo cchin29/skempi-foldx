@@ -16,6 +16,7 @@ No FoldX binary, network, or working directory outside tmp_path is required.
 from __future__ import annotations
 
 import json
+import pathlib
 import warnings
 
 import pytest
@@ -33,12 +34,19 @@ def test_term_order_is_pinned():
     """Column order is consumed positionally by any consumer that flattens a record into a
     feature vector. Reordering silently permutes the features, and what is fit on them looks
     plausible and is wrong."""
-    assert TERMS == [
+    assert TERMS == (
         "Interaction Energy", "Backbone Hbond", "Sidechain Hbond", "Van der Waals",
         "Electrostatics", "Solvation Polar", "Solvation Hydrophobic",
         "Van der Waals clashes", "entropy sidechain", "entropy mainchain",
         "torsional clash", "backbone clash",
-    ]
+    )
+    # A tuple rather than a list, and that is the point: TERMS is public and is the default
+    # argument of term_vector(), so a list would let any importer permute every feature vector
+    # produced afterwards -- process-wide, silently, and exactly the failure this module exists
+    # to prevent.
+    assert isinstance(TERMS, tuple)
+    with pytest.raises((AttributeError, TypeError)):
+        TERMS.reverse()          # type: ignore[attr-defined]
 
 
 # ============================================================================================
@@ -636,8 +644,14 @@ def test_bundled_results_are_reachable_without_a_clone():
 
     assert bundled_path().is_dir() and bundled_path(MULTI_POINT).is_dir()
     sp = load_bundled_store()
-    assert len(sp) == 322 and sum(len(v) for v in sp.values()) == 4238
-    assert sp["1BRS"]["DA52A"]["Interaction Energy"] == -0.6806
+    assert len(sp) == 323 and sum(len(v) for v in sp.values()) == 4340
+    assert sp["1BRS_A_D"]["DA52A"]["Interaction Energy"] == -0.6806
+
+    # The multi-point definition count belongs beside the single-point one. It had been asserted
+    # only by the workflow's wheel-check step, so trimming that step -- which looks like it merely
+    # duplicates the counts above -- would have removed the sole check on it.
+    mp = load_bundled_store(MULTI_POINT)
+    assert len(mp) == 154 and sum(len(v) for v in mp.values()) == 1767
 
 
 def test_load_store_raises_on_a_missing_directory(tmp_path):
@@ -785,15 +799,19 @@ def test_load_skempi_reads_the_right_columns_and_splits_single_from_multi(tmp_pa
         "2BBB_AB_CD;YC105F;YC5F;1e-9;1e-10\n"
     )
     sk = load_skempi(csv)
-    assert set(sk) == {"1AAA", "2BBB"}
-    assert (sk["1AAA"].group1, sk["1AAA"].group2) == ("E", "I"), "chain groups swapped or misread"
-    assert (sk["2BBB"].group1, sk["2BBB"].group2) == ("AB", "CD")
-    assert sk["1AAA"].groups == "E,I", "groups string feeds --analyseComplexChains"
-    assert sk["1AAA"].single == {"LI38S", "GI40A"}
-    assert sk["1AAA"].multi == {"LI38S,GI40A"}, "multi-point row landed in the wrong arm"
-    assert sk["2BBB"].single == {"YC5F"} and not sk["2BBB"].multi
+    # Keyed by SKEMPI identifier, not by PDB code: the chain pairing is half of what a value
+    # means, so it belongs in the name of the record rather than in a field beside it.
+    assert set(sk) == {"1AAA_E_I", "2BBB_AB_CD"}
+    one, two = sk["1AAA_E_I"], sk["2BBB_AB_CD"]
+    assert (one.group1, one.group2) == ("E", "I"), "chain groups swapped or misread"
+    assert (two.group1, two.group2) == ("AB", "CD")
+    assert one.groups == "E,I", "groups string feeds --analyseComplexChains"
+    assert one.id == "1AAA_E_I" and one.pdb == "1AAA"
+    assert one.single == {"LI38S", "GI40A"}
+    assert one.multi == {"LI38S,GI40A"}, "multi-point row landed in the wrong arm"
+    assert two.single == {"YC5F"} and not two.multi
     # the cleaned column, not the PDB-numbered one
-    assert "LI138S" not in sk["1AAA"].single, "read Mutation(s)_PDB instead of Mutation(s)_cleaned"
+    assert "LI138S" not in one.single, "read Mutation(s)_PDB instead of Mutation(s)_cleaned"
 
 
 def test_term_vector_preserves_the_canonical_order():
@@ -825,23 +843,25 @@ def test_exclude_already_computed_actually_excludes(tmp_path):
 
 
 def test_skempi_reindex_is_lossless_and_the_default_is_untouched():
-    """The single-point store carries two key conventions, so a lookup by SKEMPI identifier
-    misses ~29% of it. `key="skempi"` fixes that at read time.
+    """Every shipped key is now SKEMPI's own author form, so re-indexing is an identity map on
+    this store. It stays because it is not an identity map on a *foreign* store: a campaign run
+    in role mode still keys its output that way, and this is what re-indexes it.
 
-    The default must stay byte-for-byte the stored keys: a consumer that maps role chains onto
-    author chains itself needs the role-chain key present. Rewriting the store to one convention
-    was measured to drop such a consumer's coverage from 3300/3300 to 1092/3300 -- silently, since
-    the join simply stops matching and still produces well-formed output."""
+    The default must stay byte-for-byte the stored keys either way -- rewriting a store to one
+    convention was measured to drop a consumer's coverage from 3300/3300 to 1092/3300, silently,
+    since the join simply stops matching and still produces well-formed output."""
     from skempi_foldx import load_bundled_store, reindex_by_skempi_id
 
     stored = load_bundled_store()
     skempi = load_bundled_store(key="skempi")
 
     assert sum(map(len, stored.values())) == sum(map(len, skempi.values())), "records lost"
-    assert "LB38D" in stored["1ACB"], "default keys were rewritten"
-    assert "LI38D" not in stored["1ACB"], "default keys were rewritten"
-    assert "LI38D" in skempi["1ACB"], "re-index did not expose the SKEMPI form"
-    assert stored["1ACB"]["LB38D"] == skempi["1ACB"]["LI38D"], "re-index changed the record"
+    assert "LI38D" in stored["1ACB_E_I"], "the shipped key is SKEMPI's author form"
+    assert stored["1ACB_E_I"] == skempi["1ACB_E_I"], "re-index is not an identity on this store"
+
+    # a foreign store keyed the other way is what the re-index is for
+    role_keyed = {"9ZZZ": {"LB38D": {"cleaned": "LI38D", "Interaction Energy": 1.0}}}
+    assert "LI38D" in reindex_by_skempi_id(role_keyed["9ZZZ"])
 
     # no complex loses a record to a key collision
     for pdb, recs in stored.items():
@@ -891,7 +911,9 @@ def test_source_labels_are_the_documented_set():
     under a directory created for the S1102 work."""
     from skempi_foldx import MULTI_POINT, load_bundled_store
 
-    expected = {"S4169", "full_skempi", "full_skempi_multipoint"}
+    expected = {"sweep_4x_round_1", "2C5D_A_C_sp", "2C5D_A_C_mp", "2C5D_AB_CD_mp",
+                "3SE3_B_A_sp", "3SE3_B_A_mp", "3SE3_B_C_mp",
+                "3SE4_B_A_sp", "3SE4_B_C_sp", "3SE4_B_C_mp"}
     seen = {r.get("_source") for which in ("results_sp", MULTI_POINT)
             for recs in load_bundled_store(which).values() for r in recs.values()}
     seen.discard(None)
@@ -903,8 +925,9 @@ def test_source_labels_are_the_documented_set():
 # back to that. These pin the resolution rather than the plumbing around it.
 
 def test_lookup_resolves_both_stored_conventions_without_extra_inputs():
-    """The single-point store keys 3012 records by SKEMPI's author form and 1226 by the role
-    form. A consumer holding either name must get the same record, with no configuration."""
+    """Every shipped record is keyed by SKEMPI's author form and carries its role-chain name in
+    a `role` field. A consumer holding either name must get the same record, with no
+    configuration."""
     from skempi_foldx import FoldxLookup
 
     fx = FoldxLookup()
@@ -922,9 +945,9 @@ def test_lookup_reports_which_conventions_it_can_resolve():
     from skempi_foldx import FoldxLookup
 
     plain = FoldxLookup().conventions
-    assert "stored key" in plain[0] and len(plain) == 2
-    assert not any("role-chain" in c for c in plain), \
-        "claimed role-chain resolution without the SKEMPI table"
+    assert "stored key" in plain[0] and len(plain) == 3
+    assert "shipped `role` field" in plain[2], \
+        "the shipped role name is what resolves role-chain labels with no configuration"
 
 
 def test_a_miss_names_the_other_form_and_the_fix():
@@ -939,18 +962,23 @@ def test_a_miss_names_the_other_form_and_the_fix():
         fx.require("1ACB", "NOPE1A")
     msg = str(caught.value)
     assert "It holds" in msg, "did not say what the complex does contain"
-    assert "skempi_csv=" in msg, "did not name the input that would resolve more forms"
+    # The bundled store resolves role-chain labels from its own `role` field, so there is no
+    # input left to ask for. Advising skempi_csv= here would send a reader after a file that
+    # cannot change the answer -- and one this package does not redistribute.
+    assert "already resolves role-chain labels exactly" in msg, \
+        "did not say the miss is an absent name rather than a form it could not match"
+    assert "skempi_csv=" not in msg, "asked for an input that would change nothing"
 
 
 def test_lookup_and_vector_agree_with_the_store():
     from skempi_foldx import TERMS, FoldxLookup, load_bundled_store
 
     fx = FoldxLookup()
-    rec = load_bundled_store()["1BRS"]["DA52A"]
+    rec = load_bundled_store()["1BRS_A_D"]["DA52A"]
     assert fx.get("1BRS", "DA52A") == rec
     assert fx.vector("1BRS", "DA52A") == [float(rec[t]) for t in TERMS]
     assert fx.vector("9ZZZ", "AA1G") is None
-    assert len(fx) == 6003, "both arms should be loaded by default"
+    assert len(fx) == 6107, "both arms should be loaded by default"
 
     cov, total, missing = fx.coverage([("1BRS", "DA52A"), ("9ZZZ", "AA1G")])
     assert (cov, total, missing) == (1, 2, [("9ZZZ", "AA1G")])
@@ -1022,6 +1050,105 @@ def test_role_form_remap_includes_the_last_residue_of_a_chain():
     assert to_role_form("KB11G", ("AB", "C"), two) is None, "past the end of the second chain"
 
 
+def test_chain_mapping_splits_a_fused_chain_and_author_number(tmp_path):
+    """A four-digit author number runs into the chain letter, and dropping those lines is silent.
+
+    The mapping files are fixed-width, so `ALA C1001  1` arrives as three whitespace fields. A
+    parser requiring four drops every residue numbered 1000 or above: `2NYY` chain A then measures
+    971 residues instead of 1267 and `to_role_form` rejects in-range mutations, while `1S0W` loses
+    the whole of chain C and yields no role name at all. Neither raises, and for a LATER chain in
+    a group a short length would shift every subsequent offset instead -- aliasing records onto
+    residues they do not describe.
+    """
+    from skempi_foldx.lookup import load_chain_mapping, to_role_form
+
+    directory = tmp_path / "mappings"
+    directory.mkdir()
+    (directory / "1ZZZ.mapping").write_text(
+        "ALA A  26  1\n"
+        "GLY A  27  2\n"
+        "ALA C1001  1\n"        # fused: chain C, author 1001
+        "GLY C1002  2\n"
+        "VAL C1003  3\n")
+
+    chains = load_chain_mapping(directory, "1ZZZ")
+    assert set(chains) == {"A", "C"}, "the fused chain must not vanish"
+    assert len(chains["C"]["seq"]) == 3
+    assert chains["C"]["seq"] == ["1001", "1002", "1003"], "author numbers, separated"
+
+    # With chain C present, a mutation on it resolves; without it the group loop bails to None.
+    assert to_role_form("AC3F", ("A", "C"), chains) == "AB3F"
+
+
+def test_shipped_store_matches_the_backfill_rule():
+    """Every role-less shipped record is one whose role form IS its key.
+
+    This is the gate on `experiments/backfill_role_names.py`: it re-derives, from the identifier
+    alone, the same names that script writes, and fails if the store is missing any of them. The
+    16 records the mapping-file bug once suppressed are covered by construction rather than by
+    being listed, so the test does not go stale if another turns up.
+    """
+    import json
+
+    from skempi_foldx.store import DATA_DIR, MULTI_KEY, SINGLE_KEY
+
+    def role_of(mutation, groups):
+        """A first chain has offset 0, so its role form needs no chain length."""
+        if len(mutation) < 4:
+            return None
+        chain, (g1, g2) = mutation[1], groups
+        if chain in g1:
+            side, group = "A", g1
+        elif chain in g2:
+            side, group = "B", g2
+        else:
+            return None
+        if group[0] != chain or not mutation[2:-1].isdigit():
+            return None
+        return f"{mutation[0]}{side}{mutation[2:-1]}{mutation[-1]}"
+
+    missing = []
+    for path in sorted(DATA_DIR.glob("results_*/*.json")):
+        parts = path.stem.split("_")
+        if len(parts) != 3:
+            continue
+        groups = (parts[1], parts[2])
+        payload = json.loads(path.read_text())
+        for key, record in (payload.get(SINGLE_KEY) or payload.get(MULTI_KEY) or {}).items():
+            derived = [role_of(m, groups) for m in record.get("cleaned", key).split(",")]
+            derived = ",".join(derived) if all(derived) else None
+            if derived is None:
+                continue                 # a later chain: this rule has no opinion either way
+            stored = record.get("role")
+            if stored is None:
+                if derived != key:
+                    missing.append((path.stem, key, "absent", derived))
+            elif stored != derived:
+                missing.append((path.stem, key, stored, derived))
+    assert not missing, (
+        "first-chain records whose stored `role` is absent or disagrees with the role form "
+        f"derived from the identifier -- (file, key, stored, expected): {missing}")
+
+
+def test_backfilled_roles_match_to_role_form():
+    """The backfill's narrow rule and `to_role_form` agree wherever both apply.
+
+    Two derivations of the same name exist -- one from chain mappings, one from the identifier
+    alone -- and the store is written by the first while the audit script uses the second. Pinned
+    here so they cannot drift: `to_role_form` is given a mapping long enough that its bound does
+    not fire, which is the case where both are defined. `role_of` is imported from the script
+    rather than restated, so that sabotaging the script's arithmetic fails this test.
+    """
+    from backfill_role_names import role_of
+    from skempi_foldx.lookup import to_role_form
+
+    chains = {"A": {"seq": ["x"] * 2000}, "C": {"seq": ["x"] * 2000},
+              "D": {"seq": ["x"] * 2000}}
+    for mutation, groups in (("AC142F", ("A", "C")), ("KA1028A", ("DC", "A")),
+                             ("RA1266A", ("DC", "A")), ("YA1D", ("A", "C"))):
+        assert to_role_form(mutation, groups, chains) == role_of(mutation, groups), mutation
+
+
 def test_chain_mapping_reports_each_chain_length_and_nothing_at_all_for_a_missing_file(tmp_path):
     """The offsets a split file numbers by are accumulated from these lengths, so a chain read
     short shifts every later chain onto the wrong numbers. A missing file must read as "no
@@ -1069,7 +1196,18 @@ def test_identity_matching_refuses_to_guess_where_both_partners_share_a_substitu
     csv = _skempi_table(tmp_path, [("1CBW_FGH_I", "GI12A"), ("1CBW_FGH_I", "GF12A"),
                                    ("1CBW_FGH_I", "FI33A")])
 
-    fx = FoldxLookup(skempi_csv=csv)                      # identity matching only
+    # A store with no shipped `role` field, so resolution has to come from identity matching.
+    # The bundled store carries one, computed from the chain mappings at build time, and is
+    # therefore exact by construction -- this invariant is about every other store.
+    terms = {t: 1.0 for t in TERMS}
+    foreign = tmp_path / "foreign_sp"
+    foreign.mkdir()
+    (foreign / "1CBW_FGH_I.json").write_text(json.dumps({"muts": {
+        "GI12A": dict(terms, cleaned="GI12A"),
+        "GF12A": dict(terms, cleaned="GF12A"),
+        "FI33A": dict(terms, cleaned="FI33A")}, "meta": {}}))
+
+    fx = FoldxLookup(stores=foreign, skempi_csv=csv)      # identity matching only
     assert fx.get("1CBW", "FB33A") is fx.get("1CBW", "FI33A") is not None, \
         "an unambiguous role form should still resolve without the mappings"
     assert fx.get("1CBW", "GB12A") is None, \
@@ -1077,7 +1215,7 @@ def test_identity_matching_refuses_to_guess_where_both_partners_share_a_substitu
 
     # the mappings are what turn that refusal into an answer
     mappings = _mapping_dir(tmp_path, "1CBW", {"F": 223, "G": 5, "H": 20, "I": 58})
-    exact = FoldxLookup(skempi_csv=csv, mapping_dir=mappings)
+    exact = FoldxLookup(stores=foreign, skempi_csv=csv, mapping_dir=mappings)
     assert exact.get("1CBW", "GB12A") is exact.get("1CBW", "GI12A") is not None
 
 
@@ -1104,16 +1242,27 @@ def test_conventions_report_which_resolution_is_actually_in_force(tmp_path):
     csv = _skempi_table(tmp_path, [("1CBW_FGH_I", "GI12A")])
     mappings = _mapping_dir(tmp_path, "1CBW", {"F": 223, "G": 5, "H": 20, "I": 58})
 
-    plain = FoldxLookup().conventions
-    identity = FoldxLookup(skempi_csv=csv).conventions
-    exact = FoldxLookup(skempi_csv=csv, mapping_dir=mappings).conventions
+    # A store with no shipped role names, so the three states are the ones actually in force.
+    terms = {t: 1.0 for t in TERMS}
+    foreign = tmp_path / "foreign_sp"
+    foreign.mkdir()
+    (foreign / "1CBW_FGH_I.json").write_text(json.dumps(
+        {"muts": {"GI12A": dict(terms, cleaned="GI12A")}, "meta": {}}))
+
+    plain = FoldxLookup(stores=foreign).conventions
+    identity = FoldxLookup(stores=foreign, skempi_csv=csv).conventions
+    exact = FoldxLookup(stores=foreign, skempi_csv=csv, mapping_dir=mappings).conventions
 
     assert len(plain) == 2 and not any("role-chain" in c for c in plain)
     assert len(identity) == 3 and "identity matching" in identity[2], identity
     assert len(exact) == 3 and "residue offsets" in exact[2], exact
     assert identity[2] != exact[2], "the two role-chain states read the same"
     assert "role-chain form (exact, via residue offsets)" in repr(
-        FoldxLookup(skempi_csv=csv, mapping_dir=mappings)), "repr does not say what it resolves"
+        FoldxLookup(stores=foreign, skempi_csv=csv, mapping_dir=mappings)), \
+        "repr does not say what it resolves"
+
+    # the shipped store needs neither argument, because the role name travels with the record
+    assert "shipped `role` field" in FoldxLookup().conventions[2]
 
 
 def test_the_arms_argument_restricts_what_is_loaded():
@@ -1124,7 +1273,7 @@ def test_the_arms_argument_restricts_what_is_loaded():
     single = FoldxLookup(arms=(SINGLE_POINT,))
     multi = FoldxLookup(arms=(MULTI_POINT,))
 
-    assert len(single) == 4238 and len(multi) == 1765
+    assert len(single) == 4340 and len(multi) == 1767
     assert len(FoldxLookup()) == len(single) + len(multi)
 
     assert single.get("1BRS", "DA52A") is not None
@@ -1147,7 +1296,7 @@ def test_require_returns_the_record_and_otherwise_names_the_input_that_would_res
     from skempi_foldx import FoldxLookup, load_bundled_store
 
     plain = FoldxLookup()
-    assert plain.require("1BRS", "DA52A") == load_bundled_store()["1BRS"]["DA52A"], \
+    assert plain.require("1BRS", "DA52A") == load_bundled_store()["1BRS_A_D"]["DA52A"], \
         "require did not return the record on a hit"
     assert plain.require("1ACB", "LI38D") is plain.get("1ACB", "LB38D"), \
         "require and get disagreed on the same record under its two names"
@@ -1155,13 +1304,25 @@ def test_require_returns_the_record_and_otherwise_names_the_input_that_would_res
     with pytest.raises(KeyError, match="is not in the store"):
         plain.require("9ZZZ", "AA1G")
 
-    with pytest.raises(KeyError, match="skempi_csv=") as absent:
+    with pytest.raises(KeyError, match="already resolves role-chain labels exactly") as absent:
         plain.require("1BRS", "NOPE1A")
-    assert "mapping_dir=" in str(absent.value), "did not name both missing inputs"
     assert "It holds" in str(absent.value), "did not say what the complex does contain"
 
+    # A store with no role names is where the two constructor arguments still buy something.
+    terms = {t: 1.0 for t in TERMS}
+    foreign = tmp_path / "foreign_sp"
+    foreign.mkdir()
+    (foreign / "1BRS_A_D.json").write_text(json.dumps(
+        {"muts": {"DA52A": dict(terms, cleaned="DA52A")}, "meta": {}}))
+    (foreign / "1CBW_FGH_I.json").write_text(json.dumps(
+        {"muts": {"GI12A": dict(terms, cleaned="GI12A")}, "meta": {}}))
+    bare = FoldxLookup(stores=foreign)
+    with pytest.raises(KeyError, match="skempi_csv=") as unwidened:
+        bare.require("1BRS", "NOPE1A")
+    assert "mapping_dir=" in str(unwidened.value), "did not name both missing inputs"
+
     csv = _skempi_table(tmp_path, [("1CBW_FGH_I", "GI12A")])
-    identity = FoldxLookup(skempi_csv=csv)
+    identity = FoldxLookup(stores=foreign, skempi_csv=csv)
     with pytest.raises(KeyError, match="identity matching") as inexact:
         identity.require("1CBW", "NOPE1A")
     assert "mapping_dir=" in str(inexact.value), \
@@ -1176,7 +1337,7 @@ def test_vector_is_terms_ordered_floats_and_none_on_a_miss():
     from skempi_foldx import TERMS, FoldxLookup, load_bundled_store
 
     fx = FoldxLookup()
-    rec = load_bundled_store()["1BRS"]["DA52A"]
+    rec = load_bundled_store()["1BRS_A_D"]["DA52A"]
     vector = fx.vector("1BRS", "DA52A")
 
     assert len(set(vector)) > 1, "a record with identical terms cannot detect a reordering"
@@ -1239,10 +1400,13 @@ def test_coverage_report_counts_what_resolves_and_names_what_does_not(tmp_path, 
     assert row["pct"] == 75.0
     assert (row["single_point"], row["multi_point"]) == (2, 1), "arms mis-attributed"
     assert row["worst_complexes"] == [{"pdb": "9ZZZ", "rows": 1}]
-    assert row["exact"] is False
+    assert row["exact"] is True, \
+        "the shipped role names make role-chain resolution exact with no extra inputs"
 
     printed = capsys.readouterr().out
-    assert "LOWER BOUND" in printed, "a figure that is a lower bound was presented as exact"
+    assert "LOWER BOUND" not in printed, \
+        "an exact figure was hedged as a lower bound; the shipped role names resolve these"
+    assert "shipped `role` field" in printed, "did not say which resolution was in force"
     assert "9ZZZ(1)" in printed, "the uncovered complexes were not named"
 
 
@@ -1369,11 +1533,12 @@ def test_worklist_builders_take_the_union_per_complex_and_keep_the_arms_apart(tm
     )
     sk = load_skempi(csv)
 
-    assert worklist_single_point(sk) == {"1AAA": ["GI40A", "LI38S"], "2BBB": ["YC5F"]}, \
-        "the single-point worklist is not the sorted union of the complex's mutations"
-    assert worklist_multi_point(sk) == {"1AAA": ["LI38S,GI40A"]}, "an arm leaked into the other"
-    assert worklist_single_point(sk, only=["2BBB"]) == {"2BBB": ["YC5F"]}
-    assert worklist_multi_point(sk, only=["2BBB"]) == {}
+    assert worklist_single_point(sk) == {"1AAA_E_I": ["GI40A", "LI38S"],
+                                        "2BBB_AB_CD": ["YC5F"]}, \
+        "the single-point worklist is not the sorted union of the definition's mutations"
+    assert worklist_multi_point(sk) == {"1AAA_E_I": ["LI38S,GI40A"]}, "an arm leaked into the other"
+    assert worklist_single_point(sk, only=["2BBB_AB_CD"]) == {"2BBB_AB_CD": ["YC5F"]}
+    assert worklist_multi_point(sk, only=["2BBB_AB_CD"]) == {}
 
     table = tmp_path / "rows.tsv"
     table.write_text("1AAA_E\tddg\tLB38S\n1AAA_E\tddg\tGB40A\n1AAA_E\tddg\tLB38S,GB40A\n")
@@ -1399,44 +1564,43 @@ def test_store_coverage_counts_only_the_pairs_the_store_actually_holds(tmp_path)
 # Three guards whose failure mode is silence: a second interface definition quietly discarded, a
 # stall guard quietly disarmed, and a lower bound quietly labelled exact.
 
-def test_a_second_interface_definition_is_recorded_and_announced(tmp_path):
-    """SKEMPI records a few PDB codes under two interfaces. Keying by code alone keeps whichever
-    row came first and pools the rest under it, so mutations belonging to the other definition are
-    scored against an interface they are not part of -- and score all-zero for that reason, which
-    is indistinguishable from a real 'no effect' unless it is said out loud."""
+def test_a_second_interface_definition_is_its_own_record(tmp_path):
+    """SKEMPI records a few PDB codes under two interfaces. Keying by code pooled them under
+    whichever row came first, so the other definition's mutations were scored against an
+    interface they are not part of -- scoring all-zero for that reason, indistinguishable from a
+    real 'no effect'. Keyed by identifier there is nothing to pool and nothing to announce."""
     from skempi_foldx import load_skempi
+    from skempi_foldx.skempi import by_pdb
 
     csv = _skempi_table(tmp_path, [("3SE4_B_C", "EC69A"), ("3SE4_B_A", "DA117A")])
-    with pytest.warns(RuntimeWarning, match="more than one interface"):
-        entry = load_skempi(csv)["3SE4"]
+    with warnings.catch_warnings():
+        warnings.simplefilter("error")       # nothing is discarded, so nothing is warned about
+        sk = load_skempi(csv)
 
-    assert entry.groups == "B,C", "the first definition seen should be the one used"
-    assert entry.alternate_groups == {("B", "A")}, "the discarded definition was not recorded"
-    assert entry.mutations_outside_interface() == ["DA117A"], \
-        "a mutation on a chain outside the analysed interface was not reported"
+    assert set(sk) == {"3SE4_B_C", "3SE4_B_A"}, "a definition was dropped"
+    assert sk["3SE4_B_C"].single == {"EC69A"}
+    assert sk["3SE4_B_A"].single == {"DA117A"}, \
+        "the second definition's mutation was pooled into the first"
+    assert sk["3SE4_B_C"].groups == "B,C" and sk["3SE4_B_A"].groups == "B,A"
+
+    grouped = by_pdb(sk)
+    assert list(grouped) == ["3SE4"], "both definitions belong to one structure"
+    assert [e.id for e in grouped["3SE4"]] == ["3SE4_B_A", "3SE4_B_C"], "not sorted by pairing"
 
 
-def test_a_second_definition_that_changes_nothing_warns_about_nothing(tmp_path):
-    """3SE3 is defined twice, and every mutation of its second definition is also in the first,
-    so nothing was mis-scored. Warning there would cry wolf on the one complex that is fine."""
+def test_a_definition_whose_mutations_are_all_shared_is_still_its_own_record(tmp_path):
+    """3SE3's second definition contributes no mutation the first lacks, so nothing was ever
+    mis-scored for it -- and it still needs its own record, because its 2 variants hold values
+    computed against the other pairing and only the identifier says so."""
     from skempi_foldx import load_skempi
 
-    csv = _skempi_table(tmp_path, [("1ACB_E_I", "LI38D"), ("1ACB_E_I", "LI38G")])
-    with warnings.catch_warnings():
-        warnings.simplefilter("error")
-        entry = load_skempi(csv)["1ACB"]
-    assert entry.alternate_groups == set()
-    assert entry.mutations_outside_interface() == []
-
-    # Two definitions, but the second contributes only a mutation the first already covers.
     shared = _skempi_table(tmp_path / "shared", [("9CCC_B_A", "LA5D"), ("9CCC_B_C", "LA5D")])
     with warnings.catch_warnings():
         warnings.simplefilter("error")
-        both = load_skempi(shared)["9CCC"]
-    assert both.alternate_groups == {("B", "C")}, \
-        "the second definition should still be recorded for inspection"
-    assert both.mutations_outside_interface() == [], \
-        "a mutation on a chain both definitions contain is not outside either"
+        sk = load_skempi(shared)
+    assert set(sk) == {"9CCC_B_A", "9CCC_B_C"}
+    assert sk["9CCC_B_A"].single == sk["9CCC_B_C"].single == {"LA5D"}, \
+        "a shared mutation belongs to both definitions, as two measurements"
 
 
 @pytest.mark.parametrize("value,bypassed", [
@@ -1463,14 +1627,21 @@ def test_exactness_is_claimed_only_when_a_mapping_was_actually_read(tmp_path):
     empty = tmp_path / "no_mappings"
     empty.mkdir()
 
+    # A store carrying no shipped role names, so the mapping files are the only route to exact.
+    terms = {t: 1.0 for t in TERMS}
+    foreign = tmp_path / "foreign_sp"
+    foreign.mkdir()
+    (foreign / "1CBW_FGH_I.json").write_text(json.dumps(
+        {"muts": {"GI12A": dict(terms, cleaned="GI12A")}, "meta": {}}))
+
     for mapping_dir in (empty, tmp_path / "does_not_exist"):
-        fx = FoldxLookup(skempi_csv=csv, mapping_dir=mapping_dir)
+        fx = FoldxLookup(stores=foreign, skempi_csv=csv, mapping_dir=mapping_dir)
         assert fx.is_exact is False, f"claimed exactness with {mapping_dir.name}"
         assert not any("exact" in c for c in fx.conventions), \
             "conventions advertised a resolution that never ran"
 
     real = _mapping_dir(tmp_path, "1CBW", {"F": 223, "G": 5, "H": 20, "I": 58})
-    fx = FoldxLookup(skempi_csv=csv, mapping_dir=real)
+    fx = FoldxLookup(stores=foreign, skempi_csv=csv, mapping_dir=real)
     assert fx.is_exact is True
     assert any("exact" in c for c in fx.conventions)
 
@@ -1482,8 +1653,7 @@ def test_identity_matching_refuses_a_chain_that_is_in_neither_group(tmp_path):
     from skempi_foldx.lookup import FoldxLookup
 
     csv = _skempi_table(tmp_path, [("3SE4_B_C", "EC69A"), ("3SE4_B_A", "DA117A")])
-    with pytest.warns(RuntimeWarning):
-        entry = load_skempi(csv)["3SE4"]
+    entry = load_skempi(csv)["3SE4_B_C"]
     fx = FoldxLookup.__new__(FoldxLookup)
     assert fx._role_by_identity(entry, "DA117A") is None, \
         "invented a role letter for a chain outside both groups"
@@ -1528,23 +1698,522 @@ def test_the_arm_of_a_supplied_store_is_read_from_it_rather_than_declared(tmp_pa
     assert FoldxLookup(stores={"1XYZ": {"LI38D": terms}}).arm_of("1XYZ", "LI38D") == "sp"
 
 
-def test_records_on_the_wrong_side_of_a_doubled_interface_are_identifiable_without_the_csv():
-    """`skempi_v2.csv` is not redistributed, so a check that needed it would be a check most
-    consumers cannot run."""
-    from skempi_foldx import COLLAPSED_INTERFACES, FoldxLookup, interface_suspect
+def test_a_doubled_code_resolves_only_when_the_caller_names_the_pairing():
+    """The registry of mis-paired records is gone because the records are no longer mis-paired.
+    What replaces it is an ambiguity a caller cannot walk past: asking for a code that SKEMPI
+    defines twice, for a mutation both definitions carry, has two right answers and no default.
 
-    assert sum(len(c.outside) for c in COLLAPSED_INTERFACES.values()) == 31
-    assert interface_suspect("2C5D", "RA32E,RB32E"), "a mixed variant was not flagged"
-    assert interface_suspect("3SE4", "DA117A"), "a wholly-outside mutation was not flagged"
-    assert not interface_suspect("1BRS", "DA52A"), "flagged a record with one interface"
-    assert not COLLAPSED_INTERFACES["3SE3"].outside, \
-        "3SE3's definitions share every mutation, so none is on the wrong side"
+    `skempi_v2.csv` is not redistributed, so this has to hold without it."""
+    from skempi_foldx import FoldxLookup
 
-    with pytest.warns(RuntimeWarning, match="does not pair them with"):
+    fx = FoldxLookup()
+    doubled = [c for c in ("2C5D", "3SE3", "3SE4") if len(fx.definitions_of(c)) > 1]
+    assert doubled, "no code in the shipped store carries two interface definitions"
+
+    for code in doubled:
+        idents = fx.definitions_of(code)
+        assert all(i.startswith(code + "_") for i in idents)
+        # Each identifier answers on its own.
+        for ident in idents:
+            held = [k for (p, k) in fx._records if p == ident]
+            assert held, f"{ident} holds no records"
+            assert fx.get(ident, held[0]) is not None, "an identifier failed to resolve"
+
+    assert len(fx.definitions_of("1BRS")) == 1, "a singly-defined code gained a second definition"
+
+    # The ambiguity itself, which is the part the docstring promises and the rest of this test
+    # only sets up. Without these assertions `_resolve` could return the first candidate instead
+    # of refusing, and every check above would still pass -- the store would answer a question
+    # about an interface the caller never named, which is the 0.1.0 defect wearing a new shape.
+    ambiguous = [
+        (code, name)
+        for code in doubled
+        for name in {k for (ident, k) in fx._records if ident in fx.definitions_of(code)}
+        if len(fx._candidates(code, name)) > 1
+    ]
+    assert len(ambiguous) == 8, "the shipped store no longer holds the 8 documented collisions"
+    for code, name in ambiguous:
+        assert fx.get(code, name) is None, f"{code} {name} resolved to one of two definitions"
+        with pytest.raises(KeyError, match="interface definitions"):
+            fx.require(code, name)
+
+
+def test_identity_inference_refuses_a_chain_whose_offset_it_cannot_know(tmp_path):
+    """`_role_by_identity` is the fallback used when no `mapping_dir` is supplied, and it must not
+    invent a label.
+
+    The role convention renumbers each chain by the cumulative residue count of the chains before
+    it in its group, and this path has no residue counts. The author position is therefore the
+    role position only for the first chain of a group. Emitting it for any other chain produces a
+    label in neither convention — the role chain letter with the author number — which names no
+    record, so it installs an alias onto whichever record carries that substitution and answers
+    confidently. That is the silent-wrong-answer failure this package exists to prevent, so the
+    fallback refuses instead."""
+    from skempi_foldx import FoldxLookup, SkempiComplex
+
+    fx = FoldxLookup()
+    # A three-chain group: a mutation on B carries an unknown offset, one on A does not.
+    entry = SkempiComplex("9XYZ", "ABC", "DE", single={"LA10D", "LB20D"})
+    assert fx._role_by_identity(entry, "LA10D") == "LA10D", \
+        "refused a first-in-group chain, whose offset is zero"
+    assert fx._role_by_identity(entry, "LB20D") is None, \
+        "invented a role label for a chain whose offset it cannot know"
+
+    second = SkempiComplex("9XYZ", "A", "DE", single={"LE10D"})
+    assert second.group2[0] == "D"
+    assert fx._role_by_identity(second, "LE10D") is None, \
+        "invented a role label for a non-first chain of the second group"
+
+
+def test_a_role_alias_is_never_overwritten_by_a_later_claimant():
+    """The documented resolution is that the first claimant keeps a contested alias, matching
+    `consolidate()`. Only the warning was asserted before; this pins the answer itself, which is
+    what a consumer actually gets."""
+    import warnings as _warnings
+
+    from skempi_foldx import FoldxLookup
+    from skempi_foldx.terms import TERMS
+
+    terms = {t: 1.0 for t in TERMS}
+    store = {"1ABC_A_B": {"K1": dict(terms, role="AB9C"),
+                          "K2": dict(terms, role="AB9C", **{TERMS[0]: -999.0})}}
+    with _warnings.catch_warnings(record=True):
+        _warnings.simplefilter("ignore")
+        fx = FoldxLookup(stores=[store])
+    got = fx.get("1ABC_A_B", "AB9C")
+    assert got is not None and got[TERMS[0]] == 1.0, \
+        "a later record took a contested alias from the one that claimed it first"
+    assert fx.conflicts, "the contested alias was resolved without being reported"
+
+
+def test_reindexing_announces_a_name_two_records_both_claim():
+    """The function exists for stores that mix naming conventions, which is exactly where two
+    records can re-key onto one name. Dropping the loser by dict order and saying nothing loses a
+    record from a store the caller believes was only re-indexed."""
+    import warnings as _warnings
+
+    from skempi_foldx import load_bundled_store, reindex_by_skempi_id
+
+    with _warnings.catch_warnings(record=True) as caught:
+        _warnings.simplefilter("always")
+        out = reindex_by_skempi_id({"K1": {"cleaned": "SHARED", "Interaction Energy": 1.0},
+                                    "K2": {"cleaned": "SHARED", "Interaction Energy": -9.0}})
+    assert len(out) == 1 and out["SHARED"]["Interaction Energy"] == 1.0, "first no longer wins"
+    assert [w for w in caught if "re-key onto a name" in str(w.message)], \
+        "a record was dropped without saying so"
+
+    # And it stays an identity map, without warning, on the shipped store.
+    sp = load_bundled_store()
+    with _warnings.catch_warnings(record=True) as clean:
+        _warnings.simplefilter("always")
+        for ident, records in sp.items():
+            assert len(reindex_by_skempi_id(records)) == len(records), ident
+    assert not [w for w in clean if "re-key onto a name" in str(w.message)]
+
+
+def test_a_mapping_file_header_row_does_not_become_a_chain(tmp_path):
+    """Mapping files are caller-supplied and are how residue offsets are computed. Any line with
+    four fields used to become a residue, so a header row parsed as a chain of its own and every
+    offset after it shifted — which is precisely how a mapping set comes to describe different
+    numbering than the one that built the store."""
+    from skempi_foldx import load_chain_mapping
+
+    maps = tmp_path / "maps"
+    maps.mkdir()
+    (maps / "9XYZ.mapping").write_text(
+        "RESNAME CHAIN AUTHOR SEQ\n"          # a header row: four fields, none of them residues
+        "ALA A 1 1\n"
+        "ALA A 2 2\n"
+        "ALA B 1 3\n")
+    chains = load_chain_mapping(maps, "9XYZ")
+    assert set(chains) == {"A", "B"}, f"parsed a phantom chain: {sorted(chains)}"
+    assert len(chains["A"]["seq"]) == 2 and len(chains["B"]["seq"]) == 1
+
+
+def test_the_exclusion_registry_answers_an_identifier_not_only_a_code():
+    """`INTRACTABLE` is keyed by PDB code, and 0.2.0 keys stores by interface identifier.
+
+    `exclusions`' own module docstring names this as the failure to avoid: a registry keyed by
+    code and queried with an identifier answers None for every entry it holds, which reads exactly
+    like "nothing is excluded". `consolidate` calls `filter_complexes(list(store))` with
+    identifiers, so the identifier form is the one that matters, and every existing test passed
+    the bare code."""
+    from skempi_foldx import filter_complexes, is_excluded
+
+    for name in ("1KBH", "1KBH_A_B", "1KBH_AB_CD"):
+        assert is_excluded(name), f"{name} is not recognised as excluded"
+    assert not is_excluded("1BRS") and not is_excluded("1BRS_A_D")
+
+    kept = filter_complexes(["1BRS_A_D", "1KBH_A_B", "1KBH", "1ACB_E_I"])
+    assert "1KBH_A_B" not in kept and "1KBH" not in kept, \
+        "an excluded complex survived filtering under its identifier"
+    assert kept == ["1BRS_A_D", "1ACB_E_I"]
+
+
+def test_a_mapping_dir_that_contradicts_the_store_is_refused_not_believed(tmp_path):
+    """The same fabrication as `_role_by_identity`, reached through the exact path.
+
+    A record that ships a `role` already carries this computation's known-good answer. If
+    `mapping_dir=` recomputes a different name, the mapping files describe different residue
+    numbering than the ones that built the store, and installing the recomputed name would alias
+    a label belonging to another mutation — answered confidently and counted as covered. The
+    shipped name wins and the disagreement is announced."""
+    import warnings as _warnings
+
+    from skempi_foldx import FoldxLookup
+
+    maps = tmp_path / "maps"
+    maps.mkdir()
+    # 1AO7's chain A deliberately short, so every later chain's offset shifts.
+    lines = ([f"ALA A {i} {i}" for i in range(1, 160)]
+             + [f"ALA B {i} {i}" for i in range(1, 200)]
+             + [f"ALA C {i} {i}" for i in range(1, 20)]
+             + [f"ALA D {i} {i}" for i in range(1, 200)]
+             + [f"ALA E {i} {i}" for i in range(1, 200)])
+    (maps / "1AO7.mapping").write_text("\n".join(lines) + "\n")
+
+    table = _skempi_table(tmp_path, [("1AO7_ABC_DE", "AE50P")])
+    with _warnings.catch_warnings(record=True) as caught:
+        _warnings.simplefilter("always")
+        fx = FoldxLookup(skempi_csv=table, mapping_dir=maps)
+
+    assert fx.role_mismatches, "a mapping that contradicts the shipped role went unnoticed"
+    assert [w for w in caught if "disagrees with what mapping_dir" in str(w.message)]
+
+    # Nothing fabricated: every alias still points at a record whose own role name it is.
+    for (pdb, name), target in fx._alias.items():
+        shipped = fx._records[target].get("role")
+        assert shipped in (None, name) or name == fx._records[target].get("cleaned"), \
+            f"{pdb} {name} aliases a record whose role is {shipped}"
+
+    # And the guard must not fire when nothing contradicts it.
+    with _warnings.catch_warnings(record=True):
+        _warnings.simplefilter("ignore")
+        plain = FoldxLookup()
+    assert plain.role_mismatches == (), "the shipped store contradicts itself"
+
+
+def test_the_corrections_manifest_ships_and_carries_both_releases_keys():
+    """The manifest exists so a 0.1.0 consumer can answer "is one of my rows provably wrong?"
+    without a git checkout and without re-deriving the join.
+
+    The join is the point. Eleven of the 26 are keyed differently across the releases — 0.1.0
+    keys them under the bare code with the other pairing's chain letter — so a manifest carrying
+    only the 0.2.0 name would find nothing for exactly the records with the largest corrections
+    and read as "unaffected". Both keys ship, and every 0.1.0 key must resolve in a 0.1.0 store.
+    """
+    import csv
+    import importlib.resources as res
+
+    with res.files("skempi_foldx").joinpath("data/corrections_from_0_1_0.csv").open() as fh:
+        rows = list(csv.DictReader(fh))
+
+    assert len(rows) == 31, "the manifest no longer holds the whole 0.1.0 defect registry"
+    moved = [r for r in rows if r["moved"] == "True"]
+    assert len(moved) == 26
+    assert sum(1 for r in moved if r["clean_zero_in_010"] == "True") == 15
+    assert sum(1 for r in moved if r["interaction_energy_moved"] == "False") == 1
+
+    differing = [r for r in moved if r["mutation_010"] != r["mutation_020"]]
+    assert len(differing) == 11, "the cross-release key difference changed shape"
+    assert all(r["identifier_020"].startswith("3SE4") for r in differing)
+
+    # Every 0.2.0 side must name a record this release actually ships.
+    from skempi_foldx import FoldxLookup
+    fx = FoldxLookup()
+    for r in moved:
+        assert fx.get(r["identifier_020"], r["mutation_020"]) is not None, \
+            f"{r['identifier_020']} {r['mutation_020']} is not in the shipped store"
+
+
+def test_the_shipped_store_announces_its_malformed_rows_on_construction():
+    """The third construction warning, and the only one the shipped store always raises.
+
+    Two SKEMPI rows are malformed upstream and are computed and shipped rather than dropped, so
+    every `FoldxLookup()` indexes them. A consumer who never sees this has values whose arity
+    label is wrong and no reason to suspect it -- which is why the condition is a warning at
+    construction rather than a note in a document."""
+    import warnings as _warnings
+
+    from skempi_foldx import MALFORMED_ROWS, FoldxLookup
+
+    with _warnings.catch_warnings(record=True) as caught:
+        _warnings.simplefilter("always")
         fx = FoldxLookup()
-    assert len(fx.interface_suspects) == 31
-    assert fx.is_interface_suspect("3SE4", "DB117A"), \
-        "the role-chain label did not resolve onto the flagged record"
+    said = [w for w in caught
+            if "malformed" in str(w.message) and w.category is RuntimeWarning]
+    assert said, "the shipped store indexed malformed rows without saying so"
+    assert "3-substitution mutants labelled as" in str(said[0].message), \
+        "the warning no longer says what is wrong with the rows"
+    assert len(fx.malformed) == len(MALFORMED_ROWS) == 2
+    for pdb, mutation in fx.malformed:
+        assert fx.is_malformed(pdb, mutation), "a row it warned about does not test as malformed"
+
+
+def test_every_name_that_becomes_a_path_is_validated(tmp_path):
+    """One test per join, because each is a separate door onto the same hazard.
+
+    Identifiers and PDB codes both come from column 0 of a caller-supplied `skempi_v2.csv`, which
+    nothing upstream constrains. `write_store` was closed first; these are the rest of the places
+    a name reaches the filesystem, and they were closed later and separately."""
+    from skempi_foldx import FoldxConfig, load_chain_mapping
+    from skempi_foldx.store import check_code, check_identifier
+
+    escape = "../" + "ESCAPED"
+    cfg = FoldxConfig(results_dir=tmp_path / "r", work_dir=tmp_path / "w",
+                      pdb_dir=tmp_path / "p", skempi_csv=tmp_path / "s.csv")
+    for bad in (escape, "..", "a/b", ""):
+        with pytest.raises(ValueError, match="not a SKEMPI identifier"):
+            cfg.result_path(bad)
+        with pytest.raises(ValueError, match="not a SKEMPI identifier"):
+            cfg.complex_work_dir(bad)
+        with pytest.raises(ValueError, match="not a SKEMPI identifier"):
+            cfg.find_repaired(bad)
+
+    maps = tmp_path / "maps"
+    maps.mkdir()
+    (tmp_path / "secret.mapping").write_text("ALA A 1 1\n")
+    with pytest.raises(ValueError, match="not a PDB code"):
+        load_chain_mapping(maps, escape + "/secret")
+    assert load_chain_mapping(maps, "1ABC") is None, "a valid code stopped resolving"
+
+    # The anchor matters: without it the pattern matches a prefix and a trailing newline or path
+    # separator rides along into the filename.
+    for bad in ("1ABC\n", "1ABCD", "1AB", "1ABC/x", "../1"):
+        with pytest.raises(ValueError, match="not a PDB code"):
+            check_code(bad)
+    assert check_code("2C5D") == "2C5D"
+    # A bare code must still pass the identifier pattern: repairs are sought by code.
+    assert check_identifier("2C5D") == "2C5D"
+
+
+def test_a_hostile_pdb_code_never_reaches_the_input_directory(tmp_path):
+    """`entry.pdb` is the other name that becomes a path -- the input structure under `pdb_dir`
+    -- and it is parsed from the same unconstrained column as the identifier. `load_skempi`
+    splits on `_` so it cannot produce one of these, but any caller constructing a
+    `SkempiComplex` directly can, and `experiments/recompute_alternate_interfaces.py` does."""
+    from skempi_foldx import FoldxConfig, SkempiComplex, process_complex
+
+    binary = tmp_path / "foldx"
+    binary.write_text("#!/bin/sh\nexit 0\n")
+    binary.chmod(0o755)
+    (tmp_path / "secret.pdb").write_text("ATOM\n")
+    cfg = FoldxConfig(results_dir=tmp_path / "r", work_dir=tmp_path / "w",
+                      pdb_dir=tmp_path / "p", skempi_csv=tmp_path / "s.csv", binary=binary)
+    cfg.ensure_dirs()
+    (tmp_path / "p").mkdir(exist_ok=True)
+
+    hostile = SkempiComplex("../" + "secret", "A", "B")
+    with pytest.raises(ValueError, match="not a PDB code"):
+        process_complex("1ABC_A_B", ["LA1A"], hostile, cfg)
+
+
+def test_a_relative_binary_name_is_resolved_before_it_is_run(tmp_path):
+    """`_foldx` runs with `cwd=` set to a work directory, and `execvp` searches PATH rather than
+    the current directory. A bare name that `exists()` relative to the caller's cwd would pass the
+    check here and then run whatever PATH finds -- so the check and the execution would be about
+    two different files."""
+    import os
+
+    from skempi_foldx import FoldxConfig
+
+    binary = tmp_path / "foldx"
+    binary.write_text("#!/bin/sh\nexit 0\n")
+    binary.chmod(0o755)
+
+    cwd = os.getcwd()
+    try:
+        os.chdir(tmp_path)
+        resolved = FoldxConfig(results_dir=tmp_path, work_dir=tmp_path,
+                               pdb_dir=tmp_path, skempi_csv=tmp_path / "s.csv",
+                               binary="foldx").resolve_binary()
+    finally:
+        os.chdir(cwd)
+    assert resolved.is_absolute(), "a relative binary name survived resolution"
+    assert resolved == binary.resolve()
+
+
+def test_the_store_builder_validates_before_it_deletes(tmp_path):
+    """`write()` removes the previous store before writing the new one, and that removal cannot
+    be walked back. Validating partway through would cost the data the validation exists to
+    protect, so every name is checked before anything is removed."""
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location(
+        "_bpds", pathlib.Path(__file__).resolve().parents[1]
+        / "experiments" / "build_per_definition_store.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+    dest = tmp_path / "store"
+    (dest / "results_sp").mkdir(parents=True)
+    keep = dest / "results_sp" / "KEEP.json"
+    keep.write_text("{}")
+
+    terms = {t: 1.0 for t in TERMS}
+    poisoned = {("1ABC_A_B", "sp"): ({"LA1A": dict(terms)}, {}),
+                ("../" + "ESCAPED", "sp"): ({"LA1A": dict(terms)}, {})}
+    with pytest.raises(ValueError, match="not a SKEMPI identifier"):
+        module.write(poisoned, dest)
+    assert keep.exists(), "the previous store was deleted before the new names were checked"
+
+
+def test_a_code_keyed_store_alongside_this_one_is_announced(tmp_path):
+    """The one route by which a bare doubled code still answers.
+
+    `_resolve` returns an exact key hit before consulting `_candidates`, so a pre-0.2.0 store
+    keyed by PDB code puts a pooled record under `2C5D` where the refusal cannot reach it, and
+    `("2C5D", m)` versus `("2C5D_A_C", m)` are different keys so no alias conflict is recorded
+    either. Which record the caller wanted depends on what they meant, so this reports rather
+    than decides -- but it must not be silent."""
+    import warnings as _warnings
+    from skempi_foldx import MULTI_POINT, SINGLE_POINT, FoldxLookup, bundled_path
+
+    legacy = tmp_path / "legacy"
+    legacy.mkdir()
+    (legacy / "2C5D.json").write_text(json.dumps(
+        {"muts": {"DC61G": {t: -999.0 for t in TERMS}}, "meta": {}}, indent=1))
+
+    with _warnings.catch_warnings(record=True) as caught:
+        _warnings.simplefilter("always")
+        mixed = FoldxLookup(stores=[str(legacy), str(bundled_path(SINGLE_POINT)),
+                                    str(bundled_path(MULTI_POINT))])
+    assert mixed.pooled_codes == ("2C5D",)
+    assert [w for w in caught if "indexed both as a record key" in str(w.message)], \
+        "a code-keyed store shadowed a definition-keyed one silently"
+
+    with _warnings.catch_warnings(record=True) as clean_run:
+        _warnings.simplefilter("always")
+        shipped = FoldxLookup()
+    assert shipped.pooled_codes == (), "the shipped store pools a code under its own name"
+    assert not [w for w in clean_run if "indexed both as a record key" in str(w.message)], \
+        "the warning fires on a store that mixes no conventions"
+
+
+def test_a_non_finite_term_is_refused_by_both_flatteners_and_by_the_audit():
+    """Three doors onto the same hazard, and they must agree.
+
+    `json.loads` accepts bare `NaN` and `Infinity`, so a foreign results directory can carry one.
+    `FoldxLookup.vector` and `term_vector` are both documented as the way to flatten a record, so
+    a value one refuses and the other returns would mean the choice of flattener decides whether
+    a feature matrix is poisoned. `_max_abs_delta` is the third: every comparison against `nan`
+    is False, so returning it would make `audit()` report two sources that disagree as agreeing --
+    failing open on exactly the values the other two refuse.
+    """
+    import math
+
+    from skempi_foldx import term_vector
+    from skempi_foldx.store import _max_abs_delta
+
+    finite = {t: 1.0 for t in TERMS}
+    for bad in (float("nan"), float("inf"), float("-inf")):
+        poisoned = dict(finite, **{TERMS[0]: bad})
+        with pytest.raises(ValueError, match="non-finite"):
+            term_vector(poisoned)
+        assert _max_abs_delta(finite, poisoned) == math.inf, \
+            "a non-finite term compared as agreement"
+        assert _max_abs_delta(finite, poisoned) > 1e-6, "the audit would not flag it"
+
+    assert term_vector(finite) == [1.0] * len(TERMS)
+    assert _max_abs_delta(finite, dict(finite, **{TERMS[0]: 2.0})) == 1.0
+
+    # The other way the same guard fails open: a comparison that could not be made must not read
+    # as one that succeeded. Two records sharing no term have not been shown to agree.
+    assert _max_abs_delta({}, {}) == math.inf, "two empty records compared as identical"
+    assert _max_abs_delta({TERMS[0]: 1.0}, {TERMS[1]: 99.0}) == math.inf, \
+        "records with no term in common compared as identical"
+
+
+def test_an_identifier_cannot_become_a_path(tmp_path):
+    """Store keys come from column 0 of a caller-supplied `skempi_v2.csv`, which nothing upstream
+    constrains, and `write_store` turns each of them into a filename. Validated where the name
+    becomes a path, since that is the one place every route passes through.
+
+    The read side is already closed -- `bundled_path` whitelists its argument -- so this is the
+    write side, which a consumer running `consolidate()` over their own table reaches."""
+    from skempi_foldx import write_store
+    from skempi_foldx.store import check_identifier
+
+    terms = {t: 1.0 for t in TERMS}
+    outside = tmp_path / "ESCAPED.json"
+    for bad in ("../ESCAPED", "/" + "tmp/ESCAPED", "..", "a/b", "", "1ABC_A_B/../../x"):
+        with pytest.raises(ValueError, match="not a SKEMPI identifier"):
+            write_store({bad: {"LA1A": dict(terms)}}, tmp_path / "out", kind="muts")
+    assert not outside.exists(), "a crafted identifier wrote outside the destination"
+
+    write_store({"1ABC_A_B": {"LA1A": dict(terms)}}, tmp_path / "out", kind="muts")
+    assert (tmp_path / "out" / "1ABC_A_B.json").exists(), "a valid identifier stopped working"
+    assert check_identifier("2C5D") == "2C5D"
+
+
+def test_foldx_is_invoked_without_a_shell():
+    """`pdb` and `entry.groups` reach the FoldX argument list from the SKEMPI table, so a shell
+    would make that column executable. Nothing in the invocation needs one."""
+    import inspect
+
+    from skempi_foldx import run as run_module
+
+    source = inspect.getsource(run_module)
+    assert "shell=True" not in source, "a shell reappeared in the compute path"
+    assert "shell=False" in source, "the no-shell choice is no longer explicit"
+    argv = inspect.signature(run_module._foldx).parameters
+    assert "argv" in argv, "_foldx no longer takes an argument vector"
+
+
+def test_the_conflict_guard_is_queryable_and_does_not_fire_on_one_record():
+    """Two facts about the guard a consumer cannot get from a warning.
+
+    First, it has to be checkable. docs/USAGE.md recommends narrowing these warnings to `once`,
+    and a consumer that does has no way to ask afterwards which names collided -- so the answer
+    is an attribute, not only a message.
+
+    Second, it must not cry wolf. A record whose `role` and `cleaned` are the same string, both
+    differing from its key, registers one alias and then meets its own entry; testing for
+    presence rather than for a different target reported that as two records claiming one name."""
+    import warnings as _warnings
+    from skempi_foldx import FoldxLookup
+    from skempi_foldx.terms import TERMS
+
+    terms = {t: 1.0 for t in TERMS}
+
+    one = {"1ABC_A_B": {"KEYFORM": dict(terms, role="RB1A", cleaned="RB1A")}}
+    with _warnings.catch_warnings(record=True) as caught:
+        _warnings.simplefilter("always")
+        fx = FoldxLookup(stores=[one])
+    assert fx.conflicts == (), "one record with two spellings of one alias reported a collision"
+    assert not [w for w in caught if "resolve to more than one" in str(w.message)]
+    assert fx.get("1ABC_A_B", "RB1A") is not None and fx.get("1ABC_A_B", "KEYFORM") is not None
+
+    two = {"1ABC_A_B": {"K1": dict(terms, cleaned="SHARED"),
+                        "K2": dict(terms, cleaned="SHARED")}}
+    with _warnings.catch_warnings(record=True):
+        _warnings.simplefilter("ignore")
+        real = FoldxLookup(stores=[two])
+    assert real.conflicts == (("1ABC_A_B", "SHARED"),), \
+        "two records claiming one author form went unrecorded"
+
+
+def test_a_caller_supplied_table_refuses_a_doubled_code_too(tmp_path):
+    """`_sole_definition` is the same refusal as `_resolve`, on the other input.
+
+    It exists so a store written under bare codes -- every store this package shipped before
+    0.2.0 -- can still resolve role forms against an identifier-keyed table. Returning the first
+    of two definitions there would remap residues against an interface the record may not belong
+    to, which is the 0.1.0 defect reached by a different route. The shipped store cannot exercise
+    it, because the path needs a caller-supplied SKEMPI table; a synthetic one can."""
+    from skempi_foldx import FoldxLookup
+
+    table = _skempi_table(tmp_path, [
+        ("9XYZ_A_B", "AB10C"),      # one code, two interface definitions
+        ("9XYZ_A_C", "AC20D"),
+        ("8ABC_A_B", "AB30E"),      # and one defined exactly once
+    ])
+    fx = FoldxLookup(skempi_csv=table)
+
+    assert fx._sole_definition("9XYZ") is None, "picked one of two definitions for a bare code"
+    sole = fx._sole_definition("8ABC")
+    assert sole is not None and sole.pdb == "8ABC"
+    assert fx._sole_definition("0000") is None, "invented a definition for an absent code"
 
 
 def test_a_miss_says_which_of_the_three_causes_it_was():
@@ -1552,8 +2221,7 @@ def test_a_miss_says_which_of_the_three_causes_it_was():
     arm that was never loaded. Only the first is what it sounds like."""
     from skempi_foldx import MULTI_POINT, SINGLE_POINT, FoldxLookup
 
-    with pytest.warns(RuntimeWarning):
-        sp = FoldxLookup(arms=(SINGLE_POINT,))
+    sp = FoldxLookup(arms=(SINGLE_POINT,))
     with pytest.raises(KeyError, match="multi-point variant and only the single-point arm"):
         sp.require("1JTG", "LI38D,GI32Y")
 
@@ -1561,8 +2229,7 @@ def test_a_miss_says_which_of_the_three_causes_it_was():
     with pytest.raises(KeyError, match="single-point mutation and only the multi-point arm"):
         mp.require("1JTG", "LI38D")
 
-    with pytest.warns(RuntimeWarning):
-        fx = FoldxLookup()
+    fx = FoldxLookup()
     with pytest.raises(KeyError, match="upper case"):
         fx.require("1brs", "DA52A")
     with pytest.raises(KeyError, match="is not in the store"):
@@ -1645,25 +2312,39 @@ def test_coverage_says_so_when_most_of_a_row_list_fails_to_resolve():
     the quieter one. Below the threshold a handful of genuinely uncomputed rows stays silent."""
     from skempi_foldx import FoldxLookup, load_bundled_store
 
-    with pytest.warns(RuntimeWarning, match="does not pair them with"):
-        fx = FoldxLookup()
+    # The warning fires for a lookup that could resolve more given more inputs. The shipped store
+    # already resolves exactly, so it is silent by design -- this is about every other store.
+    import tempfile
+    from pathlib import Path as _Path
+    with tempfile.TemporaryDirectory() as tmp:
+        foreign = _Path(tmp) / "foreign_sp"
+        foreign.mkdir()
+        terms = {t: 1.0 for t in TERMS}
+        (foreign / "1ACB_E_I.json").write_text(json.dumps(
+            {"muts": {"LI38D": dict(terms, cleaned="LI38D")}, "meta": {}}))
+        bare = FoldxLookup(stores=foreign)
+        assert bare.is_exact is False, "a store with no role names cannot be exact"
+        role_rows = [("1ACB", f"LB{n}D") for n in range(38, 188)]
+        with pytest.warns(RuntimeWarning, match="did not resolve"):
+            covered, total, missing = bare.coverage(role_rows)
+        assert covered == 0 and total == 150, f"got {covered}/{total}"
 
-    # role-chain labels against a lookup that cannot resolve them
-    role_rows = [("1ACB", f"LB{n}D") for n in range(38, 188)]
-    with pytest.warns(RuntimeWarning, match="did not resolve"):
-        covered, total, missing = fx.coverage(role_rows)
-    assert covered == 1 and total == 150, f"expected 1 of 150 to resolve, got {covered}/{total}"
+    fx = FoldxLookup()
+    assert fx.is_exact is True
 
     # a shortfall too small to be a naming problem must not interrupt: one miss in a hundred is
     # an absent mutation, not a convention mismatch.
-    known = [("1BRS", k) for k in sorted(load_bundled_store()["1BRS"])]
-    mostly_fine = (known * 20)[:120] + [("1BRS", "ZZ999Z")]
+    store = load_bundled_store()
+    one = next(i for i in store if i == "1BRS" or i.startswith("1BRS_"))
+    known = [(one, k) for k in sorted(store[one])]
+    mostly_fine = (known * 20)[:120] + [(one, "ZZ999Z")]
     with warnings.catch_warnings():
         warnings.simplefilter("error")
         fx.coverage(mostly_fine)
 
-    # and neither is a shortfall a fully-resolving lookup cannot explain away
-    assert not fx.is_exact
+    # and the shipped store resolves exactly, so its shortfalls are absent rows rather than
+    # unmatched names -- which is what makes the silence above correct rather than lucky
+    assert fx.is_exact
 
 
 def test_coverage_stays_silent_below_the_threshold_and_when_nothing_more_could_resolve(tmp_path):
@@ -1839,26 +2520,34 @@ def test_coverage_reports_the_share_that_failed_not_the_share_that_worked(tmp_pa
     assert "80 of 100 rows (80.0%) did not resolve" in message, message
 
 
-def test_the_collapse_in_a_supplied_table_is_reported_even_when_the_store_is_clean(tmp_path):
-    """These two warnings are about different things: load_skempi's describes the table given,
-    the aggregate describes the shipped store via a static registry. Suppressing the first to
-    stop it repeating left a collapse in a caller's own table with no signal at all."""
+def test_a_store_written_under_bare_codes_still_resolves_against_an_identifier_table(tmp_path):
+    """Every store shipped before 0.2.0 is keyed by PDB code. Reading one against a table keyed
+    by identifier must still resolve, or the release strands its own predecessors -- but only
+    where the code is unambiguous, since a doubled code has no single pairing to number roles by.
+    """
     from skempi_foldx import FoldxLookup
 
     terms = {t: 1.0 for t in TERMS}
     store = tmp_path / "mine_sp"
     store.mkdir()
-    (store / "1ABC.json").write_text(json.dumps({"muts": {"LI38D": terms}, "meta": {}}))
+    (store / "1ABC.json").write_text(json.dumps(
+        {"muts": {"LI38D": dict(terms, cleaned="LI38D")}, "meta": {}}))
+    (store / "2XYZ.json").write_text(json.dumps(
+        {"muts": {"LA38D": dict(terms, cleaned="LA38D")}, "meta": {}}))
     csv_path = tmp_path / "s.csv"
     csv_path.write_text(
         "#Pdb;Mutation(s)_PDB;Mutation(s)_cleaned;Affinity_mut (M);Affinity_wt (M)\n"
-        "1ABC_A_B;LA38D;LA38D;1e-9;1e-9\n"
-        "1ABC_C_D;LC38D;LC38D;1e-9;1e-9\n"
+        "1ABC_E_I;LI38D;LI38D;1e-9;1e-9\n"
+        "2XYZ_A_B;LA38D;LA38D;1e-9;1e-9\n"
+        "2XYZ_C_D;LC38D;LC38D;1e-9;1e-9\n"
     )
-    # A store the static registry knows nothing about, so the aggregate warning cannot fire.
-    with pytest.warns(RuntimeWarning, match="1ABC: SKEMPI defines more than one interface"):
-        fx = FoldxLookup(stores=store, skempi_csv=csv_path)
-    assert not fx.interface_suspects, "this store should carry no registry-known suspects"
+    fx = FoldxLookup(stores=store, skempi_csv=csv_path)
+    assert fx.get("1ABC", "LI38D") is not None, "a singly-defined code lost its record"
+    assert fx.get("1ABC", "LB38D") is not None, \
+        "the role form did not resolve through the sole definition"
+    # 2XYZ is defined twice in the table, so the bare-code store entry gets no role alias: the
+    # pairing decides the role numbering and there is no basis for choosing one.
+    assert fx.get("2XYZ", "LA38D") is not None, "the stored key itself must still resolve"
 
 
 def test_a_supplied_store_sets_the_arms_it_actually_holds(tmp_path):
@@ -1945,7 +2634,7 @@ def test_a_later_store_cannot_shadow_an_earlier_alias(tmp_path):
     first = {"1ACB": {"LB38D": dict(terms, cleaned="LI38D")}}
     second = {"1ACB": {"LI38D": {t: -999.0 for t in TERMS}}}
 
-    with pytest.warns(RuntimeWarning, match="more than one record across the supplied"):
+    with pytest.warns(RuntimeWarning, match="resolving to more than one record"):
         fx = FoldxLookup(stores=[first, second])
     assert fx.get("1ACB", "LI38D")["Interaction Energy"] == 1.0, \
         "the second store shadowed the first store's alias for the same mutation"
@@ -1973,6 +2662,400 @@ def test_a_collision_is_announced_whichever_order_the_stores_arrive_in(tmp_path)
 
     for order, label in (([role_keyed, author_keyed], "role-keyed first"),
                          ([author_keyed, role_keyed], "author-keyed first")):
-        with pytest.warns(RuntimeWarning, match="more than one record across the supplied"):
+        with pytest.warns(RuntimeWarning, match="resolving to more than one record"):
             fx = FoldxLookup(stores=order)
         assert fx.get("1ACB", "LI38D") is not None, label
+
+
+# ----------------------------------------------------------------- malformed SKEMPI rows
+def test_malformed_rows_are_mutation_scoped_not_complex_scoped():
+    """Excluding the complex to drop two rows would discard 33 sound 2C5D records."""
+    from skempi_foldx.exclusions import MALFORMED_ROWS, INTRACTABLE, is_malformed
+    assert all(pdb == "2C5D" for pdb, _ in MALFORMED_ROWS)
+    # the complex itself must NOT be intractable -- the rest of it is fine
+    assert "2C5D" not in INTRACTABLE
+    assert is_malformed("2C5D", "RA32E,KA34E,RB32E,KA34E")
+    assert not is_malformed("2C5D", "RA32E,RB32E")
+
+
+def test_malformed_rows_repeat_a_substitution_and_intend_the_symmetric_partner():
+    from skempi_foldx.exclusions import MALFORMED_ROWS
+    for row in MALFORMED_ROWS.values():
+        parts = row.cleaned.split(",")
+        assert len(parts) != len(set(parts)), "shipped form must contain the repeat"
+        intended = row.intended.split(",")
+        assert len(intended) == len(set(intended)), "intended form must not"
+        assert len(parts) == len(intended)
+        # exactly one position differs, and it is the repeated one
+        assert sum(a != b for a, b in zip(parts, intended)) == 1
+
+
+def test_malformed_ignores_the_intractable_bypass(monkeypatch):
+    """ALLOW_ENV re-tests a complex on a newer FoldX; no engine fixes a bad source row."""
+    from skempi_foldx.exclusions import ALLOW_ENV, is_malformed, is_excluded
+    monkeypatch.setenv(ALLOW_ENV, "1")
+    assert is_excluded("1KBH") is None          # bypass works for the compute guard
+    assert is_malformed("2C5D", "RA32E,KA34E,RB32E,KA34E")   # and not for this one
+
+
+def test_filter_worklist_keeps_malformed_rows_and_drops_intractable_complexes():
+    """The two registries act at different stages: one guards compute, the other guards trust.
+
+    A malformed row survives the worklist because FoldX computes it correctly -- what is wrong is
+    the arity its label claims, which no compute decision can repair. Removing it would also
+    change the values of every entry after it in the list.
+    """
+    from skempi_foldx.exclusions import filter_worklist
+    wl = {"2C5D": ["RA32E,RB32E", "RA32E,KA34E,RB32E,KA34E"], "1BRS": ["DA52A"], "1KBH": ["LA1A"]}
+    out = filter_worklist(wl, on_note=None)
+    assert out["2C5D"] == ["RA32E,RB32E", "RA32E,KA34E,RB32E,KA34E"]
+    assert out["1BRS"] == ["DA52A"]
+    assert "1KBH" not in out, "the intractable complex is still dropped whole"
+
+
+def test_announce_malformed_names_the_rows_without_removing_them():
+    from skempi_foldx.exclusions import announce_malformed
+    seen = []
+    muts = ["RA32E,RB32E", "RA32E,KA34E,RB32E,KA34E"]
+    with pytest.warns(RuntimeWarning, match="MALFORMED"):
+        found = announce_malformed("2C5D", muts, on_note=seen.append)
+    assert found == ["RA32E,KA34E,RB32E,KA34E"]
+    assert muts == ["RA32E,RB32E", "RA32E,KA34E,RB32E,KA34E"], "the input list is not mutated"
+    assert len(seen) == 1 and "shipped" in seen[0]
+
+
+# ---------------------------------------------------------------- the 0.2.0 re-key, and its edges
+# Every test below pins a defect that shipped green: the suite passed while the behaviour was
+# wrong, because nothing exercised the shape that breaks it.
+
+def test_shorten_path_leaves_no_username_at_any_depth():
+    """A campaign records where it seeded its repair from, and that lands in package data.
+
+    The leak this prevents is not the obvious one. An absolute path is easy to grep for; what
+    survives a naive truncation is a *relative* fragment with the username at its head, which no
+    absolute-path pattern matches because the leading slash is gone.
+    """
+    from skempi_foldx.store import shorten_path
+
+    user, u, h = "someuser", "Users", "home"
+    for raw in (f"/{u}/{user}/scratch/camp/2C5D/f.pdb",
+                f"/{h}/{user}/2C5D/f.pdb",
+                f"/data/{h}/{user}/2C5D/f.pdb",           # home is not at position 0
+                f"//fileserver/{h}/{user}/2C5D/f.pdb",
+                f"../../{h}/{user}/2C5D/f.pdb",
+                f"/{u}/{user}/scratch/{user}/2C5D/f.pdb",     # name recurs deeper
+                f"C:\\{u}\\{user}\\camp\\2C5D\\f.pdb",         # backslashes
+                f"/{u}/{user}"):                              # nothing but the home
+        assert user not in shorten_path(raw), raw
+
+    # `/root` IS the home, so only one component goes -- stripping two would eat the complex.
+    # Assembled rather than written out, like the fixtures above: .github/leakscan.sh scans this
+    # file, and a literal home-directory path here fails the release gate it exists to protect.
+    bare_home = "/".join(["", "root", "camp", "2C5D", "f.pdb"])
+    assert shorten_path(bare_home) == "camp/2C5D/f.pdb"
+    assert shorten_path("") == ""
+    already = "2C5D_A_C_mp/2C5D/2C5D_Repair.pdb"
+    assert shorten_path(already) == already, "an already-safe path was mangled"
+    assert shorten_path(shorten_path(f"/Users/{user}/a/b/c/f.pdb")).count("/") <= 2
+
+
+def test_the_shipped_store_carries_no_path_at_all():
+    """The data is the deliverable, so it is the last place a local path may survive -- and the
+    place a source-only hygiene grep does not look."""
+    import re
+    from skempi_foldx import bundled_path, MULTI_POINT
+
+    # Assembled rather than written out, so this file does not itself trip the CI hygiene grep
+    # that greps *.py. A gate that has to skip its own tests is a gate with a blind spot.
+    sep = "/"
+    bad = re.compile("|".join([f"{sep}Users{sep}[a-z]", f"{sep}home{sep}[a-z]",
+                               f"{sep}private{sep}tmp{sep}", r"[A-Za-z]:\\\\"]))
+    for which in (bundled_path(), bundled_path(MULTI_POINT)):
+        for path in which.glob("*.json"):
+            assert not bad.search(path.read_text()), path.name
+
+
+def test_pool_by_code_conserves_mutations_and_refuses_a_bare_string():
+    from skempi_foldx import pool_by_code
+
+    pooled = pool_by_code({"3SE4_B_A": ["DA117A", "SHARED"], "3SE4_B_C": ["EC69A", "SHARED"],
+                           "1BRS_A_D": ["DA52A"]})
+    assert pooled == {"3SE4": ["DA117A", "EC69A", "SHARED"], "1BRS": ["DA52A"]}
+    assert pool_by_code({}) == {}
+    assert pool_by_code({"1BRS": ["DA52A"]}) == {"1BRS": ["DA52A"]}, "not idempotent on codes"
+    # A str satisfies Sequence[str] and would be pooled character by character.
+    with pytest.raises(TypeError):
+        pool_by_code({"1BRS_A_D": "DA52A"})
+
+
+def test_two_spellings_of_one_record_pool_rather_than_one_being_dropped(tmp_path):
+    """A worklist can name one definition by code and by identifier at once. Running it twice
+    would collide; dropping one silently computes a *subset*, which this module's whole subject
+    is about -- the same mutation in a shorter list is a different number, by up to 11 kcal/mol.
+    """
+    from skempi_foldx import FoldxConfig, MODE_AUTHOR, SkempiComplex, run_campaign
+
+    entry = SkempiComplex("1ABC", "A", "B", single={"LA1A", "LA2A", "LA3A"})
+    notes = []
+    config = FoldxConfig(results_dir=tmp_path / "r", work_dir=tmp_path / "w",
+                         pdb_dir=tmp_path / "p", skempi_csv=tmp_path / "s.csv",
+                         binary="/bin/echo")
+    (tmp_path / "p").mkdir()
+    run_campaign({"1ABC": ["LA1A"], "1ABC_A_B": ["LA2A", "LA3A"]}, {"1ABC_A_B": entry},
+                 config, mode=MODE_AUTHOR, jobs=1, on_result=notes.append)
+
+    submitted = [n for n in notes if "complexes," in n][0]
+    assert "1 complexes, 3 mutations" in submitted, submitted
+    assert any("pooled into one run" in n for n in notes)
+    # The identifier wins the name: a bare code cannot say which pairing it means.
+    assert (tmp_path / "r" / "1ABC_A_B.json").exists() or not (tmp_path / "r" / "1ABC.json").exists()
+
+
+def test_an_empty_mutation_list_only_runs_under_repair_only(tmp_path):
+    """`{pdb: []}` means "repair and stop". Outside a repair-only run it would pay a full
+    RepairPDB and then write a results JSON that marks the complex done for every later resume.
+    """
+    from skempi_foldx import FoldxConfig, MODE_AUTHOR, SkempiComplex, run_campaign
+
+    entry = SkempiComplex("1ABC", "A", "B", single={"LA1A"})
+    (tmp_path / "p").mkdir()
+    config = FoldxConfig(results_dir=tmp_path / "r", work_dir=tmp_path / "w",
+                         pdb_dir=tmp_path / "p", skempi_csv=tmp_path / "s.csv",
+                         binary="/bin/echo")
+    notes = []
+    run_campaign({"1ABC_A_B": []}, {"1ABC_A_B": entry}, config, mode=MODE_AUTHOR, jobs=1,
+                 on_result=notes.append)
+    assert any("no mutations to build" in n for n in notes)
+    assert not list((tmp_path / "r").glob("*.json")), "wrote a done-marker for an unbuilt complex"
+
+    # ...and a repair-only campaign still gets its empty list through.
+    notes.clear()
+    run_campaign({"1ABC_A_B": []}, {"1ABC_A_B": entry}, config, mode=MODE_AUTHOR, jobs=1,
+                 repair_only=True, on_result=notes.append)
+    assert any("1 complexes, 0 mutations" in n for n in notes), notes
+
+
+def test_only_selects_by_code_as_well_as_by_identifier(tmp_path):
+    """Callers hold structures to run, not SKEMPI identifiers. Matching on the key alone made
+    `only=["1KBH"]` select nothing and the campaign exit successfully having done nothing."""
+    from skempi_foldx import load_skempi, worklist_single_point
+
+    csv = _skempi_table(tmp_path, [("1AAA_E_I", "LI38S"), ("2BBB_A_B", "YC5F")])
+    sk = load_skempi(csv)
+    assert set(worklist_single_point(sk, only=["1AAA"])) == {"1AAA_E_I"}
+    assert set(worklist_single_point(sk, only=["1AAA_E_I"])) == {"1AAA_E_I"}
+    assert worklist_single_point(sk, only=["1AA"]) == {}, "matched on a prefix"
+
+
+def test_two_records_of_one_complex_claiming_one_alias_are_announced(tmp_path):
+    """Whichever key JSON iteration reached first won the name, and the other record's energies
+    answered to it. Both alias branches are symmetric and both were silent."""
+    from skempi_foldx import FoldxLookup
+
+    terms = {t: 1.0 for t in TERMS}
+    for label, recs in (
+        ("role", {"LI38D": dict(terms, cleaned="LI38D", role="LB38D"),
+                  "LJ38D": dict(terms, cleaned="LJ38D", role="LB38D")}),
+        ("cleaned", {"LI38D": dict(terms, cleaned="ZZ9Z"),
+                     "LJ38D": dict(terms, cleaned="ZZ9Z")}),
+    ):
+        with pytest.warns(RuntimeWarning, match="resolving to more than one record"):
+            FoldxLookup(stores={"9ZZZ_A_B": recs})
+
+
+def test_exactness_is_a_property_of_every_indexed_store(tmp_path):
+    """A store with no role names is still an estimate, and indexing one beside the bundled store
+    must not let the bundled store vouch for it. An *empty* store must not do the reverse."""
+    from skempi_foldx import FoldxLookup, load_bundled_store, load_store
+
+    terms = {t: 1.0 for t in TERMS}
+    roleless = tmp_path / "roleless_sp"
+    roleless.mkdir()
+    (roleless / "9ZZZ_A_B.json").write_text(json.dumps(
+        {"muts": {"LA38D": dict(terms, cleaned="LA38D")}, "meta": {}}))
+
+    assert FoldxLookup().is_exact is True
+    assert FoldxLookup(stores=[load_bundled_store(), {}]).is_exact is True, \
+        "an empty store flipped exactness off with nothing in it"
+    assert FoldxLookup(stores=[load_bundled_store(), load_store(roleless)]).is_exact is False, \
+        "a roleless store borrowed the bundled store's exactness"
+
+
+def test_write_store_records_the_structure_in_pdb_not_the_identifier(tmp_path):
+    """`meta.pdb` names the structure; `skempi_id` names the record. A campaign written before the
+    two were separated put the identifier in both, and consolidating it would carry that through
+    into the field whose only job is to say which structure the energies came from."""
+    from skempi_foldx import write_store
+
+    terms = {t: 1.0 for t in TERMS}
+    store = {"2C5D_AB_CD": {"LA1A": dict(terms)}}
+    for supplied, expected in (({"pdb": "2C5D_AB_CD"}, "2C5D"),   # pre-split campaign
+                               ({"pdb": "2C5D"}, "2C5D"),         # already a code
+                               ({}, "2C5D")):                     # absent
+        out = tmp_path / f"out_{expected}_{len(supplied)}"
+        write_store(store, out, kind="muts", metas={"2C5D_AB_CD": supplied})
+        meta = json.loads((out / "2C5D_AB_CD.json").read_text())["meta"]
+        assert meta["pdb"] == expected, (supplied, meta)
+        assert meta["skempi_id"] == "2C5D_AB_CD"
+
+
+def test_write_store_shortens_a_path_a_campaign_left_in_meta(tmp_path):
+    """consolidate()/write_store is the exported way to materialise a store, so a consumer running
+    it over pre-fix campaign output would otherwise reproduce the leak this release removed."""
+    from skempi_foldx import write_store
+
+    terms = {t: 1.0 for t in TERMS}
+    leaky = "/".join(["", "Users", "someuser", "camp", "1ABC", "1ABC_Repair.pdb"])
+    write_store({"1ABC_A_B": {"LA1A": dict(terms)}}, tmp_path / "out", kind="muts",
+                metas={"1ABC_A_B": {"repair_seeded_from": leaky}})
+    meta = json.loads((tmp_path / "out" / "1ABC_A_B.json").read_text())["meta"]
+    assert "someuser" not in meta["repair_seeded_from"]
+    assert meta["repair_seeded_from"] == "camp/1ABC/1ABC_Repair.pdb"
+
+
+def test_a_role_name_and_an_author_name_reach_one_bundled_record():
+    """Both spellings of a mutation resolve, and to the same record rather than to two copies.
+
+    The role form is what split files carry, and `1PPF`'s inhibitor chain is `I` by author name
+    and `B` by role, so `GI32Y` and `GB32Y` are one substitution written two ways. Asserted on the
+    bundled store specifically: the `role` field is computed at build time from the chain mappings,
+    so it is a property of what shipped rather than of the loader.
+
+    Identity, not equality -- two distinct records that happened to carry identical terms would
+    satisfy `==` while meaning the alias had been lost. `FoldxLookup.get` returns the stored dict,
+    which is what makes `is` the available check; a loader that started returning a copy would
+    need this rewritten rather than deleted.
+    """
+    from skempi_foldx import FoldxLookup
+
+    fx = FoldxLookup()
+    author, role = fx.get("1PPF", "GI32Y"), fx.get("1PPF", "GB32Y")
+    assert author is not None, "the author-chain spelling did not resolve"
+    assert author is role, "the role-chain spelling reached a different record, or none"
+    assert fx.is_exact, "the shipped role names did not survive packaging"
+
+
+def test_an_inferred_author_form_must_be_one_skempi_lists(tmp_path):
+    """A role-keyed foreign store must not have its keys taken for author forms.
+
+    A record without `cleaned` does not declare which convention its key is in, so the key is
+    *inferred* to be an author form and a role name is built from it. If the key was already a role
+    name, that builds a second name out of a name that was never an author form, and installs it as
+    an alias onto a record it does not describe.
+
+    The conditions are specific, which is why nothing caught this: the role letter must also lie
+    inside the author groups, so group1 needs more than one chain, and `mapping_dir=` must be
+    supplied or no name can be built at all. `2C5D_AB_CD` satisfies the first — role chain `B` is
+    also author chain `B` — so the role-shaped key `KB178E` is re-read as author chain B residue
+    178 and remapped to `KA378E`, which names chain A residue 378 and belongs to nothing here.
+    """
+    from skempi_foldx import FoldxLookup
+
+    csv = _skempi_table(tmp_path, [("2C5D_AB_CD", "KC178E")])
+    maps = _mapping_dir(tmp_path, "2C5D", {"A": 200, "B": 200, "C": 200, "D": 200})
+    store = {"2C5D_AB_CD": {"KB178E": {t: 1.0 for t in TERMS}}}   # no `cleaned`
+
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        fx = FoldxLookup(skempi_csv=str(csv), mapping_dir=str(maps), stores=[store])
+
+    fabricated = sorted(name for pdb, name in fx._alias
+                        if pdb == "2C5D_AB_CD" and name != "KB178E")
+    assert not fabricated, (
+        f"a role form was built from a key that is not an author form SKEMPI lists: {fabricated}"
+    )
+    assert fx.get("2C5D_AB_CD", "KB178E") is not None, "the literal key must still resolve"
+
+
+def test_a_role_form_is_built_from_the_records_own_definition(tmp_path):
+    """A role name is only meaningful under the chain grouping the record belongs to.
+
+    Role letters are assigned by which group a chain sits in, and positions are renumbered by the
+    cumulative offset along that group -- so the same author mutation has different role names
+    under different pairings of the same PDB code. `_sole_definition` is therefore asked about the
+    record's *identifier*. Asking about its bare code instead lets a record keyed to one pairing be
+    resolved against another, and the name comes out describing a different residue.
+
+    Here the table knows only `1ACB_I_AE`, which puts chain I in group1 (role letter `A`), while
+    the record is keyed `1ACB_E_I`, where chain I is group2 (role letter `B`). Falling back by code
+    installs `LA38D` on a record whose own pairing would never produce that name.
+    """
+    from skempi_foldx import FoldxLookup
+
+    csv = _skempi_table(tmp_path, [("1ACB_I_AE", "LI38D")])
+    maps = _mapping_dir(tmp_path, "1ACB", {"A": 100, "E": 245, "I": 70})
+    store = {"1ACB_E_I": {"LI38D": dict({t: 1.0 for t in TERMS}, cleaned="LI38D")}}
+
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        fx = FoldxLookup(skempi_csv=str(csv), mapping_dir=str(maps), stores=[store])
+
+    invented = sorted(name for pdb, name in fx._alias
+                      if pdb == "1ACB_E_I" and name != "LI38D")
+    assert not invented, (
+        f"a role name was built from another pairing of the same code: {invented}"
+    )
+
+
+def test_the_first_store_supplied_wins_a_conflict():
+    """Source precedence is the documented contract, shared with `consolidate()`.
+
+    The conflict is announced and listed either way, so a reversal is invisible in the warning and
+    in `conflicts`; only the returned energies change.
+    """
+    from skempi_foldx import FoldxLookup
+
+    preferred = {"9ZZZ_A_B": {"LI38D": {t: 1.0 for t in TERMS} | {"cleaned": "LI38D"}}}
+    fallback = {"9ZZZ_A_B": {"LI38D": {t: 2.0 for t in TERMS} | {"cleaned": "LI38D"}}}
+    with pytest.warns(RuntimeWarning, match="resolving to more than one record"):
+        fx = FoldxLookup(stores=[preferred, fallback])
+    assert fx.get("9ZZZ_A_B", "LI38D")[SCALAR_TERM] == 1.0, "the first store must win"
+    with pytest.warns(RuntimeWarning, match="resolving to more than one record"):
+        rev = FoldxLookup(stores=[fallback, preferred])
+    assert rev.get("9ZZZ_A_B", "LI38D")[SCALAR_TERM] == 2.0, "order must decide, not chance"
+
+
+def test_the_shipped_store_holds_no_excluded_complex():
+    """The deliverable is checked against the package's own exclusion registry.
+
+    `consolidate()` refuses to build a store containing one, and that refusal is tested -- but
+    nothing asserted it of the artifact that actually ships. A file named for an excluded complex
+    would leave every count unchanged and every other test green.
+    """
+    from skempi_foldx import load_bundled_store
+    from skempi_foldx.exclusions import is_excluded
+
+    for arm in ("results_sp", "results_mp"):
+        offenders = sorted(k for k in load_bundled_store(arm) if is_excluded(k))
+        assert not offenders, f"{arm} ships excluded complexes: {offenders}"
+
+
+#: sha256 over every shipped (arm, identifier, mutation, term, value), sorted. Recompute with
+#: `experiments/` disabled and a clean tree; changing it is a deliberate act, not a fixup.
+PINNED_ENERGY_DIGEST = "7d0c4a7e17a35c3d3c729d8829753bd18ddbc2681a07d9c60cb19d1e51a75c6d"
+
+
+def test_the_shipped_energies_are_pinned():
+    """A version names a measurement, so the values themselves are pinned, not only the shape.
+
+    Counts, keys and field consistency are asserted exhaustively elsewhere. None of that notices a
+    rebuild or a backfill that perturbs a number, which is the one change this package's premise
+    says must never happen silently within a version.
+    """
+    import hashlib
+
+    from skempi_foldx import load_bundled_store
+
+    h = hashlib.sha256()
+    for arm in ("results_sp", "results_mp"):
+        store = load_bundled_store(arm)
+        for ident in sorted(store):
+            for key in sorted(store[ident]):
+                rec = store[ident][key]
+                h.update(f"{arm}\0{ident}\0{key}".encode())
+                for term in TERMS:
+                    h.update(f"\0{term}={rec[term]!r}".encode())
+    assert h.hexdigest() == PINNED_ENERGY_DIGEST, (
+        "the shipped energy values changed. If that is intended, this release needs a new version "
+        "and a CHANGELOG entry saying what moved -- a version names a measurement here."
+    )

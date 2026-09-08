@@ -1,0 +1,34 @@
+{
+ "muts": {
+  "AB95K": {
+   "Interaction Energy": -3.011,
+   "Backbone Hbond": -0.082,
+   "Sidechain Hbond": -1.1842,
+   "Van der Waals": -1.2609,
+   "Electrostatics": -1.4027,
+   "Solvation Polar": 2.3598,
+   "Solvation Hydrophobic": -1.7506,
+   "Van der Waals clashes": 0.043,
+   "entropy sidechain": 0.5068,
+   "entropy mainchain": 0.0094,
+   "torsional clash": 0.006,
+   "backbone clash": 0.0345,
+   "cleaned": "AB95K",
+   "_source": "sweep_4x_round_1"
+  }
+ },
+ "meta": {
+  "pdb": "2VLO",
+  "mode": "author",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "A,B",
+  "mutation_list_sha256": "4efe7df28257c763f9198b34ef9b8611e64e6df9c918e6698ca94a56503148d6",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "2VLO_A_B",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

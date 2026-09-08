@@ -1,0 +1,69 @@
+{
+ "muts": {
+  "EH64K": {
+   "Interaction Energy": 0.5497,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": -0.0013,
+   "Electrostatics": 0.1163,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": -0.0031,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": 0.0,
+   "entropy mainchain": 0.3681,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "cleaned": "EH64K",
+   "_source": "sweep_4x_round_1",
+   "role": "EA64K"
+  },
+  "VH50T": {
+   "Interaction Energy": 0.085,
+   "Backbone Hbond": -0.0032,
+   "Sidechain Hbond": 0.0026,
+   "Van der Waals": -0.0096,
+   "Electrostatics": 0.0004,
+   "Solvation Polar": 0.1124,
+   "Solvation Hydrophobic": 0.047,
+   "Van der Waals clashes": -0.0487,
+   "entropy sidechain": 0.0012,
+   "entropy mainchain": 0.0066,
+   "torsional clash": -0.0237,
+   "backbone clash": 0.0,
+   "cleaned": "VH50T",
+   "_source": "sweep_4x_round_1",
+   "role": "VA50T"
+  },
+  "YL52E": {
+   "Interaction Energy": 0.2622,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.1067,
+   "Electrostatics": 0.0604,
+   "Solvation Polar": 0.0017,
+   "Solvation Hydrophobic": 0.1907,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": -0.1414,
+   "entropy mainchain": -0.0188,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "cleaned": "YL52E",
+   "_source": "sweep_4x_round_1",
+   "role": "YA262E"
+  }
+ },
+ "meta": {
+  "pdb": "2B2X",
+  "mode": "author",
+  "n_requested": 3,
+  "validation_failed": [],
+  "n_ok": 3,
+  "groups": "HL,A",
+  "mutation_list_sha256": "673c50ca7374f0a47a465e66c2b7ff61383b1a4f21812a6440a7504c33733140",
+  "n_accepted": 3,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "2B2X_HL_A",
+  "source": "round_1 union list",
+  "n_mutations": 3
+ }
+}

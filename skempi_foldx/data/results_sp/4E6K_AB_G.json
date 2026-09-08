@@ -1,0 +1,69 @@
+{
+ "muts": {
+  "KG40A": {
+   "Interaction Energy": 1.5392,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.2719,
+   "Electrostatics": 0.124,
+   "Solvation Polar": -0.2664,
+   "Solvation Hydrophobic": 0.402,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": -0.2815,
+   "entropy mainchain": 1.1519,
+   "torsional clash": -0.0,
+   "backbone clash": -0.0005,
+   "cleaned": "KG40A",
+   "_source": "sweep_4x_round_1",
+   "role": "KB40A"
+  },
+  "LG5A": {
+   "Interaction Energy": 3.3737,
+   "Backbone Hbond": 0.0832,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 1.7036,
+   "Electrostatics": -0.0009,
+   "Solvation Polar": -0.8002,
+   "Solvation Hydrophobic": 3.4127,
+   "Van der Waals clashes": -0.0001,
+   "entropy sidechain": -1.0322,
+   "entropy mainchain": 0.0187,
+   "torsional clash": -0.0112,
+   "backbone clash": -0.4138,
+   "cleaned": "LG5A",
+   "_source": "sweep_4x_round_1",
+   "role": "LB5A"
+  },
+  "YG2F": {
+   "Interaction Energy": -0.0445,
+   "Backbone Hbond": -0.0366,
+   "Sidechain Hbond": 1.1027,
+   "Van der Waals": -0.1224,
+   "Electrostatics": -0.0017,
+   "Solvation Polar": -0.0543,
+   "Solvation Hydrophobic": -0.3482,
+   "Van der Waals clashes": 0.0099,
+   "entropy sidechain": -0.5833,
+   "entropy mainchain": -0.0107,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0031,
+   "cleaned": "YG2F",
+   "_source": "sweep_4x_round_1",
+   "role": "YB2F"
+  }
+ },
+ "meta": {
+  "pdb": "4E6K",
+  "mode": "author",
+  "n_requested": 3,
+  "validation_failed": [],
+  "n_ok": 3,
+  "groups": "AB,G",
+  "mutation_list_sha256": "cfa8881edf1f69360b809974387a7c771024b2dca3ee8c3067abf4a9008d7bfc",
+  "n_accepted": 3,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "4E6K_AB_G",
+  "source": "round_1 union list",
+  "n_mutations": 3
+ }
+}

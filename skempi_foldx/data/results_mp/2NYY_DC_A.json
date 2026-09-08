@@ -1,0 +1,52 @@
+{
+ "variants": {
+  "KD29S,YD30D,DD31H,SD60P": {
+   "Interaction Energy": 1.4673,
+   "Backbone Hbond": 0.8941,
+   "Sidechain Hbond": 1.5662,
+   "Van der Waals": 0.9786,
+   "Electrostatics": 0.3045,
+   "Solvation Polar": -1.3687,
+   "Solvation Hydrophobic": 1.3213,
+   "Van der Waals clashes": -0.0948,
+   "entropy sidechain": -2.1666,
+   "entropy mainchain": -0.0243,
+   "torsional clash": 0.0538,
+   "backbone clash": -0.2022,
+   "cleaned": "KD29S,YD30D,DD31H,SD60P",
+   "_source": "sweep_4x_round_1",
+   "role": "KA29S,YA30D,DA31H,SA60P"
+  },
+  "VD36I,ED5Q": {
+   "Interaction Energy": 0.0,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0,
+   "Electrostatics": 0.0,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": 0.0,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": 0.0,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "cleaned": "VD36I,ED5Q",
+   "_source": "sweep_4x_round_1",
+   "role": "VA36I,EA5Q"
+  }
+ },
+ "meta": {
+  "pdb": "2NYY",
+  "mode": "variant",
+  "n_requested": 2,
+  "validation_failed": [],
+  "n_ok": 2,
+  "groups": "DC,A",
+  "mutation_list_sha256": "8ba77e069834acb1966671330ab1c0c90f9a10f9baebfef67c6d3ee3c4f3babd",
+  "n_accepted": 2,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "2NYY_DC_A",
+  "source": "round_1 union list",
+  "n_mutations": 2
+ }
+}

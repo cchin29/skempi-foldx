@@ -1,0 +1,66 @@
+{
+ "variants": {
+  "GA12D,QB25R": {
+   "Interaction Energy": -1.172,
+   "Backbone Hbond": 0.0091,
+   "Sidechain Hbond": -3.4049,
+   "Van der Waals": -0.2157,
+   "Electrostatics": -0.6181,
+   "Solvation Polar": 0.5198,
+   "Solvation Hydrophobic": -0.2816,
+   "Van der Waals clashes": 0.0119,
+   "entropy sidechain": 2.8575,
+   "entropy mainchain": 0.1548,
+   "torsional clash": 0.0028,
+   "backbone clash": -0.0385,
+   "cleaned": "GA12D,QB25R",
+   "_source": "sweep_4x_round_1"
+  },
+  "GA12D,QB25R,EB33G,DB34G": {
+   "Interaction Energy": -0.1897,
+   "Backbone Hbond": -0.0215,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": -0.0493,
+   "Electrostatics": -0.1998,
+   "Solvation Polar": 0.0864,
+   "Solvation Hydrophobic": -0.0412,
+   "Van der Waals clashes": -0.0168,
+   "entropy sidechain": 0.1865,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0035,
+   "backbone clash": 0.056,
+   "cleaned": "GA12D,QB25R,EB33G,DB34G",
+   "_source": "sweep_4x_round_1"
+  },
+  "QB25R,EB33G,DB34G": {
+   "Interaction Energy": -1.8706,
+   "Backbone Hbond": 0.035,
+   "Sidechain Hbond": -3.2286,
+   "Van der Waals": -0.0921,
+   "Electrostatics": -0.5457,
+   "Solvation Polar": 0.1899,
+   "Solvation Hydrophobic": -0.1888,
+   "Van der Waals clashes": 0.0539,
+   "entropy sidechain": 1.9475,
+   "entropy mainchain": 0.1763,
+   "torsional clash": -0.0004,
+   "backbone clash": -0.0517,
+   "cleaned": "QB25R,EB33G,DB34G",
+   "_source": "sweep_4x_round_1"
+  }
+ },
+ "meta": {
+  "pdb": "5UFE",
+  "mode": "variant",
+  "n_requested": 3,
+  "validation_failed": [],
+  "n_ok": 3,
+  "groups": "A,B",
+  "mutation_list_sha256": "4c38b8cfe38d1d15c59ec3d48bb2ab8db6f1636620f3c96115859b223214b642",
+  "n_accepted": 3,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "5UFE_A_B",
+  "source": "round_1 union list",
+  "n_mutations": 3
+ }
+}

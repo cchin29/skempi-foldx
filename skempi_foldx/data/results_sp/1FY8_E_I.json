@@ -1,0 +1,52 @@
+{
+ "muts": {
+  "DE168N": {
+   "Interaction Energy": 0.8637,
+   "Backbone Hbond": 0.1299,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": -0.0421,
+   "Electrostatics": 0.3118,
+   "Solvation Polar": 0.1506,
+   "Solvation Hydrophobic": -0.0322,
+   "Van der Waals clashes": 0.0151,
+   "entropy sidechain": -0.0085,
+   "entropy mainchain": 0.2104,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0274,
+   "cleaned": "DE168N",
+   "_source": "sweep_4x_round_1",
+   "role": "DA168N"
+  },
+  "QE128K": {
+   "Interaction Energy": 0.0362,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0009,
+   "Electrostatics": 0.0221,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": 0.002,
+   "Van der Waals clashes": -0.0005,
+   "entropy sidechain": -0.0032,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "cleaned": "QE128K",
+   "_source": "sweep_4x_round_1",
+   "role": "QA128K"
+  }
+ },
+ "meta": {
+  "pdb": "1FY8",
+  "mode": "author",
+  "n_requested": 2,
+  "validation_failed": [],
+  "n_ok": 2,
+  "groups": "E,I",
+  "mutation_list_sha256": "8b3cd7fe7ade54f20264ccb90d464dcd23d3b5ecf3d31634b0321c14344e55c7",
+  "n_accepted": 2,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "1FY8_E_I",
+  "source": "round_1 union list",
+  "n_mutations": 2
+ }
+}

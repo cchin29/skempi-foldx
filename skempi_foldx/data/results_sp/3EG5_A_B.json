@@ -1,0 +1,34 @@
+{
+ "muts": {
+  "HA104F": {
+   "Interaction Energy": -0.5891,
+   "Backbone Hbond": 0.0471,
+   "Sidechain Hbond": 1.3947,
+   "Van der Waals": 0.3732,
+   "Electrostatics": -0.2027,
+   "Solvation Polar": -1.2776,
+   "Solvation Hydrophobic": 0.1389,
+   "Van der Waals clashes": 0.0759,
+   "entropy sidechain": -0.0075,
+   "entropy mainchain": -0.4155,
+   "torsional clash": -0.0041,
+   "backbone clash": 0.1006,
+   "cleaned": "HA104F",
+   "_source": "sweep_4x_round_1"
+  }
+ },
+ "meta": {
+  "pdb": "3EG5",
+  "mode": "author",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "A,B",
+  "mutation_list_sha256": "8daf0b0691674d37703f19a39e02bf5e5e6590f60b2c457dd9ff0d2b53da2151",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "3EG5_A_B",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

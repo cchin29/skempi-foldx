@@ -1,0 +1,35 @@
+{
+ "variants": {
+  "MI28K,LI27R": {
+   "Interaction Energy": 2.3828,
+   "Backbone Hbond": -1.2348,
+   "Sidechain Hbond": -1.6786,
+   "Van der Waals": -1.1677,
+   "Electrostatics": -0.5372,
+   "Solvation Polar": 4.6681,
+   "Solvation Hydrophobic": 0.9738,
+   "Van der Waals clashes": 0.1558,
+   "entropy sidechain": 1.2131,
+   "entropy mainchain": 0.2402,
+   "torsional clash": 0.0109,
+   "backbone clash": 0.0195,
+   "cleaned": "MI28K,LI27R",
+   "_source": "sweep_4x_round_1",
+   "role": "MB28K,LB27R"
+  }
+ },
+ "meta": {
+  "pdb": "1GL0",
+  "mode": "variant",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "E,I",
+  "mutation_list_sha256": "547e7d62bb218a224ea47bca75f27221812a651625b74f2ddcd98b704e1f4508",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "1GL0_E_I",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

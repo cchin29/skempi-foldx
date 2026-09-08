@@ -1,0 +1,51 @@
+{
+ "muts": {
+  "AC51F": {
+   "Interaction Energy": -0.0744,
+   "Backbone Hbond": 0.553,
+   "Sidechain Hbond": 0.6237,
+   "Van der Waals": -0.7975,
+   "Electrostatics": -0.1367,
+   "Solvation Polar": -0.1489,
+   "Solvation Hydrophobic": -1.5591,
+   "Van der Waals clashes": 0.352,
+   "entropy sidechain": -0.2149,
+   "entropy mainchain": -0.3576,
+   "torsional clash": 1.7145,
+   "backbone clash": 0.0217,
+   "cleaned": "AC51F",
+   "_source": "sweep_4x_round_1",
+   "role": "AB51F"
+  },
+  "FA115A": {
+   "Interaction Energy": 1.2133,
+   "Backbone Hbond": 0.0443,
+   "Sidechain Hbond": 0.0023,
+   "Van der Waals": 0.5981,
+   "Electrostatics": 0.0111,
+   "Solvation Polar": -0.2873,
+   "Solvation Hydrophobic": 0.9678,
+   "Van der Waals clashes": 0.0003,
+   "entropy sidechain": -0.0475,
+   "entropy mainchain": -0.0686,
+   "torsional clash": -0.0074,
+   "backbone clash": 0.0148,
+   "cleaned": "FA115A",
+   "_source": "sweep_4x_round_1"
+  }
+ },
+ "meta": {
+  "pdb": "3BP8",
+  "mode": "author",
+  "n_requested": 2,
+  "validation_failed": [],
+  "n_ok": 2,
+  "groups": "A,C",
+  "mutation_list_sha256": "5bea4962bd631bd75245a99a0a20e2e24334c819b2c857e4062c9d2978bf9d17",
+  "n_accepted": 2,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "3BP8_A_C",
+  "source": "round_1 union list",
+  "n_mutations": 2
+ }
+}

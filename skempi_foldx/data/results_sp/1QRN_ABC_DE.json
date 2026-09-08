@@ -1,0 +1,35 @@
+{
+ "muts": {
+  "AC6P": {
+   "Interaction Energy": -0.4971,
+   "Backbone Hbond": -0.0239,
+   "Sidechain Hbond": 0.0123,
+   "Van der Waals": -0.1302,
+   "Electrostatics": 0.0018,
+   "Solvation Polar": -0.0158,
+   "Solvation Hydrophobic": -0.2901,
+   "Van der Waals clashes": 0.0077,
+   "entropy sidechain": 0.0042,
+   "entropy mainchain": -0.0748,
+   "torsional clash": 0.0119,
+   "backbone clash": -0.031,
+   "cleaned": "AC6P",
+   "_source": "sweep_4x_round_1",
+   "role": "AA380P"
+  }
+ },
+ "meta": {
+  "pdb": "1QRN",
+  "mode": "author",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "ABC,DE",
+  "mutation_list_sha256": "29ccf6e7fe41b8b83d855d2f35a7caffcc3864be54912e3dc4250532c5594df8",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "1QRN_ABC_DE",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

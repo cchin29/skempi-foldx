@@ -50,8 +50,18 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
-from skempi_foldx import FoldxConfig, load_skempi, run_campaign  # noqa: E402
-from skempi_foldx.run import MODE_VARIANT, worklist_multi_point  # noqa: E402
+from skempi_foldx import FoldxConfig, by_pdb, load_skempi, run_campaign  # noqa: E402
+
+
+def per_structure(skempi):
+    """``{pdb: SkempiComplex}`` — one entry per structure, matching a `pool_by_code` worklist.
+
+    This sweep's unit is a repaired PDB. Passing the identifier-keyed table instead leaves the
+    three multiply-defined codes unresolvable by code, and `run_campaign` drops them with a note
+    saying they are absent from SKEMPI -- which they are not.
+    """
+    return {pdb: defs[0] for pdb, defs in by_pdb(skempi).items()}
+from skempi_foldx.run import MODE_VARIANT, pool_by_code, worklist_multi_point  # noqa: E402
 from skempi_foldx.exclusions import filter_worklist  # noqa: E402
 
 ITERATIONS = 4
@@ -72,7 +82,10 @@ def chain_config(args) -> FoldxConfig:
 
 def mp_worklist(args, skempi):
     pdb_dir = Path(args.pdb_dir)
-    work = {p: v for p, v in worklist_multi_point(skempi).items()
+    # Pooled to PDB codes: this sweep's unit is a repaired structure, and it shares the SP arm's
+    # repair chain, whose work directories are named by code. `pool_by_code` documents what that
+    # pooling costs and why it is sound for a convergence study.
+    work = {p: v for p, v in pool_by_code(worklist_multi_point(skempi)).items()
             if (pdb_dir / f"{p}.pdb").exists()}
     if args.complexes:
         work = {p: v for p, v in work.items() if p in set(args.complexes)}
@@ -126,7 +139,7 @@ def cmd_repair(args):
         print("[mp-repair] nothing to do")
         return
     print(f"[mp-repair] repairing {len(targets)} complexes x{ITERATIONS}, jobs={args.jobs}")
-    run_campaign({p: [] for p in targets}, skempi, chain, mode=MODE_VARIANT,
+    run_campaign({p: [] for p in targets}, per_structure(skempi), chain, mode=MODE_VARIANT,
                  jobs=args.jobs, repair_only=True)
 
 
@@ -166,7 +179,7 @@ def cmd_build(args):
                 shutil.copy(cfg.pdb_dir / f"{pdb}.pdb", dst / f"{pdb}.pdb")
             seeded += 1
         print(f"[mp-build]   seeded {seeded}/{len(work)} repaired structures")
-        run_campaign(work, skempi, cfg, mode=MODE_VARIANT, jobs=args.jobs)
+        run_campaign(work, per_structure(skempi), cfg, mode=MODE_VARIANT, jobs=args.jobs)
 
     print(f"\n[mp-build] done. MP stores under {BASE}/round_<r>/results_mp")
 

@@ -1,0 +1,51 @@
+{
+ "muts": {
+  "AA27K": {
+   "Interaction Energy": -0.566,
+   "Backbone Hbond": -0.039,
+   "Sidechain Hbond": -0.0017,
+   "Van der Waals": -0.6498,
+   "Electrostatics": -1.0382,
+   "Solvation Polar": 1.7208,
+   "Solvation Hydrophobic": -0.749,
+   "Van der Waals clashes": 0.0015,
+   "entropy sidechain": 0.4609,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0031,
+   "backbone clash": 0.2338,
+   "cleaned": "AA27K",
+   "_source": "sweep_4x_round_1"
+  },
+  "AD43T": {
+   "Interaction Energy": 0.086,
+   "Backbone Hbond": -0.0123,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": -0.0443,
+   "Electrostatics": 0.0294,
+   "Solvation Polar": 0.1058,
+   "Solvation Hydrophobic": -0.0395,
+   "Van der Waals clashes": 0.001,
+   "entropy sidechain": 0.0066,
+   "entropy mainchain": 0.0315,
+   "torsional clash": -0.0005,
+   "backbone clash": -0.0171,
+   "cleaned": "AD43T",
+   "_source": "sweep_4x_round_1",
+   "role": "AB43T"
+  }
+ },
+ "meta": {
+  "pdb": "1B2S",
+  "mode": "author",
+  "n_requested": 2,
+  "validation_failed": [],
+  "n_ok": 2,
+  "groups": "A,D",
+  "mutation_list_sha256": "64cc645764adaa10d460f6f5d9a83fa7d7e6e32391db23bbce33046c90ce451b",
+  "n_accepted": 2,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "1B2S_A_D",
+  "source": "round_1 union list",
+  "n_mutations": 2
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "muts": {
+  "AD76H": {
+   "Interaction Energy": -1.1671,
+   "Backbone Hbond": -0.5419,
+   "Sidechain Hbond": -0.6572,
+   "Van der Waals": -0.8637,
+   "Electrostatics": 0.228,
+   "Solvation Polar": 1.9722,
+   "Solvation Hydrophobic": -0.6984,
+   "Van der Waals clashes": 0.0154,
+   "entropy sidechain": -0.0944,
+   "entropy mainchain": -0.7192,
+   "torsional clash": 0.002,
+   "backbone clash": 0.2737,
+   "cleaned": "AD76H",
+   "_source": "sweep_4x_round_1",
+   "role": "AB76H"
+  }
+ },
+ "meta": {
+  "pdb": "1M9E",
+  "mode": "author",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "A,D",
+  "mutation_list_sha256": "73f0292a2c60604b1e09c2f53630c8012f636f29c5d299419119745c51e60bc0",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "1M9E_A_D",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

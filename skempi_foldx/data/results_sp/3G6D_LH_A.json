@@ -1,0 +1,69 @@
+{
+ "muts": {
+  "FH103A": {
+   "Interaction Energy": 0.2581,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.6444,
+   "Electrostatics": -0.0644,
+   "Solvation Polar": -0.1679,
+   "Solvation Hydrophobic": 1.0951,
+   "Van der Waals clashes": -0.003,
+   "entropy sidechain": -0.8503,
+   "entropy mainchain": -0.3955,
+   "torsional clash": -0.0003,
+   "backbone clash": -0.0796,
+   "cleaned": "FH103A",
+   "_source": "sweep_4x_round_1",
+   "role": "FA313A"
+  },
+  "HH104A": {
+   "Interaction Energy": -0.2467,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.2066,
+   "Electrostatics": 0.0148,
+   "Solvation Polar": -0.4683,
+   "Solvation Hydrophobic": 0.117,
+   "Van der Waals clashes": 0.0015,
+   "entropy sidechain": -0.3297,
+   "entropy mainchain": 0.2359,
+   "torsional clash": -0.0003,
+   "backbone clash": 0.0,
+   "cleaned": "HH104A",
+   "_source": "sweep_4x_round_1",
+   "role": "HA314A"
+  },
+  "WH105A": {
+   "Interaction Energy": 1.9453,
+   "Backbone Hbond": 0.065,
+   "Sidechain Hbond": -0.0439,
+   "Van der Waals": 1.7083,
+   "Electrostatics": -0.0949,
+   "Solvation Polar": -1.0813,
+   "Solvation Hydrophobic": 2.8624,
+   "Van der Waals clashes": 0.0004,
+   "entropy sidechain": -1.2505,
+   "entropy mainchain": -0.2102,
+   "torsional clash": -0.0058,
+   "backbone clash": 0.0581,
+   "cleaned": "WH105A",
+   "_source": "sweep_4x_round_1",
+   "role": "WA315A"
+  }
+ },
+ "meta": {
+  "pdb": "3G6D",
+  "mode": "author",
+  "n_requested": 3,
+  "validation_failed": [],
+  "n_ok": 3,
+  "groups": "LH,A",
+  "mutation_list_sha256": "a1fa7d1f854ca24a71dd378b585cd0c7f354475444a3215df6219a21a5810632",
+  "n_accepted": 3,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "3G6D_LH_A",
+  "source": "round_1 union list",
+  "n_mutations": 3
+ }
+}

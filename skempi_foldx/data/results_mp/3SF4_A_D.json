@@ -1,0 +1,51 @@
+{
+ "variants": {
+  "RA202E,NA264R": {
+   "Interaction Energy": 1.83,
+   "Backbone Hbond": -0.3125,
+   "Sidechain Hbond": -0.8037,
+   "Van der Waals": -0.3462,
+   "Electrostatics": 3.0348,
+   "Solvation Polar": -0.1398,
+   "Solvation Hydrophobic": -0.3913,
+   "Van der Waals clashes": 0.0132,
+   "entropy sidechain": 0.1394,
+   "entropy mainchain": -0.0613,
+   "torsional clash": 0.0687,
+   "backbone clash": 0.5018,
+   "cleaned": "RA202E,NA264R",
+   "_source": "sweep_4x_round_1"
+  },
+  "WD8A,ED19R": {
+   "Interaction Energy": 10.731,
+   "Backbone Hbond": 0.1597,
+   "Sidechain Hbond": 4.6668,
+   "Van der Waals": 2.995,
+   "Electrostatics": 3.6797,
+   "Solvation Polar": -3.6308,
+   "Solvation Hydrophobic": 4.1563,
+   "Van der Waals clashes": 1.3108,
+   "entropy sidechain": -3.1632,
+   "entropy mainchain": -0.2899,
+   "torsional clash": -0.0469,
+   "backbone clash": -0.2656,
+   "cleaned": "WD8A,ED19R",
+   "_source": "sweep_4x_round_1",
+   "role": "WB8A,EB19R"
+  }
+ },
+ "meta": {
+  "pdb": "3SF4",
+  "mode": "variant",
+  "n_requested": 2,
+  "validation_failed": [],
+  "n_ok": 2,
+  "groups": "A,D",
+  "mutation_list_sha256": "cc248595d95eacdfe1d8d47841c507bf3f4e7d49e8827d2933480ce889a552ed",
+  "n_accepted": 2,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "3SF4_A_D",
+  "source": "round_1 union list",
+  "n_mutations": 2
+ }
+}

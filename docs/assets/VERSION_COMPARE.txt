@@ -1,0 +1,182 @@
+Comparison of two skempi-foldx stores, record by record.
+
+== How much changed ==
+
+arm             paired  identical  changed  changed %
+single-point      4232       3970      262       6.2%
+multi-point       1763        175     1588      90.1%
+all               5995       4145     1850      30.9%
+
+'identical' means all twelve terms equal, not merely Interaction Energy.
+Unpaired: 8 ambiguous (a name reaching two interface definitions), 0 unmatched.
+    3SE4        KA134A                      single-point
+    3SE4        KA134R                      single-point
+    3SE4        LA31A                       single-point
+    3SE4        MA130A                      single-point
+    3SE4        PA27A                       single-point
+    3SE4        PA27L                       single-point
+    3SE3        YB43H,NB44E,SB47Q           multi-point
+    3SE3        YB43A,NB44A,SB47A           multi-point
+
+== How large the changes are ==
+
+Shift in Interaction Energy over the records that changed, in kcal/mol.
+
+arm                 n   median     mean      p90      p99      max    <0.5  sign flip
+single-point      262    0.052    0.251    0.738    1.875    6.854     84%         17
+multi-point      1588    0.242    0.521    1.343    3.691    9.960     67%        112
+
+A sign flip is a record whose Interaction Energy changes sign -- stabilising to
+destabilising or the reverse -- which is the change most likely to alter a conclusion.
+
+Largest individual shifts:
+
+    4K71_A_BC   GA503R,AA545V                    11.0524 ->    1.0929   (-9.9595)
+    3SE4_B_A    RA226A                            0.0000 ->    6.8535   (+6.8535)
+    2C5D_AB_CD  RA32E,RB32E                       0.0977 ->    6.9109   (+6.8132)
+    2B2X_HL_A   VH50T,EH64K,QL28S,YL52N,TH33S,GH53W   18.6186 ->   12.3615   (-6.2571)
+    3SGB_E_I    KI7R,PI8F,AI9R,TI11K,LI12R        4.5000 ->   -1.7555   (-6.2555)
+    1CHO_EFG_I  EI7D,AI12V,TI14S,EI16D,RI18M,KI26T,GI29N,NI33I,EI40D,LI45I    2.1967 ->    7.6777   (+5.4810)
+    2C5D_AB_CD  LC105E,LD105E                     0.0000 ->    5.1289   (+5.1289)
+    4MNQ_ABC_DE LC6A,HE50W,PE51E,EE52F,YE53E     -0.6166 ->    3.8215   (+4.4381)
+    1CHO_EFG_I  EI7D,LI15V,RI18M,EI40D            2.4846 ->    6.6671   (+4.1825)
+    3L5X_A_HL   HL91Q,NL92D,EL93Y,YL94G          -0.0102 ->   -4.1759   (-4.1657)
+    4MNQ_ABC_DE KC4A,HE50W,PE51E,EE52F,YE53E      0.7801 ->    4.8538   (+4.0737)
+    1MHP_HL_A   TH33E,GH53Q                       7.3537 ->    3.4379   (-3.9158)
+    1PPF_E_I    LI18M,TI30S,GI32D                 9.7735 ->   13.6190   (+3.8455)
+    2C5D_AB_CD  TA26D,TB26D                       2.9207 ->    6.7259   (+3.8052)
+    1A22_A_B    NA12R,MA14V,LA15V,RA16L,RA19Y,FA25S,DA26E,QA29S,EA30Q,EA33K   -3.0260 ->    0.7343   (+3.7603)
+
+Complexes where the most records moved:
+
+    identifier     records  changed  median |d|   max |d|
+    1JTG_A_B           194      136       0.263     2.421
+    2B2X_HL_A           94       91       0.214     6.257
+    3SGB_E_I           279       88       0.370     6.255
+    1CHO_EFG_I         275       84       0.431     5.481
+    1DAN_HL_UT         114       81       0.024     1.804
+    1R0R_E_I           267       75       0.379     2.189
+    3S9D_A_B           142       59       0.147     2.115
+    1PPF_E_I           246       56       0.458     3.845
+    1AO7_ABC_DE        151       56       0.132     1.427
+    3HG1_ABC_DE         53       48       0.560     2.645
+    1BRS_A_D            75       45       0.350     1.495
+    4RS1_A_B            49       41       0.063     1.132
+    4G0N_A_B            72       40       0.217     2.220
+    3HFM_HL_Y           91       38       0.183     1.315
+    3L5X_A_HL           35       34       0.932     4.166
+
+Movement by term, over the records that changed:
+
+    term                         moved  median |d|   max |d|
+    Interaction Energy            1837      0.2113    9.9595
+    Backbone Hbond                1613      0.0272    2.5088
+    Sidechain Hbond               1501      0.1415    7.1323
+    Van der Waals                 1765      0.0781    2.3492
+    Electrostatics                1735      0.0525    3.0395
+    Solvation Polar               1758      0.1528    4.3162
+    Solvation Hydrophobic         1760      0.0915    3.4731
+    Van der Waals clashes         1693      0.0552    9.8492
+    entropy sidechain             1791      0.0828    3.6507
+    entropy mainchain             1633      0.0396    2.0414
+    torsional clash               1642      0.0094    2.0085
+    backbone clash                1622      0.0321    0.6414
+
+== What characterises the records that moved ==
+
+Whether a record changed is a property of its interface definition: a record moves exactly
+when the list it was computed in changed composition, and a list belongs to a definition.
+
+    single-point: 29 of 323 paired definitions hold at least one changed record, and between them hold all of them (3 changed entirely)
+        unchanged definitions hold at most 240 mutations (106 hold exactly one -- a one-entry list is
+        the same list in both releases, by construction)
+    multi-point: 87 of 153 paired definitions hold at least one changed record, and between them hold all of them (54 changed entirely)
+        unchanged definitions hold at most 4 mutations (46 hold exactly one -- a one-entry list is
+        the same list in both releases, by construction)
+
+    list length vs the fraction of a definition that moved:
+
+        arm           length     definitions   mean fraction changed
+        single-point  1-5                184                    0.04
+        single-point  6-20                88                    0.07
+        single-point  21-60               40                    0.06
+        single-point  61+                 11                    0.08
+        multi-point   1-5                 86                    0.19
+        multi-point   6-20                45                    0.89
+        multi-point   21-60               16                    0.96
+        multi-point   61+                  6                    0.99
+
+How far a record moved tracks side-chain repacking freedom. Quartiles of the clash
+energy the record already carried in the older release:
+
+        arm           quartile                  n  median |shift|
+        single-point  Q1 (least clash)         65           0.010
+        single-point  Q2                       65           0.039
+        single-point  Q3                       65           0.055
+        single-point  Q4 (most clash)          67           0.183
+        multi-point   Q1 (least clash)        397           0.095
+        multi-point   Q2                      397           0.188
+        multi-point   Q3                      397           0.317
+        multi-point   Q4 (most clash)         397           0.478
+
+    multi-point: shift by number of substitutions
+
+        substitutions         n  median |shift|
+        2                   730           0.164
+        3                   219           0.261
+        4                   211           0.263
+        5                   153           0.331
+        6                    66           0.373
+        7                    33           0.355
+        8+                  176           0.537
+
+    single-point: shift by the rotamer freedom of the residue introduced
+
+        chi angles            n  median |shift|
+        0                   170           0.028
+        1                    11           0.055
+        2                    47           0.058
+        3                    19           0.359
+        4                    15           0.198
+
+== Whether the change matters ==
+
+Each release against SKEMPI's measured ddG, on the records the two share. A model
+trained on the older values is affected by the difference only to the extent that
+these disagree.
+
+Split three ways, because the records identical in both releases score identically by
+construction and dilute the comparison: the middle block is where any real difference
+has to show up, and the last is the control that must show none.
+
+arm           subset                release       n  Pearson r  Spearman rho     MAE
+single-point  all shared records    0.1.0      4053      0.419         0.435   1.138
+single-point  all shared records    0.2.0      4053      0.418         0.436   1.138
+single-point  changed in 0.2.0      0.1.0       257      0.416         0.374   0.904
+single-point  changed in 0.2.0      0.2.0       257      0.393         0.392   0.909
+single-point  identical in both     0.1.0      3796      0.420         0.438   1.154
+single-point  identical in both     0.2.0      3796      0.420         0.438   1.154
+multi-point   all shared records    0.1.0      1576      0.515         0.574   1.885
+multi-point   all shared records    0.2.0      1576      0.518         0.587   1.871
+multi-point   changed in 0.2.0      0.1.0      1418      0.499         0.557   1.946
+multi-point   changed in 0.2.0      0.2.0      1418      0.501         0.569   1.931
+multi-point   identical in both     0.1.0       158      0.585         0.430   1.332
+multi-point   identical in both     0.2.0       158      0.585         0.430   1.332
+
+Paired bootstrap on the change in Spearman, 1000 resamples, records drawn
+together so each keeps its pair:
+
+arm           subset                  delta rho          95% interval
+single-point  all shared records         +0.001      [-0.002, +0.004]
+single-point  changed in 0.2.0           +0.018      [-0.036, +0.075]
+multi-point   all shared records         +0.012      [-0.005, +0.029]
+multi-point   changed in 0.2.0           +0.012      [-0.006, +0.031]
+
+An interval spanning zero says these records do not separate the two releases.
+
+And the two releases against each other, which is how much a feature column moves:
+
+arm                 n   Pearson r   Spearman rho      MAE
+single-point     4232       0.996          0.994    0.016
+multi-point      1763       0.945          0.944    0.469
+

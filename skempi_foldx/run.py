@@ -14,9 +14,9 @@ One complex, once
 
 Resumable at complex granularity: a complex whose JSON already exists is skipped.
 
-Determinism — read this before running a campaign
--------------------------------------------------
-FoldX 5.1 BuildModel **is deterministic**. Measured over 1722 pairs of results computed from an
+Determinism and mutation-list dependence
+----------------------------------------
+FoldX 5.1 BuildModel **is deterministic**. Measured over 1719 pairs of results computed from an
 identical repaired structure *and* an identical ``individual_list.txt`` prefix: zero differ, to
 the last decimal.
 
@@ -47,12 +47,12 @@ import shutil
 import subprocess
 import warnings
 from concurrent.futures import ProcessPoolExecutor, as_completed
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Sequence, Tuple
 
 from .config import FoldxConfig
-from .exclusions import ALLOW_ENV, filter_worklist, is_excluded
+from .exclusions import ALLOW_ENV, code_of, filter_worklist, is_excluded
 from .skempi import (
     Mutation,
     SkempiComplex,
@@ -61,6 +61,7 @@ from .skempi import (
     repaired_wt_residues,
     validate_against_structure,
 )
+from .store import check_code, shorten_path
 from .terms import TERMS
 
 # How the mutation strings handed to a campaign should be interpreted.
@@ -101,9 +102,18 @@ def format_individual_list(ordered: Sequence[Tuple[str, str]]) -> str:
     return "".join(f"{author};\n" for _, author in ordered)
 
 
-def _shell(command: str, cwd: Path, log: Path) -> None:
+def _foldx(argv: Sequence[str], cwd: Path, log: Path) -> None:
+    """Run FoldX with the argument vector as given, no shell.
+
+    ``pdb`` and ``entry.groups`` reach these arguments from column 0 of a caller-supplied
+    ``skempi_v2.csv``, and a shell would make that column executable: an identifier containing
+    ``$(...)`` runs it. Nothing here needs a shell -- there is no pipe, glob or redirection, and
+    the log is captured by file handle -- so the vector is passed straight to ``execve``. It also
+    removes the quoting the string form needed around ``binary`` for a path with a space in it.
+    """
     with open(log, "a") as fh:
-        subprocess.run(command, shell=True, check=False, cwd=cwd, stdout=fh, stderr=fh)
+        subprocess.run([str(a) for a in argv], shell=False, check=False,
+                       cwd=cwd, stdout=fh, stderr=fh)
 
 
 def _finish(config: FoldxConfig, pdb: str, meta: dict, status: str) -> ComplexResult:
@@ -123,18 +133,26 @@ def process_complex(
     terms: Sequence[str] = TERMS,
     repair_only: bool = False,
 ) -> ComplexResult:
-    """Run the full pipeline for one complex and cache the result.
+    """Run the full pipeline for one interface definition and cache the result.
+
+    ``pdb`` names the *record*: it is the results filename and the work directory. ``entry.pdb``
+    names the *structure*. They are the same string for a complex SKEMPI defines once, and they
+    differ when a caller computes each definition of a multiply-defined code separately, where
+    the record wants the full identifier and the structure is still one file on disk.
 
     ``repair_only`` stops after the RepairPDB rounds — used by the repair-count convergence
     probe, which has no mutations to build."""
-    excluded = is_excluded(pdb)
+    excluded = is_excluded(entry.pdb)
     if excluded is not None:
         # Second guard, for a driver that builds its own targets and never calls run_campaign.
         # Nothing is written: a results JSON here would land in the store, be picked up by the
         # next scope enumeration, and recreate the situation this exists to prevent.
         warnings.warn(f"EXCLUDED: {excluded}. Set {ALLOW_ENV}=1 to run it anyway.",
                       RuntimeWarning, stacklevel=2)
-        return ComplexResult(pdb, {}, {"pdb": pdb, "excluded": excluded.reason}, "excluded")
+        return ComplexResult(pdb, {}, {"skempi_id": pdb, "pdb": entry.pdb,
+                                       "excluded": excluded.reason}, "excluded")
+
+    siblings = tuple(s for s in (config.sibling_records or {}).get(entry.pdb, ()) if s != pdb)
 
     out = config.result_path(pdb)
     if out.exists():
@@ -159,9 +177,15 @@ def process_complex(
     work.mkdir(parents=True, exist_ok=True)
     log = work / "foldx.log"
     log.write_text("")
-    meta = {"pdb": pdb, "mode": mode, "n_requested": len(mutations)}
+    # Both, because they differ whenever a code is computed one definition at a time, and only
+    # `pdb` (the structure) can be recovered from neither the other field nor the filename.
+    meta = {"skempi_id": pdb, "pdb": entry.pdb, "mode": mode, "n_requested": len(mutations)}
 
-    source = config.pdb_dir / f"{pdb}.pdb"
+    # The structure is named by the code; everything inside the work directory is named by the
+    # record. Copying it in under the record's name is what lets two definitions of one code run
+    # side by side without their intermediates -- which FoldX names after the input stem --
+    # overwriting each other.
+    source = config.pdb_dir / f"{check_code(entry.pdb)}.pdb"
     if not source.exists():
         return _finish(config, pdb, meta, "no_pdb")
     if not (work / f"{pdb}.pdb").exists():
@@ -181,10 +205,25 @@ def process_complex(
             repaired.unlink(missing_ok=True)
             meta["restarted_incomplete_repair_chain"] = True
     if not repaired.exists():
-        seeded = config.find_repaired(pdb) if config.repair_iterations == 1 else None
+        # By structure, then by any sibling record of the same structure. A repair belongs to
+        # the code, but a work directory is named after the *record*, so a sibling definition's
+        # repair sits under its own identifier. Passing this record's own name instead finds
+        # nothing by construction: that path is `repaired`, which the enclosing branch has
+        # already established does not exist.
+        seeded = (config.find_repaired(entry.pdb, records=siblings)
+                  if config.repair_iterations == 1 else None)
         if seeded and seeded != repaired:
-            shutil.copy(seeded, repaired)
-            meta["repair_seeded_from"] = str(seeded)
+            # Written aside and renamed, because a sibling definition of the same code may be
+            # searching this directory concurrently. `find_repaired` tests existence only, so a
+            # half-copied structure is indistinguishable from a finished one -- and it would go
+            # straight into BuildModel. Unreachable before siblings were searched at all.
+            staged = repaired.with_suffix(".pdb.partial")
+            shutil.copy(seeded, staged)
+            staged.replace(repaired)
+            # Shortened at the point of writing: this lands in the shipped store, so an
+            # absolute path here names the machine that ran the campaign and is permanent once
+            # published.
+            meta["repair_seeded_from"] = shorten_path(str(seeded))
         else:
             # Iterated repair feeds each output back in as the next input. The input
             # `<pdb>.pdb` is NEVER mutated: the chain runs in `<pdb>_chain.pdb`, and FoldX names
@@ -203,7 +242,7 @@ def process_complex(
                       for i in range(1, config.repair_iterations + 1)]
             shutil.copy(work / f"{pdb}.pdb", chain)
             for i, round_path in enumerate(rounds, start=1):
-                _shell(f'"{binary}" --command=RepairPDB --pdb={chain.name}', work, log)
+                _foldx([binary, "--command=RepairPDB", f"--pdb={chain.name}"], work, log)
                 if not chain_out.exists():
                     break
                 shutil.copy(chain_out, round_path)
@@ -270,9 +309,9 @@ def process_complex(
     # instead of leaving it to be noticed.
     meta["mutation_list_sha256"] = hashlib.sha256(individual_list.encode()).hexdigest()
     meta["n_accepted"] = len(ordered)
-    _shell(
-        f'"{binary}" --command=BuildModel --pdb={pdb}_Repair.pdb '
-        f"--mutant-file=individual_list.txt --numberOfRuns=1",
+    _foldx(
+        [binary, "--command=BuildModel", f"--pdb={pdb}_Repair.pdb",
+         "--mutant-file=individual_list.txt", "--numberOfRuns=1"],
         work, log,
     )
     n = len(ordered)
@@ -283,9 +322,9 @@ def process_complex(
 
     # --- AnalyseComplex on mutants and their paired wild types --------------------------------
     (work / "pdblist.txt").write_text("\n".join(mutant_pdbs + wildtype_pdbs) + "\n")
-    _shell(
-        f'"{binary}" --command=AnalyseComplex --pdb-list=pdblist.txt '
-        f"--analyseComplexChains={entry.groups}",
+    _foldx(
+        [binary, "--command=AnalyseComplex", "--pdb-list=pdblist.txt",
+         f"--analyseComplexChains={entry.groups}"],
         work, log,
     )
 
@@ -332,8 +371,15 @@ def run_campaign(
 ) -> Dict[str, str]:
     """Run a whole worklist, optionally across processes.
 
-    ``worklist`` maps a PDB id to the mutation strings to compute for it. A campaign is exactly a
-    choice of worklist and ``mode``; nothing else distinguishes one from another.
+    ``worklist`` maps a record name to the mutation strings to compute for it. A campaign is
+    exactly a choice of worklist and ``mode``; nothing else distinguishes one from another.
+
+    ``skempi`` may be keyed by SKEMPI identifier -- as :func:`~skempi_foldx.load_skempi` returns
+    -- or by bare PDB code, and a worklist key is matched against either. Both shapes are real:
+    :func:`worklist_single_point` yields identifiers, while :func:`worklist_from_table` reads a
+    dataset table whose row labels only carry the code. Requiring the two to agree made a
+    mismatched pair resolve nothing and the campaign report "0 complexes, 0 mutations" on its way
+    to exiting successfully.
     """
     config.ensure_dirs()
     config.resolve_binary()   # fail fast, before spawning workers
@@ -342,12 +388,85 @@ def run_campaign(
     # hung job is a per-round remedy, and this function is called once per round.
     worklist = filter_worklist(worklist, on_note=on_result, context="worklist")
 
-    targets = [(pdb, list(muts), skempi[pdb], config, mode, repair_only)
-               for pdb, muts in sorted(worklist.items()) if pdb in skempi]
-    skipped = sorted(set(worklist) - set(skempi))
+    # Both spellings of every entry, so a worklist keyed either way resolves. A code that SKEMPI
+    # defines twice is deliberately absent from the code-level index: there is no single entry it
+    # could mean, and picking one would score half the list against an interface it is not part
+    # of -- the defect the identifier keying exists to remove.
+    by_code: Dict[str, list] = {}
+    for entry in skempi.values():
+        by_code.setdefault(entry.pdb, []).append(entry)
+    resolvable = dict(skempi)
+    for code, entries in by_code.items():
+        if len(entries) == 1 and code not in resolvable:
+            resolvable[code] = entries[0]
+    # And the other direction, for a caller whose `skempi` is keyed by code: an identifier-keyed
+    # worklist against it would otherwise resolve nothing and report every complex absent.
+    for entry in skempi.values():
+        resolvable.setdefault(entry.id, entry)
+
+    # One record, one run. A worklist naming the same definition twice -- once by code and once by
+    # identifier -- would otherwise process it twice into the same work directory and results file.
+    #
+    # The two lists are POOLED, not one dropped. Dropping is the worse failure by far: this
+    # module's whole subject is that a mutation's energy depends on the list it was computed in,
+    # so silently computing a subset of what was asked for produces values that are wrong by up
+    # to 11 kcal/mol and look fine. The identifier wins the name, because the code is the spelling
+    # that cannot say which pairing it means.
+    merged: Dict[str, List[str]] = {}
+    winner: Dict[str, str] = {}
+    collapsed = []
+    for key in sorted(worklist, key=lambda k: (k == code_of(k), k)):
+        entry = resolvable.get(key)
+        if entry is None:
+            merged.setdefault(key, list(worklist[key]))
+            continue
+        name = winner.setdefault(entry.id, key)
+        if name != key:
+            collapsed.append((name, key))
+        pooled = merged.setdefault(name, [])
+        pooled.extend(m for m in worklist[key] if m not in pooled)
+    if collapsed:
+        on_result(f"[foldx] {len(collapsed)} worklist keys name a record already queued under "
+                  f"another name, e.g. {collapsed[:3]}; their mutations are pooled into one run.")
+    worklist = {k: sorted(v) if v else [] for k, v in merged.items()}
+
+    # Which record names share a structure, so the second definition of a code reuses the first's
+    # repair instead of paying for it again. Derived here rather than asked of the caller: this is
+    # the one place that knows both the worklist's spelling and the table behind it, and a facility
+    # no driver populates is a facility that never runs.
+    if config.sibling_records is None:
+        shared: Dict[str, List[str]] = {}
+        for key in worklist:
+            entry = resolvable.get(key)
+            if entry is not None:
+                shared.setdefault(entry.pdb, []).append(key)
+        # A copy, not an assignment: writing it back would leave a caller's config carrying one
+        # campaign's sibling map into the next, and `{}` is falsy but not None, so a first
+        # campaign with no siblings would disable reuse for every later one.
+        config = replace(config, sibling_records={k: v for k, v in shared.items() if len(v) > 1})
+
+    # An empty list means "repair this and stop", which is only meaningful under repair_only.
+    # Anywhere else it would pay a full RepairPDB and then write an error JSON that marks the
+    # complex done for every later resume and scope enumeration.
+    if not repair_only:
+        empty = sorted(k for k, v in worklist.items() if not v)
+        if empty:
+            on_result(f"[foldx] {len(empty)} complexes have no mutations to build and are not a "
+                      f"repair-only run, skipped: {', '.join(empty[:8])}")
+            worklist = {k: v for k, v in worklist.items() if v}
+
+    targets = [(pdb, list(muts), resolvable[pdb], config, mode, repair_only)
+               for pdb, muts in sorted(worklist.items()) if pdb in resolvable]
+    skipped = sorted(set(worklist) - set(resolvable))
     if skipped:
-        on_result(f"[foldx] {len(skipped)} complexes absent from SKEMPI, skipped: "
+        doubled = sorted(k for k in skipped if len(by_code.get(k, ())) > 1)
+        on_result(f"[foldx] {len(skipped)} complexes not resolved, skipped: "
                   f"{', '.join(skipped[:8])}{'...' if len(skipped) > 8 else ''}")
+        if doubled:
+            on_result(f"[foldx] of those, {len(doubled)} are in SKEMPI but named by a code it "
+                      f"defines more than once ({', '.join(doubled)}); there is no single entry "
+                      f"they could mean. Key the worklist by identifier, or pass entries keyed "
+                      f"by code -- see skempi_foldx.by_pdb.")
 
     on_result(f"[foldx] {len(targets)} complexes, "
               f"{sum(len(t[1]) for t in targets)} mutations, jobs={jobs}")
@@ -375,7 +494,7 @@ def run_campaign(
 def worklist_from_table(table_path: Path) -> Dict[str, List[str]]:
     """Single-point role mutations from a tab-separated dataset mutation table (``MODE_ROLE``).
 
-    ⚠ **This produces a per-dataset SUBSET of each complex's mutations, which makes the computed
+    **This produces a per-dataset SUBSET of each complex's mutations, which makes the computed
     energies dataset-dependent** — see "Determinism" in the module docstring. It is kept for
     backward compatibility with campaigns that were driven from such a table. For new compute use
     :func:`worklist_single_point`, which takes the union, so a mutation gets the same value
@@ -394,10 +513,51 @@ def worklist_from_table(table_path: Path) -> Dict[str, List[str]]:
     return {pdb: sorted(muts) for pdb, muts in by_pdb.items()}
 
 
+def _selected(ident: str, entry: SkempiComplex, wanted: Optional[set]) -> bool:
+    """Whether ``only=`` names this definition, by identifier **or** by PDB code.
+
+    A caller filtering a worklist usually holds codes — a list of structures to run — while the
+    worklist is keyed by identifier. Matching only on the key made ``only=["1KBH"]`` select
+    nothing and the campaign exit successfully having done nothing, which is the failure mode the
+    scope guard exists to prevent and could not see.
+    """
+    return wanted is None or ident in wanted or entry.pdb in wanted
+
+
+def pool_by_code(worklist: Dict[str, Sequence[str]]) -> Dict[str, List[str]]:
+    """Re-key a per-definition worklist by PDB code, pooling the definitions of each code.
+
+    For the campaigns that are genuinely per *structure* rather than per pairing — the repair
+    sweep, the repair-count ablation, the residue check — where the unit of work is one repaired
+    PDB and one results file named after it.
+
+    **This reintroduces the pooling the store exists to avoid, and that is the point of naming it
+    explicitly.** A code SKEMPI defines twice gets one list holding both definitions' mutations,
+    computed against whichever pairing the entry carries, so its values belong to no single
+    pairing's list. That is acceptable for a convergence study, which compares a complex against
+    itself across repair rounds and never joins the result onto a SKEMPI row. It is not acceptable
+    for the shipped store, which is why the three affected codes are computed by
+    ``recompute_alternate_interfaces.py --all-definitions`` instead.
+    """
+    out: Dict[str, List[str]] = {}
+    for key, muts in worklist.items():
+        # A bare string satisfies `Sequence[str]` and would be extended character by character,
+        # turning one mutation into a list of letters. Cheap to refuse, expensive to debug.
+        if isinstance(muts, str):
+            raise TypeError(f"worklist[{key!r}] is a string, not a sequence of mutation strings")
+        out.setdefault(code_of(key), []).extend(muts)
+    return {pdb: sorted(set(muts)) for pdb, muts in out.items()}
+
+
 def worklist_single_point(
     skempi: Dict[str, SkempiComplex], only: Optional[Iterable[str]] = None
 ) -> Dict[str, List[str]]:
-    """Every single-point cleaned mutation SKEMPI knows about, per complex (``MODE_AUTHOR``).
+    """Every single-point cleaned mutation SKEMPI knows about, per definition (``MODE_AUTHOR``).
+
+    Keyed by SKEMPI identifier, following :func:`~skempi_foldx.load_skempi`. Each key is one
+    campaign: a complex SKEMPI defines twice yields two, and they must be run into separate
+    results directories, since a campaign writes one file per key and the pairing is what
+    distinguishes them.
 
     The union, deliberately: because BuildModel's result for an entry depends on the entries
     before it, computing the complete list once is what makes a value independent of which
@@ -405,9 +565,9 @@ def worklist_single_point(
     """
     wanted = set(only) if only is not None else None
     return {
-        pdb: sorted(entry.single)
-        for pdb, entry in skempi.items()
-        if entry.single and (wanted is None or pdb in wanted)
+        ident: sorted(entry.single)
+        for ident, entry in skempi.items()
+        if entry.single and _selected(ident, entry, wanted)
     }
 
 
@@ -417,9 +577,9 @@ def worklist_multi_point(
     """Every multi-point variant (``MODE_VARIANT``)."""
     wanted = set(only) if only is not None else None
     return {
-        pdb: sorted(entry.multi)
-        for pdb, entry in skempi.items()
-        if entry.multi and (wanted is None or pdb in wanted)
+        ident: sorted(entry.multi)
+        for ident, entry in skempi.items()
+        if entry.multi and _selected(ident, entry, wanted)
     }
 
 

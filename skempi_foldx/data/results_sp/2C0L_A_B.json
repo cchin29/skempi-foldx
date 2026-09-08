@@ -1,0 +1,82 @@
+{
+ "muts": {
+  "NA48A": {
+   "Interaction Energy": 0.0046,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0,
+   "Electrostatics": 0.0,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": 0.0,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": 0.0046,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "cleaned": "NA48A",
+   "_source": "sweep_4x_round_1"
+  },
+  "QA239R": {
+   "Interaction Energy": -0.0695,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0017,
+   "Van der Waals": 0.0,
+   "Electrostatics": -0.0434,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": 0.0,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": -0.0272,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "cleaned": "QA239R",
+   "_source": "sweep_4x_round_1"
+  },
+  "SA242Y": {
+   "Interaction Energy": 0.0,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0,
+   "Van der Waals": 0.0,
+   "Electrostatics": 0.0,
+   "Solvation Polar": 0.0,
+   "Solvation Hydrophobic": 0.0,
+   "Van der Waals clashes": 0.0,
+   "entropy sidechain": 0.0,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0,
+   "backbone clash": 0.0,
+   "cleaned": "SA242Y",
+   "_source": "sweep_4x_round_1"
+  },
+  "SA253W": {
+   "Interaction Energy": 1.4175,
+   "Backbone Hbond": 0.013,
+   "Sidechain Hbond": -0.2315,
+   "Van der Waals": -0.0371,
+   "Electrostatics": 0.3534,
+   "Solvation Polar": -0.0054,
+   "Solvation Hydrophobic": -0.0296,
+   "Van der Waals clashes": 1.1386,
+   "entropy sidechain": 0.1134,
+   "entropy mainchain": 0.0057,
+   "torsional clash": 0.0128,
+   "backbone clash": 0.0,
+   "cleaned": "SA253W",
+   "_source": "sweep_4x_round_1"
+  }
+ },
+ "meta": {
+  "pdb": "2C0L",
+  "mode": "author",
+  "n_requested": 4,
+  "validation_failed": [],
+  "n_ok": 4,
+  "groups": "A,B",
+  "mutation_list_sha256": "52fc9e6085980e0e60545b47a81141e39ac9ddb04c4314b641d3e2a03d1cb36d",
+  "n_accepted": 4,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "2C0L_A_B",
+  "source": "round_1 union list",
+  "n_mutations": 4
+ }
+}

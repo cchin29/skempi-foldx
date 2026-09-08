@@ -1,0 +1,34 @@
+{
+ "variants": {
+  "TA183A,KA184E": {
+   "Interaction Energy": 4.5911,
+   "Backbone Hbond": 0.413,
+   "Sidechain Hbond": 1.0552,
+   "Van der Waals": 1.0566,
+   "Electrostatics": 0.7359,
+   "Solvation Polar": -0.9892,
+   "Solvation Hydrophobic": 1.5976,
+   "Van der Waals clashes": 0.0263,
+   "entropy sidechain": -0.4992,
+   "entropy mainchain": 0.8403,
+   "torsional clash": -0.0096,
+   "backbone clash": -0.0813,
+   "cleaned": "TA183A,KA184E",
+   "_source": "sweep_4x_round_1"
+  }
+ },
+ "meta": {
+  "pdb": "5TAR",
+  "mode": "variant",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "A,B",
+  "mutation_list_sha256": "06a1a9c9c42f8356a958b79d69bee98b3c6d8b99b98ce8b709c2ab37e6f82bb1",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "5TAR_A_B",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

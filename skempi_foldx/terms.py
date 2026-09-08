@@ -3,8 +3,9 @@
 These twelve terms, in this order, are what a result record contains: ``Interaction Energy``,
 the total, followed by eleven of its components. ``AnalyseComplex`` reports about twenty-one
 energy columns, so the eleven do not sum to the total and the total is not redundant with them.
-The order is load-bearing for any consumer that flattens a record into a feature vector. Written under one order and read under another, it yields permuted features and
-a plausible-looking, wrong result.
+The order is load-bearing for any consumer that flattens a record into a feature vector. Written
+under one order and read under another, it yields permuted features and a plausible-looking,
+wrong result.
 
 This module is the single definition, and consumers should import it rather than keep a copy: two
 copies of an ordering can agree for a long time with nothing enforcing that they continue to.
@@ -17,10 +18,12 @@ dependency-free and useful to a consumer that encodes its features differently.
 
 from __future__ import annotations
 
-from typing import List, Sequence
+import math
+
+from typing import List, Sequence, Tuple
 
 #: The AnalyseComplex terms captured as the decomposed feature vector, as ``mutant - wildtype``.
-TERMS: List[str] = [
+TERMS: Tuple[str, ...] = (
     "Interaction Energy",
     "Backbone Hbond",
     "Sidechain Hbond",
@@ -33,7 +36,7 @@ TERMS: List[str] = [
     "entropy mainchain",
     "torsional clash",
     "backbone clash",
-]
+)
 
 #: The summary term. A consumer wanting one number rather than twelve wants this one.
 SCALAR_TERM = "Interaction Energy"
@@ -47,9 +50,19 @@ def term_vector(entry: dict, terms: Sequence[str] = TERMS) -> List[float]:
     """Pull the term vector out of a per-mutation FoldX record, in canonical order.
 
     Raises rather than silently zero-filling a missing term: a record that lacks a term is a
-    parsing failure upstream, and imputing it here would hide that.
+    parsing failure upstream, and imputing it here would hide that. A non-finite term is refused
+    on the same grounds.
     """
     missing = [t for t in terms if t not in entry]
     if missing:
         raise KeyError(f"FoldX record is missing term(s): {missing}")
-    return [float(entry[t]) for t in terms]
+    out = [float(entry[t]) for t in terms]
+    # json.loads accepts bare NaN and Infinity, so a foreign results directory can carry them all
+    # the way into a feature matrix, where they are far harder to trace back. This is the same
+    # refusal FoldxLookup.vector makes; both are documented as the way to flatten a record, so
+    # they must not disagree about what a valid one is.
+    bad = [t for t, v in zip(terms, out) if not math.isfinite(v)]
+    if bad:
+        raise ValueError(f"FoldX record has non-finite values for {bad}; "
+                         f"a FoldX term is always a finite number")
+    return out

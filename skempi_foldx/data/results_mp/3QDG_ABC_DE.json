@@ -1,0 +1,52 @@
+{
+ "variants": {
+  "DD26W,LE95W": {
+   "Interaction Energy": -1.9393,
+   "Backbone Hbond": -0.0204,
+   "Sidechain Hbond": -0.2543,
+   "Van der Waals": -1.4583,
+   "Electrostatics": -1.0952,
+   "Solvation Polar": 1.4342,
+   "Solvation Hydrophobic": -1.9259,
+   "Van der Waals clashes": 1.1809,
+   "entropy sidechain": 0.1107,
+   "entropy mainchain": 0.346,
+   "torsional clash": 0.0351,
+   "backbone clash": 0.8324,
+   "cleaned": "DD26W,LE95W",
+   "_source": "sweep_4x_round_1",
+   "role": "DB26W,LB294W"
+  },
+  "DD26Y,LE95W": {
+   "Interaction Energy": -2.131,
+   "Backbone Hbond": -0.0041,
+   "Sidechain Hbond": -0.0546,
+   "Van der Waals": -1.2535,
+   "Electrostatics": -0.5434,
+   "Solvation Polar": 1.341,
+   "Solvation Hydrophobic": -1.3269,
+   "Van der Waals clashes": 0.2246,
+   "entropy sidechain": -0.3222,
+   "entropy mainchain": 0.0,
+   "torsional clash": 0.0029,
+   "backbone clash": 0.8961,
+   "cleaned": "DD26Y,LE95W",
+   "_source": "sweep_4x_round_1",
+   "role": "DB26Y,LB294W"
+  }
+ },
+ "meta": {
+  "pdb": "3QDG",
+  "mode": "variant",
+  "n_requested": 2,
+  "validation_failed": [],
+  "n_ok": 2,
+  "groups": "ABC,DE",
+  "mutation_list_sha256": "c8f387f5af23905abd61f53a75772b018af739bdcc311efd807436be98b05a43",
+  "n_accepted": 2,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "3QDG_ABC_DE",
+  "source": "round_1 union list",
+  "n_mutations": 2
+ }
+}

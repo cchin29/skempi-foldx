@@ -1,0 +1,35 @@
+{
+ "muts": {
+  "AE95S": {
+   "Interaction Energy": -0.0929,
+   "Backbone Hbond": 0.0,
+   "Sidechain Hbond": 0.0148,
+   "Van der Waals": -0.2023,
+   "Electrostatics": -0.0,
+   "Solvation Polar": 0.6078,
+   "Solvation Hydrophobic": -0.0153,
+   "Van der Waals clashes": 0.0196,
+   "entropy sidechain": -0.6242,
+   "entropy mainchain": 0.0612,
+   "torsional clash": 0.0454,
+   "backbone clash": 0.0072,
+   "cleaned": "AE95S",
+   "_source": "sweep_4x_round_1",
+   "role": "AB294S"
+  }
+ },
+ "meta": {
+  "pdb": "2VLR",
+  "mode": "author",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "ABC,DE",
+  "mutation_list_sha256": "af2a5ae65fd4c2bc19901fff08a5729ffafe9ea04db395099165aa3dbee9cb53",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "2VLR_ABC_DE",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

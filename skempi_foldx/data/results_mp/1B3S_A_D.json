@@ -1,0 +1,35 @@
+{
+ "variants": {
+  "AA102H,FD30Y": {
+   "Interaction Energy": -0.675,
+   "Backbone Hbond": -0.7487,
+   "Sidechain Hbond": -0.6302,
+   "Van der Waals": -0.5866,
+   "Electrostatics": -0.2391,
+   "Solvation Polar": 1.4847,
+   "Solvation Hydrophobic": -0.304,
+   "Van der Waals clashes": 0.119,
+   "entropy sidechain": 0.5681,
+   "entropy mainchain": -0.4362,
+   "torsional clash": -0.0053,
+   "backbone clash": 0.0619,
+   "cleaned": "AA102H,FD30Y",
+   "_source": "sweep_4x_round_1",
+   "role": "AA102H,FB30Y"
+  }
+ },
+ "meta": {
+  "pdb": "1B3S",
+  "mode": "variant",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "A,D",
+  "mutation_list_sha256": "a01e898724fe44f6cc4d0b4ac661aa07560746731e16ab524342f7a86cec000a",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "1B3S_A_D",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}

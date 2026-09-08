@@ -1,0 +1,35 @@
+{
+ "muts": {
+  "EI13K": {
+   "Interaction Energy": -5.7969,
+   "Backbone Hbond": -0.4895,
+   "Sidechain Hbond": -2.3482,
+   "Van der Waals": -0.6771,
+   "Electrostatics": -1.5127,
+   "Solvation Polar": 0.5804,
+   "Solvation Hydrophobic": -0.9934,
+   "Van der Waals clashes": -0.4592,
+   "entropy sidechain": 0.5584,
+   "entropy mainchain": 0.1983,
+   "torsional clash": 0.1416,
+   "backbone clash": 0.0264,
+   "cleaned": "EI13K",
+   "_source": "sweep_4x_round_1",
+   "role": "EB13K"
+  }
+ },
+ "meta": {
+  "pdb": "3BTE",
+  "mode": "author",
+  "n_requested": 1,
+  "validation_failed": [],
+  "n_ok": 1,
+  "groups": "E,I",
+  "mutation_list_sha256": "50c2da0dde467bd083c2a8ab1236fc06abc21d4e55846216341180751cc62e06",
+  "n_accepted": 1,
+  "mutation_list_sha256_note": "sha256 of individual_list.txt bytes ('<author>;\\n' per accepted entry). Added post-hoc by list_hashes.py from the file BuildModel actually consumed, because this run predates dc5de42.",
+  "skempi_id": "3BTE_E_I",
+  "source": "round_1 union list",
+  "n_mutations": 1
+ }
+}
