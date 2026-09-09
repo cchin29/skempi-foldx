@@ -84,7 +84,7 @@ from .store import (
 )
 from .terms import N_TERMS, SCALAR_TERM, TERMS, term_vector
 
-__version__ = "0.2.0"
+__version__ = "0.2.2"
 
 __all__ = [
     "N_TERMS", "SCALAR_TERM", "TERMS", "term_vector",

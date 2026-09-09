@@ -136,23 +136,24 @@ Do that only to replace a withdrawn release, and record the prior object names f
 force-push changes what is reachable, not what exists, and the replaced commits stay fetchable
 from the host by full SHA.
 
-**This project has no PyPI presence**, so pushing a tag is not yet the whole release: the first
-upload is the one that creates the project, and that is what needs care. Registering a publisher
-for a project PyPI has never seen takes a *pending* publisher, which is a different form from
-adding one to an existing project — project `skempi-foldx`, owner `cchin29`, workflow
-`publish.yml`, environment `pypi`.
+**The PyPI trusted publisher is registered** — project `skempi-foldx`, owner `cchin29`, workflow
+`publish.yml`, environment `pypi` — so pushing a version tag *is* the release: `publish.yml` runs
+the ref-type and version asserts, the suite on six interpreters, the leak scan, `python -m build`,
+the wheel store assertions and `twine check`, and then uploads. There is no gate between the tag
+push and the irreversible step.
 
-Leave it unregistered until the tag is pushed and checked. `publish.yml` then runs every gate it
-has — the ref-type and version asserts, the suite on six interpreters, the leak scan,
-`python -m build`, the wheel store assertions, `twine check` — and fails only at the upload, the
-one irreversible step. That is a free end-to-end rehearsal, and the red X it leaves is expected.
-Register the pending publisher afterwards and re-run the failed run: same commit, same artifact,
-no retag.
+**A PyPI version is consumed permanently.** Yanking hides a release; it does not free the number,
+and nothing can replace an uploaded artifact. Every other move in this repository is reversible —
+a tag can be moved, a branch force-pushed, a release body rewritten — and this one is not. So the
+check before pushing a tag is the last real check. If an upload goes out wrong, the fix is the
+next version, never a re-upload.
+
+Push `main` first and let `tests` go green, then push the tag separately, so a build problem
+surfaces before the upload rather than during it.
 
 Whatever the README ships with must be true at upload time, because that README becomes the PyPI
-project page. Today it says the package installs from a git tag, which is why the first upload has
-to be its own release with its own changelog entry rather than a silent change of what an existing
-release claims about itself.
+project page. A release that changes what an existing release claims about itself is not
+available: correct it in the next version instead.
 
 ## Style
 

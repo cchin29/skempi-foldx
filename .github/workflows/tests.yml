@@ -5,7 +5,7 @@ on:
     branches: [main]
     # A version tag is what publish.yml would upload, and it can point at a commit main's CI
     # never ran -- so it is verified as itself rather than by resemblance to some commit on main.
-    # A tag is also the only install path for this package, which is not distributed on PyPI.
+    # A tag also names every release before 0.2.2, which predate this package's PyPI releases.
     tags: ["v*"]
   pull_request:
   workflow_dispatch:

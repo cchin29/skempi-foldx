@@ -59,7 +59,7 @@ terms directly rather than relying on this paragraph.
 Full citations with DOIs for every work named in this file are collected in docs/REFERENCES.md,
 together with the data sources, tools and comparator methods named under docs/. That file is in
 the source tree and the sdist but not the wheel, so from an installed copy read it at
-https://github.com/cchin29/skempi-foldx/blob/v0.2.0/docs/REFERENCES.md
+https://github.com/cchin29/skempi-foldx/blob/v0.2.2/docs/REFERENCES.md
 
 
 Related work

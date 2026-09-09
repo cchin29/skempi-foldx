@@ -6,6 +6,49 @@ same one — values from two versions are not interchangeable within one table. 
 correct a value rather than recompute it, the entry says so and counts them. Entries below say
 explicitly whether a release changes them.
 
+## 0.2.2 — 2026-09-09
+
+**First release on PyPI.** `pip install skempi-foldx==0.2.2` is now the documented install.
+Earlier releases are installable only from their git tags, which is how every release before this
+one was distributed.
+
+**No data changed.** The shipped store is byte-identical to 0.2.0 — same 4340 single-point and
+1767 multi-point records, same values on all twelve terms, verified by the digest the suite pins
+over every shipped `(arm, identifier, mutation, term, value)`. A version names a measurement in
+this package, so a version that moves no measurement says so explicitly: **0.2.0 and 0.2.2 are the
+same numbers**, and a result computed against either stays correct without qualification. Nothing
+here supersedes 0.2.0 as a measurement; it supersedes it only as a distribution.
+
+### Why 0.2.2 and not 0.2.1
+
+A `v0.2.1` tag was published in August and withdrawn, and `CHANGELOG.md` records that a pin naming
+it now fails outright. Reusing the number would have made that true statement false and would have
+silently re-pointed any surviving `@v0.2.1` pin at unrelated content — the same defect this
+release series exists to correct. 0.2.1 is skipped.
+
+### Changed
+
+- The install instructions name PyPI.
+- **Every link in `README.md` is absolute and pinned to this tag.** The README is the long
+  description, so it is also the PyPI project page, and PyPI's renderer leaves a relative path
+  alone: `](docs/STORE.md)` resolves against the project page URL and 404s. Thirty-two links --
+  every `docs/` reference, `CHANGELOG.md`, `NOTICE`, `CITATION.cff` — were relative, correct on
+  GitHub and dead for anyone arriving from PyPI. They name `blob/v0.2.2/` rather than `blob/main/`
+  so an old release's page keeps showing that release's claims. In-page anchors were already
+  safe; the renderer rewrites those. A test now fails on any relative link, on a pinned link
+  naming another version, and on one naming a path not in the tree.
+- **The install-identity command no longer raises on an install from a file.** It read
+  `direct_url.json['vcs_info']['commit_id']`, guarded only against the file's absence — but a
+  wheel or sdist installed from a path writes `archive_info` instead, so the command raised
+  `KeyError` for a case the surrounding paragraph named as handled. It now reports the commit for
+  a git install, the archive for a file install, and `installed from PyPI` when there is no
+  `direct_url.json` at all.
+- `CONTRIBUTING.md` describes publishing to an existing project rather than creating one, since
+  the trusted publisher is now registered and the pending form no longer applies.
+- `tests/test_version_consistency.py` now requires a `skempi-foldx==<version>` pin in the README
+  and checks it tracks `pyproject.toml`. Until this release it asserted the opposite, because a
+  PyPI pin was a command that failed for every reader.
+
 ## 0.2.0 — 2026-09-08
 
 **An earlier `v0.2.0` tag, and a `v0.2.1` that existed briefly, have been withdrawn and replaced
@@ -14,7 +57,7 @@ outright; an install from it also reports `__version__ == "0.2.1"`, a version th
 not record, and moving off it lowers the version string while raising the content. `v0.2.0` still
 exists but now points at this tree, so a pin naming it still resolves — silently, to different
 content than before, and `__version__` does not distinguish the two. Neither tag reached PyPI,
-because this package is not published there. No energy value differs
+which had no release of this package until 0.2.2. No energy value differs
 between those trees and this one,
 so a result quoting the numbers stays correct; what they lacked was the `role` field on 16
 records, described under [chain
@@ -557,13 +600,12 @@ it found:
   project's to redistribute, and a generated CSV withheld because it carries per-row SKEMPI
   affinity data. The protection is defeated by a stale `egg-info/SOURCES.txt`, so `CONTRIBUTING.md`
   gives the clean-build check that catches it.
-- **This package is not distributed on PyPI**, and this release does not change that: every
-  release installs from its git tag, and `pip install skempi-foldx` finds nothing. `publish.yml`
-  exists and is ready — it uploads on a version tag via Trusted Publishing, gated on the ref being
-  a tag, on the tag matching `pyproject.toml`, on the suite, and on the shipped store being present
-  in the built wheel — but no upload has been made. A PyPI upload cannot be undone, and here a
-  version names a measurement rather than a code state, so the first one will be its own release
-  rather than a side effect of this one.
+- **This release was not distributed on PyPI**, and installs from its git tag. `publish.yml`
+  shipped ready — it uploads on a version tag via Trusted Publishing, gated on the ref being a
+  tag, on the tag matching `pyproject.toml`, on the suite, and on the shipped store being present
+  in the built wheel — but no upload was made from it. A PyPI upload cannot be undone, and here a
+  version names a measurement rather than a code state, so the first upload was made its own
+  release rather than a side effect of this one; that is 0.2.2, which carries these same energies.
 - `Changelog` and `Issues` join the project URLs.
 - The `dev` extra names `build`, which the pre-release checklist in `CONTRIBUTING.md` invokes.
 - Entries here are newest-first, per Keep a Changelog.

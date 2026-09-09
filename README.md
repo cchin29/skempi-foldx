@@ -25,12 +25,12 @@ produced it.
 
 ## Applications
 
-- **Benchmarking a ΔΔG predictor.** A FoldX column is the conventional baseline to report
-  against. This one is fully specified — protocol, repair count, mutation lists and known defects
-  are all written down, so a reader can reproduce it or diverge from it deliberately.
-  [docs/PROTOCOL.md](docs/PROTOCOL.md) surveys what the comparator papers state about their own
-  FoldX settings. It is not the same computation as any published FoldX row and should not be
-  quoted as one.
+- **Benchmarking a ΔΔG predictor.** A FoldX column is the conventional baseline to report against.
+  This one is fully specified — protocol, repair count, mutation lists and known defects are all
+  written down, so a reader can reproduce it or diverge from it deliberately.
+  [docs/PROTOCOL.md](https://github.com/cchin29/skempi-foldx/blob/v0.2.2/docs/PROTOCOL.md) surveys
+  what the comparator papers state about their own FoldX settings. It is not the same computation
+  as any published FoldX row and should not be quoted as one.
 - **Using FoldX as a feature.** The 12 energy terms per mutation — the total and eleven
   components — are a ready-made structural feature, independent of the encoder and of the
   evaluation split.
@@ -45,19 +45,18 @@ and the campaign's results.
 ## Quickstart
 
 ```bash
-pip install "git+https://github.com/cchin29/skempi-foldx@v0.2.0"
+pip install skempi-foldx==0.2.2
 ```
 
-**This package is not distributed on PyPI.** Every release installs from its git tag or from a
-clone; `pip install skempi-foldx` will not find it.
+**Pin the version.** Energies are tied to a release — [Scope and stability](#scope-and-stability)
+says why, and
+[docs/VERSIONS.md](https://github.com/cchin29/skempi-foldx/blob/v0.2.2/docs/VERSIONS.md) says what
+moved since 0.1.0 and whether it affects a model already trained on it. An unpinned `pip install
+skempi-foldx` resolves to whatever is newest, which for this package means a different measurement,
+not just newer code.
 
-**Pin the tag.** Energies are tied to a release —
-[Scope and stability](#scope-and-stability) says why, and
-[docs/VERSIONS.md](docs/VERSIONS.md) says what moved since 0.1.0 and whether it affects a model
-already trained on it. Installing from `@main` resolves to whatever is newest, which for this
-package means a different measurement, not just newer code.
-
-The previous release is named the same way:
+0.2.2 is the first release on PyPI, and its energies are byte-identical to 0.2.0's — it is a
+change of distribution, not of data. Every earlier release installs from its git tag instead:
 
 ```bash
 pip install "git+https://github.com/cchin29/skempi-foldx@v0.1.0"
@@ -92,12 +91,12 @@ fx.coverage(rows)                             # (covered, total, missing)
 fx.energies_for(rows)                         # {(pdb, mut): [12 floats]}
 ```
 
-Constructing `FoldxLookup` prints a `RuntimeWarning` about two malformed rows. That is expected
-and is not an installation problem: two SKEMPI rows name three substitutions while labelling
-themselves as four, and they are computed and shipped rather than dropped, because substituting
-the intended string would produce a record matching no SKEMPI row. `FoldxLookup.is_malformed()`
-tests for them and `MALFORMED_ROWS` lists them; see
-[docs/USAGE.md](docs/USAGE.md#warnings-this-package-raises).
+Constructing `FoldxLookup` prints a `RuntimeWarning` about two malformed rows. That is expected and
+is not an installation problem: two SKEMPI rows name three substitutions while labelling themselves
+as four, and they are computed and shipped rather than dropped, because substituting the intended
+string would produce a record matching no SKEMPI row. `FoldxLookup.is_malformed()` tests for them
+and `MALFORMED_ROWS` lists them; see
+[docs/USAGE.md](https://github.com/cchin29/skempi-foldx/blob/v0.2.2/docs/USAGE.md#warnings-this-package-raises).
 
 ## Naming, terms and provenance
 
@@ -130,8 +129,10 @@ both identifiers rather than choosing an interface on the caller's behalf; ask b
 instead. `fx.definitions_of(code)` lists them.
 
 The raw store stays available as `load_bundled_store()` for auditing and for consumers doing their
-own chain mapping — see [docs/STORE.md](docs/STORE.md), and [docs/USAGE.md](docs/USAGE.md) for
-attaching these energies to an evaluation set.
+own chain mapping — see
+[docs/STORE.md](https://github.com/cchin29/skempi-foldx/blob/v0.2.2/docs/STORE.md), and
+[docs/USAGE.md](https://github.com/cchin29/skempi-foldx/blob/v0.2.2/docs/USAGE.md) for attaching
+these energies to an evaluation set.
 
 Each record carries all twelve terms from `AnalyseComplex`, FoldX's interface-energy command, as
 mutant minus wild-type, plus bookkeeping — `_source`, `cleaned`, and `role` where the role-chain
@@ -153,21 +154,22 @@ store["1BRS_A_D"]["DA52A"]
 ```
 
 A negative interaction energy means FoldX predicts the mutant binds *more* tightly. For a single
-number rather than twelve, use `Interaction Energy`. **The other eleven are components of it, not
-a decomposition of it**: they do not sum to it, so a model given the components must keep
+number rather than twelve, use `Interaction Energy`. **The other eleven are components of it, not a
+decomposition of it**: they do not sum to it, so a model given the components must keep
 `Interaction Energy` as well, and a consumer checking the store by summation will wrongly conclude
-it is corrupt. [docs/USAGE.md](docs/USAGE.md) gives the size of the residual.
-`skempi_foldx.TERMS` gives the canonical order for flattening records into a feature vector.
+it is corrupt. [docs/USAGE.md](https://github.com/cchin29/skempi-foldx/blob/v0.2.2/docs/USAGE.md)
+gives the size of the residual. `skempi_foldx.TERMS` gives the canonical order for flattening
+records into a feature vector.
 
 `_source` names the campaign that produced the value, which matters because a value is a property
 of the mutation list it was computed in — see [running the pipeline](#running-the-pipeline).
 **Every value comes from a union mutation list**: 4286 single-point and 1702 multi-point records
 from the repair sweep's `round_1`, and the remainder from the nine per-definition campaigns that
 computed `2C5D`, `3SE3` and `3SE4` one pairing at a time. 0.1.0 had 2494 of 4238 single-point
-values from a per-benchmark campaign instead; that is what this release removed. How large the
-list effect is, measured between campaign pairs, is in
-[docs/DETERMINISM.md](docs/DETERMINISM.md). `cleaned` is SKEMPI's own
-mutation string for the record.
+values from a per-benchmark campaign instead; that is what this release removed. How large the list
+effect is, measured between campaign pairs, is in
+[docs/DETERMINISM.md](https://github.com/cchin29/skempi-foldx/blob/v0.2.2/docs/DETERMINISM.md).
+`cleaned` is SKEMPI's own mutation string for the record.
 
 ## Contents and coverage
 
@@ -200,13 +202,15 @@ and are shipped flagged rather than dropped — see `MALFORMED_ROWS`.
 Against SKEMPI's measured affinities the shipped values reach Spearman **0.437** on the
 single-point arm (4081 rows) and **0.587** on the multi-point one (1580) — ordinary for FoldX, and
 the check coverage cannot perform. These are pooled over rows, so they are not comparable with the
-per-PPI (per protein–protein complex) or per-structure correlations the comparator papers report
-— those average over complexes, and a third of the single-point definitions here hold exactly one
-record. For a figure that *is* comparable, [docs/DETERMINISM.md](docs/DETERMINISM.md) reports
-per-structure Spearman of **0.3984 [0.2759, 0.5193] on 13 complexes**, against the 0.4458 per-PPI
-published by CATH-ddG — a 2025 predictor whose FoldX baseline is the most fully specified in this
-literature ([docs/PROTOCOL.md](docs/PROTOCOL.md)). Below it, on a sample far too small to separate
-the two.
+per-PPI (per protein–protein complex) or per-structure correlations the comparator papers report —
+those average over complexes, and a third of the single-point definitions here hold exactly one
+record. For a figure that *is* comparable,
+[docs/DETERMINISM.md](https://github.com/cchin29/skempi-foldx/blob/v0.2.2/docs/DETERMINISM.md)
+reports per-structure Spearman of **0.3984 [0.2759, 0.5193] on 13 complexes**, against the 0.4458
+per-PPI published by CATH-ddG — a 2025 predictor whose FoldX baseline is the most fully specified
+in this literature
+([docs/PROTOCOL.md](https://github.com/cchin29/skempi-foldx/blob/v0.2.2/docs/PROTOCOL.md)). Below
+it, on a sample far too small to separate the two.
 
 Both figures are `RT·ln(Kd_mut/Kd_wt)` at each row's temperature — `Kd` is the dissociation
 constant SKEMPI records for wild type and mutant, `R` the gas constant — over rows with numeric
@@ -215,52 +219,61 @@ both directions: keeping the last row instead moves the figures to 0.439 and 0.5
 the 187 rows whose affinities are qualified (`n.b`, no binding detected; `>1E-04`, weaker than the
 assay resolves) would add 167 of them back after deduplication at a bias whose sign is known —
 toward apparent agreement. Coverage, agreement and the key conventions
-are detailed in [docs/STORE.md](docs/STORE.md).
+are detailed in [docs/STORE.md](https://github.com/cchin29/skempi-foldx/blob/v0.2.2/docs/STORE.md).
 
 ## Scope and stability
 
-Version 0.2.0. The energies are the artifact and they are tied to a version. A mutation's ΔΔG
+Version 0.2.2. The energies are the artifact and they are tied to a version. A mutation's ΔΔG
 depends on the whole mutation list it was computed in, so a rebuilt store is mostly a different
 measurement rather than a correction of an earlier one — a published result quoting these numbers
-should pin the tag it installed — `…/skempi-foldx@v0.2.0` — and say so. A tag is the only way to
-name a release of this package, since it is not distributed on PyPI.
+should pin the version it installed — `skempi-foldx==0.2.2` — and say so. The git tag
+`…/skempi-foldx@v0.2.2` names the same tree, and is the only way to name a release before this one.
 
-**An earlier `v0.2.0` tag, and a `v0.2.1` that existed briefly, have been withdrawn and replaced
-by this release.** The two behave differently, and the quieter one is the one to watch:
+**0.2.2 carries exactly 0.2.0's energies.** It is the first release distributed on PyPI and
+changes no value; citing either is citing the same measurement.
 
-- **`v0.2.1` no longer exists.** A pin naming it fails outright, which at least announces itself.
-- **`v0.2.0` still exists, and now points at this tree** rather than the withdrawn one. A pin
-  naming it still resolves — *silently, to different content than before*. Check the commit below.
+**Two `v0.2.0` tags and a `v0.2.1` were published and withdrawn during August and early
+September.** They behave differently, and the quiet one is the one to watch:
 
-**This affects an install taken from this repository between 2026-08-02 and 2026-09-08** — from a
-tag, a branch, or a clone. Nothing reached PyPI, because this package is not published there.
-Every 0.1.0 install is unaffected.
+- **`v0.2.1` does not exist.** A pin naming it fails outright, which at least announces itself.
+  0.2.1 is skipped, so that a surviving pin keeps failing rather than resolving to something
+  unrelated.
+- **`v0.2.0` exists and is a valid release**, but points at a tree the two withdrawn `v0.2.0`
+  objects did not. A pin naming it still resolves — *silently, to different content than an
+  August install had*. Check the commit below.
+
+**This affects an install taken from this repository between 2026-08-02 and 2026-09-09** — from a
+tag, a branch, or a clone. Nothing withdrawn ever reached PyPI, which had no release of this
+package before 0.2.2. Every 0.1.0 install is unaffected.
 
 A clone taken from one of the withdrawn trees shares no history with this one, which is a squashed
 replacement. `git pull` will not reconcile them; re-clone, or
 `git fetch origin && git reset --hard origin/main`.
 
-No energy value differs between those trees and this one — 6107 records compared field by field —
-so a result quoting the numbers stays correct. A reinstall adds the `role` name to 16 records that
-a mapping-file parsing bug had kept it out of, plus corrected metadata.
+No energy value differs between any of those trees and this one — 6107 records compared field by
+field — so a result quoting the numbers stays correct. A reinstall adds the `role` name to 16
+records that a mapping-file parsing bug had kept out of them, plus corrected documentation.
 
 The commit an install was built from is what identifies it, and pip records it for a git install:
 
 ```bash
 python -c "import importlib.metadata as m, json; \
            t = m.distribution('skempi-foldx').read_text('direct_url.json'); \
-           print(json.loads(t)['vcs_info']['commit_id'] if t else 'not a git install')"
+           d = json.loads(t) if t else {}; \
+           print(d.get('vcs_info', {}).get('commit_id') or d.get('url') or 'installed from PyPI')"
 ```
 
 Compare it against the commit this release's tag points at, which the repository will tell you
 without a clone:
 
 ```bash
-git ls-remote https://github.com/cchin29/skempi-foldx 'refs/tags/v0.2.0^{}'
+git ls-remote https://github.com/cchin29/skempi-foldx 'refs/tags/v0.2.2^{}'
 ```
 
-Anything else predates this release. The guard matters: `direct_url.json` exists only for a git or
-local install, so the command reports rather than raising for any other kind.
+Anything else predates this release. The command answers rather than raising whatever the install
+is: `direct_url.json` is absent for a PyPI install, and for a wheel or sdist installed from a path
+it records the archive it came from instead of a commit. A line that is not a commit hash is the
+answer — this install did not come from a tag — not a failure to look.
 
 *A release cannot state its own commit hash — the hash covers the file that would state it — which
 is why this asks the remote instead of printing a literal.*
@@ -277,27 +290,37 @@ one backfilled, of which `1S0W_A_C` is one — so the lookup returns `None` and 
 `TypeError`. A typo raises `TypeError` too, so check the spelling before concluding anything from
 a failure.
 
-pip skips a reinstall when the version already matches, so pass `--force-reinstall`:
+A withdrawn-tag install reports `0.2.0` or `0.2.1`, so installing 0.2.2 from PyPI moves off it
+without needing `--force-reinstall` — the version differs, and pip will replace it:
 
 ```bash
-pip install --force-reinstall "git+https://github.com/cchin29/skempi-foldx@v0.2.0"
+pip install --upgrade skempi-foldx==0.2.2
 ```
 
-The corrections to the tests, CI and contributor documentation are in the source tree, which a
-`pip install` does not carry; [CHANGELOG.md](CHANGELOG.md) itemises them. The comparison below is
-against 0.1.0.
+To stay on a git install instead, pip needs telling, since `v0.2.0` still resolves and its version
+string already matches:
+
+```bash
+pip install --force-reinstall "git+https://github.com/cchin29/skempi-foldx@v0.2.2"
+```
+
+The corrections to the tests, CI and contributor documentation are in the source tree, which a `pip
+install` does not carry;
+[CHANGELOG.md](https://github.com/cchin29/skempi-foldx/blob/v0.2.2/CHANGELOG.md) itemises them. The
+comparison below is against 0.1.0.
 
 **1850 of 0.1.0's 6003 values changed, and 4145 did not**; the remaining eight could not be
-compared, and [docs/VERSIONS.md](docs/VERSIONS.md) says what they are and where the
-record-by-record list is. 26 of those changes are corrections: records under `2C5D` and `3SE4`,
-which SKEMPI pairs two ways each, that 0.1.0 scored against an interface excluding the chain they
-mutate. That failure is invisible in the output — a mutation outside the analysed pair returns a
-clean zero, indistinguishable from a real measurement of no effect. Separately, and confusingly
-the same count: across the three doubled codes, 26 of 0.1.0's records were zero on all twelve
-terms. Call those the *clean-zero records*; they are not the same set as the 26 corrections,
-though the two overlap in 15 members. Recomputing per pairing gives 15 of those zeros real signal,
-up to 6.85 kcal/mol. **A 0.1.0 consumer whose rows include those records was trained on values
-that are wrong.**
+compared, and
+[docs/VERSIONS.md](https://github.com/cchin29/skempi-foldx/blob/v0.2.2/docs/VERSIONS.md) says what
+they are and where the record-by-record list is. 26 of those changes are corrections: records under
+`2C5D` and `3SE4`, which SKEMPI pairs two ways each, that 0.1.0 scored against an interface
+excluding the chain they mutate. That failure is invisible in the output — a mutation outside the
+analysed pair returns a clean zero, indistinguishable from a real measurement of no effect.
+Separately, and confusingly the same count: across the three doubled codes, 26 of 0.1.0's records
+were zero on all twelve terms. Call those the *clean-zero records*; they are not the same set as
+the 26 corrections, though the two overlap in 15 members. Recomputing per pairing gives 15 of those
+zeros real signal, up to 6.85 kcal/mol. **A 0.1.0 consumer whose rows include those records was
+trained on values that are wrong.**
 
 The other 1824 changes are not corrections. The store is rebuilt against union mutation lists
 throughout, and a value computed in a different list is a different measurement, so records whose
@@ -323,14 +346,16 @@ python experiments/compare_versions.py --old ../skempi-foldx-v0.1.0 \
 ```
 
 As written that reproduces every section of
-[`docs/assets/VERSION_COMPARE.txt`](docs/assets/VERSION_COMPARE.txt) except the two that score
-each release against measured affinities: those need `--skempi-csv <skempi_v2.csv>`, which is not
-redistributable and so does not ship here. Without it the script says so and omits them.
+[`docs/assets/VERSION_COMPARE.txt`](https://github.com/cchin29/skempi-foldx/blob/v0.2.2/docs/assets/VERSION_COMPARE.txt)
+except the two that score each release against measured affinities: those need `--skempi-csv
+<skempi_v2.csv>`, which is not redistributable and so does not ship here. Without it the script
+says so and omits them.
 
 **v0.1.0 remains tagged, installable and citable.** Nothing in this release retracts it; a
 published result built on it stays reproducible against it, provided the tag is the one cited.
-[docs/VERSIONS.md](docs/VERSIONS.md) gives the record-by-record counts, which complexes moved and by
-how much, and the script that reproduces all of it. See also [CHANGELOG.md](CHANGELOG.md).
+[docs/VERSIONS.md](https://github.com/cchin29/skempi-foldx/blob/v0.2.2/docs/VERSIONS.md) gives the
+record-by-record counts, which complexes moved and by how much, and the script that reproduces all
+of it. See also [CHANGELOG.md](https://github.com/cchin29/skempi-foldx/blob/v0.2.2/CHANGELOG.md).
 
 `TERMS` and its order are stable, because a consumer's feature layout depends on them. Nothing
 else in the API is settled yet.
@@ -338,19 +363,21 @@ else in the API is settled yet.
 Every value was computed with a **single** `RepairPDB` pass, matching CATH-ddG. FoldX's own
 documentation says to repair before modelling without naming a count; reading that as a
 recommendation of one is Usmanova et al.'s, and is attributed to them in
-[docs/DETERMINISM.md](docs/DETERMINISM.md). It is a protocol choice, not a calibrated optimum, and the
-evidence against treating it as settled is stronger than a single pass suggests. A completed
-four-round sweep over all 344 complexes, with the mutation list held byte-constant so repair count
-is the only variable, finds **no round after which the store stops changing**: between rounds 3 and
-4, 6.1% of single-point and 23.4% of multi-point entries still move by more than FoldX's ~0.5
-kcal/mol noise floor. The shipped store is round 1. A smaller 13-complex pilot separately found 5×
-repair scored *better* against experiment (per-structure Spearman 0.398 → 0.459), though it is too
-narrow to generalise from. [docs/DETERMINISM.md](docs/DETERMINISM.md) has both; read it before
-treating one pass as settled.
-The choice is not recorded per-record, so [docs/STORE.md](docs/STORE.md) states the evidence for
-it — the store is assembled from the repair sweep's first round, the per-definition campaigns were
-seeded from repairs verified byte-identical beforehand, and one complex computed both ways agrees
-to the last decimal — and it determines what these numbers can legitimately be compared against.
+[docs/DETERMINISM.md](https://github.com/cchin29/skempi-foldx/blob/v0.2.2/docs/DETERMINISM.md). It
+is a protocol choice, not a calibrated optimum, and the evidence against treating it as settled is
+stronger than a single pass suggests. A completed four-round sweep over all 344 complexes, with the
+mutation list held byte-constant so repair count is the only variable, finds **no round after which
+the store stops changing**: between rounds 3 and 4, 6.1% of single-point and 23.4% of multi-point
+entries still move by more than FoldX's ~0.5 kcal/mol noise floor. The shipped store is round 1. A
+smaller 13-complex pilot separately found 5× repair scored *better* against experiment
+(per-structure Spearman 0.398 → 0.459), though it is too narrow to generalise from.
+[docs/DETERMINISM.md](https://github.com/cchin29/skempi-foldx/blob/v0.2.2/docs/DETERMINISM.md) has
+both; read it before treating one pass as settled. The choice is not recorded per-record, so
+[docs/STORE.md](https://github.com/cchin29/skempi-foldx/blob/v0.2.2/docs/STORE.md) states the
+evidence for it — the store is assembled from the repair sweep's first round, the per-definition
+campaigns were seeded from repairs verified byte-identical beforehand, and one complex computed
+both ways agrees to the last decimal — and it determines what these numbers can legitimately be
+compared against.
 
 ## Running the pipeline
 
@@ -358,8 +385,9 @@ This requires a FoldX 5 binary (`FOLDX_BIN`), SKEMPI's cleaned PDBs, and `skempi
 is licensed software and is not redistributed here — free for academic and non-profit
 institutions, paid for commercial use.
 
-**Read [docs/DETERMINISM.md](docs/DETERMINISM.md) first.** The short version, because it is the
-failure mode most likely to cost a week:
+**Read
+[docs/DETERMINISM.md](https://github.com/cchin29/skempi-foldx/blob/v0.2.2/docs/DETERMINISM.md)
+first.** The short version, because it is the failure mode most likely to cost a week:
 
 FoldX `BuildModel`, the command that builds each mutant, is deterministic — same structure and
 same mutation list, same answer to the
@@ -394,32 +422,37 @@ Two more that cost time to learn:
 | `experiments/coverage_report.py` | how much of *your own* evaluation set these energies cover — the first thing to run against a new setup; needs a `--split` or `--table` and exits with an error without one |
 | `experiments/repair_ablation.py` | the repair-count ablation |
 | `experiments/repair_sweep/` | the full-SKEMPI repair-count sweep, both arms |
-| `docs/` | [determinism](docs/DETERMINISM.md), [the store](docs/STORE.md), [how this protocol compares with the literature](docs/PROTOCOL.md), [references](docs/REFERENCES.md), [attaching the energies to an evaluation set](docs/USAGE.md) |
-| upgrading | [what differs between 0.1.0 and 0.2.0](docs/VERSIONS.md), record by record, and the [changelog](CHANGELOG.md) |
+| `docs/` | [determinism](https://github.com/cchin29/skempi-foldx/blob/v0.2.2/docs/DETERMINISM.md), [the store](https://github.com/cchin29/skempi-foldx/blob/v0.2.2/docs/STORE.md), [how this protocol compares with the literature](https://github.com/cchin29/skempi-foldx/blob/v0.2.2/docs/PROTOCOL.md), [references](https://github.com/cchin29/skempi-foldx/blob/v0.2.2/docs/REFERENCES.md), [attaching the energies to an evaluation set](https://github.com/cchin29/skempi-foldx/blob/v0.2.2/docs/USAGE.md) |
+| upgrading | [what differs between 0.1.0 and 0.2.0](https://github.com/cchin29/skempi-foldx/blob/v0.2.2/docs/VERSIONS.md), record by record, and the [changelog](https://github.com/cchin29/skempi-foldx/blob/v0.2.2/CHANGELOG.md) |
 
 ## Citation
 
 Cite the version you installed, because a version names a measurement here rather than a code
 state: values from 0.1.0 and 0.2.0 are different measurements of the same quantities and must not
-be mixed in one table. [CITATION.cff](CITATION.cff) carries the machine-readable record, and
-GitHub's *Cite this repository* renders it. There is no DOI for the software yet, so cite the
-repository and the tag.
+be mixed in one table.
+[CITATION.cff](https://github.com/cchin29/skempi-foldx/blob/v0.2.2/CITATION.cff) carries the
+machine-readable record, and GitHub's *Cite this repository* renders it. There is no DOI for the
+software yet, so cite the repository and the tag.
 
 Cite the upstream sources as well — SKEMPI 2.0 for the measurements and FoldX for the energies —
-with DOIs in [docs/REFERENCES.md](docs/REFERENCES.md). SKEMPI's CC BY 4.0 makes that attribution
-a licence term rather than a courtesy; [NOTICE](NOTICE) says what it requires.
+with DOIs in
+[docs/REFERENCES.md](https://github.com/cchin29/skempi-foldx/blob/v0.2.2/docs/REFERENCES.md).
+SKEMPI's CC BY 4.0 makes that attribution a licence term rather than a courtesy;
+[NOTICE](https://github.com/cchin29/skempi-foldx/blob/v0.2.2/NOTICE) says what it requires.
 
 ## Provenance and licence
 
 The code is MIT. The data is derived from SKEMPI 2.0 (CC BY 4.0) and produced with licensed
-software — read [NOTICE](NOTICE) before redistributing it. Citations with DOIs for the data
-sources, the tools and the comparator methods are in [docs/REFERENCES.md](docs/REFERENCES.md).
-Every work named in the docs is cited there.
+software — read [NOTICE](https://github.com/cchin29/skempi-foldx/blob/v0.2.2/NOTICE) before
+redistributing it. Citations with DOIs for the data sources, the tools and the comparator methods
+are in
+[docs/REFERENCES.md](https://github.com/cchin29/skempi-foldx/blob/v0.2.2/docs/REFERENCES.md). Every
+work named in the docs is cited there.
 
 The code originated in a research fork of MuLAN, a sequence-based ΔΔG predictor cited in
-[docs/REFERENCES.md](docs/REFERENCES.md), where these energies began as a score channel. None of
-that project's code is present here, which is what leaves this package free to carry a permissive
-licence.
+[docs/REFERENCES.md](https://github.com/cchin29/skempi-foldx/blob/v0.2.2/docs/REFERENCES.md), where
+these energies began as a score channel. None of that project's code is present here, which is what
+leaves this package free to carry a permissive licence.
 
 ## Acknowledgements
 

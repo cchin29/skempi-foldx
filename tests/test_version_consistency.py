@@ -297,36 +297,34 @@ def test_readme_install_pin_matches_pyproject():
     else and leaves this behind does not merely misdocument -- it hands every reader a command
     that installs the previous release.
 
-    The package is not distributed on PyPI, so the install command is a git-tag URL and this
-    checks that form. One git pin in the README is deliberately frozen -- the example showing how
-    to install 0.1.0 -- so this asserts that the *current* version is pinned, rather than that
-    every pin names it. `test_readme_git_pins_are_historical_only` covers the rest.
+    Since 0.2.2 the package is on PyPI, so the Quickstart is a `skempi-foldx==X.Y.Z` pin and this
+    checks that form. Git-tag URLs remain in the file for the releases that predate PyPI and for
+    the withdrawn-tag recovery note; `test_readme_git_pins_are_historical_only` covers those.
 
-    Two occurrences, not one: the install command under Quickstart, and the pin quoted under
-    *Scope and stability*. Anchoring on the command alone left the second unchecked, and it could
-    be bumped, or not bumped, with nothing failing.
+    Anchored on the FIRST install command, not on a count: the recovery note and the historical
+    example are also install commands, so a Quickstart left on the previous release would still
+    leave correct pins elsewhere in the file to satisfy a count.
     """
     text = _README.read_text()
     version = _project()["version"]
 
-    # The FIRST install command in the file is the Quickstart, and it is the one a reader runs.
-    # Counting pins is not enough: the historical 0.1.0 example and the withdrawn-tag recovery
-    # command are also `pip install ...@vX.Y.Z`, so a Quickstart left on the previous release
-    # still leaves plenty of correct pins elsewhere in the file to satisfy a count.
-    installs = re.findall(rf"pip install[^\n]*?skempi-foldx(?:\.git)?@v({_SEMVER})", text)
-    assert installs, "README.md has no `pip install ...@vX.Y.Z` command"
+    installs = re.findall(rf"pip install[^\n]*?skempi-foldx==({_SEMVER})", text)
+    assert installs, "README.md has no `pip install skempi-foldx==X.Y.Z` command"
     assert installs[0] == version, {
-        "first install command in README.md names": installs[0],
+        "first PyPI install command in README.md names": installs[0],
         "pyproject.toml version": version,
         "note": "the Quickstart install must name the release being shipped",
     }
 
-    pins = re.findall(rf"skempi-foldx(?:\.git)?@v({_SEMVER})", text)
-    assert pins.count(version) >= 2, {
-        "git-tag pins in README.md": sorted(set(pins)),
+    pins = re.findall(rf"skempi-foldx==({_SEMVER})", text)
+    assert set(pins) == {version}, {
+        "PyPI pins in README.md": sorted(set(pins)),
         "pyproject.toml version": version,
-        "note": "expected the Quickstart install and the Scope-and-stability pin to name it",
+        "note": "every `skempi-foldx==` pin names the current release; older ones are named by tag",
     }
+    assert len(pins) >= 2, (
+        "expected at least the Quickstart install and the Scope-and-stability pin"
+    )
 
     # The prose version line is a declaration too, and the one a reader is most likely to quote.
     stated = set(re.findall(rf"^Version ({_SEMVER})\.", text, re.M))
@@ -334,12 +332,6 @@ def test_readme_install_pin_matches_pyproject():
         "stated in README.md prose": sorted(stated),
         "pyproject.toml version": version,
     }
-
-    # The package is not on PyPI. A `skempi-foldx==X.Y.Z` pin would be a command that fails for
-    # every reader, which is exactly the state this release corrected.
-    assert not re.search(r"pip install\s+skempi-foldx==", text), (
-        "README.md shows a PyPI install; this package is not distributed on PyPI"
-    )
 
 
 def test_readme_git_pins_are_historical_only():
@@ -368,6 +360,53 @@ def test_readme_git_pins_are_historical_only():
     assert "0.1.0" in git_pins, (
         "README.md no longer shows how to install 0.1.0"
     )
+
+
+def test_readme_links_survive_the_pypi_page():
+    """No relative link in the README, and every repository link names the shipped version.
+
+    `pyproject.toml` sets `readme = "README.md"`, so this file becomes the long description and
+    the PyPI project page renders it verbatim. PyPI's renderer rewrites in-page anchors -- a
+    heading gets a `user-content-` id and `](#heading)` is rewritten to match -- but it leaves a
+    relative path alone. `](docs/STORE.md)` is then resolved against the project page URL, so it
+    reaches `pypi.org/project/skempi-foldx/docs/STORE.md` and 404s for every reader arriving from
+    PyPI rather than from GitHub. Nothing in the repository notices, because the same link is
+    correct there; this is only wrong on the surface the repository cannot see.
+
+    Pinned to the tag rather than to `main`, because these links carry a release's claims about
+    itself. A `blob/main/` link on the page for an old release shows whatever the branch says
+    today, which for this package can be a different measurement.
+    """
+    text = _README.read_text()
+    version = _project()["version"]
+
+    relative = [
+        target
+        for _, target in re.findall(r"\[([^\]]*)\]\(([^)\s]+)\)", text)
+        if not target.startswith(("http", "#", "mailto:"))
+    ]
+    assert not relative, {
+        "relative link targets in README.md": sorted(set(relative)),
+        "note": "these 404 on the PyPI project page; link to blob/v<version>/<path> instead",
+    }
+
+    blob = re.findall(
+        rf"https://github\.com/cchin29/skempi-foldx/blob/v({_SEMVER})/([^)#\s]+)", text
+    )
+    assert blob, "README.md links to no file in this repository at all"
+    assert {v for v, _ in blob} == {version}, {
+        "versions named by blob links": sorted({v for v, _ in blob}),
+        "pyproject.toml version": version,
+        "note": "a blob link must name the release it ships in",
+    }
+
+    # A pinned link is still a broken link if the path is wrong, and the tag it names will not
+    # exist until this release is pushed -- so the paths are checked against the tree being
+    # released, which is what that tag will point at.
+    missing = sorted({path for _, path in blob if not (_ROOT / path).exists()})
+    assert not missing, {
+        "blob links naming paths not in this tree": missing,
+    }
 
 
 def test_changelog_entries_are_newest_first():
