@@ -530,10 +530,11 @@ cross-document consistency, standalone reading, three audiences, and release mec
 mutation testing — ran against this tree before the tag was moved. No energy value changed. What
 it found:
 
-- **The install instructions named PyPI, where this package does not exist.** The Quickstart's
+- **The install instructions named PyPI, where this package did not yet exist.** The Quickstart's
   first command was `pip install skempi-foldx==0.2.0`, and five further passages asserted a PyPI
-  presence. Every release installs from its git tag; the documents now say so, and a test refuses
-  a `skempi-foldx==` pin in the README.
+  presence. At the time every release installed from its git tag; the documents were changed to say
+  so, and a test refused a `skempi-foldx==` pin in the README. (0.2.2 was the first release on
+  PyPI, and that test now requires the pin instead.)
 - **"Neither withdrawn tag resolves" was half wrong, in the dangerous direction.** `v0.2.1` fails
   outright, but `v0.2.0` resolves to this tree — silently, with different content than the
   withdrawn one. Both cases are now stated separately.

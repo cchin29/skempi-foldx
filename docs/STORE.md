@@ -292,6 +292,15 @@ are comparable to a repair-count series, and it is expensive to reconstruct afte
 - Those seeds were verified byte-identical to the repairs the earlier campaigns built before any
   of them ran, so repair count is held fixed across both inputs rather than assumed to be.
 
+**`meta.mutation_list_sha256` was added after the fact for the sweep's records.** The runner now
+writes the hash of `individual_list.txt` as it runs, but the sweep's rounds were computed before it
+did, so `experiments/repair_sweep/list_hashes.py` hashed the consumed lists afterwards and injected
+the key. The 468 of 477 per-complex files it annotated say so in `meta.mutation_list_sha256_note`,
+and that note names the commit that taught the runner to write the key ("predates dc5de42"). The
+commit belongs to the history before this repository was published and is not resolvable here;
+the hash it refers to is still the same quantity — the bytes BuildModel consumed — computed the
+same way, which is why `experiments/repair_ablation.py compare` verifies these records natively.
+
 That the two inputs are on one footing — the same repair count, and in this instance the same
 answers across the architecture split — is measured rather than argued: `3SE3`'s `B,A` multi-point
 arm exists in both, computed from different repair chains, and its 30 records agree to the last
